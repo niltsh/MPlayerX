@@ -139,7 +139,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 863CD3D312D9B98B00C8E321 /* Update Versoin in info.plist */;
+			remoteGlobalIDString = 863CD3D312D9B98B00C8E321;
 			remoteInfo = "Update Versoin in info.plist";
 		};
 /* End PBXContainerItemProxy section */
