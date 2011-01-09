@@ -881,7 +881,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\n##cd ../update\n##export MPXVER=$(ruby getVerNum.rb ${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME})\n\n##cd ../../localization/trunk/localization/${MPXVER}\n\n##echo ${MPXVER}\n\n##make clean\n\n##make\n\n## cp -R ./results/* ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/";
+			shellScript = "#!/bin/sh\n\n##cd ../../update\n##export MPXVER=$(ruby getVerNum.rb ${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME})\n\n##cd ../localization/localization/${MPXVER}\n\n##echo ${MPXVER}\n\n##make clean\n\n##make\n\n## cp -R ./results/* ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/";
 		};
 /* End PBXShellScriptBuildPhase section */
 
