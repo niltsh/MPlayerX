@@ -267,7 +267,7 @@ NSString * const kMPCFFMpegProtoHead	= @"ffmpeg://";
 								 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 										   keyPath, kMPCPlayInfoUpdatedKeyPathKey,
 										   change, kMPCPlayInfoUpdatedChangeDictKey, nil]];
-		MPLog(@"%@", keyPath);
+		// MPLog(@"%@", keyPath);
 		return;
 	}
 	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
