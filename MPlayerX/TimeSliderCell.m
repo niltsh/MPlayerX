@@ -139,7 +139,9 @@
 	}
 	
 	//Draw Bar
-	NSBezierPath *path = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:4 yRadius:4];
+	NSBezierPath *path = [[NSBezierPath alloc] init];
+	
+	[path appendBezierPathWithRoundedRect:frame xRadius:4 yRadius:4];
 	
 	if([self isEnabled]) {
 		[[NSColor colorWithDeviceWhite:0.04 alpha:0.20] set];
@@ -151,6 +153,7 @@
 		[[NSColor colorWithDeviceWhite:0.04 alpha:0.20] set];
 		[path fill];
 	}
+	[path release];
 }
 
 - (void)drawHorizontalKnobInFrame:(NSRect)frame {
@@ -169,8 +172,11 @@
 			
 			rcBounds.size.width *= ([self floatValue]/[self maxValue]);
 			
-			path = [NSBezierPath bezierPathWithRoundedRect:rcBounds xRadius:4 yRadius:4];
-			dot  = [NSBezierPath bezierPathWithOvalInRect:NSMakeRect(rcBounds.size.width - 6, rcBounds.origin.y + 2.0, 4, 4)];
+			path = [[NSBezierPath alloc] init];
+			[path appendBezierPathWithRoundedRect:rcBounds xRadius:4 yRadius:4];
+
+			dot  = [[NSBezierPath alloc] init];
+			[dot appendBezierPathWithOvalInRect:NSMakeRect(rcBounds.size.width - 6, rcBounds.origin.y + 2.0, 4, 4)];
 			
 			if([self isEnabled]) {
 				[[NSColor colorWithDeviceWhite:0.96 alpha:1.0] set];
@@ -185,6 +191,9 @@
 			
 			[[NSColor blackColor] set];
 			[dot fill];
+			
+			[path release];
+			[dot release];
 			break;
 		default:
 			[super drawHorizontalKnobInFrame:frame];
