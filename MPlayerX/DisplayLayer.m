@@ -46,7 +46,6 @@
 		fillScreen = NO;
 		externalAspectRatio = kDisplayAscpectRatioInvalid;
 
-		[self setDelegate:self];
 		// [self setMasksToBounds:YES];
 		[self setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
 		[self setDoubleSided:NO];
@@ -62,7 +61,7 @@
 	}
 	return self;
 }
--(id<CAAction>) actionForLayer:(CALayer*)layer forKey:(NSString*)event { return ((id<CAAction>)[NSNull null]); }
+-(id<CAAction>) actionForKey:(NSString *)event {return NULL;} // no animations for me
 
 - (void)dealloc
 {
