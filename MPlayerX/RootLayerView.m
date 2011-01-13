@@ -832,11 +832,14 @@
 {
 	if ((window == playerWindow)) {
 		NSRect scrnRect = [[window screen] frame];
-
+		
+		// get the corrent coordination of the zooming window
 		newFrame.size = [self calculateContentSize:scrnRect.size];
 		newFrame = [window frameRectForContentRect:newFrame];
-		newFrame.origin.x = (scrnRect.size.width - newFrame.size.width)/2;
-		newFrame.origin.y = (scrnRect.size.height- newFrame.size.height)/2;
+
+		// center the window in the screen
+		newFrame.origin.x = scrnRect.origin.x + (scrnRect.size.width - newFrame.size.width)/2;
+		newFrame.origin.y = scrnRect.origin.y + (scrnRect.size.height- newFrame.size.height)/2;
 	}
 	return newFrame;
 }
