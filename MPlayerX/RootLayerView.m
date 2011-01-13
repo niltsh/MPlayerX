@@ -581,6 +581,8 @@
 
 		[playerWindow orderOut:self];
 
+		[[self window] setCollectionBehavior:NSWindowCollectionBehaviorManaged];
+		
 		fullScrnDevID = [[[chosenScreen deviceDescription] objectForKey:@"NSScreenNumber"] unsignedIntValue];
 
 		// 得到screen的分辨率，并和播放中的图像进行比较
