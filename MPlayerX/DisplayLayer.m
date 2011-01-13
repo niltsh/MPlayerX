@@ -50,6 +50,7 @@
 		// [self setMasksToBounds:YES];
 		[self setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
 		[self setDoubleSided:NO];
+		[self setAsynchronous:NO];
 		
 		positionOffset = NO;
 		renderRatio = CGRectMake(0, 0, 1, 1);
@@ -193,11 +194,6 @@
 }
 
 //////////////////////////////////////OpenGLLayer inherent/////////////////////////////////////
--(BOOL) asynchronous
-{
-	return NO;
-}
-
 -(CGLContextObj) copyCGLContextForPixelFormat:(CGLPixelFormatObj)pf
 {
 	GLint i = 1;
