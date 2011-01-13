@@ -206,6 +206,8 @@
 	CGLLockContext(ctx);
 
 	CGLSetParameter(ctx, kCGLCPSwapInterval, &i);
+	
+	CGLEnable(ctx, kCGLCEMPEngine);
 
 	SAFERELEASETEXTURECACHE(cache);
 	CVReturn error = CVOpenGLTextureCacheCreate(NULL, NULL, ctx, pf, NULL, &cache);
@@ -240,7 +242,7 @@
 		CVOpenGLTextureRef tex;
 		
 		CVReturn error = CVOpenGLTextureCacheCreateTextureFromImage(NULL, cache, bufRefs[frameNow], NULL, &tex);
-		
+
 		if (error == kCVReturnSuccess) {
 			// draw
 			
