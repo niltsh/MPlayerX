@@ -168,7 +168,10 @@
 -(void) draw:(NSUInteger)frameNum
 {
 	frameNow = frameNum;
-	[self setNeedsDisplay];
+	
+	[self performSelectorOnMainThread:@selector(setNeedsDisplay)
+						   withObject:nil waitUntilDone:NO];
+	// [self setNeedsDisplay];
 }
 
 -(void) stop
@@ -187,12 +190,37 @@
 		memset(&fmt, 0, sizeof(fmt));
 		fmt.aspect = kDisplayAscpectRatioInvalid;
 		flagAspectRatioChanged = YES;
-		
-		[self setNeedsDisplay];
+
+		[self performSelectorOnMainThread:@selector(setNeedsDisplay)
+							   withObject:nil waitUntilDone:NO];
+		// [self setNeedsDisplay];
 	}
 }
 
 //////////////////////////////////////OpenGLLayer inherent/////////////////////////////////////
+-(CGLPixelFormatObj) copyCGLPixelFormatForDisplayMask:(uint32_t)mask
+{
+	CGLPixelFormatObj px = NULL;
+	GLint i;
+
+	NSOpenGLPixelFormatAttribute attribs[] = {
+        kCGLPFADoubleBuffer,
+        kCGLPFAAccelerated,
+        kCGLPFANoRecovery,
+        kCGLPFAColorSize, 24,
+        kCGLPFAAlphaSize, 8,
+        kCGLPFADepthSize, 24,
+        kCGLPFAWindow,
+		kCGLPFADisplayMask, mask,
+        0 };
+	
+	if (!((CGLChoosePixelFormat(attribs, &px, &i) == kCGLNoError) && px)) {
+		MPLog(@"can't choose my pf");
+		px = [super copyCGLPixelFormatForDisplayMask:mask];
+	}
+	return px;
+}
+
 -(CGLContextObj) copyCGLContextForPixelFormat:(CGLPixelFormatObj)pf
 {
 	GLint i = 1;
@@ -232,10 +260,6 @@
 			forLayerTime:(CFTimeInterval)timeInterval 
 			 displayTime:(const CVTimeStamp *)timeStamp
 {
-	CGLLockContext(glContext);	
-	
-	CGLSetCurrentContext(glContext);
-	
 	if (bufRefs && (frameNow >= 0)) {
 	
 		CVOpenGLTextureRef tex;
@@ -278,6 +302,10 @@
 				
 				flagPositionOffsetChanged = NO;
 			}
+			CGLLockContext(glContext);	
+			
+			CGLSetCurrentContext(glContext);
+			
 			GLenum target = CVOpenGLTextureGetTarget(tex);
 
 			glEnable(target);
@@ -298,6 +326,8 @@
 			goto FLUSH;
 		}
 	}
+	CGLLockContext(glContext);	
+	CGLSetCurrentContext(glContext);
 	
 	glClearColor(0, 0, 0, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
