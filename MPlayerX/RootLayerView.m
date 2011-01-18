@@ -329,9 +329,9 @@
 					delta.y /= sz.height;
 					
 					if (ShiftKeyPressed) {
-						if (fabsf(delta.x) > fabsf(2 * delta.y)) {
+						if (fabsf(delta.x) > fabsf(4 * delta.y)) {
 							delta.y = 0;
-						} else if (fabsf(2 * delta.x) < fabsf(delta.y)) {
+						} else if (fabsf(4 * delta.x) < fabsf(delta.y)) {
 							delta.x = 0;
 						} else {
 							// if use shift to drag the area, only X or only Y are accepted
@@ -406,7 +406,7 @@
 	x = [theEvent deltaX];
 	y = [theEvent deltaY];
 	
-	if (fabsf(x) > fabsf(y*2)) {
+	if (fabsf(x) > fabsf(y*4)) {
 		// MPLog(@"%f", x);
 		switch ([playerController playerState]) {
 			case kMPCPausedState:
@@ -420,7 +420,7 @@
 			default:
 				break;
 		}
-	} else if (fabsf(x*2) < fabsf(y)) {
+	} else if (fabsf(x*4) < fabsf(y)) {
 		[controlUI changeVolumeBy:[NSNumber numberWithFloat:y*0.2]];
 	}
 }
