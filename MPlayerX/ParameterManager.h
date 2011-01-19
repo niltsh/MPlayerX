@@ -70,6 +70,7 @@
 	unsigned int deinterlace;
 	unsigned int imgEnhance;
 	NSString *extraOptions;
+	NSArray *equalizer;
 }
 
 @property (assign, readwrite) SUBFILE_NAMERULE subNameRule;
@@ -101,6 +102,7 @@
 @property (assign, readwrite) unsigned int deinterlace;
 @property (assign, readwrite) unsigned int imgEnhance;
 @property (retain, readwrite) NSString *extraOptions;
+@property (retain, readwrite) NSArray *equalizer;
 
 -(void) setSubFontColor:(NSColor*)col;
 -(void) setSubFontBorderColor:(NSColor*)col;

@@ -87,6 +87,7 @@ NSString * const kPMValMsgCharset		= @"noconv";
 NSString * const kPMParChannels			= @"-channels";
 NSString * const kPMParAf				= @"-af";
 NSString * const kPMValScaletempo		= @"scaletempo";
+NSString * const kPMSubParEqualizer		= @"equalizer=";
 NSString * const kPMParVf				= @"-vf";
 
 NSString * const kPMParFieldDominance	= @"-field-dominance";
@@ -134,6 +135,7 @@ NSString * const kPMSlash				= @"/";
 @synthesize deinterlace;
 @synthesize imgEnhance;
 @synthesize extraOptions;
+@synthesize equalizer;
 
 #pragma mark Init/Dealloc
 -(id) init
@@ -185,6 +187,7 @@ NSString * const kPMSlash				= @"/";
 		imgEnhance = kPMImgEnhanceNone;
 		
 		extraOptions = nil;
+		equalizer = nil;
 	}
 	return self;
 }
@@ -201,6 +204,7 @@ NSString * const kPMSlash				= @"/";
 	[textSubs release];
 	[vobSub release];
 	[extraOptions release];
+	[equalizer release];
 	
 	[super dealloc];
 }
@@ -417,9 +421,30 @@ NSString * const kPMSlash				= @"/";
 		[paramArray addObject:kPMParSTPause];
 	}
 	
-	// setting for audio filters
-	[paramArray addObject:kPMParAf];
-	[paramArray addObject:kPMValScaletempo];
+	if (1) {
+		// setting for audio filters
+		[paramArray addObject:kPMParAf];
+		
+		NSMutableArray *afSettings = [[NSMutableArray alloc] initWithCapacity:4];
+
+		// add scaleTempo
+		[afSettings addObject:kPMValScaletempo];
+		
+		// add equalizer
+		if (equalizer && ([equalizer count] > 0)) {
+			NSMutableString *str = [[NSMutableString alloc] initWithCapacity:40];
+			
+			for (id amp in equalizer) {
+				[str appendFormat:@":%.2f", [amp floatValue]];
+			}
+			[afSettings addObject:[kPMSubParEqualizer stringByAppendingString:[str substringFromIndex:1]]];
+			[str release];
+		}
+
+		[paramArray addObject:[afSettings componentsJoinedByString:@","]];
+		
+		[afSettings release];
+	}
 	
 	if (PMShouldUsePPFilters(imgEnhance)) {
 		useVideoFilters = YES;

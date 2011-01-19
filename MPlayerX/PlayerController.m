@@ -420,6 +420,7 @@ enum {
 		[mplayer.pm setPauseAtStart:NO];
 	} else {
 		[mplayer.pm setPauseAtStart:![ud boolForKey:kUDKeyPlayWhenOpened]];
+		[mplayer.pm setEqualizer:nil];
 	}
 
 	// 这里必须要retain，否则如果用lastPlayedPath作为参数传入的话会有问题
@@ -733,6 +734,7 @@ enum {
 {
 	if (PlayerCouldAcceptCommand) {
 		[mplayer setEqualizer:amps];
+		[mplayer.pm setEqualizer:amps];
 	}
 }
 
