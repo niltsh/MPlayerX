@@ -22,6 +22,7 @@
 #import "KeyCode.h"
 #import "VideoTunerController.h"
 #import <Quartz/Quartz.h>
+#import "PlayerController.h"
 
 #define kCIStepBase				(100000.0)
 
@@ -37,6 +38,10 @@ NSString * const kCILayerGammaKeyPath		= @"filters.gammaFilter.inputPower";
 NSString * const kCILayerHueAngleKeyPath	= @"filters.hueFilter.inputAngle";
 
 NSString * const kCILayerFilterEnabled		= @"enabled";
+
+@interface VideoTunerController (Internal)
+-(void) playBackStarted:(NSNotification*)notif;
+@end
 
 @implementation VideoTunerController
 
@@ -90,6 +95,12 @@ NSString * const kCILayerFilterEnabled		= @"enabled";
 	if (!nibLoaded) {
 		[menuVTPanel setKeyEquivalent:kSCMVideoTunerPanelKeyEquivalent];
 		[menuVTPanel setKeyEquivalentModifierMask:kSCMVideoTunerPanelKeyEquivalentModifierFlagMask];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(playBackStarted:)
+													 name:kMPCPlayStartedNotification
+												   object:playerController];
+
 	}
 }
 
@@ -284,5 +295,15 @@ NSString * const kCILayerFilterEnabled		= @"enabled";
 		[layer setFilters:nil];
 	}
 	layer = l;
+}
+
+-(void) playBackStarted:(NSNotification*)notif
+{
+	if (!(([[[notif userInfo] objectForKey:kMPCPlayStartedAudioOnlyKey] boolValue]) ||
+		[playerController isAutoPlayed])) {
+		// when there is a video track and not autoplayed
+		// to reset the filter
+		[self resetFilters:nil];
+	}
 }
 @end

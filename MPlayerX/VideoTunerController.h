@@ -20,6 +20,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class PlayerController;
+
 @interface VideoTunerController : NSObject
 {
 	BOOL nibLoaded;
@@ -56,6 +58,8 @@
 	IBOutlet NSButton *hueDec;
 
 	IBOutlet NSMenuItem *menuVTPanel;
+	
+	IBOutlet PlayerController *playerController;
 }
 
 -(void) setLayer:(CALayer*)l;

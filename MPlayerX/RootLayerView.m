@@ -671,7 +671,7 @@
 	if (firstDisplay) {
 		firstDisplay = NO;
 		
-		[VTController resetFilters:self];
+		// [VTController resetFilters:self];
 		
 		[self adjustWindowCoordinateAndAspectRatio:NSMakeSize(-1, -1)];
 		
