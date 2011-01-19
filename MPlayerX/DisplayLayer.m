@@ -50,6 +50,7 @@
 		[self setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
 		[self setDoubleSided:NO];
 		[self setAsynchronous:NO];
+		[self setOpaque:YES];
 		
 		positionOffset = NO;
 		renderRatio = CGRectMake(0, 0, 1, 1);
@@ -268,40 +269,7 @@
 
 		if (error == kCVReturnSuccess) {
 			// draw
-			
-			if (flagFillScrnChanged || flagAspectRatioChanged || refitBounds) {
-				MPLog(@"as fil changed");
-				CGRect rc = self.superlayer.bounds;
-				CGFloat sAspect = [self aspectRatio];
-				
-				if (((sAspect * rc.size.height) > rc.size.width) == fillScreen) {
-					rc.size.width = rc.size.height * sAspect;
-				} else {
-					rc.size.height = rc.size.width / sAspect;
-				}
-				
-				self.bounds = rc;
-				
-				flagAspectRatioChanged = NO;
-				flagFillScrnChanged = NO;
-				refitBounds = NO;
-			}
 
-			if (flagPositionOffsetChanged) {
-				MPLog(@"pos changed");
-				CGRect rc = self.superlayer.bounds;
-				CGPoint pt = CGPointMake(rc.size.width/2, rc.size.height/2);
-				
-				rc = self.bounds;
-				
-				if (positionOffset) {
-					pt.x += rc.size.width  * renderRatio.origin.x;
-					pt.y += rc.size.height * renderRatio.origin.y;
-				}
-				self.position = pt;
-				
-				flagPositionOffsetChanged = NO;
-			}
 			CGLLockContext(glContext);	
 			
 			CGLSetCurrentContext(glContext);
@@ -336,4 +304,44 @@ FLUSH:
 	glFlush();
 	CGLUnlockContext(glContext);
 }
+
+-(void) display
+{
+	MPLog(@"display");
+	if (flagFillScrnChanged || flagAspectRatioChanged || refitBounds) {
+		MPLog(@"as fil changed");
+		CGRect rc = self.superlayer.bounds;
+		CGFloat sAspect = [self aspectRatio];
+		
+		if (((sAspect * rc.size.height) > rc.size.width) == fillScreen) {
+			rc.size.width = rc.size.height * sAspect;
+		} else {
+			rc.size.height = rc.size.width / sAspect;
+		}
+		
+		self.bounds = rc;
+		
+		flagAspectRatioChanged = NO;
+		flagFillScrnChanged = NO;
+		refitBounds = NO;
+	}
+	
+	if (flagPositionOffsetChanged) {
+		MPLog(@"pos changed");
+		CGRect rc = self.superlayer.bounds;
+		CGPoint pt = CGPointMake(rc.size.width/2, rc.size.height/2);
+		
+		rc = self.bounds;
+		
+		if (positionOffset) {
+			pt.x += rc.size.width  * renderRatio.origin.x;
+			pt.y += rc.size.height * renderRatio.origin.y;
+		}
+		self.position = pt;
+		
+		flagPositionOffsetChanged = NO;
+	}
+	[super display];
+}
+
 @end
