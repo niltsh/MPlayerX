@@ -140,6 +140,21 @@
 	refitBounds = YES;
 }
 
+/**
+ * something about 3 methods below and this layer
+ * 1. Now the layer is set as synchronous with setNeedsDisplay, 
+ *    which means only the [setNeedsDisplay] is called,the layer
+ *    will redraw itself.
+ * 2. in [draw:frameNum], [setNeedsDisplay] was called, and this
+ *    cause layer redraw once after one new frame is ready.
+ * 3. [draw:frameNum] SHOULD be called NOT in the main thread, or
+ *    that will block the UI or cause the playback stuttered.
+ * 4. currently, [draw:frameNum] does be called in the thread rather
+ *    than the main thread, since in CoreController, the Connection
+ *    with mplayer-mt runs in the new thread, so actually the code runs
+ *    fine now.
+ * IN the future, setup a DisplayLink should be a better solution.
+ */
 -(int) startWithFormat:(DisplayFormat)displayFormat buffer:(char**)data total:(NSUInteger)num
 {
 	@synchronized(self) {
@@ -169,10 +184,7 @@
 -(void) draw:(NSUInteger)frameNum
 {
 	frameNow = frameNum;
-	
-	[self performSelectorOnMainThread:@selector(setNeedsDisplay)
-						   withObject:nil waitUntilDone:NO];
-	// [self setNeedsDisplay];
+	[self setNeedsDisplay];
 }
 
 -(void) stop
@@ -192,9 +204,7 @@
 		fmt.aspect = kDisplayAscpectRatioInvalid;
 		flagAspectRatioChanged = YES;
 
-		[self performSelectorOnMainThread:@selector(setNeedsDisplay)
-							   withObject:nil waitUntilDone:NO];
-		// [self setNeedsDisplay];
+		[self setNeedsDisplay];
 	}
 }
 
