@@ -65,6 +65,7 @@ extern NSString * const kMPCPlayInfoUpdatedChangeDictKey;
 -(id) setDisplayDelegateForMPlayer:(id<CoreDisplayDelegate>) delegate;
 -(int) playerState;
 -(BOOL) couldAcceptCommand;
+-(BOOL) isAutoPlayed;
 
 -(MovieInfo*) mediaInfo;
 -(void) setMultiThreadMode:(BOOL) mt;

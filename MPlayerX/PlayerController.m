@@ -304,6 +304,11 @@ enum {
 	return [mplayer movieInfo];
 }
 
+-(BOOL) isAutoPlayed
+{
+	return (autoPlayState == kMPCAutoPlayStatePlaying);
+}
+
 -(void) loadFiles:(NSArray*)files fromLocal:(BOOL)local
 {
 	if (files) {
