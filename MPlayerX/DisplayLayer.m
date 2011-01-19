@@ -307,7 +307,6 @@ FLUSH:
 
 -(void) display
 {
-	MPLog(@"display");
 	if (flagFillScrnChanged || flagAspectRatioChanged || refitBounds) {
 		MPLog(@"as fil changed");
 		CGRect rc = self.superlayer.bounds;
