@@ -58,6 +58,13 @@ NSString * const kMPCFFMpegProtoHead	= @"ffmpeg://";
 
 #define PlayerCouldAcceptCommand	(((mplayer.state) & 0x0100)!=0)
 
+/** state of APN */
+enum {
+	kMPCAutoPlayStateInvalid   = 0,
+	kMPCAutoPlayStateJustFound = 1,
+	kMPCAutoPlayStatePlaying   = 2
+};
+
 @interface PlayerController (CoreControllerDelegate)
 -(void) playbackOpened:(id)coreController;
 -(void) playbackStarted:(id)coreController;
@@ -177,6 +184,8 @@ NSString * const kMPCFFMpegProtoHead	= @"ffmpeg://";
 		lastPlayedPathPre = nil;
 
 		kvoSetuped = NO;
+		
+		autoPlayState = kMPCAutoPlayStateInvalid;
 	}
 	return self;
 }
@@ -392,7 +401,7 @@ NSString * const kMPCFFMpegProtoHead	= @"ffmpeg://";
 	
 	[mplayer.pm setLetterBoxMode:[ud integerForKey:kUDKeyLetterBoxMode]];
 	[mplayer.pm setLetterBoxHeight:[ud floatForKey:kUDKeyLetterBoxHeight]];
-	[mplayer.pm setPauseAtStart:![ud boolForKey:kUDKeyPlayWhenOpened]];
+	
 	[mplayer.pm setOverlapSub:[ud boolForKey:kUDKeyOverlapSub]];
 	[mplayer.pm setMixToStereo:[ud integerForKey:kUDKeyMixToStereoMode]];
 	
@@ -400,6 +409,13 @@ NSString * const kMPCFFMpegProtoHead	= @"ffmpeg://";
 	[mplayer.pm setDeinterlace:[ud integerForKey:kUDKeyDeIntMethod]];
 
 	[mplayer.pm setExtraOptions:[ud stringForKey:kUDKeyExtraOptions]];
+	
+	if (autoPlayState == kMPCAutoPlayStateJustFound) {
+		// when APN, do not pause at start
+		[mplayer.pm setPauseAtStart:NO];
+	} else {
+		[mplayer.pm setPauseAtStart:![ud boolForKey:kUDKeyPlayWhenOpened]];
+	}
 
 	// 这里必须要retain，否则如果用lastPlayedPath作为参数传入的话会有问题
 	lastPlayedPathPre = [[url absoluteURL] retain];
@@ -744,6 +760,13 @@ NSString * const kMPCFFMpegProtoHead	= @"ffmpeg://";
 ///////////////////////////////////////MPlayer Notifications/////////////////////////////////////////////
 -(void) playbackOpened:(id)coreController
 {
+	// according to the apn state
+	if (autoPlayState == kMPCAutoPlayStateJustFound) {
+		autoPlayState = kMPCAutoPlayStatePlaying;
+	} else {
+		autoPlayState = kMPCAutoPlayStateInvalid;
+	}
+	
 	// 用文件名查找有没有之前的播放记录
 	NSNumber *stopTime = [[[AppController sharedAppController] bookmarks] objectForKey:[lastPlayedPathPre absoluteString]];
 	NSDictionary *dict;
@@ -799,23 +822,23 @@ NSString * const kMPCFFMpegProtoHead	= @"ffmpeg://";
 										inFormats:[[[AppController sharedAppController] supportVideoFormats] 
 												   setByAddingObjectsFromSet:[[AppController sharedAppController] supportAudioFormats]]];
 		
-		if (nextPath != nil) {
-			BOOL pasTemp = [ud boolForKey:kUDKeyPlayWhenOpened];
-			[ud setBool:YES forKey:kUDKeyPlayWhenOpened];
+		if (nextPath != nil) {			
+			autoPlayState = kMPCAutoPlayStateJustFound;
 			
 			[self loadFiles:[NSArray arrayWithObject:nextPath] fromLocal:YES];
 			
-			[ud setBool:pasTemp forKey:kUDKeyPlayWhenOpened];
-
 			return;
 		}
-	}	
+	}
+	
+	autoPlayState = kMPCAutoPlayStateInvalid;
+	
 	[notifCenter postNotificationName:kMPCPlayFinalizedNotification object:self userInfo:nil];
 }
 
 -(void) playbackError:(id)coreController
 {
-	
+	autoPlayState = kMPCAutoPlayStateInvalid;
 }
 /////////////////////////////////SubConverter Delegate methods/////////////////////////////////////
 -(NSString*) subConverter:(SubConverter*)subConv detectedFile:(NSString*)path ofCharsetName:(NSString*)charsetName confidence:(float)confidence

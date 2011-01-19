@@ -51,6 +51,7 @@ extern NSString * const kMPCPlayInfoUpdatedChangeDictKey;
 	NSURL *lastPlayedPathPre;
 
 	BOOL kvoSetuped;
+	NSUInteger autoPlayState;
 
 	IBOutlet ControlUIView *controlUI;
 	IBOutlet OpenURLController *openUrlController;
