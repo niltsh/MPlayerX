@@ -59,10 +59,11 @@ NSString * const kMPCFFMpegProtoHead	= @"ffmpeg://";
 #define PlayerCouldAcceptCommand	(((mplayer.state) & 0x0100)!=0)
 
 @interface PlayerController (CoreControllerDelegate)
--(void) playebackOpened;
--(void) playebackStarted;
--(void) playebackStopped:(NSDictionary*)dict;
--(void) playebackWillStop;
+-(void) playbackOpened:(id)coreController;
+-(void) playbackStarted:(id)coreController;
+-(void) playbackWillStop:(id)coreController;
+-(void) playbackStopped:(id)coreController info:(NSDictionary*)dict;
+-(void) playbackError:(id)coreController;
 @end
 
 @interface PlayerController (PlayerControllerInternal)
@@ -741,7 +742,7 @@ NSString * const kMPCFFMpegProtoHead	= @"ffmpeg://";
 }
 
 ///////////////////////////////////////MPlayer Notifications/////////////////////////////////////////////
--(void) playebackOpened
+-(void) playbackOpened:(id)coreController
 {
 	// 用文件名查找有没有之前的播放记录
 	NSNumber *stopTime = [[[AppController sharedAppController] bookmarks] objectForKey:[lastPlayedPathPre absoluteString]];
@@ -759,7 +760,7 @@ NSString * const kMPCFFMpegProtoHead	= @"ffmpeg://";
 	[notifCenter postNotificationName:kMPCPlayOpenedNotification object:self userInfo:dict];
 }
 
--(void) playebackStarted
+-(void) playbackStarted:(id)coreController
 {
 	[notifCenter postNotificationName:kMPCPlayStartedNotification object:self 
 							 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -769,12 +770,12 @@ NSString * const kMPCFFMpegProtoHead	= @"ffmpeg://";
 	MPLog(@"vc:%lu, ac:%lu", [mplayer.movieInfo.videoInfo count], [mplayer.movieInfo.audioInfo count]);
 }
 
--(void) playebackWillStop
+-(void) playbackWillStop:(id)coreController
 {
 	[notifCenter postNotificationName:kMPCPlayWillStopNotification object:self userInfo:nil];
 }
 
--(void) playebackStopped:(NSDictionary*)dict
+-(void) playbackStopped:(id)coreController info:(NSDictionary*)dict
 {	
 	BOOL stoppedByForce = [[dict objectForKey:kMPCPlayStoppedByForceKey] boolValue];
 
@@ -812,6 +813,10 @@ NSString * const kMPCFFMpegProtoHead	= @"ffmpeg://";
 	[notifCenter postNotificationName:kMPCPlayFinalizedNotification object:self userInfo:nil];
 }
 
+-(void) playbackError:(id)coreController
+{
+	
+}
 /////////////////////////////////SubConverter Delegate methods/////////////////////////////////////
 -(NSString*) subConverter:(SubConverter*)subConv detectedFile:(NSString*)path ofCharsetName:(NSString*)charsetName confidence:(float)confidence
 {

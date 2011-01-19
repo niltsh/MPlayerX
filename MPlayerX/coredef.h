@@ -34,10 +34,11 @@ typedef struct {
 @end
 
 @protocol CoreControllerDelegate
--(void) playebackOpened;
--(void) playebackStarted;
--(void) playebackStopped:(NSDictionary*)dict;
--(void) playebackWillStop;
+-(void) playbackOpened:(id)coreController;
+-(void) playbackStarted:(id)coreController;
+-(void) playbackWillStop:(id)coreController;
+-(void) playbackStopped:(id)coreController info:(NSDictionary*)dict;
+-(void) playbackError:(id)coreController;
 @end
 
 @protocol SubConverterDelegate

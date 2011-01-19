@@ -203,7 +203,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 	}
 	
 	if (delegate) {
-		[delegate playebackWillStop];
+		[delegate playbackWillStop:self];
 	}
 	state = kMPCStoppedState;
 
@@ -221,9 +221,10 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 	[movieInfo resetWithParameterManager:nil];
 
 	if (delegate) {
-		[delegate playebackStopped:[NSDictionary dictionaryWithObjectsAndKeys:
-									[NSNumber numberWithBool:byForce], kMPCPlayStoppedByForceKey,
-									[movieInfo.playingInfo currentTime], kMPCPlayStoppedTimeKey, nil]];
+		[delegate playbackStopped:self
+							 info:[NSDictionary dictionaryWithObjectsAndKeys:
+								   [NSNumber numberWithBool:byForce], kMPCPlayStoppedByForceKey,
+								   [movieInfo.playingInfo currentTime], kMPCPlayStoppedTimeKey, nil]];
 	}
 	MPLog(@"terminated:%d", byForce);
 }
@@ -366,7 +367,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 	   ) {
 		state = kMPCOpenedState;
 		if (delegate) {
-			[delegate playebackOpened];
+			[delegate playbackOpened:self];
 		}
 		
 		// 这里需要打开Timer去Polling播放时间，然后定期发送现在的播放时间
@@ -383,6 +384,9 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 	} else {
 		// 如果没有成功打开媒体文件
 		[pm reset];
+		if (delegate) {
+			[delegate playbackError:self];
+		}
 	}
 }
 
@@ -654,7 +658,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 					state = [[dict objectForKey:key] intValue];
 					if (((stateOld & kMPCStateMask) == 0) && (state & kMPCStateMask)) {
 						if (delegate) {
-							[delegate playebackStarted];
+							[delegate playbackStarted:self];
 						}
 					}
 					break;
