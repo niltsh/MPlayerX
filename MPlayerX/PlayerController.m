@@ -113,7 +113,7 @@ enum {
 					   boolYes, kUDKeyUseEmbeddedFonts,
 					   [NSNumber numberWithUnsignedInt:10000], kUDKeyCacheSize,
 					   boolYes, kUDKeyPreferIPV6,
-					   boolNo, kUDKeyCachingLocal,
+					   // boolYes, kUDKeyCachingLocal,
 					   [NSNumber numberWithUnsignedInt:kPMLetterBoxModeNotDisplay], kUDKeyLetterBoxMode,
 					   [NSNumber numberWithUnsignedInt:kPMLetterBoxModeBottomOnly], kUDKeyLetterBoxModeAlt,
 					   [NSNumber numberWithFloat:0.1], kUDKeyLetterBoxHeight,
@@ -430,7 +430,7 @@ enum {
 		// local files
 		path = [url path];
 
-		[mplayer.pm setCache:([ud boolForKey:kUDKeyCachingLocal])?([ud integerForKey:kUDKeyCacheSize]):(0)];
+		[mplayer.pm setCache:10000];
 		[mplayer.pm setRtspOverHttp:NO];
 		
 		// 将文件加入Recent Menu里，只能加入本地文件
