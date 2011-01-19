@@ -90,7 +90,13 @@
 
 -(void) playBackStarted:(NSNotification*)notif
 {
-	[self resetEqualizer:nil];
+	if ([playerController isAutoPlayed]) {
+		// apn
+		[playerController setEqualizer:bars];
+	} else {
+		// not apn
+		[self resetEqualizer:nil];
+	}
 }
 
 @end
