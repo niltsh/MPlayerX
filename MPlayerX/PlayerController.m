@@ -112,8 +112,9 @@ enum {
 					   [NSNumber numberWithUnsignedInt:2], kUDKeyThreadNum,
 					   boolYes, kUDKeyUseEmbeddedFonts,
 					   [NSNumber numberWithUnsignedInt:10000], kUDKeyCacheSize,
+					   [NSNumber numberWithUnsignedInt:10000], kUDKeyCacheSizeLocal,
 					   boolYes, kUDKeyPreferIPV6,
-					   boolNo, kUDKeyCachingLocal,
+					   boolYes, kUDKeyCachingLocal,
 					   [NSNumber numberWithUnsignedInt:kPMLetterBoxModeNotDisplay], kUDKeyLetterBoxMode,
 					   [NSNumber numberWithUnsignedInt:kPMLetterBoxModeBottomOnly], kUDKeyLetterBoxModeAlt,
 					   [NSNumber numberWithFloat:0.1], kUDKeyLetterBoxHeight,
@@ -430,7 +431,13 @@ enum {
 		// local files
 		path = [url path];
 
-		[mplayer.pm setCache:([ud boolForKey:kUDKeyCachingLocal])?([ud integerForKey:kUDKeyCacheSize]):(0)];
+		/**
+		 * OS will caching the media file, this cause the memory decreasing until it runs out
+		 * so I have to turn off caching in mplayer, but this will slow down the IO speed, 
+		 * causing some HD contents lagging
+		 * so CachingLocal should be ON always
+		 */
+		[mplayer.pm setCache:([ud boolForKey:kUDKeyCachingLocal])?([ud integerForKey:kUDKeyCacheSizeLocal]):(0)];
 		[mplayer.pm setRtspOverHttp:NO];
 		
 		// 将文件加入Recent Menu里，只能加入本地文件
