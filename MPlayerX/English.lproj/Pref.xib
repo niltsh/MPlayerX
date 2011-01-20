@@ -2,16 +2,18 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10H574</string>
-		<string key="IBDocument.InterfaceBuilderVersion">788</string>
+		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.InterfaceBuilderVersion">823</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">788</string>
+			<string key="NS.object.0">823</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="268"/>
+			<integer value="420"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2187,14 +2189,14 @@ IGl0IHdpbGwgdGFrZSBlZmZlY3QgZnJvbSB0aGUgbmV4dCB2aWRlbw</string>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="382663841">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="NSButton" id="925213523">
 						<reference key="NSNextResponder" ref="382663841"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{18, 172}, {230, 18}}</string>
+						<string key="NSFrame">{{18, 122}, {230, 18}}</string>
 						<reference key="NSSuperview" ref="382663841"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="237718181">
@@ -2216,7 +2218,7 @@ IGl0IHdpbGwgdGFrZSBlZmZlY3QgZnJvbSB0aGUgbmV4dCB2aWRlbw</string>
 					<object class="NSButton" id="342192785">
 						<reference key="NSNextResponder" ref="382663841"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{18, 142}, {283, 18}}</string>
+						<string key="NSFrame">{{18, 92}, {283, 18}}</string>
 						<reference key="NSSuperview" ref="382663841"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="820009925">
@@ -2235,30 +2237,10 @@ IGl0IHdpbGwgdGFrZSBlZmZlY3QgZnJvbSB0aGUgbmV4dCB2aWRlbw</string>
 							<int key="NSPeriodicInterval">25</int>
 						</object>
 					</object>
-					<object class="NSTextField" id="279354483">
-						<reference key="NSNextResponder" ref="382663841"/>
-						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{33, 20}, {430, 42}}</string>
-						<reference key="NSSuperview" ref="382663841"/>
-						<bool key="NSEnabled">YES</bool>
-						<object class="NSTextFieldCell" key="NSCell" id="708618849">
-							<int key="NSCellFlags">67239424</int>
-							<int key="NSCellFlags2">272760832</int>
-							<string key="NSContents">Here local doesn't only mean physically local, but also includes the network drives mounted into the OS. N.B. This setting may cause erroneous playback behavior when seeking.</string>
-							<reference key="NSSupport" ref="26"/>
-							<reference key="NSControlView" ref="279354483"/>
-							<reference key="NSBackgroundColor" ref="592303529"/>
-							<object class="NSColor" key="NSTextColor">
-								<int key="NSColorSpace">3</int>
-								<bytes key="NSWhite">MC4yNQA</bytes>
-								<reference key="NSCustomColorSpace" ref="846924204"/>
-							</object>
-						</object>
-					</object>
 					<object class="NSButton" id="787758060">
 						<reference key="NSNextResponder" ref="382663841"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{18, 68}, {153, 18}}</string>
+						<string key="NSFrame">{{18, 18}, {153, 18}}</string>
 						<reference key="NSSuperview" ref="382663841"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="275861615">
@@ -2280,7 +2262,7 @@ IGl0IHdpbGwgdGFrZSBlZmZlY3QgZnJvbSB0aGUgbmV4dCB2aWRlbw</string>
 					<object class="NSTextField" id="428018393">
 						<reference key="NSNextResponder" ref="382663841"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{236, 101}, {39, 14}}</string>
+						<string key="NSFrame">{{236, 51}, {39, 14}}</string>
 						<reference key="NSSuperview" ref="382663841"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="487254623">
@@ -2296,7 +2278,7 @@ IGl0IHdpbGwgdGFrZSBlZmZlY3QgZnJvbSB0aGUgbmV4dCB2aWRlbw</string>
 					<object class="NSTextField" id="53372635">
 						<reference key="NSNextResponder" ref="382663841"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{162, 99}, {69, 19}}</string>
+						<string key="NSFrame">{{162, 49}, {69, 19}}</string>
 						<reference key="NSSuperview" ref="382663841"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="909944121">
@@ -2313,7 +2295,7 @@ IGl0IHdpbGwgdGFrZSBlZmZlY3QgZnJvbSB0aGUgbmV4dCB2aWRlbw</string>
 					<object class="NSTextField" id="298127255">
 						<reference key="NSNextResponder" ref="382663841"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 101}, {146, 17}}</string>
+						<string key="NSFrame">{{17, 51}, {146, 17}}</string>
 						<reference key="NSSuperview" ref="382663841"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="861227818">
@@ -2329,7 +2311,7 @@ IGl0IHdpbGwgdGFrZSBlZmZlY3QgZnJvbSB0aGUgbmV4dCB2aWRlbw</string>
 					<object class="NSButton" id="207560814">
 						<reference key="NSNextResponder" ref="382663841"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{18, 202}, {91, 18}}</string>
+						<string key="NSFrame">{{18, 152}, {91, 18}}</string>
 						<reference key="NSSuperview" ref="382663841"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="369707878">
@@ -2349,11 +2331,12 @@ IGl0IHdpbGwgdGFrZSBlZmZlY3QgZnJvbSB0aGUgbmV4dCB2aWRlbw</string>
 						</object>
 					</object>
 				</object>
-				<string key="NSFrameSize">{480, 238}</string>
+				<string key="NSFrameSize">{480, 188}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="615974115">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2414,9 +2397,14 @@ dGhlcndpc2UgcGxlYXNlIGxlYXZlIGl0IGJsYW5rLg</string>
 					</object>
 				</object>
 				<string key="NSFrameSize">{480, 110}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSUserDefaultsController" id="659034198">
+				<object class="NSMutableArray" key="NSDeclaredKeys">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<string>CachingLocal2</string>
+				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 		</object>
@@ -3013,22 +3001,6 @@ dGhlcndpc2UgcGxlYXNlIGxlYXZlIGl0IGJsYW5rLg</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.CachingLocal</string>
-						<reference key="source" ref="787758060"/>
-						<reference key="destination" ref="659034198"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="787758060"/>
-							<reference key="NSDestination" ref="659034198"/>
-							<string key="NSLabel">value: values.CachingLocal</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.CachingLocal</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">278</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: values.FullScreenKeepOther</string>
 						<reference key="source" ref="847863497"/>
 						<reference key="destination" ref="659034198"/>
@@ -3586,6 +3558,22 @@ dGhlcndpc2UgcGxlYXNlIGxlYXZlIGl0IGJsYW5rLg</string>
 						<reference key="destination" ref="615974115"/>
 					</object>
 					<int key="connectionID">432</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.CachingLocal2</string>
+						<reference key="source" ref="787758060"/>
+						<reference key="destination" ref="659034198"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="787758060"/>
+							<reference key="NSDestination" ref="659034198"/>
+							<string key="NSLabel">value: values.CachingLocal2</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.CachingLocal2</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">433</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -4362,7 +4350,6 @@ dGhlcndpc2UgcGxlYXNlIGxlYXZlIGl0IGJsYW5rLg</string>
 							<reference ref="53372635"/>
 							<reference ref="428018393"/>
 							<reference ref="787758060"/>
-							<reference ref="279354483"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Network</string>
@@ -4436,20 +4423,6 @@ dGhlcndpc2UgcGxlYXNlIGxlYXZlIGl0IGJsYW5rLg</string>
 						<int key="objectID">277</int>
 						<reference key="object" ref="275861615"/>
 						<reference key="parent" ref="787758060"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">279</int>
-						<reference key="object" ref="279354483"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="708618849"/>
-						</object>
-						<reference key="parent" ref="382663841"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">280</int>
-						<reference key="object" ref="708618849"/>
-						<reference key="parent" ref="279354483"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">281</int>
@@ -5119,8 +5092,6 @@ dGhlcndpc2UgcGxlYXNlIGxlYXZlIGl0IGJsYW5rLg</string>
 					<string>270.IBPluginDependency</string>
 					<string>276.IBPluginDependency</string>
 					<string>277.IBPluginDependency</string>
-					<string>279.IBPluginDependency</string>
-					<string>280.IBPluginDependency</string>
 					<string>281.IBPluginDependency</string>
 					<string>282.IBPluginDependency</string>
 					<string>293.IBPluginDependency</string>
@@ -5345,9 +5316,7 @@ Zw</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{741, 446}, {480, 238}}</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{714, 383}, {480, 188}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -5485,7 +5454,7 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">432</int>
+			<int key="maxID">433</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5591,13 +5560,13 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>changeSubPosBy:</string>
 							<string>changeSubScale:</string>
 							<string>changeVolumeBy:</string>
+							<string>moveFrameToCenter:</string>
 							<string>resetAspectRatio:</string>
 							<string>seekTo:</string>
 							<string>setAudioWithID:</string>
 							<string>setSubWithID:</string>
 							<string>setVideoWithID:</string>
 							<string>setVolume:</string>
-							<string>showMediaInfo:</string>
 							<string>stepAudios:</string>
 							<string>stepSubtitles:</string>
 							<string>stepVideos:</string>
@@ -5650,13 +5619,13 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>changeSubPosBy:</string>
 							<string>changeSubScale:</string>
 							<string>changeVolumeBy:</string>
+							<string>moveFrameToCenter:</string>
 							<string>resetAspectRatio:</string>
 							<string>seekTo:</string>
 							<string>setAudioWithID:</string>
 							<string>setSubWithID:</string>
 							<string>setVideoWithID:</string>
 							<string>setVolume:</string>
-							<string>showMediaInfo:</string>
 							<string>stepAudios:</string>
 							<string>stepSubtitles:</string>
 							<string>stepVideos:</string>
@@ -5700,6 +5669,10 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">moveFrameToCenter:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">resetAspectRatio:</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -5721,10 +5694,6 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">setVolume:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showMediaInfo:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -5783,6 +5752,8 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>fillScreenButton</string>
 							<string>fullScreenButton</string>
 							<string>hintTime</string>
+							<string>menuMoveFrameToCenter</string>
+							<string>menuMoveToTrash</string>
 							<string>menuPlayFromLastStoppedPlace</string>
 							<string>menuResetLockAspectRatio</string>
 							<string>menuShowMediaInfo</string>
@@ -5794,6 +5765,9 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>menuSwitchAudio</string>
 							<string>menuSwitchSub</string>
 							<string>menuSwitchVideo</string>
+							<string>menuToggleAuxiliaryCtrls</string>
+							<string>menuToggleFillScreen</string>
+							<string>menuToggleFullScreen</string>
 							<string>menuToggleLetterBox</string>
 							<string>menuToggleLockAspectRatio</string>
 							<string>menuVolDec</string>
@@ -5835,6 +5809,11 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
 							<string>OsdText</string>
 							<string>NSButton</string>
 							<string>PlayerController</string>
@@ -5860,6 +5839,8 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>fillScreenButton</string>
 							<string>fullScreenButton</string>
 							<string>hintTime</string>
+							<string>menuMoveFrameToCenter</string>
+							<string>menuMoveToTrash</string>
 							<string>menuPlayFromLastStoppedPlace</string>
 							<string>menuResetLockAspectRatio</string>
 							<string>menuShowMediaInfo</string>
@@ -5871,6 +5852,9 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>menuSwitchAudio</string>
 							<string>menuSwitchSub</string>
 							<string>menuSwitchVideo</string>
+							<string>menuToggleAuxiliaryCtrls</string>
+							<string>menuToggleFillScreen</string>
+							<string>menuToggleFullScreen</string>
 							<string>menuToggleLetterBox</string>
 							<string>menuToggleLockAspectRatio</string>
 							<string>menuVolDec</string>
@@ -5916,6 +5900,14 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">menuMoveFrameToCenter</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuMoveToTrash</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">menuPlayFromLastStoppedPlace</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
@@ -5957,6 +5949,18 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">menuSwitchVideo</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuToggleAuxiliaryCtrls</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuToggleFillScreen</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuToggleFullScreen</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -6597,6 +6601,7 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>menuVTPanel</string>
 							<string>nrDec</string>
 							<string>nrInc</string>
+							<string>playerController</string>
 							<string>satDec</string>
 							<string>satInc</string>
 							<string>shpDec</string>
@@ -6623,6 +6628,7 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>NSMenuItem</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
+							<string>PlayerController</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
@@ -6652,6 +6658,7 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>menuVTPanel</string>
 							<string>nrDec</string>
 							<string>nrInc</string>
+							<string>playerController</string>
 							<string>satDec</string>
 							<string>satInc</string>
 							<string>shpDec</string>
@@ -6713,6 +6720,10 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<object class="IBToOneOutletInfo">
 								<string key="name">nrInc</string>
 								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">playerController</string>
+								<string key="candidateClassName">PlayerController</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">satDec</string>
