@@ -56,6 +56,7 @@ extern NSString * const kUDKeyUseEmbeddedFonts;
 extern NSString * const kUDKeyCacheSize;
 extern NSString * const kUDKeyPreferIPV6;
 extern NSString * const kUDKeyCachingLocal;
+extern NSString * const kUDKeyCacheSizeLocal;
 extern NSString * const kUDKeyFullScreenKeepOther;
 extern NSString * const kUDKeyLetterBoxMode;
 extern NSString * const kUDKeyLetterBoxModeAlt;
