@@ -31,7 +31,6 @@
 @interface EqualizerController (Internal)
 -(void) playBackStopped:(NSNotification*)notif;
 -(void) playBackFinalized:(NSNotification*)notif;
--(void) loadParameters:(NSArray*)settings;
 -(void) saveParameters:(NSArray*) arr;
 @end
 
@@ -71,10 +70,13 @@
 		[menuEQPanel setKeyEquivalentModifierMask:kSCMEqualizerPanelKeyEquivalentModifierFlagMask];
 		
 		if ([ud integerForKey:kUDKeyAutoSaveEQSettings] != kAutoSaveEQSettingsLifeUserDefaults) {
+			// 如果不是永远保存设置，那么就删除设置
 			[ud removeObjectForKey:kUDKeyEQSettings];
 		}
-		[self loadParameters:[ud arrayForKey:kUDKeyEQSettings]];
 		
+		// 加载EQ设置
+		[playerController setEqualizer:[ud arrayForKey:kUDKeyEQSettings]];
+
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playBackFinalized:)
 													 name:kMPCPlayFinalizedNotification object:playerController];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playBackStopped:)
@@ -85,11 +87,25 @@
 -(IBAction) showUI:(id)sender
 {
 	if (!nibLoaded) {
+		NSUInteger idx = 0;
+		NSUInteger num = 0;
+		NSArray *settings = [ud arrayForKey:kUDKeyEQSettings];
+		
 		nibLoaded = YES;
 		[NSBundle loadNibNamed:@"Equalizer" owner:self];
 		bars = [[NSArray alloc] initWithObjects:sli30,sli60,sli125,sli250,sli500,sli1k,sli2k,sli4k,sli8k,sli16k,nil];
 		
-		[self loadParameters:[ud arrayForKey:kUDKeyEQSettings]];
+		if (settings) {
+			num = [settings count];
+		}
+		
+		for (id bar in bars) {
+			if (idx < num) {
+				[bar setFloatValue:[[settings objectAtIndex:idx++] floatValue]];
+			} else {
+				[bar setFloatValue:0.0f];
+			}
+		}
 		
 		[EQPanel setLevel:NSMainMenuWindowLevel];
 	}
@@ -101,28 +117,6 @@
 	}
 }
 
--(void) loadParameters:(NSArray*)settings
-{
-	NSUInteger idx = 0;
-	NSUInteger num = 0;
-
-	[playerController setEqualizer:settings];
-	
-	if (settings) {
-		num = [settings count];
-	}
-
-	if (bars) {
-		for (id bar in bars) {
-			if (idx < num) {
-				[bar setFloatValue:[[settings objectAtIndex:idx++] floatValue]];
-			} else {
-				[bar setFloatValue:0.0f];
-			}
-		}
-	}
-	
-}
 
 -(void) saveParameters:(NSArray*) arr
 {
