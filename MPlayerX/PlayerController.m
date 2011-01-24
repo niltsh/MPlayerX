@@ -741,8 +741,8 @@ enum {
 {
 	if (PlayerCouldAcceptCommand) {
 		[mplayer setEqualizer:amps];
-		[mplayer.pm setEqualizer:amps];
 	}
+	[mplayer.pm setEqualizer:amps];
 }
 
 //////////////////////////////////////private methods////////////////////////////////////////////////////
