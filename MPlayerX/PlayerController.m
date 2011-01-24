@@ -114,7 +114,7 @@ enum {
 					   [NSNumber numberWithUnsignedInt:10000], kUDKeyCacheSize,
 					   [NSNumber numberWithUnsignedInt:10000], kUDKeyCacheSizeLocal,
 					   boolYes, kUDKeyPreferIPV6,
-					   boolYes, kUDKeyCachingLocal,
+					   boolNo, kUDKeyCachingLocal,
 					   [NSNumber numberWithUnsignedInt:kPMLetterBoxModeNotDisplay], kUDKeyLetterBoxMode,
 					   [NSNumber numberWithUnsignedInt:kPMLetterBoxModeBottomOnly], kUDKeyLetterBoxModeAlt,
 					   [NSNumber numberWithFloat:0.1], kUDKeyLetterBoxHeight,
