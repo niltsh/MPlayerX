@@ -24,6 +24,8 @@
 
 @interface EqualizerController : NSObject
 {
+	NSUserDefaults *ud;
+
 	BOOL nibLoaded;
 	NSArray *bars;
 	
