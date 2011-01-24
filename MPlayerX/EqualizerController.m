@@ -29,8 +29,8 @@
 #define kAutoSaveEQSettingsLifeUserDefaults	(3)		/**< 不reset */
 
 @interface EqualizerController (Internal)
--(void) playBackStarted:(NSNotification*)notif;
 -(void) playBackStopped:(NSNotification*)notif;
+-(void) playBackFinalized:(NSNotification*)notif;
 -(void) loadParameters:(NSArray*)settings;
 -(void) saveParameters:(NSArray*) arr;
 @end
@@ -41,7 +41,7 @@
 {
 	[[NSUserDefaults standardUserDefaults] 
 	 registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-					   [NSNumber numberWithInt:kAutoSaveEQSettingsLifeUserDefaults], kUDKeyAutoSaveEQSettings,
+					   [NSNumber numberWithInt:kAutoSaveEQSettingsLifeAPN], kUDKeyAutoSaveEQSettings,
 					   nil]];
 }
 
@@ -75,8 +75,8 @@
 		}
 		[self loadParameters:[ud arrayForKey:kUDKeyEQSettings]];
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playBackStarted:)
-													 name:kMPCPlayStartedNotification object:playerController];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playBackFinalized:)
+													 name:kMPCPlayFinalizedNotification object:playerController];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playBackStopped:)
 													 name:kMPCPlayStoppedNotification object:playerController];
 	}
@@ -158,20 +158,20 @@
 	[self saveParameters:bars];
 }
 
--(void) playBackStarted:(NSNotification*)notif
+-(void) playBackStopped:(NSNotification*)notif
+{
+	if ([ud integerForKey:kUDKeyAutoSaveEQSettings] == kAutoSaveEQSettingsLifeNone) {
+		[self resetEqualizer:nil];
+	}
+}
+
+-(void) playBackFinalized:(NSNotification*)notif
 {
 	if ([ud integerForKey:kUDKeyAutoSaveEQSettings] == kAutoSaveEQSettingsLifeAPN) {
 		if (![playerController isAutoPlayed]) {
 			// not apn
 			[self resetEqualizer:nil];
 		}		
-	}
-}
-
--(void) playBackStopped:(NSNotification*)notif
-{
-	if ([ud integerForKey:kUDKeyAutoSaveEQSettings] == kAutoSaveEQSettingsLifeNone) {
-		[self resetEqualizer:nil];
 	}
 }
 
