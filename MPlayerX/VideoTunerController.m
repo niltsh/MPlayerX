@@ -24,7 +24,12 @@
 #import <Quartz/Quartz.h>
 #import "PlayerController.h"
 
-#define kCIStepBase				(100000.0)
+#define kCIStepBase							(100000.0)
+
+#define kAutoSaveVTSettingsLifeNone			(0)		/**< 只要开始播放就reset */
+#define kAutoSaveVTSettingsLifeAPN			(1)		/**< 不是APN的时候reset */
+#define kAutoSaveVTSettingsLifeApplication	(2)		/**< 程序关闭时reset */
+#define kAutoSaveVTSettingsLifeUserDefaults	(3)		/**< 不reset */
 
 NSString * const kCIInputNoiseLevelKey	= @"inputNoiseLevel";
 NSString * const kCIInputPowerKey		= @"inputPower";
@@ -33,14 +38,24 @@ NSString * const kCILayerBrightnessKeyPath	= @"filters.colorFilter.inputBrightne
 NSString * const kCILayerSaturationKeyPath	= @"filters.colorFilter.inputSaturation";
 NSString * const kCILayerContrastKeyPath	= @"filters.colorFilter.inputContrast";
 NSString * const kCILayerNoiseLevelKeyPath	= @"filters.nrFilter.inputNoiseLevel";
-NSString * const kCILayerSharpnesKeyPath	= @"filters.nrFilter.inputSharpness";
+NSString * const kCILayerSharpnessKeyPath	= @"filters.nrFilter.inputSharpness";
 NSString * const kCILayerGammaKeyPath		= @"filters.gammaFilter.inputPower";
 NSString * const kCILayerHueAngleKeyPath	= @"filters.hueFilter.inputAngle";
 
-NSString * const kCILayerFilterEnabled		= @"enabled";
+NSString * const kCILayerBrightnessEnabledKeyPath	= @"filters.colorFilter.enabled";
+NSString * const kCILayerSaturationEnabledKeyPath	= @"filters.colorFilter.enabled";
+NSString * const kCILayerContrastEnabledKeyPath		= @"filters.colorFilter.enabled";
+NSString * const kCILayerNoiseLevelEnabledKeyPath	= @"filters.nrFilter.enabled";
+NSString * const kCILayerSharpnesEnabledKeyPath		= @"filters.nrFilter.enabled";
+NSString * const kCILayerGammaEnabledKeyPath		= @"filters.gammaFilter.enabled";
+NSString * const kCILayerHueAngleEnabledKeyPath		= @"filters.hueFilter.enabled";
 
 @interface VideoTunerController (Internal)
--(void) playBackStarted:(NSNotification*)notif;
+-(void) playBackStopped:(NSNotification*)notif;
+-(void) playBackFinalized:(NSNotification*)notif;
+-(void) loadParameters;
+-(void) saveParameters;
+-(NSArray*) makeFilterChains;
 @end
 
 @implementation VideoTunerController
@@ -50,6 +65,7 @@ NSString * const kCILayerFilterEnabled		= @"enabled";
 	[[NSUserDefaults standardUserDefaults] 
 	 registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 					   [NSNumber numberWithFloat:0.01], kUDKeyVideoTunerStepValue,
+					   [NSNumber numberWithInt:kAutoSaveVTSettingsLifeAPN], kUDKeyAutoSaveVTSettings,
 					   nil]];
 }
 
@@ -58,35 +74,30 @@ NSString * const kCILayerFilterEnabled		= @"enabled";
 	self = [super init];
 	
 	if (self) {
-		nibLoaded = NO;
-		
-		// 设置name是为了能够通过keyPath访问filter
-		// 但是残念，因为layer的filters是NSArray，无法实现通过name的binding
-		colorFilter = [[CIFilter filterWithName:@"CIColorControls"] retain];
-		[colorFilter setName:@"colorFilter"];
-		
-		nrFilter = [[CIFilter filterWithName:@"CINoiseReduction"] retain];
-		[nrFilter setName:@"nrFilter"];
-		
-		gammaFilter = [[CIFilter filterWithName:@"CIGammaAdjust"] retain];
-		[gammaFilter setName:@"gammaFilter"];
-		
-		hueFilter = [[CIFilter filterWithName:@"CIHueAdjust"] retain];
-		[hueFilter setName:@"hueFilter"];
-		
+		ud = [NSUserDefaults standardUserDefaults];
+
+		nibLoaded = NO;		
 		layer = nil;
-		[self resetFilters:self];
+		
+		enableStrDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+						 kCILayerBrightnessEnabledKeyPath, kCILayerBrightnessKeyPath,
+						 kCILayerSaturationEnabledKeyPath, kCILayerSaturationKeyPath,
+						 kCILayerContrastEnabledKeyPath, kCILayerContrastKeyPath,
+						 kCILayerNoiseLevelEnabledKeyPath, kCILayerNoiseLevelKeyPath,
+						 kCILayerSharpnesEnabledKeyPath, kCILayerSharpnessKeyPath,
+						 kCILayerGammaEnabledKeyPath, kCILayerGammaKeyPath,
+						 kCILayerHueAngleEnabledKeyPath, kCILayerHueAngleKeyPath,
+						 nil];
 	}
 	return self;
 }
 
 -(void) dealloc
-{	
-	[colorFilter release];
-	[nrFilter release];
-	[gammaFilter release];
-	[hueFilter release];
-	
+{
+	layer = nil;
+
+	[enableStrDict release];
+
 	[super dealloc];
 }
 
@@ -96,11 +107,111 @@ NSString * const kCILayerFilterEnabled		= @"enabled";
 		[menuVTPanel setKeyEquivalent:kSCMVideoTunerPanelKeyEquivalent];
 		[menuVTPanel setKeyEquivalentModifierMask:kSCMVideoTunerPanelKeyEquivalentModifierFlagMask];
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(playBackStarted:)
-													 name:kMPCPlayStartedNotification
-												   object:playerController];
+		if ([ud integerForKey:kUDKeyAutoSaveVTSettings] != kAutoSaveVTSettingsLifeUserDefaults) {
+			[ud removeObjectForKey:kUDKeyVTSettings];
+		}
+		
+		[self loadParameters];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playBackFinalized:)
+													 name:kMPCPlayFinalizedNotification object:playerController];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playBackStopped:)
+													 name:kMPCPlayStoppedNotification object:playerController];
 
+	}
+}
+
+-(NSArray*) makeFilterChains
+{
+	CIFilter *colorFilter;
+	CIFilter *nrFilter;
+	CIFilter *gammaFilter;
+	CIFilter *hueFilter;
+	
+	colorFilter = [CIFilter filterWithName:@"CIColorControls"];
+	[colorFilter setName:@"colorFilter"];
+	[colorFilter setEnabled:NO];
+	
+	nrFilter = [CIFilter filterWithName:@"CINoiseReduction"];
+	[nrFilter setName:@"nrFilter"];
+	[nrFilter setEnabled:NO];
+	
+	gammaFilter = [CIFilter filterWithName:@"CIGammaAdjust"];
+	[gammaFilter setName:@"gammaFilter"];
+	[gammaFilter setEnabled:NO];
+	
+	hueFilter = [CIFilter filterWithName:@"CIHueAdjust"];
+	[hueFilter setName:@"hueFilter"];
+	[hueFilter setEnabled:NO];
+
+	return [NSArray arrayWithObjects:gammaFilter, hueFilter, colorFilter, nrFilter, nil];
+}
+
+-(void) loadParameters
+{
+	// 从UserDefaults读出，加载到modal
+	if (layer) {
+		NSDictionary *dict = [ud dictionaryForKey:kUDKeyVTSettings];
+	
+		if (dict) {
+			// 有这个UD的话，就读出然后设置Layer
+			if (!layer.filters) {
+				[layer setFilters:[self makeFilterChains]];
+			}
+			
+			// the "enable Key Path" and "Value Key Path" will all be save into UserDefaults
+			for (id keyPath in dict) {
+				[layer setValue:[dict objectForKey:keyPath] forKeyPath:keyPath];
+			}
+		} else {
+			// 如果UD没有这个设置，那就重置filters
+			layer.filters = nil;
+		}
+	}
+}
+
+-(void) saveParameters
+{
+	// 从modal读出，保存到UserDefaults
+	if (layer) {
+		if (layer.filters) {
+		
+			// 如果filters里面有东西，那就读出来，存到UD里面
+			NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+
+			NSMutableDictionary *settings = [[NSMutableDictionary alloc] initWithCapacity:16];
+			
+			NSNumber *val = nil;
+			NSString *enaStr = nil;
+			
+			for (NSString *keyPath in enableStrDict) {
+				// 先读enabled
+				enaStr = [enableStrDict objectForKey:keyPath];
+				
+				val = [layer valueForKeyPath:enaStr];
+				
+				if (val) {
+					[settings setObject:val forKey:enaStr];
+					
+					// 有enabled的话，再读具体的数字
+					val = [layer valueForKeyPath:keyPath];
+					if (val) {
+						[settings setObject:val forKey:keyPath];
+					}
+				} else {
+					[settings setObject:[NSNumber numberWithBool:NO] forKey:enaStr];
+				}
+			}
+			
+			[ud setObject:settings forKey:kUDKeyVTSettings];
+			
+			[settings release];
+			
+			[pool drain];
+		} else {
+			// 没有filters的话，就什么也不要了
+			[ud removeObjectForKey:kUDKeyVTSettings];
+		}
 	}
 }
 
@@ -108,13 +219,16 @@ NSString * const kCILayerFilterEnabled		= @"enabled";
 {
 	if (!nibLoaded) {
 		nibLoaded = YES;
+		
+		///////////////////////////// 加载bundle /////////////////////////////
 		[NSBundle loadNibNamed:@"VideoTuner" owner:self];
 		
+		///////////////////////////// 建立控件之间的连接 /////////////////////////////
 		[[sliderBrightness cell] setRepresentedObject:kCILayerBrightnessKeyPath];
 		[[sliderSaturation cell] setRepresentedObject:kCILayerSaturationKeyPath];
 		[[sliderContrast cell] setRepresentedObject:kCILayerContrastKeyPath];
 		[[sliderNR cell] setRepresentedObject:kCILayerNoiseLevelKeyPath];
-		[[sliderSharpness cell] setRepresentedObject:kCILayerSharpnesKeyPath];
+		[[sliderSharpness cell] setRepresentedObject:kCILayerSharpnessKeyPath];
 		[[sliderGamma cell] setRepresentedObject:kCILayerGammaKeyPath];
 		[[sliderHue cell] setRepresentedObject:kCILayerHueAngleKeyPath];
 
@@ -133,76 +247,116 @@ NSString * const kCILayerFilterEnabled		= @"enabled";
 		[[hueInc cell] setRepresentedObject:sliderHue];
 		[[hueDec cell] setRepresentedObject:sliderHue];
 
-		NSDictionary *dict;
+		///////////////////////////// 设定min，max，step /////////////////////////////
 		double step, max, min, stepRatio;
 		
 		stepRatio = [[NSUserDefaults standardUserDefaults] floatForKey:kUDKeyVideoTunerStepValue];
 		
-		dict = [[colorFilter attributes] objectForKey:kCIInputBrightnessKey];
-		min = [[dict objectForKey:kCIAttributeSliderMin] doubleValue];
-		max = [[dict objectForKey:kCIAttributeSliderMax] doubleValue];
+		// 这些值是系统默认值，我懒得用代码实现，直接hardcoding了
+		/* http://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/
+		   CoreImageFilterReference/Reference/reference.html
+		 */
+
+		// kCIInputBrightnessKey
+		min = -1;
+		max = 1;
 		step = (max - min) * stepRatio;
 		[sliderBrightness setMinValue:min];
 		[sliderBrightness setMaxValue:max];
 		[brInc setTag:((NSInteger)( step*kCIStepBase))];
 		[brDec setTag:((NSInteger)(-step*kCIStepBase))];
 		
-		dict = [[colorFilter attributes] objectForKey:kCIInputSaturationKey];
-		min = [[dict objectForKey:kCIAttributeSliderMin] doubleValue];
-		max = [[dict objectForKey:kCIAttributeSliderMax] doubleValue];
+		// kCIInputSaturationKey
+		min = 0;
+		max = 2;
 		step = (max - min) * stepRatio;
 		[sliderSaturation setMinValue:min];
 		[sliderSaturation setMaxValue:max];
 		[satInc setTag:((NSInteger)( step*kCIStepBase))];
 		[satDec setTag:((NSInteger)(-step*kCIStepBase))];
 		
-		dict = [[colorFilter attributes] objectForKey:kCIInputContrastKey];
-		min = [[dict objectForKey:kCIAttributeSliderMin] doubleValue];
-		max = [[dict objectForKey:kCIAttributeSliderMax] doubleValue];
+		// kCIInputContrastKey
+		min = 0.25;
+		max = 4;
 		step = (max - min) * stepRatio;
 		[sliderContrast setMinValue:min];
 		[sliderContrast setMaxValue:max];
 		[conInc setTag:((NSInteger)( step*kCIStepBase))];
 		[conDec setTag:((NSInteger)(-step*kCIStepBase))];
 		
-		dict = [[nrFilter attributes] objectForKey:kCIInputNoiseLevelKey];
-		min = [[dict objectForKey:kCIAttributeSliderMin] doubleValue];
-		max = [[dict objectForKey:kCIAttributeSliderMax] doubleValue];
+		// kCIInputNoiseLevelKey
+		min = 0;
+		max = 0.1;
 		step = (max - min) * stepRatio;
 		[sliderNR setMinValue:min];
 		[sliderNR setMaxValue:max];
 		[nrInc setTag:((NSInteger)( step*kCIStepBase))];
 		[nrDec setTag:((NSInteger)(-step*kCIStepBase))];
 		
-		dict = [[nrFilter attributes] objectForKey:kCIInputSharpnessKey];
-		min = [[dict objectForKey:kCIAttributeSliderMin] doubleValue];
-		max = [[dict objectForKey:kCIAttributeSliderMax] doubleValue];
+		// kCIInputSharpnessKey
+		min = 0;
+		max = 2;
 		step = (max - min) * stepRatio;
 		[sliderSharpness setMinValue:min];
 		[sliderSharpness setMaxValue:max];
 		[shpInc setTag:((NSInteger)( step*kCIStepBase))];
 		[shpDec setTag:((NSInteger)(-step*kCIStepBase))];
 		
-		dict = [[gammaFilter attributes] objectForKey:kCIInputPowerKey];
-		min = [[dict objectForKey:kCIAttributeSliderMin] doubleValue];
-		max = [[dict objectForKey:kCIAttributeSliderMax] doubleValue];
+		// kCIInputPowerKey
+		min = 0.1;
+		max = 3;
 		step = (max - min) * stepRatio;
 		[sliderGamma setMinValue:min];
 		[sliderGamma setMaxValue:max];
 		[gmInc setTag:((NSInteger)( step*kCIStepBase))];
 		[gmDec setTag:((NSInteger)(-step*kCIStepBase))];
 		
-		dict = [[hueFilter attributes] objectForKey:kCIInputAngleKey];
-		min = [[dict objectForKey:kCIAttributeSliderMin] doubleValue];
-		max = [[dict objectForKey:kCIAttributeSliderMax] doubleValue];
+		// kCIInputAngleKey
+		min = -3.14;
+		max = 3.14;
 		step = (max - min) * stepRatio;
 		[sliderHue setMinValue:min];
 		[sliderHue setMaxValue:max];
 		[hueInc setTag:((NSInteger)( step*kCIStepBase))];
 		[hueDec setTag:((NSInteger)(-step*kCIStepBase))];
-		
-		[self resetFilters:nil];
-		
+
+		///////////////////////////// 加载 控件的值 /////////////////////////////
+		if (layer && layer.filters) {
+			// 如果layer有效的话，就从layer加载
+			[sliderBrightness setDoubleValue:[[layer valueForKeyPath:kCILayerBrightnessKeyPath] doubleValue]];
+			[sliderSaturation setDoubleValue:[[layer valueForKeyPath:kCILayerSaturationKeyPath] doubleValue]];
+			[sliderContrast setDoubleValue:[[layer valueForKeyPath:kCILayerContrastKeyPath] doubleValue]];
+			[sliderNR setDoubleValue:[[layer valueForKeyPath:kCILayerNoiseLevelKeyPath] doubleValue]];
+			[sliderSharpness setDoubleValue:[[layer valueForKeyPath:kCILayerSharpnessKeyPath] doubleValue]];
+			[sliderGamma setDoubleValue:[[layer valueForKeyPath:kCILayerGammaKeyPath] doubleValue]];
+			[sliderHue setDoubleValue:[[layer valueForKeyPath:kCILayerHueAngleKeyPath] doubleValue]];
+		} else {
+			// 如果layer还不存在，那就从UD加载
+			NSDictionary *dict = [ud dictionaryForKey:kUDKeyVTSettings];
+
+			if (dict) {
+				[sliderBrightness setDoubleValue:[[dict objectForKey:kCILayerBrightnessKeyPath] doubleValue]];
+				[sliderSaturation setDoubleValue:[[layer objectForKey:kCILayerSaturationKeyPath] doubleValue]];
+				[sliderContrast setDoubleValue:[[layer objectForKey:kCILayerContrastKeyPath] doubleValue]];
+				[sliderNR setDoubleValue:[[layer objectForKey:kCILayerNoiseLevelKeyPath] doubleValue]];
+				[sliderSharpness setDoubleValue:[[layer objectForKey:kCILayerSharpnessKeyPath] doubleValue]];
+				[sliderGamma setDoubleValue:[[layer objectForKey:kCILayerGammaKeyPath] doubleValue]];
+				[sliderHue setDoubleValue:[[layer objectForKey:kCILayerHueAngleKeyPath] doubleValue]];
+			} else {
+				// 这些值是系统默认值，我懒得用代码实现，直接hardcoding了，正轨途径应该使用kCIAttributeIdentity
+				/* http://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/
+				   CoreImageFilterReference/Reference/reference.html
+				 */
+				[sliderBrightness setDoubleValue:0.00];
+				[sliderSaturation setDoubleValue:1.00];
+				[sliderContrast setDoubleValue:1.00];
+				[sliderNR setDoubleValue:0.00];
+				[sliderSharpness setDoubleValue:0.00];
+				[sliderGamma setDoubleValue:1.00];
+				[sliderHue setDoubleValue:0.00];
+			}
+		}
+
 		[VTWin setLevel:NSMainMenuWindowLevel];
 	}
 	
@@ -215,48 +369,21 @@ NSString * const kCILayerFilterEnabled		= @"enabled";
 
 -(void) resetFilters:(id)sender
 {
-	NSDictionary *attr;
-	
-	attr = [colorFilter attributes];
-	[colorFilter setValue:[[attr objectForKey:kCIInputBrightnessKey] objectForKey:kCIAttributeIdentity]
-			   forKeyPath:kCIInputBrightnessKey];
-	[colorFilter setValue:[[attr objectForKey:kCIInputSaturationKey] objectForKey:kCIAttributeIdentity]
-			   forKeyPath:kCIInputSaturationKey];
-	[colorFilter setValue:[[attr objectForKey:kCIInputContrastKey] objectForKey:kCIAttributeIdentity]
-			   forKeyPath:kCIInputContrastKey];
-
-	attr = [nrFilter attributes];
-	[nrFilter setValue:[[attr objectForKey:kCIInputNoiseLevelKey] objectForKey:kCIAttributeIdentity]
-			forKeyPath:kCIInputNoiseLevelKey];
-	[nrFilter setValue:[[attr objectForKey:kCIInputSharpnessKey] objectForKey:kCIAttributeIdentity]
-			forKeyPath:kCIInputSharpnessKey];
-
-	attr = [gammaFilter attributes];
-	[gammaFilter setValue:[[attr objectForKey:kCIInputPowerKey] objectForKey:kCIAttributeIdentity]
-			   forKeyPath:kCIInputPowerKey];
-
-	attr = [hueFilter attributes];
-	[hueFilter setValue:[[attr objectForKey:kCIInputAngleKey] objectForKey:kCIAttributeIdentity]
-			   forKeyPath:kCIInputAngleKey];
-			   
-	[colorFilter setEnabled:NO];
-	[nrFilter setEnabled:NO];
-	[gammaFilter setEnabled:NO];
-	[hueFilter setEnabled:NO];
-
-	if (nibLoaded) {
-		[sliderBrightness setDoubleValue:[[colorFilter valueForKeyPath:kCIInputBrightnessKey] doubleValue]];
-		[sliderSaturation setDoubleValue:[[colorFilter valueForKeyPath:kCIInputSaturationKey] doubleValue]];
-		[sliderContrast setDoubleValue:[[colorFilter valueForKeyPath:kCIInputContrastKey] doubleValue]];
-		[sliderNR setDoubleValue:[[nrFilter valueForKeyPath:kCIInputNoiseLevelKey] doubleValue]];
-		[sliderSharpness setDoubleValue:[[nrFilter valueForKeyPath:kCIInputSharpnessKey] doubleValue]];
-		[sliderGamma setDoubleValue:[[gammaFilter valueForKeyPath:kCIInputPowerKey] doubleValue]];
-		[sliderHue setDoubleValue:[[hueFilter valueForKeyPath:kCIInputAngleKey] doubleValue]];
-	}
-	
 	if (layer) {
 		// 实现Lazy loading
 		layer.filters = nil;
+	}
+	
+	[ud removeObjectForKey:kUDKeyVTSettings];
+	
+	if (nibLoaded) {
+		[sliderBrightness setDoubleValue:0.00];
+		[sliderSaturation setDoubleValue:1.00];
+		[sliderContrast setDoubleValue:1.00];
+		[sliderNR setDoubleValue:0.00];
+		[sliderSharpness setDoubleValue:0.00];
+		[sliderGamma setDoubleValue:1.00];
+		[sliderHue setDoubleValue:0.00];
 	}
 }
 
@@ -265,11 +392,11 @@ NSString * const kCILayerFilterEnabled		= @"enabled";
 	if (layer) {
 		// Lazy loading
 		if (!layer.filters) {
-			[layer setFilters:[NSArray arrayWithObjects:gammaFilter, hueFilter, colorFilter, nrFilter, nil]];
+			[layer setFilters:[self makeFilterChains]];
 		}
 		
 		NSString *keyPath = [[sender cell] representedObject];
-		NSString *enaStr = [[keyPath stringByDeletingPathExtension] stringByAppendingPathExtension:kCILayerFilterEnabled];
+		NSString *enaStr = [enableStrDict objectForKey:keyPath];
 		
 		if (![[layer valueForKeyPath:enaStr] boolValue]) {
 			[layer setValue:[NSNumber numberWithBool:YES] forKeyPath:enaStr];
@@ -277,6 +404,8 @@ NSString * const kCILayerFilterEnabled		= @"enabled";
 
 		[layer setValue:[NSNumber numberWithDouble:[sender doubleValue]] forKeyPath:keyPath];
 		//MPLog(@"%@=%f", [[sender cell] representedObject], [sender doubleValue]);
+		
+		[self saveParameters];
 	}
 }
 
@@ -286,6 +415,7 @@ NSString * const kCILayerFilterEnabled		= @"enabled";
 	NSSlider *obj = [[sender cell] representedObject];
 	
 	[obj setFloatValue:[obj floatValue] + (((float)[sender tag])/kCIStepBase)];
+
 	[self setFilterParameters:obj];
 }
 
@@ -295,15 +425,27 @@ NSString * const kCILayerFilterEnabled		= @"enabled";
 		[layer setFilters:nil];
 	}
 	layer = l;
+
+	[self loadParameters];
 }
 
--(void) playBackStarted:(NSNotification*)notif
+-(void) playBackStopped:(NSNotification*)notif
 {
-	if (!(([[[notif userInfo] objectForKey:kMPCPlayStartedAudioOnlyKey] boolValue]) ||
-		[playerController isAutoPlayed])) {
-		// when there is a video track and not autoplayed
-		// to reset the filter
+	if ([ud integerForKey:kUDKeyAutoSaveVTSettings] == kAutoSaveVTSettingsLifeNone) {
+		// 播放停止，但是不知道是不是APN
+		// 因此只有在 总是reset 的时候reset
 		[self resetFilters:nil];
 	}
 }
+
+-(void) playBackFinalized:(NSNotification*)notif
+{
+	if ([ud integerForKey:kUDKeyAutoSaveVTSettings] == kAutoSaveVTSettingsLifeAPN) {
+		// 在 非APN的时候reset选项时
+		// 因为 APN的话，是不会有Finalized的notification
+		// 因此只要收到这个notification就可以reset
+		[self resetFilters:nil];
+	}
+}
+
 @end

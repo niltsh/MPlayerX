@@ -24,12 +24,11 @@
 
 @interface VideoTunerController : NSObject
 {
-	BOOL nibLoaded;
+	NSUserDefaults *ud;
 	
-	CIFilter *colorFilter;
-	CIFilter *nrFilter;
-	CIFilter *gammaFilter;
-	CIFilter *hueFilter;
+	NSDictionary *enableStrDict;
+
+	BOOL nibLoaded;
 
 	CALayer *layer;
 
