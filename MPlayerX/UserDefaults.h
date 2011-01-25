@@ -83,6 +83,8 @@ extern NSString * const kUDKeyAutoFSLBMode;
 extern NSString * const kUDKeyExtraOptions;
 extern NSString * const kUDKeyEQSettings;
 extern NSString * const kUDKeyAutoSaveEQSettings;
+extern NSString * const kUDKeyVTSettings;
+extern NSString * const kUDKeyAutoSaveVTSettings;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;
@@ -91,6 +93,5 @@ extern NSString * const kUDKeyCloseWindowWhenStopped;
 extern NSString * const kUDKeyResizeStep;
 
 // still not implemented
-extern NSString * const kUDKeyAutoSaveVTSettings;			// TODO
 extern NSString * const kUDKeyPinPMode;						// TODO
 

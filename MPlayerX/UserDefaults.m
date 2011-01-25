@@ -87,11 +87,12 @@ NSString * const kUDKeyAutoFSLBMode							= @"AutoFSLBMode";
 NSString * const kUDKeyExtraOptions							= @"ExtraOptions";
 NSString * const kUDKeyEQSettings							= @"EQSettings";
 NSString * const kUDKeyAutoSaveEQSettings					= @"ASEQS";
+NSString * const kUDKeyVTSettings							= @"VTSettings";
+NSString * const kUDKeyAutoSaveVTSettings					= @"ASVTS";
 
 NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
 NSString * const kUDKeyHelpURL								= @"HelpURL";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";
 NSString * const kUDKeyResizeStep							= @"ResizeStep";
 
-NSString * const kUDKeyAutoSaveVTSettings					= @"ASVTS";
 NSString * const kUDKeyPinPMode								= @"PinPMode";
