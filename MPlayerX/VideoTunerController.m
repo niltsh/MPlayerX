@@ -23,6 +23,7 @@
 #import "VideoTunerController.h"
 #import <Quartz/Quartz.h>
 #import "PlayerController.h"
+#import "CocoaAppendix.h"
 
 #define kCIStepBase							(100000.0)
 
@@ -143,7 +144,25 @@ NSString * const kCILayerHueAngleEnabledKeyPath		= @"filters.hueFilter.enabled";
 	hueFilter = [CIFilter filterWithName:@"CIHueAdjust"];
 	[hueFilter setName:@"hueFilter"];
 	[hueFilter setEnabled:NO];
-
+	
+	NSDictionary *dict = [ud dictionaryForKey:kUDKeyVTSettings];
+	if (dict) {
+		[colorFilter setValue:[dict objectForKey:kCILayerBrightnessKeyPath] forKey:kCIInputBrightnessKey];
+		[colorFilter setValue:[dict objectForKey:kCILayerSaturationKeyPath] forKey:kCIInputSaturationKey];
+		[colorFilter setValue:[dict objectForKey:kCILayerContrastKeyPath] forKey:kCIInputContrastKey];
+		[nrFilter setValue:[dict objectForKey:kCILayerNoiseLevelKeyPath] forKey:kCIInputNoiseLevelKey];
+		[nrFilter setValue:[dict objectForKey:kCILayerSharpnessKeyPath] forKey:kCIInputSharpnessKey];
+		[gammaFilter setValue:[dict objectForKey:kCILayerGammaKeyPath] forKey:kCIInputPowerKey];
+		[hueFilter setValue:[dict objectForKey:kCILayerHueAngleKeyPath] forKey:kCIInputAngleKey];
+	} else {
+		[colorFilter setValue:[NSNumber numberWithDouble:0] forKey:kCIInputBrightnessKey];
+		[colorFilter setValue:[NSNumber numberWithDouble:1] forKey:kCIInputSaturationKey];
+		[colorFilter setValue:[NSNumber numberWithDouble:1] forKey:kCIInputContrastKey];
+		[nrFilter setValue:[NSNumber numberWithDouble:0] forKey:kCIInputNoiseLevelKey];
+		[nrFilter setValue:[NSNumber numberWithDouble:0] forKey:kCIInputSharpnessKey];
+		[gammaFilter setValue:[NSNumber numberWithDouble:1] forKey:kCIInputPowerKey];
+		[hueFilter setValue:[NSNumber numberWithDouble:0] forKey:kCIInputAngleKey];		
+	}
 	return [NSArray arrayWithObjects:gammaFilter, hueFilter, colorFilter, nrFilter, nil];
 }
 
@@ -198,6 +217,7 @@ NSString * const kCILayerHueAngleEnabledKeyPath		= @"filters.hueFilter.enabled";
 					if (val) {
 						[settings setObject:val forKey:keyPath];
 					}
+					// MPLog(@"%@ = %@", keyPath, val);
 				} else {
 					[settings setObject:[NSNumber numberWithBool:NO] forKey:enaStr];
 				}
@@ -231,6 +251,14 @@ NSString * const kCILayerHueAngleEnabledKeyPath		= @"filters.hueFilter.enabled";
 		[[sliderSharpness cell] setRepresentedObject:kCILayerSharpnessKeyPath];
 		[[sliderGamma cell] setRepresentedObject:kCILayerGammaKeyPath];
 		[[sliderHue cell] setRepresentedObject:kCILayerHueAngleKeyPath];
+		
+		[sliderBrightness sendActionOn:NSLeftMouseDownMask|NSLeftMouseDraggedMask];
+		[sliderSaturation sendActionOn:NSLeftMouseDownMask|NSLeftMouseDraggedMask];
+		[sliderContrast sendActionOn:NSLeftMouseDownMask|NSLeftMouseDraggedMask];
+		[sliderNR sendActionOn:NSLeftMouseDownMask|NSLeftMouseDraggedMask];
+		[sliderSharpness sendActionOn:NSLeftMouseDownMask|NSLeftMouseDraggedMask];
+		[sliderGamma sendActionOn:NSLeftMouseDownMask|NSLeftMouseDraggedMask];
+		[sliderHue sendActionOn:NSLeftMouseDownMask|NSLeftMouseDraggedMask];
 
 		[[brInc cell]  setRepresentedObject:sliderBrightness];
 		[[brDec cell]  setRepresentedObject:sliderBrightness];
@@ -257,8 +285,8 @@ NSString * const kCILayerHueAngleEnabledKeyPath		= @"filters.hueFilter.enabled";
 		 */
 
 		// kCIInputBrightnessKey
-		min = -1;
-		max = 1;
+		min = -0.75;
+		max = 0.75;
 		step = (max - min) * stepRatio;
 		[sliderBrightness setMinValue:min];
 		[sliderBrightness setMaxValue:max];
