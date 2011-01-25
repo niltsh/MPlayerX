@@ -126,7 +126,6 @@
 	}
 }
 
-
 -(void) saveParameters:(NSArray*) arr
 {
 	// 由于EQ Slider的设定可能会非常频繁，因此专门用pool

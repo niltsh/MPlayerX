@@ -197,7 +197,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[self setVolume:[ud objectForKey:kUDKeyVolume]];
 	
 	// Mask mouseup event
-	[[volumeSlider cell] sendActionOn:NSLeftMouseDownMask|NSLeftMouseDraggedMask];
+	[volumeSlider sendActionOn:NSLeftMouseDownMask|NSLeftMouseDraggedMask];
 
 	// set Volume menu
 	[menuVolInc setEnabled:YES];
@@ -218,7 +218,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[timeSlider setMaxValue:0];
 	[timeSlider setMinValue:-1];
 	// 只有拖拽和按下鼠标的时候触发事件
-	[[timeSlider cell] sendActionOn:NSLeftMouseDownMask|NSLeftMouseDraggedMask];
+	[timeSlider sendActionOn:NSLeftMouseDownMask|NSLeftMouseDraggedMask];
 
 	// set Time hint text
 	[hintTime setAlphaValue:0];
