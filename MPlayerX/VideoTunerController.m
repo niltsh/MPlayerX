@@ -253,8 +253,7 @@ NSString * const kCILayerHueAngleEnabledKeyPath		= @"filters.hueFilter.enabled";
 		stepRatio = [[NSUserDefaults standardUserDefaults] floatForKey:kUDKeyVideoTunerStepValue];
 		
 		// 这些值是系统默认值，我懒得用代码实现，直接hardcoding了
-		/* http://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/
-		   CoreImageFilterReference/Reference/reference.html
+		/* http://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/CoreImageFilterReference/Reference/reference.html
 		 */
 
 		// kCIInputBrightnessKey
@@ -336,16 +335,15 @@ NSString * const kCILayerHueAngleEnabledKeyPath		= @"filters.hueFilter.enabled";
 
 			if (dict) {
 				[sliderBrightness setDoubleValue:[[dict objectForKey:kCILayerBrightnessKeyPath] doubleValue]];
-				[sliderSaturation setDoubleValue:[[layer objectForKey:kCILayerSaturationKeyPath] doubleValue]];
-				[sliderContrast setDoubleValue:[[layer objectForKey:kCILayerContrastKeyPath] doubleValue]];
-				[sliderNR setDoubleValue:[[layer objectForKey:kCILayerNoiseLevelKeyPath] doubleValue]];
-				[sliderSharpness setDoubleValue:[[layer objectForKey:kCILayerSharpnessKeyPath] doubleValue]];
-				[sliderGamma setDoubleValue:[[layer objectForKey:kCILayerGammaKeyPath] doubleValue]];
-				[sliderHue setDoubleValue:[[layer objectForKey:kCILayerHueAngleKeyPath] doubleValue]];
+				[sliderSaturation setDoubleValue:[[dict objectForKey:kCILayerSaturationKeyPath] doubleValue]];
+				[sliderContrast setDoubleValue:[[dict objectForKey:kCILayerContrastKeyPath] doubleValue]];
+				[sliderNR setDoubleValue:[[dict objectForKey:kCILayerNoiseLevelKeyPath] doubleValue]];
+				[sliderSharpness setDoubleValue:[[dict objectForKey:kCILayerSharpnessKeyPath] doubleValue]];
+				[sliderGamma setDoubleValue:[[dict objectForKey:kCILayerGammaKeyPath] doubleValue]];
+				[sliderHue setDoubleValue:[[dict objectForKey:kCILayerHueAngleKeyPath] doubleValue]];
 			} else {
 				// 这些值是系统默认值，我懒得用代码实现，直接hardcoding了，正轨途径应该使用kCIAttributeIdentity
-				/* http://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/
-				   CoreImageFilterReference/Reference/reference.html
+				/* http://developer.apple.com/library/mac/#documentation/GraphicsImaging/Reference/CoreImageFilterReference/Reference/reference.html
 				 */
 				[sliderBrightness setDoubleValue:0.00];
 				[sliderSaturation setDoubleValue:1.00];
