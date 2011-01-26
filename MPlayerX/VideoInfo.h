@@ -45,6 +45,21 @@
 @property (assign, readwrite) float fps;
 @property (assign, readwrite) float aspect;
 
+/**
+ * What is in the arr?
+ * [0] Not used (actually the ID of VI)
+ * [1] Format
+ * [2] BitRate
+ * [3] Width
+ * [4] Height
+ * [5] Frames per second
+ * [6] Aspect ratio
+ * [7] Codec name
+ *
+ * This definition is depended on mplayer,
+ * should de-coupling with mplayer
+ *
+ */
 -(void) setInfoDataWithArray:(NSArray*)arr;
 
 @end

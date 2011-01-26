@@ -29,6 +29,31 @@
 
 #define kSnapshotSaveDefaultPath	(@"~/Desktop")
 
+/**
+ * This is a sample of how to create a singleton object,
+ * which could also work in Interface Builder
+ *
+ * - Declaration
+ *   1. Nothing special but "+(AppController*) sharedAppController;" is enough,
+ *      the return type of "id" would be better, but I prefer strict typing.
+ *
+ * - Implementation
+ *    1. static AppController *sharedInstance = nil;
+ *    2. static BOOL init_ed = NO;
+ *       init_ed is to avoid [[ alloc] init] to initialize the static object again.
+ *    3. +(AppController*) sharedAppController
+ *    4. -(id) init
+ *       The basic initialize method. this should be called only once.
+ *    5. +(id) allocWithZone:(NSZone *)zone { return [[self sharedAppController] retain]; }
+ *    6. -(id) copyWithZone:(NSZone*)zone { return self; }
+ *    7. -(id) retain { return self; }
+ *    8. -(NSUInteger) retainCount { return NSUIntegerMax; }
+ *    9. -(void) release { }
+ *   10. -(id) autorelease { return self; }
+ *   11. -(void) dealloc
+ *      
+ */
+
 NSString * const kMPCFMTBookmarkPath	= @"%@/Library/Preferences/%@.bookmarks.plist";
 
 static AppController *sharedInstance = nil;

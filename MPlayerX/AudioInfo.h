@@ -40,5 +40,17 @@
 @property(assign, readwrite) int sampleRate;
 @property(assign, readwrite) int channels;
 
+/**
+ * What is in the arr?
+ * [0] Not used (actually this is ID of the AI now)
+ * [1] Format
+ * [2] BitRate
+ * [3] SampleRate
+ * [4] Number of channels
+ * [5] Codec name
+ *
+ * This definition is depended on the output of mplayer.
+ * should de-coupling with mplayer
+ */
 -(void) setInfoDataWithArray:(NSArray*)arr;
 @end
