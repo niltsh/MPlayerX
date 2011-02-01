@@ -156,17 +156,6 @@ static BOOL init_ed = NO;
 {
 	// setup url list for OpenURL Panel
 	[openUrlController initURLList:bookmarks];
-
-	// setup sleep timer
-	NSTimer *prevSlpTimer = [NSTimer timerWithTimeInterval:20
-													target:playerController
-												  selector:@selector(preventSystemSleep)
-												  userInfo:nil
-												   repeats:YES];
-	NSRunLoop *rl = [NSRunLoop mainRunLoop];
-	[rl addTimer:prevSlpTimer forMode:NSDefaultRunLoopMode];
-	[rl addTimer:prevSlpTimer forMode:NSModalPanelRunLoopMode];
-	[rl addTimer:prevSlpTimer forMode:NSEventTrackingRunLoopMode];	
 }
 
 -(BOOL) validateMenuItem:(NSMenuItem *)menuItem

@@ -21,6 +21,7 @@
 #import <Cocoa/Cocoa.h>
 #import "coredef.h"
 #import "MovieInfo.h"
+#import <IOKit/pwr_mgt/IOPMLib.h>
 
 ///////////////////////////Notifications///////////////////////////
 extern NSString * const kMPCPlayOpenedNotification;
@@ -52,6 +53,8 @@ extern NSString * const kMPCPlayInfoUpdatedChangeDictKey;
 
 	BOOL kvoSetuped;
 	NSUInteger autoPlayState;
+	
+	IOPMAssertionID nonSleepHandler;
 
 	IBOutlet ControlUIView *controlUI;
 	IBOutlet OpenURLController *openUrlController;

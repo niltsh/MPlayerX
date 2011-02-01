@@ -54,6 +54,8 @@ NSString * const kMPCFMTMplayerPathX64	= @"binaries/x86_64/%@";
 
 NSString * const kMPCFFMpegProtoHead	= @"ffmpeg://";
 
+NSString * const kMPXPowerSaveAssertion	= @"MPlayerX is in playback.";
+
 #define kThreadsNumMax	(8)
 
 #define PlayerCouldAcceptCommand	(((mplayer.state) & 0x0100)!=0)
@@ -76,9 +78,9 @@ enum {
 @interface PlayerController (PlayerControllerInternal)
 -(void) showAlertPanelModal:(NSString*) str;
 -(BOOL) shouldRun64bitMPlayer;
--(void) preventSystemSleep;
 -(void) playMedia:(NSURL*)url;
 -(NSURL*) findFirstMediaFileFromSubFile:(NSString*)path;
+-(void) enablePowerSave:(BOOL)en;
 @end
 
 @interface PlayerController (SubConverterDelegate)
@@ -187,6 +189,8 @@ enum {
 		kvoSetuped = NO;
 		
 		autoPlayState = kMPCAutoPlayStateInvalid;
+		
+		nonSleepHandler = kIOPMNullAssertionID;
 	}
 	return self;
 }
@@ -265,6 +269,11 @@ enum {
 		kvoSetuped = NO;
 	}
 
+	if (nonSleepHandler != kIOPMNullAssertionID) {
+		IOPMAssertionRelease(nonSleepHandler);
+		nonSleepHandler = kIOPMNullAssertionID;
+	}
+	
 	[mplayer release];
 	[lastPlayedPath release];
 
@@ -308,6 +317,27 @@ enum {
 -(BOOL) isAutoPlayed
 {
 	return (autoPlayState == kMPCAutoPlayStatePlaying);
+}
+
+-(void) enablePowerSave:(BOOL)en
+{
+	if (en) {
+		// to enable power save, release the assertion
+		if (nonSleepHandler != kIOPMNullAssertionID) {
+			IOPMAssertionRelease(nonSleepHandler);
+			nonSleepHandler = kIOPMNullAssertionID;
+		}	
+	} else {
+		// to disable power save, create the assertion
+		if (nonSleepHandler == kIOPMNullAssertionID) {
+			IOReturn err =
+				IOPMAssertionCreateWithName(kIOPMAssertionTypeNoDisplaySleep, kIOPMAssertionLevelOn,
+											(CFStringRef)kMPXPowerSaveAssertion, &nonSleepHandler);
+			if (err != kIOReturnSuccess) {
+				MPLog(@"Can't disable powersave");
+			}
+		}
+	}
 }
 
 -(void) loadFiles:(NSArray*)files fromLocal:(BOOL)local
@@ -586,6 +616,12 @@ enum {
 	} else {
 		// mplayer正在播放
 		[mplayer togglePause];
+		
+		if (mplayer.state == kMPCPausedState) {
+			[self enablePowerSave:YES];
+		} else if (mplayer.state == kMPCPlayingState) {
+			[self enablePowerSave:NO];
+		}
 	}
 }
 
@@ -763,13 +799,6 @@ enum {
 	NSReleaseAlertPanel(alertPanel);
 }
 
--(void) preventSystemSleep
-{
-	if (mplayer.state == kMPCPlayingState) {
-		UpdateSystemActivity(UsrActivity);
-	}
-}
-
 ///////////////////////////////////////MPlayer Notifications/////////////////////////////////////////////
 -(void) playbackOpened:(id)coreController
 {
@@ -793,6 +822,11 @@ enum {
 		dict = [NSDictionary dictionaryWithObjectsAndKeys: lastPlayedPathPre, kMPCPlayOpenedURLKey, nil];		
 	}
 
+	// disable the powersave
+	// when in auto play next, this function will be called multiple times
+	// but it is OK, calling this function multiple times won't lead errors
+	[self enablePowerSave:NO];
+	
 	[notifCenter postNotificationName:kMPCPlayOpenedNotification object:self userInfo:dict];
 }
 
@@ -845,6 +879,8 @@ enum {
 	}
 	
 	autoPlayState = kMPCAutoPlayStateInvalid;
+	
+	[self enablePowerSave:YES];
 	
 	[notifCenter postNotificationName:kMPCPlayFinalizedNotification object:self userInfo:nil];
 }
