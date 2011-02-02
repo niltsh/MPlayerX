@@ -19,6 +19,8 @@ if info != nil then
 		
 		commitHash = %x[git rev-list --max-count=1 HEAD]
 		
+		commitHash = commitHash.chomp
+		
 		info.setValue_forKey_(commitHash, "MPXCommitHash")
 		
 		info.writeToFile_atomically_(ARGV[0], 0)
