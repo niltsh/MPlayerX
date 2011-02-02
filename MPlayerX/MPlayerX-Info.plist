@@ -208,6 +208,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1082</string>
+	<key>MPXCommitHash</key>
+	<string>18abae68b25f6de0f0ff3be703b4c2c8855fc937</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>NSMainNibFile</key>

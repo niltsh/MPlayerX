@@ -17,6 +17,10 @@ if info != nil then
 		
 		info.setValue_forKey_(currentVersion, "CFBundleVersion")
 		
+		commitHash = %x[git rev-list --max-count=1 HEAD]
+		
+		info.setValue_forKey_(commitHash, "MPXCommitHash")
+		
 		info.writeToFile_atomically_(ARGV[0], 0)
 	end
 end
