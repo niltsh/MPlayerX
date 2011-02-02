@@ -10,3 +10,6 @@
 [submodule "Apple Remote Control"]
 	path = Apple Remote Control
 	url = git@github.com:niltsh/apple_remote_control.git
+[submodule "localization"]
+	path = localization
+	url = git@github.com:niltsh/MPlayerX-Localization.git
