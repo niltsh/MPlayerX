@@ -155,11 +155,11 @@
 {
 	[playerController setEqualizer:nil];
 	
-	[self saveParameters:bars];
-	
 	for (id bar in bars) {
 		[bar setFloatValue:kEQValueDefault];
 	}
+	
+	[self saveParameters:bars];
 }
 
 -(void) playBackStopped:(NSNotification*)notif
