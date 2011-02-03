@@ -117,6 +117,7 @@
 		86CAF25110BA451100848B8E /* PlayingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CAF24C10BA451100848B8E /* PlayingInfo.m */; };
 		86D10C1310F4A29A000B573F /* ResizeIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D10C1210F4A29A000B573F /* ResizeIndicator.m */; };
 		86D10C1C10F4A40D000B573F /* resizeindicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 86D10C1B10F4A40D000B573F /* resizeindicator.png */; };
+		86D5E9F112FA3FC100073C66 /* getAppVersion.rb in Resources */ = {isa = PBXBuildFile; fileRef = 86D5E9F012FA3FC100073C66 /* getAppVersion.rb */; };
 		86E34BBF10FF42A40004C4E7 /* CoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E34BBE10FF42A40004C4E7 /* CoreController.m */; };
 		86E34BC210FF42B10004C4E7 /* PlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E34BC110FF42B10004C4E7 /* PlayerController.m */; };
 		86E7A89E1155C1740014155D /* CharsetQueryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E7A89D1155C1740014155D /* CharsetQueryController.m */; };
@@ -312,6 +313,7 @@
 		86D10C1110F4A29A000B573F /* ResizeIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 2; path = ResizeIndicator.h; sourceTree = "<group>"; };
 		86D10C1210F4A29A000B573F /* ResizeIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 2; path = ResizeIndicator.m; sourceTree = "<group>"; };
 		86D10C1B10F4A40D000B573F /* resizeindicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resizeindicator.png; sourceTree = "<group>"; };
+		86D5E9F012FA3FC100073C66 /* getAppVersion.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = getAppVersion.rb; sourceTree = "<group>"; };
 		86E34BBD10FF42A40004C4E7 /* CoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 2; path = CoreController.h; sourceTree = "<group>"; };
 		86E34BBE10FF42A40004C4E7 /* CoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 2; path = CoreController.m; sourceTree = "<group>"; };
 		86E34BC010FF42B10004C4E7 /* PlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 2; path = PlayerController.h; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 			isa = PBXGroup;
 			children = (
 				863CD3B412D9A98800C8E321 /* updateInfoPlist.rb */,
+				86D5E9F012FA3FC100073C66 /* getAppVersion.rb */,
 				863CD3B512D9A98800C8E321 /* version.sh */,
 			);
 			name = VersionRelated;
@@ -823,6 +826,7 @@
 				863D0AA212CDE85900170081 /* zoom-rollover.tiff in Resources */,
 				8674A56512CF294F009A2D05 /* Credits.rtf in Resources */,
 				86B9E23712D1B0910094B55E /* Inspector.xib in Resources */,
+				86D5E9F112FA3FC100073C66 /* getAppVersion.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -882,7 +886,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\n##cd ../../update\n##export MPXVER=$(ruby getVerNum.rb ${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME})\n\n##cd ../localization/localization/${MPXVER}\n\n##echo ${MPXVER}\n\n##make clean\n\n##make\n\n## cp -R ./results/* ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/";
+			shellScript = "#!/bin/sh\n\nexport MPXVER=$(ruby getAppVersion.rb ${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME})\n\ncd ../localization/${MPXVER}\n\necho ${MPXVER}\n\n## make clean\n\n## make\n\n## cp -R ./results/* ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/";
 		};
 /* End PBXShellScriptBuildPhase section */
 
