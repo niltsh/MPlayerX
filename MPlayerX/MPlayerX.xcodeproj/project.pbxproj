@@ -858,7 +858,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# shell script goes here\n\nexport PATH=${PATH}:/usr/local/bin:/usr/local/git/bin\n\nruby updateInfoPlist.rb MPlayerX-Info.plist\ntouch -amfc MPlayerX-Info.plist\n\nexit 0";
+			shellScript = "# shell script goes here\n\nexport PATH=${PATH}:/usr/local/bin:/usr/local/git/bin:/sw/bin\n\nruby updateInfoPlist.rb MPlayerX-Info.plist\ntouch -amfc MPlayerX-Info.plist\n\nexit 0";
 		};
 		869DA5341223C93100D0D57A /* delete redundent files in Framework */ = {
 			isa = PBXShellScriptBuildPhase;
