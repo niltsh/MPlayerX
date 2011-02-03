@@ -50,7 +50,9 @@
 		[self setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
 		[self setDoubleSided:NO];
 		[self setAsynchronous:NO];
-		[self setOpaque:YES];
+		// The layer could not be Opaque, since it wil cover
+		// the root layer for logo display
+		// [self setOpaque:YES];
 		
 		positionOffset = NO;
 		renderRatio = CGRectMake(0, 0, 1, 1);
