@@ -22,6 +22,12 @@
 
 #define kPlayerCoreTermNormal		(0)
 
+@interface PlayerCore (PlayerCoreInternal)
+-(void) readOutput:(NSNotification*)notification;
+-(void) readError:(NSNotification*)notification;
+-(void) taskHasTerminated:(NSNotification*)notification;
+@end
+
 @implementation PlayerCore
 
 @synthesize delegate;
@@ -137,7 +143,7 @@
 }
 
 #pragma mark Internal 
-- (void) readOutput:(NSNotification *)notification
+-(void) readOutput:(NSNotification*)notification
 {
 	if (task && [task isRunning]) {
 		NSData *data = [[notification userInfo] objectForKey:NSFileHandleNotificationDataItem];
@@ -149,7 +155,7 @@
 	}
 }
 
-- (void) readError:(NSNotification *)notification
+-(void) readError:(NSNotification*)notification
 {
 	if (task && [task isRunning]) {
 		NSData *data = [[notification userInfo] objectForKey:NSFileHandleNotificationDataItem];
@@ -161,7 +167,7 @@
 	}
 }
 
-- (void) taskHasTerminated:(NSNotification *)notification
+-(void) taskHasTerminated:(NSNotification*)notification
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
