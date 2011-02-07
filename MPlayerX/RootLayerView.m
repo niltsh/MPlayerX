@@ -42,6 +42,7 @@
 -(NSSize) adjustWindowCoordinateTo:(NSSize)sizeVal;
 -(void) setupLayers;
 -(void) reorderSubviews;
+-(void) prepareForStartingDisplay;
 
 -(void) playBackOpened:(NSNotification*)notif;
 -(void) playBackStarted:(NSNotification*)notif;
