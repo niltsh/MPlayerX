@@ -26,6 +26,10 @@
 #define kOSDFontSizeMinDefault		(24)
 #define kOSDFontSizeMaxDefault		(48)
 
+@interface OsdText (OsdTextInternal)
+-(void) tryToHide;
+@end
+
 @implementation OsdText
 
 @synthesize active;

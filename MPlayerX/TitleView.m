@@ -24,6 +24,11 @@
 static NSString * const kStringDots = @"...";
 static NSRect trackRect;
 
+@interface TitleView (TitleViewInternal)
+-(void) windowDidBecomKey:(NSNotification*) notif;
+-(void) windowDidResignKey:(NSNotification*) notif;
+@end
+
 @implementation TitleView
 
 @synthesize title;
