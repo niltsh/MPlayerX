@@ -207,11 +207,13 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1092</string>
+	<string>1113</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>MPXCommitHash</key>
-	<string>2b8219cce3596a747608580cc58955c11fbbc03c</string>
+	<string>668ad646674d65542853d9d2adf4ff5218775c44</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2009-2011, Zongyao QU</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
