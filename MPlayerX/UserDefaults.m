@@ -91,7 +91,6 @@ NSString * const kUDKeyVTSettings							= @"VTSettings";
 NSString * const kUDKeyAutoSaveVTSettings					= @"ASVTS";
 
 NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
-NSString * const kUDKeyHelpURL								= @"HelpURL";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";
 NSString * const kUDKeyResizeStep							= @"ResizeStep";
 

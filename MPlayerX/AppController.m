@@ -55,6 +55,8 @@
  */
 
 NSString * const kMPCFMTBookmarkPath	= @"%@/Library/Preferences/%@.bookmarks.plist";
+NSString * const kMPXFeedbackURL		= @"https://github.com/niltsh/MPlayerX/issues";
+NSString * const kMPXWikiURL			= @"https://github.com/niltsh/MPlayerX/wiki";
 
 static AppController *sharedInstance = nil;
 static BOOL init_ed = NO;
@@ -71,7 +73,6 @@ static BOOL init_ed = NO;
 	[[NSUserDefaults standardUserDefaults] 
 	 registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 					   @"http://mplayerx.googlecode.com/svn/trunk/update/appcast.xml", @"SUFeedURL",
-					   @"http://code.google.com/p/mplayerx/wiki/Help?tm=6", kUDKeyHelpURL,
 					   [NSNumber numberWithBool:NO], kUDKeyLogMode,
 					   kSnapshotSaveDefaultPath, kUDKeySnapshotSavePath,
 					   nil]];
@@ -127,7 +128,7 @@ static BOOL init_ed = NO;
 		if (!bookmarks) {
 			// 如果文件不存在或者格式非法
 			bookmarks = [[NSMutableDictionary alloc] initWithCapacity:10];
-		}		
+		}
 	}
 	return self;
 }
@@ -184,7 +185,7 @@ static BOOL init_ed = NO;
 
 -(IBAction) gotoWikiPage:(id) sender
 {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[ud stringForKey:kUDKeyHelpURL]]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kMPXWikiURL]];
 }
 
 -(IBAction) writeSnapshotToFile:(id)sender
@@ -234,6 +235,29 @@ static BOOL init_ed = NO;
 	}
 	[path release];
 }
+
+-(IBAction) donate:(id)sender
+{
+	NSArray *langs = [NSLocale preferredLanguages];
+	NSString *currency = nil;
+	
+	if (langs && [[langs objectAtIndex:0] isEqualToString:@"ja"]) {
+		MPLog(@"Japanese user");
+		currency = @"JPY";
+	} else {
+		currency = @"USD";
+	}
+
+	[[NSWorkspace sharedWorkspace] openURL:
+	 [NSURL URLWithString:[NSString stringWithFormat:
+						   @"https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mplayerx%%2eqzy%%40gmail%%2ecom&lc=US&item_name=MPlayerX&no_note=0&currency_code=%@&bn=PP%%2dDonationsBF%%3abtn_donate_LG%2egif%%3aNonHostedGuest", currency]]];
+}
+
+-(IBAction) gotoFeedbackPage:(id)sender
+{
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kMPXFeedbackURL]];
+}
+
 /////////////////////////////////////Application Delegate//////////////////////////////////////
 -(BOOL) application:(NSApplication *)theApplication openFile:(NSString *)filename
 {

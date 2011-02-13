@@ -88,7 +88,6 @@ extern NSString * const kUDKeyAutoSaveVTSettings;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;
-extern NSString * const kUDKeyHelpURL;
 extern NSString * const kUDKeyCloseWindowWhenStopped;
 extern NSString * const kUDKeyResizeStep;
 

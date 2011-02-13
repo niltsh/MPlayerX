@@ -49,5 +49,7 @@
 -(IBAction) gotoWikiPage:(id) sender;
 -(IBAction) writeSnapshotToFile:(id)sender;
 -(IBAction) moveToTrash:(id) sender;
+-(IBAction) donate:(id)sender;
+-(IBAction) gotoFeedbackPage:(id)sender;
 
 @end
