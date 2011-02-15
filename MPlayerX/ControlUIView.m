@@ -279,9 +279,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuToggleFillScreen setEnabled:NO];
 	
 	[toggleAcceButton setTag:NO];
+
 	[menuToggleAuxiliaryCtrls setTag:NO];
 	[menuToggleAuxiliaryCtrls setTitle:kMPXStringMenuShowAuxCtrls];
-
+	[menuToggleAuxiliaryCtrls setEnabled:NO];
+	
 	// set OSD active status
 	[osd setActive:NO];
 	
@@ -1009,6 +1011,8 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	
 	[menuSwitchAudio setEnabled:YES];
 	[menuSwitchVideo setEnabled:YES];
+	
+	[menuToggleAuxiliaryCtrls setEnabled:YES];
 }
 
 -(void) playBackWillStop:(NSNotification*)notif
