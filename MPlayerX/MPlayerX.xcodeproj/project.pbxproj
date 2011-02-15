@@ -117,7 +117,6 @@
 		86CAF25110BA451100848B8E /* PlayingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CAF24C10BA451100848B8E /* PlayingInfo.m */; };
 		86D10C1310F4A29A000B573F /* ResizeIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D10C1210F4A29A000B573F /* ResizeIndicator.m */; };
 		86D10C1C10F4A40D000B573F /* resizeindicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 86D10C1B10F4A40D000B573F /* resizeindicator.png */; };
-		86D5E9F112FA3FC100073C66 /* getAppVersion.rb in Resources */ = {isa = PBXBuildFile; fileRef = 86D5E9F012FA3FC100073C66 /* getAppVersion.rb */; };
 		86E34BBF10FF42A40004C4E7 /* CoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E34BBE10FF42A40004C4E7 /* CoreController.m */; };
 		86E34BC210FF42B10004C4E7 /* PlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E34BC110FF42B10004C4E7 /* PlayerController.m */; };
 		86E7A89E1155C1740014155D /* CharsetQueryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E7A89D1155C1740014155D /* CharsetQueryController.m */; };
@@ -826,7 +825,6 @@
 				863D0AA212CDE85900170081 /* zoom-rollover.tiff in Resources */,
 				8674A56512CF294F009A2D05 /* Credits.rtf in Resources */,
 				86B9E23712D1B0910094B55E /* Inspector.xib in Resources */,
-				86D5E9F112FA3FC100073C66 /* getAppVersion.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
