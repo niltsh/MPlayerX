@@ -20,6 +20,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString * const kMPCStringMPlayerX;
+
 #define SAFERELEASE(x)		{if(x) {[x release];x = nil;}}
 
 void MPLog(NSString *format, ...);
@@ -39,4 +41,8 @@ void MPSetLogEnable(BOOL en);
 
 @interface NSEvent (MPXAdditional)
 +(NSEvent*) makeKeyDownEvent:(NSString*)str modifierFlags:(NSUInteger)flags;
+@end
+
+@interface NSFileManager (MPXAdditional)
++(NSString*) applicationSupportPathWithSuffix:(NSString*)suffix;
 @end

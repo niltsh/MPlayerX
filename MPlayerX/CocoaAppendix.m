@@ -21,6 +21,8 @@
 #import "CocoaAppendix.h"
 #import "LocalizedStrings.h"
 
+NSString * const kMPCStringMPlayerX						= @"MPlayerX";
+
 static BOOL logEnable = NO;
 
 void MPLog(NSString *format, ...)
@@ -559,3 +561,14 @@ void MPSetLogEnable(BOOL en)
 }
 @end
 
+@implementation NSFileManager (MPXAdditional)
++(NSString*) applicationSupportPathWithSuffix:(NSString*)suffix
+{
+	return [[[[NSFileManager defaultManager]
+			   URLForDirectory:NSApplicationSupportDirectory
+					  inDomain:NSUserDomainMask
+			 appropriateForURL:NULL
+					    create:YES
+						 error:NULL] path] stringByAppendingPathComponent:suffix];
+}
+@end

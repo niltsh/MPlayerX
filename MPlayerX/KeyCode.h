@@ -79,8 +79,6 @@ extern NSString * const kSCMShowMediaInfoKeyEquivalent;
 extern NSString * const kSCMEqualizerPanelKeyEquivalent;
 #define kSCMEqualizerPanelKeyEquivalentModifierFlagMask		(NSControlKeyMask)
 
-extern NSString * const kMPCStringMPlayerX;
-
 #define kSCMMoveToTrashKeyEquivalent					(NSBackspaceCharacter)
 #define kSCMMoveToTrashKeyEquivalentModifierFlagMask	(NSCommandKeyMask)
 

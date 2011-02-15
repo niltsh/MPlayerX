@@ -54,7 +54,7 @@
  *      
  */
 
-NSString * const kMPCFMTBookmarkPath	= @"%@/Library/Preferences/%@.bookmarks.plist";
+NSString * const kMPCFMTBookmarkPath	= @"bookmarks.plist";
 NSString * const kMPXFeedbackURL		= @"https://github.com/niltsh/MPlayerX/issues";
 NSString * const kMPXWikiURL			= @"https://github.com/niltsh/MPlayerX/wiki";
 
@@ -121,8 +121,8 @@ static BOOL init_ed = NO;
 		
 		/////////////////////////setup bookmarks////////////////////
 		// 得到书签的文件名
-		NSString *lastStoppedTimePath = [NSString stringWithFormat:kMPCFMTBookmarkPath, 
-										 NSHomeDirectory(), [mainBundle objectForInfoDictionaryKey:(NSString*)kCFBundleIdentifierKey]];
+		NSString *lastStoppedTimePath = [[NSFileManager applicationSupportPathWithSuffix:kMPCStringMPlayerX] stringByAppendingPathComponent:kMPCFMTBookmarkPath];
+
 		// 得到记录播放时间的dict
 		bookmarks = [[NSMutableDictionary alloc] initWithContentsOfFile:lastStoppedTimePath];
 		if (!bookmarks) {
@@ -276,10 +276,9 @@ static BOOL init_ed = NO;
 	[playerController stop];
 	
 	[ud synchronize];
-	
-	NSString *lastStoppedTimePath = [NSString stringWithFormat:kMPCFMTBookmarkPath, 
-									 NSHomeDirectory(), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleIdentifierKey]];
-	
+
+	NSString *lastStoppedTimePath = [[NSFileManager applicationSupportPathWithSuffix:kMPCStringMPlayerX] stringByAppendingPathComponent:kMPCFMTBookmarkPath];
+
 	[openUrlController syncToBookmark:bookmarks];
 	
 	[bookmarks writeToFile:lastStoppedTimePath atomically:YES];
