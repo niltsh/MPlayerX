@@ -465,22 +465,31 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 
 -(float) setTimePos:(float)time mode:(SEEK_MODE)seekMode
 {
-	float base = 0.0f;
 	NSString *cmdStr = nil;
 
 	if (seekMode == kMPCSeekModeAbsolute) {
 		// kMPCSeekModeAbsolute : the abs time to jump
 		time = MAX(time, 0);
-		base = 0;
 		cmdStr = [NSString stringWithFormat:kCmdStringFMTFloat, kMPCSetPropertyPreFixPauseKeep, kMPCTimePos, time];
 	} else {
 		// kMPCSeekModeRelative : the delta time to jump
-		base = [movieInfo.playingInfo.currentTime floatValue];
-		cmdStr = [NSString stringWithFormat:kCmdStringFMTTimeSeek, kMPCPausingKeep, kMPCSeekCmd, time, seekMode];
+		float base = [movieInfo.playingInfo.currentTime floatValue];
+		float len = [movieInfo.length floatValue];
+		
+		// get the absollute time
+		time += base;
+		// avoid minus time
+		time = MAX(time, 0);
+		
+		if (len > 0) {
+			// the length is valid
+			time = MIN(time, len);
+		}
+		
+		cmdStr = [NSString stringWithFormat:kCmdStringFMTTimeSeek, kMPCPausingKeep, kMPCSeekCmd, time - base, seekMode];
 	}
 	
 	if ([playerCore sendStringCommand:cmdStr]) {
-		time += base;
 		[movieInfo.playingInfo setCurrentTime:[NSNumber numberWithFloat:time]];
 		return time;
 	}
