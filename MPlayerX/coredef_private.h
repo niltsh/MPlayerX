@@ -33,8 +33,10 @@ extern NSString * const kMPCAfDelCmd;
 
 extern NSString * const kMPCGetPropertyPreFix;
 extern NSString * const kMPCSetPropertyPreFix;
-extern NSString * const kMPCSetPropertyPreFixPauseKeep;
+extern NSString * const kMPCSetPropertyPreFixPauseKeepForce;
 extern NSString * const kMPCPausingKeepForce;
+extern NSString * const kMPCPausingKeep;
+extern NSString * const kMPCSetPropertyPreFixPauseKeep;
 
 ////////////////////////////////////////////////////////////////////
 // 没有ID结尾的是 命令字符串 和 属性字符串 有可能是公用的

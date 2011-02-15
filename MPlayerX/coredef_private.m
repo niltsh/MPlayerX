@@ -32,8 +32,10 @@ NSString * const kMPCAfDelCmd			= @"af_del";
 
 NSString * const kMPCGetPropertyPreFix	= @"get_property";
 NSString * const kMPCSetPropertyPreFix	= @"set_property";
-NSString * const kMPCSetPropertyPreFixPauseKeep	= @"pausing_keep_force set_property";
+NSString * const kMPCSetPropertyPreFixPauseKeepForce	= @"pausing_keep_force set_property";
 NSString * const kMPCPausingKeepForce	= @"pausing_keep_force";
+NSString * const kMPCPausingKeep		= @"pausing_keep";
+NSString * const kMPCSetPropertyPreFixPauseKeep = @"pausing_keep set_property";
 
 ////////////////////////////////////////////////////////////////////
 // 没有ID结尾的是 命令字符串 和 属性字符串 有可能是公用的

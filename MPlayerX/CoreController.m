@@ -451,7 +451,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 -(void) setSpeed: (float) speed
 {
 	speed = MAX(speed, 0.1);
-	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTFloat, kMPCSetPropertyPreFixPauseKeep, kMPCSpeed, speed]]) {
+	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTFloat, kMPCSetPropertyPreFixPauseKeepForce, kMPCSpeed, speed]]) {
 		[movieInfo.playingInfo setSpeed:[NSNumber numberWithFloat: speed]];
 	}
 }
@@ -476,7 +476,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 	} else {
 		// kMPCSeekModeRelative : the delta time to jump
 		base = [movieInfo.playingInfo.currentTime floatValue];
-		cmdStr = [NSString stringWithFormat:kCmdStringFMTTimeSeek, kMPCPausingKeepForce, kMPCSeekCmd, time, seekMode];
+		cmdStr = [NSString stringWithFormat:kCmdStringFMTTimeSeek, kMPCPausingKeep, kMPCSeekCmd, time, seekMode];
 	}
 	
 	if ([playerCore sendStringCommand:cmdStr]) {
@@ -490,7 +490,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 -(float) setVolume: (float) vol
 {
 	vol = MIN(100, MAX(vol, 0));
-	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTFloat, kMPCSetPropertyPreFixPauseKeep, kMPCVolume, GetRealVolume(vol)]]) {
+	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTFloat, kMPCSetPropertyPreFixPauseKeepForce, kMPCVolume, GetRealVolume(vol)]]) {
 		[movieInfo.playingInfo setVolume: vol];
 	}
 	return vol;
@@ -499,14 +499,14 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 -(void) setBalance: (float) bal
 {
 	bal = MIN(1, MAX(bal, -1));
-	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTFloat, kMPCSetPropertyPreFixPauseKeep, kMPCAudioBalance, bal]]) {
+	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTFloat, kMPCSetPropertyPreFixPauseKeepForce, kMPCAudioBalance, bal]]) {
 		[movieInfo.playingInfo setAudioBalance: bal];
 	}
 }
 
 -(BOOL) setMute: (BOOL) mute
 {
-	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTInteger, kMPCSetPropertyPreFixPauseKeep, kMPCMute, (mute)?1:0]]) {
+	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTInteger, kMPCSetPropertyPreFixPauseKeepForce, kMPCMute, (mute)?1:0]]) {
 		[movieInfo.playingInfo setMute:mute];
 	} else {
 		[movieInfo.playingInfo setMute:NO];
@@ -519,31 +519,31 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 {
 	if (fabsf(delay) < 0.00001f) { delay = 0.0f; }
 	
-	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTFloat, kMPCSetPropertyPreFixPauseKeep, kMPCAudioDelay, -1 * delay]]) {
+	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTFloat, kMPCSetPropertyPreFixPauseKeepForce, kMPCAudioDelay, -1 * delay]]) {
 		[movieInfo.playingInfo setAudioDelay: [NSNumber numberWithFloat: delay]];
 	}
 }
 
 -(void) setAudio: (int) audioID
 {
-	[playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTInteger, kMPCSetPropertyPreFixPauseKeep, kMPCSwitchAudio, audioID]];
+	[playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTInteger, kMPCSetPropertyPreFixPauseKeepForce, kMPCSwitchAudio, audioID]];
 }
 
 -(void) setVideo: (int) videoID
 {
-	[playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTInteger, kMPCSetPropertyPreFixPauseKeep, kMPCSwitchVideo, videoID]];
+	[playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTInteger, kMPCSetPropertyPreFixPauseKeepForce, kMPCSwitchVideo, videoID]];
 }
 
 -(void) setSub: (int) subID
 {
-	[playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTInteger, kMPCSetPropertyPreFixPauseKeep, kMPCSub, subID]];
+	[playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTInteger, kMPCSetPropertyPreFixPauseKeepForce, kMPCSub, subID]];
 }
 
 -(void) setSubDelay: (float) delay
 {
 	if (fabsf(delay) < 0.00001f) { delay = 0.0f; }
 
-	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTFloat, kMPCSetPropertyPreFixPauseKeep, kMPCSubDelay, -1 * delay]]) {
+	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTFloat, kMPCSetPropertyPreFixPauseKeepForce, kMPCSubDelay, -1 * delay]]) {
 		[movieInfo.playingInfo setSubDelay:[NSNumber numberWithFloat: delay]];
 	}
 }
@@ -551,7 +551,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 -(void) setSubPos: (float) pos
 {
 	pos = MIN(100, MAX(pos, 0));
-	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTInteger, kMPCSetPropertyPreFixPauseKeep, kMPCSubPos, ((unsigned int)pos)]]) {
+	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTInteger, kMPCSetPropertyPreFixPauseKeepForce, kMPCSubPos, ((unsigned int)pos)]]) {
 		[movieInfo.playingInfo setSubPos:pos];
 	}
 }
@@ -560,7 +560,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 {
 	scale = MAX(0.1, MIN(scale, 100));
 
-	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTFloat, kMPCSetPropertyPreFixPauseKeep, kMPCSubScale, scale]]) {
+	if ([playerCore sendStringCommand:[NSString stringWithFormat:kCmdStringFMTFloat, kMPCSetPropertyPreFixPauseKeepForce, kMPCSubScale, scale]]) {
 		[movieInfo.playingInfo setSubScale:[NSNumber numberWithFloat:scale]];
 	}
 }
