@@ -273,82 +273,85 @@
 {
 	BOOL ShiftKeyPressed = NO;
 	
-	switch ([event modifierFlags] & (NSShiftKeyMask| NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask)) {
+	// current location of the mouse
+	NSPoint posNow = [NSEvent mouseLocation];
+	NSPoint delta;
+	
+	// the position delta from last event
+	delta.x = (posNow.x - dragMousePos.x);
+	delta.y = (posNow.y - dragMousePos.y);
+
+	dragMousePos = posNow;
+	
+	switch ([event modifierFlags] & (NSShiftKeyMask|NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask)) {
 		case kSCMDragAudioBalanceModifierFlagMask:
 			// 这个也基本不能工作
 			[controlUI changeAudioBalanceBy:[NSNumber numberWithFloat:([event deltaX] * 2) / self.bounds.size.width]];
 			break;
-		case NSShiftKeyMask:
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		case NSShiftKeyMask|kSCMDragDragFullScrFrameModifierFlagMask:
 			ShiftKeyPressed = YES;
-		case 0:
-			{
-				NSPoint posNow = [NSEvent mouseLocation];
-				NSPoint delta;
-				delta.x = (posNow.x - dragMousePos.x);
-				delta.y = (posNow.y - dragMousePos.y);
-				dragMousePos = posNow;
-
-				if (![self isInFullScreenMode]) {
-					// 非全屏的时候移动窗口
-
-					if (dragShouldResize) {
-						NSRect winRC = [playerWindow frame];
-						NSRect newFrame = NSMakeRect(winRC.origin.x,
-													 posNow.y, 
-													 posNow.x-winRC.origin.x,
-													 winRC.size.height + winRC.origin.y - posNow.y);
-						
-						winRC.size = [playerWindow contentRectForFrameRect:newFrame].size;
-						
-						if (displaying && lockAspectRatio) {
-							// there is video displaying
-							winRC.size = [self calculateContentSize:winRC.size];
-						} else {
-							NSSize minSize = [playerWindow contentMinSize];
-							
-							winRC.size.width = MAX(winRC.size.width, minSize.width);
-							winRC.size.height= MAX(winRC.size.height, minSize.height);
-						}
-						
-						winRC.origin.y -= (winRC.size.height - [[playerWindow contentView] bounds].size.height);
-						
-						[playerWindow setFrame:[playerWindow frameRectForContentRect:winRC] display:YES];
-						// MPLog(@"should resize");
+			
+		case kSCMDragDragFullScrFrameModifierFlagMask:
+			if ([self isInFullScreenMode]) {
+				// 全屏的时候，移动渲染区域
+				CGPoint pt = [dispLayer positionOffsetRatio];
+				CGSize sz = dispLayer.bounds.size;
+				
+				if (ShiftKeyPressed) {
+					if (fabsf(delta.x) > fabsf(4 * delta.y)) {
+						delta.y = 0;
+					} else if (fabsf(4 * delta.x) < fabsf(delta.y)) {
+						delta.x = 0;
 					} else {
-						NSPoint winPos = [playerWindow frame].origin;
-						winPos.x += delta.x;
-						winPos.y += delta.y;
-						[playerWindow setFrameOrigin:winPos];
-						// MPLog(@"should move");
+						// if use shift to drag the area, only X or only Y are accepted
+						break;
 					}
-				} else {
-					// 全屏的时候，移动渲染区域
-					CGPoint pt = [dispLayer positionOffsetRatio];
-					CGSize sz = dispLayer.bounds.size;
-					
-					delta.x /= sz.width;
-					delta.y /= sz.height;
-					
-					if (ShiftKeyPressed) {
-						if (fabsf(delta.x) > fabsf(4 * delta.y)) {
-							delta.y = 0;
-						} else if (fabsf(4 * delta.x) < fabsf(delta.y)) {
-							delta.x = 0;
-						} else {
-							// if use shift to drag the area, only X or only Y are accepted
-							break;
-						}
-					}
-					
-					pt.x += delta.x;
-					pt.y += delta.y;
-
-					[dispLayer setPositoinOffsetRatio:pt];
-					[dispLayer setNeedsDisplay];
 				}
+
+				pt.x += (delta.x / sz.width);
+				pt.y += (delta.y / sz.height);
+
+				[dispLayer setPositoinOffsetRatio:pt];
+				[dispLayer setNeedsDisplay];
 			}
 			break;
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
 		default:
+			if (![self isInFullScreenMode]) {
+				// 非全屏的时候移动窗口
+
+				if (dragShouldResize) {
+					NSRect winRC = [playerWindow frame];
+					NSRect newFrame = NSMakeRect(winRC.origin.x,
+												 posNow.y, 
+												 posNow.x-winRC.origin.x,
+												 winRC.size.height + winRC.origin.y - posNow.y);
+					
+					winRC.size = [playerWindow contentRectForFrameRect:newFrame].size;
+					
+					if (displaying && lockAspectRatio) {
+						// there is video displaying
+						winRC.size = [self calculateContentSize:winRC.size];
+					} else {
+						NSSize minSize = [playerWindow contentMinSize];
+						
+						winRC.size.width = MAX(winRC.size.width, minSize.width);
+						winRC.size.height= MAX(winRC.size.height, minSize.height);
+					}
+					
+					winRC.origin.y -= (winRC.size.height - [[playerWindow contentView] bounds].size.height);
+					
+					[playerWindow setFrame:[playerWindow frameRectForContentRect:winRC] display:YES];
+					// MPLog(@"should resize");
+				} else {
+					NSPoint winPos = [playerWindow frame].origin;
+					winPos.x += delta.x;
+					winPos.y += delta.y;
+					[playerWindow setFrameOrigin:winPos];
+					// MPLog(@"should move");
+				}
+			}
 			break;
 	}
 }
