@@ -108,4 +108,6 @@ extern NSString * const kMPCPlayInfoUpdatedChangeDictKey;
 
 -(void) loadSubFile:(NSString*)subPath;
 
+-(void) playNext;
+-(void) playPrev;
 @end

@@ -50,9 +50,7 @@ NSArray* findLastDigitPart(NSString *name)
 	return [ret autorelease];
 }
 
-@implementation PlayList
-
-+(NSString*) AutoSearchNextMoviePathFrom:(NSString*)path inFormats:(NSSet*)exts
+NSString* SearchMoviePath(NSString* path,NSSet* exts, int offset)
 {
 	NSString *nextPath = nil;
 	BOOL fuzzySearch = [[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyAPNFuzzy];
@@ -79,7 +77,7 @@ NSArray* findLastDigitPart(NSString *name)
 			digitRange = [val rangeValue];
 			
 			// 得到下一个想要播放的文件的index
-			idxNext = [NSString stringWithFormat:@"%d", [[movieName substringWithRange:digitRange] integerValue] + 1];
+			idxNext = [NSString stringWithFormat:@"%d", [[movieName substringWithRange:digitRange] integerValue] + offset];
 			NSUInteger idxNextLen = [idxNext length];
 			// 如果这个index的长度比上一个短，说明有padding
 			if (idxNextLen < digitRange.length) {
@@ -188,9 +186,21 @@ NSArray* findLastDigitPart(NSString *name)
 			}
 			lastRange = digitRange;
 		}
-ExitLoop:
+	ExitLoop:
 		[pool drain];
 	}	
 	return [nextPath autorelease];
+}
+
+@implementation PlayList
+
++(NSString*) AutoSearchNextMoviePathFrom:(NSString*)path inFormats:(NSSet*)exts
+{
+	return SearchMoviePath(path,exts,1);
+}
+
++(NSString*) AutoSearchPreviousMoviePathFrom:(NSString*)path inFormats:(NSSet*)exts
+{
+	return SearchMoviePath(path,exts,-1);
 }
 @end

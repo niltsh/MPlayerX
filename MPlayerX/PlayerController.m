@@ -881,6 +881,29 @@ enum {
 	[notifCenter postNotificationName:kMPCPlayFinalizedNotification object:self userInfo:nil];
 }
 
+-(void) playNext
+{
+	NSString *nextPath = [PlayList AutoSearchNextMoviePathFrom:[lastPlayedPath path] 
+														inFormats:[[[AppController sharedAppController] supportVideoFormats] 
+																   setByAddingObjectsFromSet:[[AppController sharedAppController] supportAudioFormats]]];
+	if (nextPath != nil) {
+		[self loadFiles:[NSArray arrayWithObject:nextPath] fromLocal:YES];
+		return;
+	}
+}
+
+-(void) playPrev
+{
+	NSString *nextPath = [PlayList AutoSearchPreviousMoviePathFrom:[lastPlayedPath path] 
+														inFormats:[[[AppController sharedAppController] supportVideoFormats] 
+																   setByAddingObjectsFromSet:[[AppController sharedAppController] supportAudioFormats]]];
+	if (nextPath != nil) {
+		[self loadFiles:[NSArray arrayWithObject:nextPath] fromLocal:YES];
+		return;
+	}	
+}
+
+
 -(void) playbackError:(id)coreController
 {
 	autoPlayState = kMPCAutoPlayStateInvalid;

@@ -188,6 +188,12 @@
 					case NSDownArrowFunctionKey:
 						[controlUI changeTimeBy:-seekStepTimeUB];
 						break;
+					case NSPageDownFunctionKey:
+						[playerController playNext];
+						break;
+					case NSPageUpFunctionKey:
+						[playerController playPrev];
+						break;
 					case kSCMPlaybackSpeedUpShortcutKey:
 						[playerController changeSpeedBy:speedStepIncre];
 						break;
