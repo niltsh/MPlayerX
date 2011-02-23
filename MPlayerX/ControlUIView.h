@@ -96,6 +96,9 @@
 	IBOutlet NSMenuItem *menuToggleAuxiliaryCtrls;
 	IBOutlet NSMenuItem *menuMoveToTrash;
 	IBOutlet NSMenuItem *menuMoveFrameToCenter;
+	IBOutlet NSMenuItem *menuNextEpisode;
+	IBOutlet NSMenuItem *menuPrevEpisode;
+	
 }
 
 ////////////////////////////////显示相关////////////////////////////////

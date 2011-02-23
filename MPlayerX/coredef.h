@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+/////////////////////////////////////typedef/////////////////////////////////////
 typedef struct {
 	NSUInteger width;
 	NSUInteger height;
@@ -26,6 +27,18 @@ typedef struct {
 	CGFloat aspect;
 }DisplayFormat;
 
+typedef enum {
+	kSubFileNameRuleExactMatch = 0,
+	kSubFileNameRuleContain = 1,
+	kSubFileNameRuleAny = 2
+} SUBFILE_NAMERULE;
+
+typedef enum {
+	kMPCSeekModeRelative = 0,
+	kMPCSeekModeAbsolute = 2
+} SEEK_MODE;
+
+/////////////////////////////////////protocols/////////////////////////////////////
 // the protocol for displaying the video
 @protocol CoreDisplayDelegate
 -(int)  coreController:(id)sender startWithFormat:(DisplayFormat)df buffer:(char**)data total:(NSUInteger)num;
@@ -52,17 +65,7 @@ typedef struct {
 -(void) logAnalyzeFinished:(NSDictionary*) dict;
 @end
 
-// 指定两种arch的mplayer路径时所用的key
-extern NSString * const kI386Key;
-extern NSString * const kX86_64Key;
-
-typedef enum
-{
-	kSubFileNameRuleExactMatch = 0,
-	kSubFileNameRuleContain = 1,
-	kSubFileNameRuleAny = 2
-} SUBFILE_NAMERULE;
-
+/////////////////////////////////////macros/////////////////////////////////////
 // letterBox显示模式
 #define kPMLetterBoxModeNotDisplay	(0)
 #define kPMLetterBoxModeBottomOnly	(1)
@@ -73,15 +76,8 @@ typedef enum
 #define kPMMixToStereoNO		(0)
 #define kPMMixDTS5_1ToStereo	(1)
 
-typedef enum
-{
-	kMPCSeekModeRelative = 0,
-	kMPCSeekModeAbsolute = 2
-} SEEK_MODE;
-
 /** !!WARNING!! the settings using post process filters should match the marco below */
 #define PMShouldUsePPFilters(x)	((x) & 0xC0)
-
 /*************************************************************************
  * WARNING if the values are changed
  * the tags in the preference panel MUST be modified to match the values */
@@ -95,10 +91,20 @@ typedef enum
 #define kPMImgEnhanceAdvanced	(0x82)
 /*************************************************************************/
 
-extern NSString * const kPMValDemuxFFMpeg;
+/**************************************************************************
+ * this setting matches libass spec
+ * WARNING the tags in preference panel should be synced with these values */
+// default means respect the value in the subtitle file
+#define kPMSubAlignDefault			(0x00)
 
-extern NSString * const kMPCPlayStoppedByForceKey;
-extern NSString * const kMPCPlayStoppedTimeKey;
+// below shoule be used as mask [vertical] | [horinzontal]
+#define kPMSubAlignVerticalBottom	(0x00)
+#define kPMSubAlignVerticalMiddle	(0x08)
+#define kPMSubAlignVerticalTop		(0x04)
+#define kPMSubAlignHorizontalLeft	(0x01)
+#define kPMSubAlignHorizontalMiddle	(0x02)
+#define kPMSubAlignHorizontalRight	(0x03)
+/**************************************************************************/
 
 #define kMPCStoppedState	(0x0000)		/**< 完全停止状态 */
 #define kMPCOpenedState		(0x0001)		/**< 播放打开，但是还没有开始播放 */
@@ -106,6 +112,17 @@ extern NSString * const kMPCPlayStoppedTimeKey;
 #define kMPCPausedState		(0x0101)		/**< 有文件正在播放但是暂停中 */
 
 #define kMPCStateMask		(0x0100)
+
+/////////////////////////////////////strings/////////////////////////////////////
+// 指定两种arch的mplayer路径时所用的key
+extern NSString * const kI386Key;
+extern NSString * const kX86_64Key;
+
+extern NSString * const kPMValDemuxFFMpeg;
+
+extern NSString * const kMPCPlayStoppedByForceKey;
+extern NSString * const kMPCPlayStoppedTimeKey;
+
 
 // KVO观测的属性的KeyPath
 extern NSString * const kKVOPropertyKeyPathCurrentTime;

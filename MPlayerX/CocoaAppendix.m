@@ -572,3 +572,12 @@ void MPSetLogEnable(BOOL en)
 						 error:NULL] path] stringByAppendingPathComponent:suffix];
 }
 @end
+
+@implementation NSObject (MPXAdditional)
+-(void) showAlertPanelModal:(NSString*) str
+{
+	id alertPanel = NSGetAlertPanel(kMPXStringError, str, kMPXStringOK, nil, nil);
+	[NSApp runModalForWindow:alertPanel];
+	NSReleaseAlertPanel(alertPanel);
+}
+@end

@@ -76,6 +76,10 @@
 #define kMPXStringUseFFMpegHandleStream			(NSLocalizedString(@"⌘-OK: Use FFMpeg to handle the stream", @"OpenURL Panel"))
 #define kMPXStringUseMPlayerHandleStream		(NSLocalizedString(@"⌘-OK: Use MPlayer to handle the stream", @"OpenURL Panel"))
 
+#define kMPXStringCantFindNextEpisode			(NSLocalizedString(@"Can't find next episode.\nPerhaps this is already the last episode.", @"Playlist warning"))
+#define kMPXStringCantFindPrevEpisode			(NSLocalizedString(@"Can't find previous episode.\nPerhaps this is already the first episode.", @"Playlist warning"))
+#define kMPXStringNextPrevOnlySupportLocalMedia	(NSLocalizedString(@"Next/Previous only supports the local media", @"Playlist warning"))
+
 #define kMPXStringTextSubEncAskMe	(NSLocalizedString(@"Ask me", @"preference"))
 
 #define kMPXStringEncUTF8			(NSLocalizedString(@"Unicode (UTF-8)", @"Text Enc"))

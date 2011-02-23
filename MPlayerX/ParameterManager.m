@@ -21,86 +21,88 @@
 #import "ParameterManager.h"
 #import "CocoaAppendix.h"
 
-NSString * const kPMDefaultAudioOutput	= @"coreaudio"; 
-NSString * const kPMDefaultVideoOutput	= @"corevideo"; 
-NSString * const kPMDefaultSubLang		= @"en,eng,ch,chs,cht,ja,jpn";
+NSString * const kPMDefaultAudioOutput		= @"coreaudio"; 
+NSString * const kPMDefaultVideoOutput		= @"corevideo"; 
+NSString * const kPMDefaultSubLang			= @"en,eng,ch,chs,cht,ja,jpn";
 
-NSString * const kPMParMsgLevel		= @"-msglevel";
-NSString * const kPMValMsgLevel		= @"all=-1:global=4:cplayer=4:identify=4";
-NSString * const kPMFMTInt			= @"%d";
-NSString * const kPMParSlave		= @"-slave";
-NSString * const kPMParFrameDrop	= @"-framedrop";
-NSString * const kPMParForceIdx		= @"-forceidx";
-NSString * const kPMParNoDouble		= @"-nodouble";
-NSString * const kPMParCache		= @"-cache";
-NSString * const kPMParIPV6			= @"-prefer-ipv6";
-NSString * const kPMParIPV4			= @"-prefer-ipv4";
-NSString * const kPMParOsdLevel		= @"-osdlevel";
-NSString * const kPMParSubFuzziness	= @"-sub-fuzziness";
-NSString * const kPMParFont			= @"-font";
-NSString * const kPMParAudioOut		= @"-ao";
-NSString * const kPMParVideoOut		= @"-vo";
-NSString * const kPMFMTVO			= @"%@:shared_buffer:buffer_name=%@";
-NSString * const kPMParSLang		= @"-slang";
-NSString * const kPMFMTNSObj		= @"%@";
-NSString * const kPMParStartTime	= @"-ss";
-NSString * const kPMFMTFloat1		= @"%.1f";
-NSString * const kPMParVolume		= @"-volume";
-NSString * const kPMFMTFloat2		= @"%.2f";
-NSString * const kPMFMTHex			= @"%X";
-NSString * const kPMParSubPos		= @"-subpos";
-NSString * const kPMParSubAlign		= @"-subalign";
-NSString * const kPMParOSDScale		= @"-subfont-osd-scale";
-NSString * const kPMParTextScale	= @"-subfont-text-scale";
-NSString * const kPMBlank			= @"";
-NSString * const kPMParSubFont		= @"-subfont";
-NSString * const kPMParSubCP		= @"-subcp";
-NSString * const kPMParSubFontAutoScale	= @"-subfont-autoscale";
-NSString * const kPMVal1				= @"1";
-NSString * const kPMVal2				= @"2";
-NSString * const kPMParEmbeddedFonts	= @"-embeddedfonts";
-NSString * const kPMParNoEmbeddedFonts	= @"-noembeddedfonts";
-NSString * const kPMParLavdopts			= @"-lavdopts";
-NSString * const kPMFMTThreads			= @"threads=%d";
-NSString * const kPMParAss				= @"-ass";
-NSString * const kPMParAssColor			= @"-ass-color";
-NSString * const kPMParAssFontScale		= @"-ass-font-scale";
-NSString * const kPMParAssBorderColor	= @"-ass-border-color";
-NSString * const kPMParAssForcrStyle	= @"-ass-force-style";
-NSString * const kPMParAssUsesMargin	= @"-ass-use-margins";
-NSString * const kPMParAssBottomMargin	= @"-ass-bottom-margin";
-NSString * const kPMParAssTopMargin		= @"-ass-top-margin";
-NSString * const kPMParNoAutoSub		= @"-noautosub";
-NSString * const kPMParSub				= @"-sub";
-NSString * const kPMComma				= @",";
-NSString * const kPMParVobSub			= @"-vobsub";
-NSString * const kPMParAC				= @"-ac";
-NSString * const kPMParHWDTS			= @"hwdts,";
-NSString * const kPMParHWAC3			= @"hwac3,a52,";
-NSString * const kPMParSTPause			= @"-stpause";
-NSString * const kPMParDemuxer			= @"-demuxer";
-NSString * const kPMValDemuxFFMpeg		= @"lavf";
-NSString * const kPMParOverlapSub		= @"-overlapsub";
-NSString * const kPMParRtspOverHttp		= @"-rtsp-stream-over-http";
-NSString * const kPMParMsgCharset		= @"-msgcharset";
-NSString * const kPMValMsgCharset		= @"noconv";
-NSString * const kPMParChannels			= @"-channels";
-NSString * const kPMParAf				= @"-af";
-NSString * const kPMValScaletempo		= @"scaletempo";
-NSString * const kPMSubParEqualizer		= @"equalizer=";
-NSString * const kPMParVf				= @"-vf";
+NSString * const kPMParMsgLevel				= @"-msglevel";
+NSString * const kPMValMsgLevel				= @"all=-1:global=4:cplayer=4:identify=4";
+NSString * const kPMFMTInt					= @"%d";
+NSString * const kPMParSlave				= @"-slave";
+NSString * const kPMParFrameDrop			= @"-framedrop";
+NSString * const kPMParForceIdx				= @"-forceidx";
+NSString * const kPMParNoDouble				= @"-nodouble";
+NSString * const kPMParCache				= @"-cache";
+NSString * const kPMParIPV6					= @"-prefer-ipv6";
+NSString * const kPMParIPV4					= @"-prefer-ipv4";
+NSString * const kPMParOsdLevel				= @"-osdlevel";
+NSString * const kPMParSubFuzziness			= @"-sub-fuzziness";
+NSString * const kPMParFont					= @"-font";
+NSString * const kPMParAudioOut				= @"-ao";
+NSString * const kPMParVideoOut				= @"-vo";
+NSString * const kPMFMTVO					= @"%@:shared_buffer:buffer_name=%@";
+NSString * const kPMParSLang				= @"-slang";
+NSString * const kPMFMTNSObj				= @"%@";
+NSString * const kPMParStartTime			= @"-ss";
+NSString * const kPMFMTFloat1				= @"%.1f";
+NSString * const kPMParVolume				= @"-volume";
+NSString * const kPMFMTFloat2				= @"%.2f";
+NSString * const kPMFMTHex					= @"%X";
+NSString * const kPMParSubPos				= @"-subpos";
+NSString * const kPMParOSDScale				= @"-subfont-osd-scale";
+NSString * const kPMParTextScale			= @"-subfont-text-scale";
+NSString * const kPMBlank					= @"";
+NSString * const kPMParSubFont				= @"-subfont";
+NSString * const kPMParSubCP				= @"-subcp";
+NSString * const kPMParSubFontAutoScale		= @"-subfont-autoscale";
+NSString * const kPMVal1					= @"1";
+NSString * const kPMVal2					= @"2";
+NSString * const kPMParEmbeddedFonts		= @"-embeddedfonts";
+NSString * const kPMParNoEmbeddedFonts		= @"-noembeddedfonts";
+NSString * const kPMParLavdopts				= @"-lavdopts";
+NSString * const kPMFMTThreads				= @"threads=%d";
+NSString * const kPMParAss					= @"-ass";
+NSString * const kPMParAssColor				= @"-ass-color";
+NSString * const kPMParAssFontScale			= @"-ass-font-scale";
+NSString * const kPMParAssBorderColor		= @"-ass-border-color";
+NSString * const kPMParAssForcrStyle		= @"-ass-force-style";
+NSString * const kPMParAssUsesMargin		= @"-ass-use-margins";
+NSString * const kPMParAssBottomMargin		= @"-ass-bottom-margin";
+NSString * const kPMParAssTopMargin			= @"-ass-top-margin";
+NSString * const kPMParNoAutoSub			= @"-noautosub";
+NSString * const kPMParSub					= @"-sub";
+NSString * const kPMComma					= @",";
+NSString * const kPMParVobSub				= @"-vobsub";
+NSString * const kPMParAC					= @"-ac";
+NSString * const kPMParHWDTS				= @"hwdts,";
+NSString * const kPMParHWAC3				= @"hwac3,a52,";
+NSString * const kPMParSTPause				= @"-stpause";
+NSString * const kPMParDemuxer				= @"-demuxer";
+NSString * const kPMValDemuxFFMpeg			= @"lavf";
+NSString * const kPMParOverlapSub			= @"-overlapsub";
+NSString * const kPMParRtspOverHttp			= @"-rtsp-stream-over-http";
+NSString * const kPMParMsgCharset			= @"-msgcharset";
+NSString * const kPMValMsgCharset			= @"noconv";
+NSString * const kPMParChannels				= @"-channels";
+NSString * const kPMParAf					= @"-af";
+NSString * const kPMValScaletempo			= @"scaletempo";
+NSString * const kPMSubParEqualizer			= @"equalizer=";
+NSString * const kPMParVf					= @"-vf";
 
-NSString * const kPMParFieldDominance	= @"-field-dominance";
-NSString * const kPMSubParValYadif		= @"yadif=1";
-NSString * const kPMSubParValMcDet		= @"mcdeint=2:1:5";
+NSString * const kPMParFieldDominance		= @"-field-dominance";
+NSString * const kPMSubParValYadif			= @"yadif=1";
+NSString * const kPMSubParValMcDet			= @"mcdeint=2:1:5";
 
-NSString * const kPMSubParPPFD			= @"fd";
-NSString * const kPMSubParPPL5			= @"l5";
-NSString * const kPMSubParImgEnhNorm	= @"hb:a/vb:a/dr:a";
-NSString * const kPMSubParImgEnhAdv		= @"ha:a/va:a/dr:a";
-NSString * const kPMSubParPPFilter		= @"pp=";
+NSString * const kPMSubParPPFD				= @"fd";
+NSString * const kPMSubParPPL5				= @"l5";
+NSString * const kPMSubParImgEnhNorm		= @"hb:a/vb:a/dr:a";
+NSString * const kPMSubParImgEnhAdv			= @"ha:a/va:a/dr:a";
+NSString * const kPMSubParPPFilter			= @"pp=";
 
-NSString * const kPMSlash				= @"/";
+NSString * const kPMSlash					= @"/";
+
+NSString * const kPMValAssForceStylePrefix	= @"BorderStyle=1,Outline=1,MarginV=2";
+NSString * const kPMValFmtAssSubAlginment	= @",Alignment=%d";
 
 #define kSubScaleNoAss		(8.0)
 
@@ -156,14 +158,13 @@ NSString * const kPMSlash				= @"/";
 		assEnabled = YES;
 		frontColor = 0xFFFFFF00; //RRGGBBAA
 		borderColor = 0x0000000F; //RRGGBBAA
-		assForceStyle = [NSString stringWithString:@"BorderStyle=1,Outline=1,MarginV=2"];
 		
 		prefer64bMPlayer = YES;
 		guessSubCP = YES;
 		startTime = -1;
 		volume = 100;
 		subPos = 100;
-		subAlign = 2;
+		subAlign = kPMSubAlignDefault;
 		subScale = 1.5;
 		subFont = nil;
 		subCP = nil;
@@ -314,10 +315,7 @@ NSString * const kPMSlash				= @"/";
 	
 	[paramArray addObject:kPMParSubPos];
 	[paramArray addObject:[NSString stringWithFormat: kPMFMTInt,((unsigned int)subPos)]];
-	
-	[paramArray addObject:kPMParSubAlign];
-	[paramArray addObject:[NSString stringWithFormat: kPMFMTInt,subAlign]];
-	
+
 	[paramArray addObject:kPMParOSDScale];
 	[paramArray addObject:[NSString stringWithFormat: kPMFMTFloat1,kSubScaleNoAss]];
 	
@@ -354,6 +352,8 @@ NSString * const kPMSlash				= @"/";
 	}
 
 	if (assEnabled) {
+		NSString *otherStyles;
+		
 		[paramArray addObject:kPMParAss];
 		
 		[paramArray addObject:kPMParAssColor];
@@ -365,8 +365,14 @@ NSString * const kPMSlash				= @"/";
 		[paramArray addObject:kPMParAssBorderColor];
 		[paramArray addObject:[NSString stringWithFormat: kPMFMTHex, borderColor]];
 		
+		if (subAlign == kPMSubAlignDefault) {
+			otherStyles = kPMValAssForceStylePrefix;
+		} else {
+			otherStyles = [kPMValAssForceStylePrefix stringByAppendingFormat:kPMValFmtAssSubAlginment, subAlign];
+		}
+
 		[paramArray addObject:kPMParAssForcrStyle];
-		[paramArray addObject:assForceStyle];
+		[paramArray addObject:otherStyles];
 		
 		// 目前只有在使用ass的时候，letterbox才有用
 		// 但是将来也许不用ass也要实现letter box

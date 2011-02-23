@@ -54,3 +54,7 @@ NSString * const kSCMShowMediaInfoKeyEquivalent			= @"i";
 NSString * const kSCMEqualizerPanelKeyEquivalent		= @"e";
 
 NSString * const kSCMMoveFrameToCenterKeyEquivalent		= @"t";
+
+NSString * const kSCMNextEpisodeKeyEquivalent			= @".";
+NSString * const kSCMPrevEpisodeKeyEquivalent			= @",";
+

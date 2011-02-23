@@ -30,6 +30,7 @@
 	NSSet *supportVideoFormats;
 	NSSet *supportAudioFormats;
 	NSSet *supportSubFormats;
+	NSSet *playableFormats;
 
 	NSMutableDictionary *bookmarks;
 
@@ -42,6 +43,7 @@
 @property (readonly) NSSet *supportVideoFormats;
 @property (readonly) NSSet *supportAudioFormats;
 @property (readonly) NSSet *supportSubFormats;
+@property (readonly) NSSet *playableFormats;
 
 +(AppController*) sharedAppController;
 

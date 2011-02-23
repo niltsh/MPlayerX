@@ -23,7 +23,7 @@
 #import "KeyCode.h"
 #import "LocalizedStrings.h"
 #import "PlayerController.h"
-#import "PlayList.h"
+#import "PlayListController.h"
 #import <sys/sysctl.h>
 #import "OpenURLController.h"
 #import "CharsetQueryController.h"
@@ -76,7 +76,6 @@ enum {
 @end
 
 @interface PlayerController (PlayerControllerInternal)
--(void) showAlertPanelModal:(NSString*) str;
 -(BOOL) shouldRun64bitMPlayer;
 -(void) playMedia:(NSURL*)url;
 -(NSURL*) findFirstMediaFileFromSubFile:(NSString*)path;
@@ -129,6 +128,7 @@ enum {
 					   [NSNumber numberWithUnsignedInt:kPMImgEnhanceNone], kUDKeyImgEnhanceMethod,
 					   [NSNumber numberWithUnsignedInt:kPMDeInterlaceNone], kUDKeyDeIntMethod,
 					   @"", kUDKeyExtraOptions,
+					   [NSNumber numberWithUnsignedInt:kPMSubAlignDefault], kUDKeySubAlign,
 					   nil]];	
 }
 
@@ -442,6 +442,7 @@ enum {
 	[mplayer.pm setDeinterlace:[ud integerForKey:kUDKeyDeIntMethod]];
 
 	[mplayer.pm setExtraOptions:[ud stringForKey:kUDKeyExtraOptions]];
+	[mplayer.pm setSubAlign:[ud integerForKey:kUDKeySubAlign]];
 	
 	if (autoPlayState == kMPCAutoPlayStateJustFound) {
 		// when APN, do not pause at start
@@ -789,13 +790,6 @@ enum {
 	return NO;
 }
 
--(void) showAlertPanelModal:(NSString*) str
-{
-	id alertPanel = NSGetAlertPanel(kMPXStringError, str, kMPXStringOK, nil, nil);
-	[NSApp runModalForWindow:alertPanel];
-	NSReleaseAlertPanel(alertPanel);
-}
-
 ///////////////////////////////////////MPlayer Notifications/////////////////////////////////////////////
 -(void) playbackOpened:(id)coreController
 {
@@ -862,9 +856,8 @@ enum {
 		//如果不是强制关闭的话
 		//如果不是本地文件，肯定返回nil
 		NSString *nextPath = 
-			[PlayList AutoSearchNextMoviePathFrom:[lastPlayedPath path] 
-										inFormats:[[[AppController sharedAppController] supportVideoFormats] 
-												   setByAddingObjectsFromSet:[[AppController sharedAppController] supportAudioFormats]]];
+			[PlayListController SearchNextMoviePathFrom:[lastPlayedPath path] 
+											  inFormats:[[AppController sharedAppController] playableFormats]];
 		
 		if (nextPath != nil) {			
 			autoPlayState = kMPCAutoPlayStateJustFound;

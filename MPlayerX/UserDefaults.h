@@ -85,6 +85,7 @@ extern NSString * const kUDKeyEQSettings;
 extern NSString * const kUDKeyAutoSaveEQSettings;
 extern NSString * const kUDKeyVTSettings;
 extern NSString * const kUDKeyAutoSaveVTSettings;
+extern NSString * const kUDKeySubAlign;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;

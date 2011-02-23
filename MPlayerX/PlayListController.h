@@ -1,5 +1,5 @@
 /*
- * MPlayerX - PlayList.h
+ * MPlayerX - PlayListController.h
  *
  * Copyright (C) 2009 - 2011, Zongyao QU
  * 
@@ -20,10 +20,20 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface PlayList : NSObject
+@class PlayerController;
+
+@interface PlayListController : NSObject
 {
+	
+	IBOutlet PlayerController *playerController;
 }
 
-+ (NSString*) AutoSearchNextMoviePathFrom:(NSString*)path inFormats:(NSSet*)exts;
++(PlayListController*) sharedPlayListController;
+
++(NSString*) SearchNextMoviePathFrom:(NSString*)path inFormats:(NSSet*)exts;
++(NSString*) SearchPreviousMoviePathFrom:(NSString*)path inFormats:(NSSet*)exts;
+
+-(IBAction) playNext:(id)sender;
+-(IBAction) playPrevious:(id)sender;
 
 @end

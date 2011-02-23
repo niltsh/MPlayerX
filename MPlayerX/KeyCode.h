@@ -44,6 +44,7 @@ extern NSString * const kSCMPlayFromLastStoppedKeyEquivalent;
 #define kSCMPlayFromLastStoppedKeyEquivalentModifierFlagMask	(NSShiftKeyMask)
 
 #define kSCMDragAudioBalanceModifierFlagMask					(NSAlternateKeyMask)
+#define kSCMDragDragFullScrFrameModifierFlagMask				(NSControlKeyMask)
 
 extern NSString * const kSCMToggleLockAspectRatioKeyEquivalent;
 
@@ -83,3 +84,6 @@ extern NSString * const kSCMEqualizerPanelKeyEquivalent;
 #define kSCMMoveToTrashKeyEquivalentModifierFlagMask	(NSCommandKeyMask)
 
 extern NSString * const kSCMMoveFrameToCenterKeyEquivalent;
+
+extern NSString * const kSCMNextEpisodeKeyEquivalent;
+extern NSString * const kSCMPrevEpisodeKeyEquivalent;

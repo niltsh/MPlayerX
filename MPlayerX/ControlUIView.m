@@ -182,6 +182,9 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuMoveToTrash setKeyEquivalent:[NSString stringWithCharacters:&keyTemp length:1]];
 	
 	[menuMoveFrameToCenter setKeyEquivalent:kSCMMoveFrameToCenterKeyEquivalent];
+	
+	[menuNextEpisode setKeyEquivalent:kSCMNextEpisodeKeyEquivalent];
+	[menuPrevEpisode setKeyEquivalent:kSCMPrevEpisodeKeyEquivalent];
 
 	////////////////////////////////////////load Images////////////////////////////////////////
 	// 初始化音量大小图标
@@ -353,8 +356,8 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	float backAlpha = [ud floatForKey:kUDKeyCtrlUIBackGroundAlpha];
 
 	fillGradient = [[NSGradient alloc] initWithColorsAndLocations:[NSColor colorWithDeviceWhite:0.220 alpha:backAlpha], 0.00f,
-																  [NSColor colorWithDeviceWhite:0.150 alpha:backAlpha], 0.33f,
-																  [NSColor colorWithDeviceWhite:0.090 alpha:backAlpha], 0.36f,
+																  [NSColor colorWithDeviceWhite:0.150 alpha:backAlpha], 0.30f,
+																  [NSColor colorWithDeviceWhite:0.090 alpha:backAlpha], 0.33f,
 																  [NSColor colorWithDeviceWhite:0.050 alpha:backAlpha], 1.00f,	
 																  nil];
 	backGroundColor  = [[NSColor colorWithDeviceWhite:0.45 alpha:backAlpha] retain];

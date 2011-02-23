@@ -66,6 +66,7 @@ static BOOL init_ed = NO;
 @synthesize supportVideoFormats;
 @synthesize supportAudioFormats;
 @synthesize supportSubFormats;
+@synthesize playableFormats;
 
 +(void) initialize
 {
@@ -113,6 +114,8 @@ static BOOL init_ed = NO;
 			}
 		}
 		
+		playableFormats = [[supportVideoFormats setByAddingObjectsFromSet:supportAudioFormats] retain];
+		
 		/////////////////////////setup bookmarks////////////////////
 		// 得到书签的文件名
 		NSString *lastStoppedTimePath = [[NSFileManager applicationSupportPathWithSuffix:kMPCStringMPlayerX] stringByAppendingPathComponent:kMPCFMTBookmarkPath];
@@ -139,6 +142,7 @@ static BOOL init_ed = NO;
 	[supportVideoFormats release];
 	[supportAudioFormats release];
 	[supportSubFormats release];
+	[playableFormats release];
 	
 	[bookmarks release];
 	

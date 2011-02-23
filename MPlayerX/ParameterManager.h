@@ -33,7 +33,6 @@
 	
 	uint32 frontColor;
 	uint32 borderColor;
-	NSString *assForceStyle;
 	BOOL assEnabled;
 
 	// unsigned char autoSync;
@@ -53,7 +52,7 @@
 	unsigned int cache;
 	unsigned int letterBoxMode;
 	float letterBoxHeight;
-	unsigned char subAlign;
+	unsigned int subAlign;
 	BOOL prefer64bMPlayer;
 	BOOL guessSubCP;
 	BOOL forceIndex;
@@ -79,7 +78,7 @@
 @property (assign, readwrite) float startTime;
 @property (assign, readwrite) float volume;
 @property (assign, readwrite) float subPos;
-@property (assign, readwrite) unsigned char subAlign;
+@property (assign, readwrite) unsigned int subAlign;
 @property (assign, readwrite) float subScale;
 @property (retain, readwrite) NSString *subFont;
 @property (retain, readwrite) NSString *subCP;

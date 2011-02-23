@@ -46,3 +46,7 @@ void MPSetLogEnable(BOOL en);
 @interface NSFileManager (MPXAdditional)
 +(NSString*) applicationSupportPathWithSuffix:(NSString*)suffix;
 @end
+
+@interface NSObject (MPXAdditional)
+-(void) showAlertPanelModal:(NSString*) str;
+@end
