@@ -21,7 +21,6 @@
 #import "AppController.h"
 #import "UserDefaults.h"
 #import "CocoaAppendix.h"
-#import <Sparkle/Sparkle.h>
 #import "PlayerController.h"
 #import "OpenURLController.h"
 #import "LocalizedStrings.h"
@@ -72,7 +71,7 @@ static BOOL init_ed = NO;
 {
 	[[NSUserDefaults standardUserDefaults] 
 	 registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-					   @"http://mplayerx.googlecode.com/svn/trunk/update/appcast.xml", @"SUFeedURL",
+					   /*@"http://mplayerx.googlecode.com/svn/trunk/update/appcast.xml", @"SUFeedURL",*/
 					   [NSNumber numberWithBool:NO], kUDKeyLogMode,
 					   kSnapshotSaveDefaultPath, kUDKeySnapshotSavePath,
 					   nil]];
@@ -98,7 +97,7 @@ static BOOL init_ed = NO;
 		
 		/////////////////////////setup auto update////////////////////
 		// 设定手动更新
-		[[SUUpdater sharedUpdater] setAutomaticallyChecksForUpdates:NO];
+		// [[SUUpdater sharedUpdater] setAutomaticallyChecksForUpdates:NO];
 		
 		NSBundle *mainBundle = [NSBundle mainBundle];
 		// 建立支持格式的Set
@@ -288,7 +287,7 @@ static BOOL init_ed = NO;
 
 -(void) applicationDidFinishLaunching:(NSNotification *)notification
 {
-	[[SUUpdater sharedUpdater] checkForUpdatesInBackground];
+	// [[SUUpdater sharedUpdater] checkForUpdatesInBackground];
 }
 
 @end
