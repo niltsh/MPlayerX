@@ -63,6 +63,11 @@
 	[titlebar setNeedsDisplay:YES];
 }
 
+-(NSString*) title
+{
+	return [titlebar title];
+}
+
 -(BOOL) validateMenuItem:(NSMenuItem *)menuItem
 {
 	SEL action = [menuItem action];
