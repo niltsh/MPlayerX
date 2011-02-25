@@ -1,0 +1,183 @@
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}
+
+a {
+	text-decoration:none;
+	color:#08c;
+}
+
+.clear {
+  clear: both;
+}
+
+body {
+	background: #f5f5f5;
+	color: #000305;
+	font-size: 87.5%; /* Base font size: 14px */
+	font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Trebuchet MS', Trebuchet, Arial, sans-serif;
+	line-height: 1.2;
+	text-align: left;
+	
+	width: 800px;
+	margin: 20px auto 0px auto;
+	padding: 0px 0px 0px 0px;
+}
+
+#banner {
+	padding: 1px 16px 1px 16px;
+}
+
+#banner h1 {
+	float: left top;
+	color: #404040;
+	font-size: 2.2em;
+	font-weight: 700;
+	line-height: 0.9;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	
+	margin: 8px 0px 0px 0px;
+}
+
+#banner h1:hover {
+	text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.6);
+}
+
+#banner h1 strong, #banner h1 strong:hover{
+	color: #808080;
+	font-size: 0.45em;
+	font-weight: normal;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+	line-height: 0.8;
+	
+	text-shadow: none;
+	-webkit-font-smoothing: antialiased;
+}
+
+#banner img {
+	float: left;
+
+	vertical-align: text-top;
+	margin: 8px 16px 8px 0px;
+}
+
+nav ul {
+	background-color: #107090;
+	
+	border-style: solid;
+	border-width: 1px;
+	border-color: #707070;
+
+	list-style-type: none;
+	
+	padding-right: 8px;
+	padding-left: 8px;
+	
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	
+	background: -webkit-gradient(linear, left top, left bottom, from(#8a8a8a), to(#606060)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #8a8a8a,  #606060); /* for firefox 3.6+ */
+
+	-webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.6);
+	-moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.6);
+}
+
+nav ul li {
+	text-shadow: 0px 0px 2px rgba(40, 40, 40, 0.7);
+	
+	padding: 8px 16px 8px 16px;
+
+	list-style-type: none;
+	text-align: center;
+	float: left;	
+}
+
+nav ul li a {
+	font-weight: 600;
+	color: #FFFFFF;
+}
+
+nav ul li a:hover, nav ul li:hover {
+	text-shadow: 0px 0px 2px rgba(40, 40, 40, 0.7);
+
+	background: -webkit-gradient(linear, left top, left bottom, from(#505050), to(#404040)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #505050,  #404040); /* for firefox 3.6+ */
+}
+
+section {
+	background-color: #FFFFFF;
+	clear: both;
+	
+	padding: 12px;
+	
+	margin-top: 8px;
+	margin-bottom: 8px;
+	
+	color: #686868;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);	
+}
+
+section p {
+	text-indent: 1em;
+	margin: 4px 0px 4px 0px;
+}
+
+#Home {
+}
+
+#Home p {
+	float: left;
+	line-height: 1.2;
+	text-align: justify;
+}
+
+#Features {
+}
+
+#Snapshots {
+}
+
+#Download {
+}
+
+#Download h3 {
+	margin: 8px 0px 4px 8px;
+	padding: 0px;
+	font-weight: 600;
+}
+
+#Download p {
+	margin-left: 8px;
+	text-indent: 1em;
+}
+
+#contact p {
+	margin-left: 8px;
+	text-indent: 1em;
+}
+
+#contact ul li span {
+	font-size: 0.8em;
+	color: #909090;
+}
+
+footer {
+	font-size: 0.8em;
+	clear: both;
+	color: #686868;
+	padding: 2px 20px 8px 20px;
+	text-align: center;
+}
+
+footer p {
+	padding: 0;
+	margin: 0;
+}
+
+footer a {
+	color: #08c;
+}
