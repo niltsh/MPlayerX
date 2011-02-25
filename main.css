@@ -185,6 +185,10 @@ section p {
 #Features {
 }
 
+#Features ul li {
+	line-height: 1.5;
+}
+
 #Snapshots {
 }
 
