@@ -55,6 +55,8 @@ body {
 }
 
 #banner img {
+	border:none;
+	
 	float: left;
 
 	vertical-align: text-top;
@@ -79,8 +81,8 @@ nav ul {
 	background: -webkit-gradient(linear, left top, left bottom, from(#8a8a8a), to(#606060)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  #8a8a8a,  #606060); /* for firefox 3.6+ */
 
-	-webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.6);
-	-moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.6);
+	-webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
 }
 
 nav ul li {
@@ -90,7 +92,7 @@ nav ul li {
 
 	list-style-type: none;
 	text-align: center;
-	float: left;	
+	float: left;
 }
 
 nav ul li a {
@@ -111,14 +113,31 @@ section {
 	
 	padding: 12px;
 	
-	margin-top: 8px;
-	margin-bottom: 8px;
+	margin-top: 0px;
+	margin-bottom: 0px;
 	
 	color: #686868;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	-webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
-	-moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);	
+	border: none;
+}
+
+section h3 {
+	margin: 2px;
+	
+	color: #0050a0;
+	font-size: 1.5em;
+	font-weight: 600;
+	text-shadow: 0px 0px 2px rgba(0, 40, 80, 0.5);
+}
+
+section h3 a {
+	color: #0050a0;
+}
+
+section hr {
+	height: 1px;
+	color: #e8e8e8;
+	background-color: #e8e8e8;
+	border: none;
 }
 
 section p {
@@ -126,13 +145,41 @@ section p {
 	margin: 4px 0px 4px 0px;
 }
 
+#outframe {
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);	
+}
+
 #Home {
 }
 
-#Home p {
+.brieflist {
+	clear:both;
+	width: 100%;
+	margin: 12px auto 0px auto;
+	background: none;
+}
+
+.brief {
 	float: left;
-	line-height: 1.2;
-	text-align: justify;
+	
+	margin: 0px;
+	width: 250px;
+	
+	text-align: left;
+}
+
+.brief h4 {
+	text-align: center;
+	margin: 12px auto;
+}
+
+.brief p {
+	margin: 12px;
+	text-indent: 1em;
+	font-size: 0.8em;
 }
 
 #Features {
@@ -141,10 +188,23 @@ section p {
 #Snapshots {
 }
 
+#Snapshots img {
+	width: 200px;
+	margin: 1px;
+	padding: 1px;
+	border: none;
+}
+
+#Snapshots img:hover {
+	border-style: solid;
+	border-width: 3px;
+	border-color: #0050a0;
+}
+
 #Download {
 }
 
-#Download h3 {
+#Download h4 {
 	margin: 8px 0px 4px 8px;
 	padding: 0px;
 	font-weight: 600;
@@ -165,17 +225,21 @@ section p {
 	color: #909090;
 }
 
+#credits ul li {
+	color: #000000;
+}
+
+#credits ul li span {
+	color: #686868;
+}
+
+
 footer {
 	font-size: 0.8em;
 	clear: both;
 	color: #686868;
-	padding: 2px 20px 8px 20px;
+	padding: 0px 20px;
 	text-align: center;
-}
-
-footer p {
-	padding: 0;
-	margin: 0;
 }
 
 footer a {
