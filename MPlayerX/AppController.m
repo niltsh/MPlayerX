@@ -54,7 +54,7 @@
  */
 
 NSString * const kMPCFMTBookmarkPath	= @"bookmarks.plist";
-NSString * const kMPXFeedbackURL		= @"http://niltsh.github.com/MPlayerX/#contact";
+NSString * const kMPXFeedbackURL		= @"http://mplayerx.org/#contact";
 NSString * const kMPXWikiURL			= @"https://github.com/niltsh/MPlayerX/wiki";
 
 static AppController *sharedInstance = nil;
