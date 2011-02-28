@@ -55,12 +55,40 @@ body {
 }
 
 #banner img {
+	width: 55px;
+	height: 55px;
+	
 	border:none;
 	
 	float: left;
 
 	vertical-align: text-top;
 	margin: 8px 16px 8px 0px;
+}
+
+@-webkit-keyframes heartbeat {
+	0% {
+		-webkit-transform: scale(1.0) rotate(0deg);
+	}
+	15% {
+		-webkit-transform: scale(1.15) rotate(0deg);
+	}
+	35% {
+		-webkit-transform: scale(1.0) rotate(0deg);
+	}
+	70% {
+		-webkit-transform: scale(1.25) rotate(0deg);
+	}	
+	100% {
+		-webkit-transform: scale(1.0) rotate(0deg);
+	}
+}
+
+#banner img:hover {
+	-webkit-animation-name: heartbeat;
+	-webkit-animation-duration: 0.6s;
+	-webkit-animation-direction: alternate;
+	-webkit-animation-timing-function: ease-in-out;
 }
 
 nav ul {
@@ -113,11 +141,20 @@ section {
 	
 	padding: 12px;
 	
-	margin-top: 0px;
-	margin-bottom: 0px;
+	margin-top: 2px;
+	margin-bottom: 2px;
 	
 	color: #686868;
 	border: none;
+}
+
+section:hover {
+	
+	-webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);	
+
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
 }
 
 section h3 {
@@ -152,6 +189,10 @@ section p {
 	-moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);	
 }
 
+#outframe:hover {
+	border: none;
+}
+
 #Home {
 }
 
@@ -166,7 +207,7 @@ section p {
 	float: left;
 	
 	margin: 0px;
-	width: 250px;
+	width: 248px;
 	
 	text-align: left;
 }
@@ -230,10 +271,12 @@ section p {
 }
 
 #credits ul li {
+	font-size: 0.95em;
 	color: #000000;
 }
 
 #credits ul li span {
+	font-size: 0.95em;
 	color: #686868;
 }
 
