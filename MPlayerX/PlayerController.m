@@ -311,11 +311,6 @@ enum {
 	return [mplayer movieInfo];
 }
 
--(BOOL) isAutoPlayed
-{
-	return (autoPlayState == kMPCAutoPlayStatePlaying);
-}
-
 -(void) enablePowerSave:(BOOL)en
 {
 	if (en) {
