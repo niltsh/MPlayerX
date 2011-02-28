@@ -118,6 +118,8 @@ static BOOL init_ed = NO;
 
 @implementation PlayListController
 
+@synthesize requestingNextOrPrev;
+
 +(PlayListController*) sharedPlayListController
 {
 	if (sharedInstance == nil) {
@@ -130,6 +132,8 @@ static BOOL init_ed = NO;
 {
 	if (init_ed == NO) {
 		init_ed = YES;
+		
+		requestingNextOrPrev = NO;
 	}
 	return self;
 }
@@ -159,7 +163,12 @@ static BOOL init_ed = NO;
 			NSString *nextPath = [PlayListController SearchNextMoviePathFrom:[lastURL path]
 																   inFormats:[[AppController sharedAppController] playableFormats]];
 			if (nextPath) {
+				// requestingNextOrPrev 能够工作是因为 loadFiles工作在一个线程
+				// 在loadFiles退出的时候，就已经保证mplayer按照正确的顺序进行了stop→start
+				// 不会出现时间差
+				requestingNextOrPrev = YES;
 				[playerController loadFiles:[NSArray arrayWithObject:nextPath] fromLocal:YES];
+				requestingNextOrPrev = NO;
 			} else {
 				[self showAlertPanelModal:kMPXStringCantFindNextEpisode];
 			}
@@ -180,7 +189,9 @@ static BOOL init_ed = NO;
 			NSString *nextPath = [PlayListController SearchPreviousMoviePathFrom:[lastURL path]
 																	   inFormats:[[AppController sharedAppController] playableFormats]];
 			if (nextPath) {
+				requestingNextOrPrev = YES;
 				[playerController loadFiles:[NSArray arrayWithObject:nextPath] fromLocal:YES];
+				requestingNextOrPrev = NO;
 			} else {
 				[self showAlertPanelModal:kMPXStringCantFindPrevEpisode];			
 			}		

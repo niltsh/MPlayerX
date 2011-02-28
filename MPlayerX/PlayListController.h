@@ -24,9 +24,12 @@
 
 @interface PlayListController : NSObject
 {
+	BOOL requestingNextOrPrev;
 	
 	IBOutlet PlayerController *playerController;
 }
+
+@property (readonly) BOOL requestingNextOrPrev;
 
 +(PlayListController*) sharedPlayListController;
 

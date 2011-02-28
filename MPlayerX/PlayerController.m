@@ -872,7 +872,10 @@ enum {
 	
 	[self enablePowerSave:YES];
 	
-	[notifCenter postNotificationName:kMPCPlayFinalizedNotification object:self userInfo:nil];
+	if (![[PlayListController sharedPlayListController] requestingNextOrPrev]) {
+		MPLog(@"Finalize");
+		[notifCenter postNotificationName:kMPCPlayFinalizedNotification object:self userInfo:nil];	
+	}
 }
 
 -(void) playbackError:(id)coreController
