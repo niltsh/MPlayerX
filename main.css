@@ -149,12 +149,13 @@ section {
 }
 
 section:hover {
+	background-color:#fCfCfC;
 	
-	-webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
-	-moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);	
-
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
+	
+	-moz-box-shadow: inset 0px 0px 12px rgba(0, 0, 0, .6);
+	-webkit-box-shadow: inset 0px 0px 12px rgba(0, 0, 0, .6);
 }
 
 section h3 {
@@ -183,6 +184,8 @@ section p {
 }
 
 #outframe {
+	background-color:#FFFFFF;
+	
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	-webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
