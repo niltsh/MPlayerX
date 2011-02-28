@@ -237,8 +237,13 @@ section p {
 	color: #686868;
 }
 
+#donate p strong {
+	color: #E00000;
+	font-weight: 400;
+}
+
 #donateForm {
-	margin: 15px 0px 0px 0px;
+	margin: 15px 0px 15px 0px;
 }
 
 footer {
