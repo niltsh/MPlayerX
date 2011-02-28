@@ -167,6 +167,7 @@ static BOOL init_ed = NO;
 				// 在loadFiles退出的时候，就已经保证mplayer按照正确的顺序进行了stop→start
 				// 不会出现时间差
 				requestingNextOrPrev = YES;
+				[playerController stop];
 				[playerController loadFiles:[NSArray arrayWithObject:nextPath] fromLocal:YES];
 				requestingNextOrPrev = NO;
 			} else {
@@ -189,7 +190,11 @@ static BOOL init_ed = NO;
 			NSString *nextPath = [PlayListController SearchPreviousMoviePathFrom:[lastURL path]
 																	   inFormats:[[AppController sharedAppController] playableFormats]];
 			if (nextPath) {
+				// requestingNextOrPrev 能够工作是因为 loadFiles工作在一个线程
+				// 在loadFiles退出的时候，就已经保证mplayer按照正确的顺序进行了stop→start
+				// 不会出现时间差
 				requestingNextOrPrev = YES;
+				[playerController stop];
 				[playerController loadFiles:[NSArray arrayWithObject:nextPath] fromLocal:YES];
 				requestingNextOrPrev = NO;
 			} else {

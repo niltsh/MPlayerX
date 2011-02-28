@@ -862,13 +862,18 @@ enum {
 			return;
 		}
 	}
-	
-	autoPlayState = kMPCAutoPlayStateInvalid;
-	
-	[self enablePowerSave:YES];
-	
-	if (![[PlayListController sharedPlayListController] requestingNextOrPrev]) {
+
+	if ([[PlayListController sharedPlayListController] requestingNextOrPrev]) {
+		// 如果是playlist发出的next/prev信号，那么就假装是AutoPlayNextJustFound
+		// 这样可以保持一些必要的参数
+		autoPlayState = kMPCAutoPlayStateJustFound;
+	} else {
 		MPLog(@"Finalize");
+		
+		autoPlayState = kMPCAutoPlayStateInvalid;
+	
+		[self enablePowerSave:YES];
+		
 		[notifCenter postNotificationName:kMPCPlayFinalizedNotification object:self userInfo:nil];	
 	}
 }
