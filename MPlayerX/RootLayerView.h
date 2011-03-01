@@ -69,5 +69,7 @@
 -(CGFloat) aspectRatio;
 
 -(void) moveFrameToCenter;
+
+-(void) changeFrameScaleRatioBy:(CGSize)rt;
 -(void) resetFrameScaleRatio;
 @end

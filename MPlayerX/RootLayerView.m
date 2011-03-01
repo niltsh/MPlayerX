@@ -35,8 +35,8 @@
 #define kOnTopModeAlways		(1)
 #define kOnTopModePlaying		(2)
 
-#define kScaleFrameRatioMinLimit	(0.01)
-#define kScaleFrameRatioStepMax		(0.20)
+#define kScaleFrameRatioMinLimit	(0.05f)
+#define kScaleFrameRatioStepMax		(0.20f)
 
 @interface RootLayerView (RootLayerViewInternal)
 -(NSSize) calculateContentSize:(NSSize)refSize;
