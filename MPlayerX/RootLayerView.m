@@ -35,6 +35,9 @@
 #define kOnTopModeAlways		(1)
 #define kOnTopModePlaying		(2)
 
+#define kScaleFrameRatioMinLimit	(0.01)
+#define kScaleFrameRatioStepMax		(0.20)
+
 @interface RootLayerView (RootLayerViewInternal)
 -(NSSize) calculateContentSize:(NSSize)refSize;
 -(NSPoint) calculatePlayerWindowPosition:(NSSize)winSize;
@@ -43,6 +46,7 @@
 -(void) setupLayers;
 -(void) reorderSubviews;
 -(void) prepareForStartingDisplay;
+-(void) changeFrameScaleRatioBy:(CGSize)rt;
 
 -(void) playBackOpened:(NSNotification*)notif;
 -(void) playBackStarted:(NSNotification*)notif;
@@ -410,23 +414,68 @@
 	x = [theEvent deltaX];
 	y = [theEvent deltaY];
 	
-	if (fabsf(x) > fabsf(y*4)) {
-		// MPLog(@"%f", x);
-		switch ([playerController playerState]) {
-			case kMPCPausedState:
-				if (x < 0) {
-					[playerController frameStep];
+	switch ([theEvent modifierFlags] & (NSShiftKeyMask|NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask)) {
+		case kSCMScaleFrameKeyEquivalentModifierFlagMask:
+			if ([self isInFullScreenMode]) {
+				// only in full screen mode
+				// in Y direction
+				CGSize sz;
+				sz.height = y / 100.0f;
+				sz.width = sz.height;
+				[self changeFrameScaleRatioBy:sz];
+			}
+			break;
+		default:
+			if (fabsf(x) > fabsf(y*4)) {
+				// MPLog(@"%f", x);
+				switch ([playerController playerState]) {
+					case kMPCPausedState:
+						if (x < 0) {
+							[playerController frameStep];
+						}
+						break;
+					case kMPCPlayingState:
+						[controlUI changeTimeBy:-x];
+						break;
+					default:
+						break;
 				}
-				break;
-			case kMPCPlayingState:
-				[controlUI changeTimeBy:-x];
-				break;
-			default:
-				break;
-		}
-	} else if (fabsf(x*4) < fabsf(y)) {
-		[controlUI changeVolumeBy:[NSNumber numberWithFloat:y*0.2]];
+			} else if (fabsf(x*4) < fabsf(y)) {
+				[controlUI changeVolumeBy:[NSNumber numberWithFloat:y*0.2]];
+			}
+			break;
 	}
+}
+
+-(void) resetFrameScaleRatio
+{
+	[dispLayer setScaleRatio:CGSizeMake(1, 1)];
+	[dispLayer setNeedsDisplay];
+}
+
+-(void) changeFrameScaleRatioBy:(CGSize)rt
+{
+	CGSize ratio = [dispLayer scaleRatio];
+	
+	if (fabsf(rt.width) > kScaleFrameRatioStepMax) {
+		rt.width *= (kScaleFrameRatioStepMax / fabsf(rt.width));
+	}
+	if (fabsf(rt.height) > kScaleFrameRatioStepMax) {
+		rt.height *= (kScaleFrameRatioStepMax / fabsf(rt.height));
+	}
+	
+	ratio.width  += rt.width;
+	ratio.height += rt.height;
+	
+	if (ratio.width < kScaleFrameRatioMinLimit) {
+		ratio.width = kScaleFrameRatioMinLimit;
+	}
+	if (ratio.height < kScaleFrameRatioMinLimit) {
+		ratio.height = kScaleFrameRatioMinLimit;
+	}
+	
+	[dispLayer setScaleRatio:ratio];
+	[dispLayer setNeedsDisplay];	
 }
 
 -(void) moveFrameToCenter
@@ -462,7 +511,15 @@
 
 -(void) magnifyWithEvent:(NSEvent *)event
 {
-	[self changeWindowSizeBy:NSMakeSize([event magnification], [event magnification]) animate:NO];
+	if ([self isInFullScreenMode]) {
+		// in full screen
+		CGSize sz;
+		sz.height = [event magnification] / 2;
+		sz.width = sz.height;
+		[self changeFrameScaleRatioBy:sz];
+	} else {
+		[self changeWindowSizeBy:NSMakeSize([event magnification], [event magnification]) animate:NO];
+	}
 }
 
 -(void) swipeWithEvent:(NSEvent *)event
@@ -539,7 +596,8 @@
 		}
 		// 推出全屏，重新根据现在的尺寸比例渲染图像
 		[dispLayer adujustToFitBounds];
-		[dispLayer setPositionOffset:NO];
+		[dispLayer enablePositionOffset:NO];
+		[dispLayer enableScale:NO];
 		
 		[playerWindow makeKeyAndOrderFront:self];
 		[playerWindow makeFirstResponder:self];
@@ -581,7 +639,8 @@
 
 		// 推出全屏，重新根据现在的尺寸比例渲染图像
 		[dispLayer adujustToFitBounds];
-		[dispLayer setPositionOffset:YES];
+		[dispLayer enablePositionOffset:YES];
+		[dispLayer enableScale:YES];
 
 		[playerWindow orderOut:self];
 

@@ -55,11 +55,13 @@
 		// [self setOpaque:YES];
 		
 		positionOffset = NO;
+		scaleEnabled = NO;
 		renderRatio = CGRectMake(0, 0, 1, 1);
 
 		flagFillScrnChanged = YES;
 		flagAspectRatioChanged = YES;
 		flagPositionOffsetChanged = YES;
+		flagScaleChanged = YES;
 		refitBounds = YES;
 	}
 	return self;
@@ -131,7 +133,7 @@
 	flagPositionOffsetChanged = YES;
 }
 
--(void) setPositionOffset:(BOOL)offset
+-(void) enablePositionOffset:(BOOL)offset
 {
 	positionOffset = offset;
 	flagPositionOffsetChanged = YES;
@@ -140,6 +142,23 @@
 -(void) adujustToFitBounds
 {
 	refitBounds = YES;
+}
+
+-(void) enableScale:(BOOL)en
+{
+	scaleEnabled = en;
+	flagScaleChanged = YES;
+}
+
+-(void) setScaleRatio:(CGSize) ratio
+{
+	renderRatio.size = ratio;
+	flagScaleChanged = YES;
+}
+
+-(CGSize) scaleRatio
+{
+	return renderRatio.size;
 }
 
 /**
@@ -325,7 +344,7 @@
 
 -(void) display
 {
-	if (flagFillScrnChanged || flagAspectRatioChanged || refitBounds) {
+	if (flagFillScrnChanged || flagAspectRatioChanged || flagScaleChanged || refitBounds) {
 		MPLog(@"as fil changed");
 		CGRect rc = self.superlayer.bounds;
 		CGFloat sAspect = [self aspectRatio];
@@ -336,10 +355,16 @@
 			rc.size.height = rc.size.width / sAspect;
 		}
 		
+		if (scaleEnabled) {
+			rc.size.width *= renderRatio.size.width;
+			rc.size.height *= renderRatio.size.height;
+		}
+
 		self.bounds = rc;
 		
 		flagAspectRatioChanged = NO;
 		flagFillScrnChanged = NO;
+		flagScaleChanged = NO;
 		refitBounds = NO;
 	}
 	

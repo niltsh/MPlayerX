@@ -41,11 +41,13 @@
 	CGFloat externalAspectRatio;
 	
 	BOOL positionOffset;
+	BOOL scaleEnabled;
 	CGRect renderRatio;
 	
 	BOOL flagFillScrnChanged;
 	BOOL flagAspectRatioChanged;
 	BOOL flagPositionOffsetChanged;
+	BOOL flagScaleChanged;
 	BOOL refitBounds;
 }
 
@@ -61,9 +63,13 @@
 
 -(CIImage*) snapshot;
 
--(void) setPositionOffset:(BOOL)offset;
+-(void) enablePositionOffset:(BOOL)offset;
 -(void) setPositoinOffsetRatio:(CGPoint) ratio;
 -(CGPoint) positionOffsetRatio;
+
+-(void) enableScale:(BOOL)en;
+-(void) setScaleRatio:(CGSize) ratio;
+-(CGSize) scaleRatio;
 
 -(void) adujustToFitBounds;
 
