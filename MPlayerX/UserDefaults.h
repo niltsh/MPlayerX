@@ -91,6 +91,7 @@ extern NSString * const kUDKeySubAlign;
 extern NSString * const kUDKeySelectedPrefView;
 extern NSString * const kUDKeyCloseWindowWhenStopped;
 extern NSString * const kUDKeyResizeStep;
+extern NSString * const kUDKeyFrameScaleStep;
 
 // still not implemented
 extern NSString * const kUDKeyPinPMode;						// TODO

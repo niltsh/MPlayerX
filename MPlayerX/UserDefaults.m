@@ -94,5 +94,6 @@ NSString * const kUDKeySubAlign								= @"SubAlign";
 NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";
 NSString * const kUDKeyResizeStep							= @"ResizeStep";
+NSString * const kUDKeyFrameScaleStep						= @"FrameScaleStep";
 
 NSString * const kUDKeyPinPMode								= @"PinPMode";
