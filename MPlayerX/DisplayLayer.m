@@ -283,7 +283,6 @@
 			// draw
 
 			CGLLockContext(glContext);	
-			
 			CGLSetCurrentContext(glContext);
 			
 			GLenum target = CVOpenGLTextureGetTarget(tex);
@@ -302,17 +301,24 @@
 			glEnd();
 			
 			glDisable(target);
+			glFlush();
+
+			CGLUnlockContext(glContext);
+
 			CVOpenGLTextureRelease(tex);
-			goto FLUSH;
+			
+			// This is the end of normal render routine
+			return;
 		}
 	}
+	
+	// This is the routine when there is no content to render
 	CGLLockContext(glContext);	
 	CGLSetCurrentContext(glContext);
 	
 	glClearColor(0, 0, 0, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-FLUSH:
 	glFlush();
 	CGLUnlockContext(glContext);
 }
