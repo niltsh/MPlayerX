@@ -58,3 +58,11 @@ NSString * const kSCMMoveFrameToCenterKeyEquivalent		= @"t";
 NSString * const kSCMNextEpisodeKeyEquivalent			= @".";
 NSString * const kSCMPrevEpisodeKeyEquivalent			= @",";
 
+NSString * const kSCMResetFrameScaleRatioKeyEquivalent	= @"t";
+
+NSString * const kSCMScaleFrameLargerKeyEquivalent	= @"=";
+NSString * const kSCMScaleFrameSmallerKeyEquivalent	= @"-";
+
+NSString * const kSCMScaleFrameLarger2KeyEquivalent	= @"=";
+NSString * const kSCMScaleFrameSmaller2KeyEquivalent	= @"-";
+

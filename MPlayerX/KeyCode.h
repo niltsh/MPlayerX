@@ -43,9 +43,6 @@ extern NSString * const kSCMSubScaleDecreaseKeyEquivalent;
 extern NSString * const kSCMPlayFromLastStoppedKeyEquivalent;
 #define kSCMPlayFromLastStoppedKeyEquivalentModifierFlagMask	(NSShiftKeyMask)
 
-#define kSCMDragAudioBalanceModifierFlagMask					(NSAlternateKeyMask)
-#define kSCMDragDragFullScrFrameModifierFlagMask				(NSControlKeyMask)
-
 extern NSString * const kSCMToggleLockAspectRatioKeyEquivalent;
 
 extern NSString * const kSCMResetLockAspectRatioKeyEquivalent;
@@ -71,9 +68,9 @@ extern NSString * const kSCMToggleLetterBoxKeyEquivalent;
 #define kSCMFFMpegHandleStreamShortCurKey	(NSCommandKeyMask)
 
 extern NSString * const kSCMWindowSizeIncKeyEquivalent;
-#define kSCMWindowSizeIncKeyEquivalentModifierFlagMask	(NSCommandKeyMask|NSShiftKeyMask)
+#define kSCMWindowSizeIncKeyEquivalentModifierFlagMask	(NSCommandKeyMask|NSAlternateKeyMask)
 extern NSString * const kSCMWindowSizeDecKeyEquivalent;
-#define kSCMWindowSizeDecKeyEquivalentModifierFlagMask	(NSCommandKeyMask|NSShiftKeyMask)
+#define kSCMWindowSizeDecKeyEquivalentModifierFlagMask	(NSCommandKeyMask|NSAlternateKeyMask)
 
 extern NSString * const kSCMShowMediaInfoKeyEquivalent;
 
@@ -87,3 +84,24 @@ extern NSString * const kSCMMoveFrameToCenterKeyEquivalent;
 
 extern NSString * const kSCMNextEpisodeKeyEquivalent;
 extern NSString * const kSCMPrevEpisodeKeyEquivalent;
+
+#define kSCMScaleFrameKeyEquivalentModifierFlagMask		(NSAlternateKeyMask)
+
+extern NSString * const kSCMResetFrameScaleRatioKeyEquivalent;
+#define kSCMResetFrameScaleRatioKeyEquivalentModifierFlagMask	(NSShiftKeyMask)
+
+#define kSCMDragFullScrFrameModifierFlagMask					(NSAlternateKeyMask)
+
+/**
+ * ctrl + = has bug, always fallback to =
+ */
+extern NSString * const kSCMScaleFrameLargerKeyEquivalent;
+#define kSCMScaleFrameLargerKeyEquivalentModifierFlagMask	(NSAlternateKeyMask)
+extern NSString * const kSCMScaleFrameSmallerKeyEquivalent;
+#define kSCMScaleFrameSmallerKeyEquivalentModifierFlagMask	(NSAlternateKeyMask)
+
+extern NSString * const kSCMScaleFrameLarger2KeyEquivalent;
+#define kSCMScaleFrameLarger2KeyEquivalentModifierFlagMask	(NSAlternateKeyMask|NSShiftKeyMask)
+extern NSString * const kSCMScaleFrameSmaller2KeyEquivalent;
+#define kSCMScaleFrameSmaller2KeyEquivalentModifierFlagMask	(NSAlternateKeyMask|NSShiftKeyMask)
+

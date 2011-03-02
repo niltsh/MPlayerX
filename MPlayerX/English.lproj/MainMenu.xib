@@ -453,7 +453,7 @@
 								</object>
 								<object class="NSMenuItem" id="733106672">
 									<reference key="NSMenu" ref="912779322"/>
-									<string key="NSTitle">Increase Size</string>
+									<string key="NSTitle">Increase Window Size</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -461,13 +461,73 @@
 								</object>
 								<object class="NSMenuItem" id="142053655">
 									<reference key="NSMenu" ref="912779322"/>
-									<string key="NSTitle">Decrease Size</string>
+									<string key="NSTitle">Decrease Window Size</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
 								<object class="NSMenuItem" id="495688904">
+									<reference key="NSMenu" ref="912779322"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="1003790884">
+									<reference key="NSMenu" ref="912779322"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<string key="NSTitle">Increase Frame Size</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+									<int key="NSTag">50</int>
+								</object>
+								<object class="NSMenuItem" id="588178074">
+									<reference key="NSMenu" ref="912779322"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsAlternate">YES</bool>
+									<string key="NSTitle">Increase Frame Size (minor)</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+									<int key="NSTag">10</int>
+								</object>
+								<object class="NSMenuItem" id="15943074">
+									<reference key="NSMenu" ref="912779322"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<string key="NSTitle">Decrease Frame Size</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+									<int key="NSTag">-50</int>
+								</object>
+								<object class="NSMenuItem" id="970375444">
+									<reference key="NSMenu" ref="912779322"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsAlternate">YES</bool>
+									<string key="NSTitle">Decrease Frame Size (minor)</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+									<int key="NSTag">-10</int>
+								</object>
+								<object class="NSMenuItem" id="570279377">
+									<reference key="NSMenu" ref="912779322"/>
+									<string key="NSTitle">Reset Frame Size</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="556351247">
 									<reference key="NSMenu" ref="912779322"/>
 									<bool key="NSIsDisabled">YES</bool>
 									<bool key="NSIsSeparator">YES</bool>
@@ -798,7 +858,7 @@
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSWindowContentMinSize">{480, 360}</string>
 				<object class="NSView" key="NSWindowView" id="439893737">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -817,7 +877,6 @@
 											<int key="NSvFlags">269</int>
 											<string key="NSFrame">{{14, 0.5}, {24, 24}}</string>
 											<reference key="NSSuperview" ref="482950071"/>
-											<reference key="NSWindow"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="46490347">
@@ -847,7 +906,6 @@
 											<int key="NSvFlags">269</int>
 											<string key="NSFrame">{{142, 0.5}, {24, 24}}</string>
 											<reference key="NSSuperview" ref="482950071"/>
-											<reference key="NSWindow"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="507628283">
@@ -873,7 +931,6 @@
 											<int key="NSvFlags">269</int>
 											<string key="NSFrame">{{78, 0.5}, {24, 24}}</string>
 											<reference key="NSSuperview" ref="482950071"/>
-											<reference key="NSWindow"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="909751828">
@@ -901,7 +958,6 @@
 									</object>
 									<string key="NSFrame">{{126, 29}, {180, 26}}</string>
 									<reference key="NSSuperview" ref="85098728"/>
-									<reference key="NSWindow"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<string key="NSClassName">NSView</string>
 								</object>
@@ -910,7 +966,6 @@
 									<int key="NSvFlags">301</int>
 									<string key="NSFrame">{{104, 32}, {75, 14}}</string>
 									<reference key="NSSuperview" ref="85098728"/>
-									<reference key="NSWindow"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSTextFieldCell" key="NSCell" id="607023488">
@@ -946,7 +1001,6 @@
 									<int key="NSvFlags">265</int>
 									<string key="NSFrame">{{402, 31}, {22, 22}}</string>
 									<reference key="NSSuperview" ref="85098728"/>
-									<reference key="NSWindow"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="155044">
@@ -985,7 +1039,6 @@
 											<int key="NSvFlags">260</int>
 											<string key="NSFrame">{{277, 4}, {32, 16}}</string>
 											<reference key="NSSuperview" ref="491486245"/>
-											<reference key="NSWindow"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="241177775">
@@ -1011,7 +1064,6 @@
 											<int key="NSvFlags">260</int>
 											<string key="NSFrame">{{227, 7}, {50, 11}}</string>
 											<reference key="NSSuperview" ref="491486245"/>
-											<reference key="NSWindow"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="832630675">
@@ -1033,7 +1085,6 @@
 											<int key="NSvFlags">260</int>
 											<string key="NSFrame">{{171, 4}, {32, 16}}</string>
 											<reference key="NSSuperview" ref="491486245"/>
-											<reference key="NSWindow"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="84020200">
@@ -1059,7 +1110,6 @@
 											<int key="NSvFlags">260</int>
 											<string key="NSFrame">{{111, 7}, {60, 11}}</string>
 											<reference key="NSSuperview" ref="491486245"/>
-											<reference key="NSWindow"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="493499056">
@@ -1081,7 +1131,6 @@
 											<int key="NSvFlags">260</int>
 											<string key="NSFrame">{{51, 4}, {32, 16}}</string>
 											<reference key="NSSuperview" ref="491486245"/>
-											<reference key="NSWindow"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="1053399676">
@@ -1108,7 +1157,6 @@
 											<int key="NSvFlags">260</int>
 											<string key="NSFrame">{{17, 7}, {34, 11}}</string>
 											<reference key="NSSuperview" ref="491486245"/>
-											<reference key="NSWindow"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="933321276">
@@ -1128,7 +1176,6 @@
 									</object>
 									<string key="NSFrame">{{56, 0}, {320, 25}}</string>
 									<reference key="NSSuperview" ref="85098728"/>
-									<reference key="NSWindow"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<string key="NSClassName">NSView</string>
 								</object>
@@ -1137,7 +1184,6 @@
 									<int key="NSvFlags">266</int>
 									<string key="NSFrame">{{62, 7}, {306, 15}}</string>
 									<reference key="NSSuperview" ref="85098728"/>
-									<reference key="NSWindow"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSliderCell" key="NSCell" id="921093681">
@@ -1160,7 +1206,6 @@
 									<int key="NSvFlags">265</int>
 									<string key="NSFrame">{{369, 8}, {58, 14}}</string>
 									<reference key="NSSuperview" ref="85098728"/>
-									<reference key="NSWindow"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSTextFieldCell" key="NSCell" id="703727324">
@@ -1183,7 +1228,6 @@
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{3, 8}, {58, 14}}</string>
 									<reference key="NSSuperview" ref="85098728"/>
-									<reference key="NSWindow"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSTextFieldCell" key="NSCell" id="999622529">
@@ -1204,7 +1248,6 @@
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{14, 33}, {18, 18}}</string>
 									<reference key="NSSuperview" ref="85098728"/>
-									<reference key="NSWindow"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="312643727">
@@ -1234,7 +1277,6 @@
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{38, 37}, {65, 12}}</string>
 									<reference key="NSSuperview" ref="85098728"/>
-									<reference key="NSWindow"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSliderCell" key="NSCell" id="374058532">
@@ -1257,7 +1299,6 @@
 									<int key="NSvFlags">265</int>
 									<string key="NSFrame">{{334, 30}, {24, 24}}</string>
 									<reference key="NSSuperview" ref="85098728"/>
-									<reference key="NSWindow"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="26149573">
@@ -1287,7 +1328,6 @@
 									<int key="NSvFlags">265</int>
 									<string key="NSFrame">{{370, 31}, {22, 22}}</string>
 									<reference key="NSSuperview" ref="85098728"/>
-									<reference key="NSWindow"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="648275464">
@@ -1315,7 +1355,6 @@
 							</object>
 							<string key="NSFrame">{{24, 13}, {432, 60}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<bool key="NSViewIsLayerTreeHost">YES</bool>
 							<double key="NSViewAlphaValue">0.25323943661971821</double>
 							<object class="NSShadow" key="NSViewShadow">
@@ -1334,7 +1373,6 @@
 							<int key="NSvFlags">289</int>
 							<string key="NSFrame">{{466, 2}, {12, 12}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSClassName">ResizeIndicator</string>
 						</object>
@@ -1343,7 +1381,6 @@
 							<int key="NSvFlags">274</int>
 							<string key="NSFrame">{{17, 92}, {446, 243}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="838931917">
@@ -1369,14 +1406,11 @@
 							<int key="NSvFlags">266</int>
 							<string key="NSFrame">{{0, 337}, {480, 23}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSClassName">TitleView</string>
 						</object>
 					</object>
 					<string key="NSFrameSize">{480, 360}</string>
-					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 					<bool key="NSViewIsLayerTreeHost">YES</bool>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
@@ -2750,6 +2784,86 @@
 					</object>
 					<int key="connectionID">1032</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuResetFrameScaleRatio</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="570279377"/>
+					</object>
+					<int key="connectionID">1034</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">resetFrameScaleRatio:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="570279377"/>
+					</object>
+					<int key="connectionID">1035</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuEnlargeFrame</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="1003790884"/>
+					</object>
+					<int key="connectionID">1041</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuEnlargeFrame2</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="588178074"/>
+					</object>
+					<int key="connectionID">1042</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuShrinkFrame</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="15943074"/>
+					</object>
+					<int key="connectionID">1043</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuShrinkFrame2</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="970375444"/>
+					</object>
+					<int key="connectionID">1044</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">stepFrameScale:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="1003790884"/>
+					</object>
+					<int key="connectionID">1045</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">stepFrameScale:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="588178074"/>
+					</object>
+					<int key="connectionID">1046</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">stepFrameScale:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="15943074"/>
+					</object>
+					<int key="connectionID">1047</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">stepFrameScale:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="970375444"/>
+					</object>
+					<int key="connectionID">1048</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -3660,6 +3774,12 @@
 							<reference ref="284702287"/>
 							<reference ref="233686659"/>
 							<reference ref="495688904"/>
+							<reference ref="1003790884"/>
+							<reference ref="588178074"/>
+							<reference ref="15943074"/>
+							<reference ref="970375444"/>
+							<reference ref="570279377"/>
+							<reference ref="556351247"/>
 						</object>
 						<reference key="parent" ref="304019076"/>
 					</object>
@@ -3837,6 +3957,36 @@
 						<reference key="object" ref="223276924"/>
 						<reference key="parent" ref="891719963"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1033</int>
+						<reference key="object" ref="570279377"/>
+						<reference key="parent" ref="912779322"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1036</int>
+						<reference key="object" ref="1003790884"/>
+						<reference key="parent" ref="912779322"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1037</int>
+						<reference key="object" ref="588178074"/>
+						<reference key="parent" ref="912779322"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1038</int>
+						<reference key="object" ref="15943074"/>
+						<reference key="parent" ref="912779322"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1039</int>
+						<reference key="object" ref="970375444"/>
+						<reference key="parent" ref="912779322"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1040</int>
+						<reference key="object" ref="556351247"/>
+						<reference key="parent" ref="912779322"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -3844,6 +3994,7 @@
 				<object class="NSArray" key="dict.sortedKeys">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>-3.IBPluginDependency</string>
+					<string>1001.IBAttributePlaceholdersKey</string>
 					<string>1001.IBPluginDependency</string>
 					<string>1002.IBPluginDependency</string>
 					<string>1009.IBPluginDependency</string>
@@ -3861,6 +4012,13 @@
 					<string>1025.IBPluginDependency</string>
 					<string>1026.IBPluginDependency</string>
 					<string>1027.IBPluginDependency</string>
+					<string>1033.IBAttributePlaceholdersKey</string>
+					<string>1033.IBPluginDependency</string>
+					<string>1036.IBPluginDependency</string>
+					<string>1037.IBPluginDependency</string>
+					<string>1038.IBPluginDependency</string>
+					<string>1039.IBPluginDependency</string>
+					<string>1040.IBPluginDependency</string>
 					<string>124.IBPluginDependency</string>
 					<string>124.ImportedFromIB2</string>
 					<string>125.IBEditorWindowLastContentRect</string>
@@ -4084,6 +4242,14 @@
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="233686659"/>
+							<string key="toolTip">In fullscreen mode, you could move the frame by alt + dragging, or alt + shift +dragging</string>
+						</object>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4103,6 +4269,20 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">AUMlAABCCAAAA</bytes>
 					</object>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="570279377"/>
+							<string key="toolTip">In fullscreen mode, you could also enlarge/shrink frame by alt + scroll or magnify on touchpad</string>
+						</object>
+					</object>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4149,7 +4329,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{497, 902}, {442, 20}}</string>
+					<string>{{340, 870}, {442, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
@@ -4328,7 +4508,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{730, 629}, {244, 273}}</string>
+					<string>{{573, 597}, {244, 273}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4380,7 +4560,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{715, 700}, {206, 203}}</string>
+					<string>{{523, 557}, {246, 313}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4409,7 +4589,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1032</int>
+			<int key="maxID">1048</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4624,12 +4804,14 @@
 							<string>changeVolumeBy:</string>
 							<string>moveFrameToCenter:</string>
 							<string>resetAspectRatio:</string>
+							<string>resetFrameScaleRatio:</string>
 							<string>seekTo:</string>
 							<string>setAudioWithID:</string>
 							<string>setSubWithID:</string>
 							<string>setVideoWithID:</string>
 							<string>setVolume:</string>
 							<string>stepAudios:</string>
+							<string>stepFrameScale:</string>
 							<string>stepSubtitles:</string>
 							<string>stepVideos:</string>
 							<string>stepWindowSize:</string>
@@ -4643,6 +4825,8 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -4683,12 +4867,14 @@
 							<string>changeVolumeBy:</string>
 							<string>moveFrameToCenter:</string>
 							<string>resetAspectRatio:</string>
+							<string>resetFrameScaleRatio:</string>
 							<string>seekTo:</string>
 							<string>setAudioWithID:</string>
 							<string>setSubWithID:</string>
 							<string>setVideoWithID:</string>
 							<string>setVolume:</string>
 							<string>stepAudios:</string>
+							<string>stepFrameScale:</string>
 							<string>stepSubtitles:</string>
 							<string>stepVideos:</string>
 							<string>stepWindowSize:</string>
@@ -4739,6 +4925,10 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">resetFrameScaleRatio:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">seekTo:</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -4760,6 +4950,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">stepAudios:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">stepFrameScale:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -4814,13 +5008,18 @@
 							<string>fillScreenButton</string>
 							<string>fullScreenButton</string>
 							<string>hintTime</string>
+							<string>menuEnlargeFrame</string>
+							<string>menuEnlargeFrame2</string>
 							<string>menuMoveFrameToCenter</string>
 							<string>menuMoveToTrash</string>
 							<string>menuNextEpisode</string>
 							<string>menuPlayFromLastStoppedPlace</string>
 							<string>menuPrevEpisode</string>
+							<string>menuResetFrameScaleRatio</string>
 							<string>menuResetLockAspectRatio</string>
 							<string>menuShowMediaInfo</string>
+							<string>menuShrinkFrame</string>
+							<string>menuShrinkFrame2</string>
 							<string>menuSizeDec</string>
 							<string>menuSizeInc</string>
 							<string>menuSnapshot</string>
@@ -4880,6 +5079,11 @@
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
 							<string>OsdText</string>
 							<string>NSButton</string>
 							<string>PlayerController</string>
@@ -4905,13 +5109,18 @@
 							<string>fillScreenButton</string>
 							<string>fullScreenButton</string>
 							<string>hintTime</string>
+							<string>menuEnlargeFrame</string>
+							<string>menuEnlargeFrame2</string>
 							<string>menuMoveFrameToCenter</string>
 							<string>menuMoveToTrash</string>
 							<string>menuNextEpisode</string>
 							<string>menuPlayFromLastStoppedPlace</string>
 							<string>menuPrevEpisode</string>
+							<string>menuResetFrameScaleRatio</string>
 							<string>menuResetLockAspectRatio</string>
 							<string>menuShowMediaInfo</string>
+							<string>menuShrinkFrame</string>
+							<string>menuShrinkFrame2</string>
 							<string>menuSizeDec</string>
 							<string>menuSizeInc</string>
 							<string>menuSnapshot</string>
@@ -4968,6 +5177,14 @@
 								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">menuEnlargeFrame</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuEnlargeFrame2</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">menuMoveFrameToCenter</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
@@ -4988,11 +5205,23 @@
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">menuResetFrameScaleRatio</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">menuResetLockAspectRatio</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">menuShowMediaInfo</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuShrinkFrame</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuShrinkFrame2</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">

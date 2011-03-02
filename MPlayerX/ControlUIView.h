@@ -98,7 +98,11 @@
 	IBOutlet NSMenuItem *menuMoveFrameToCenter;
 	IBOutlet NSMenuItem *menuNextEpisode;
 	IBOutlet NSMenuItem *menuPrevEpisode;
-	
+	IBOutlet NSMenuItem *menuResetFrameScaleRatio;
+	IBOutlet NSMenuItem *menuEnlargeFrame;
+	IBOutlet NSMenuItem *menuShrinkFrame;
+	IBOutlet NSMenuItem *menuEnlargeFrame2;
+	IBOutlet NSMenuItem *menuShrinkFrame2;
 }
 
 ////////////////////////////////显示相关////////////////////////////////
@@ -157,4 +161,8 @@ extern NSString * const kFillScreenButtonImageUBKey;
 -(IBAction) stepWindowSize:(id)sender;
 
 -(IBAction) moveFrameToCenter:(id)sender;
+-(IBAction) resetFrameScaleRatio:(id)sender;
+
+-(IBAction) stepFrameScale:(id)sender;
+
 @end

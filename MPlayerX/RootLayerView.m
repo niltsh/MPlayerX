@@ -287,15 +287,15 @@
 	dragMousePos = posNow;
 	
 	switch ([event modifierFlags] & (NSShiftKeyMask|NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask)) {
-		case kSCMDragAudioBalanceModifierFlagMask:
+		/*case :
 			// 这个也基本不能工作
 			[controlUI changeAudioBalanceBy:[NSNumber numberWithFloat:([event deltaX] * 2) / self.bounds.size.width]];
 			break;
-		//////////////////////////////////////////////////////////////////////////////////////////////////////
-		case NSShiftKeyMask|kSCMDragDragFullScrFrameModifierFlagMask:
+		 */
+		case NSShiftKeyMask|kSCMDragFullScrFrameModifierFlagMask:
 			ShiftKeyPressed = YES;
 			
-		case kSCMDragDragFullScrFrameModifierFlagMask:
+		case kSCMDragFullScrFrameModifierFlagMask:
 			if ([self isInFullScreenMode]) {
 				// 全屏的时候，移动渲染区域
 				CGPoint pt = [dispLayer positionOffsetRatio];
@@ -320,7 +320,7 @@
 			}
 			break;
 		//////////////////////////////////////////////////////////////////////////////////////////////////////
-		default:
+		case 0:
 			if (![self isInFullScreenMode]) {
 				// 非全屏的时候移动窗口
 
@@ -356,6 +356,8 @@
 				}
 			}
 			break;
+		default:
+			break;
 	}
 }
 
@@ -363,9 +365,10 @@
 {
 	if ([theEvent clickCount] == 2) {
 		switch ([theEvent modifierFlags] & (NSShiftKeyMask| NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask)) {
-			case kSCMDragAudioBalanceModifierFlagMask:
+			/*case :
 				[controlUI changeAudioBalanceBy:nil];
 				break;
+			 */
 			case 0:
 				[controlUI performKeyEquivalent:[NSEvent makeKeyDownEvent:kSCMFullScrnKeyEquivalent modifierFlags:kSCMFullscreenKeyEquivalentModifierFlagMask]];
 				break;
@@ -424,7 +427,7 @@
 				[self changeFrameScaleRatioBy:sz];
 			}
 			break;
-		default:
+		case 0:
 			if (fabsf(x) > fabsf(y*4)) {
 				// MPLog(@"%f", x);
 				switch ([playerController playerState]) {
@@ -442,6 +445,8 @@
 			} else if (fabsf(x*4) < fabsf(y)) {
 				[controlUI changeVolumeBy:[NSNumber numberWithFloat:y*0.2]];
 			}
+			break;
+		default:
 			break;
 	}
 }

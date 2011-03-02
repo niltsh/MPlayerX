@@ -100,6 +100,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 					   boolYes, kUDKeyAutoShowLBInFullScr,
 					   [NSNumber numberWithUnsignedInt:kPMLetterBoxModeBottomOnly], kUDKeyAutoFSLBMode,
 					   boolNo, kUDKeyHideTitlebar,
+					   [NSNumber numberWithFloat:0.001], kUDKeyFrameScaleStep,
 					   nil]];
 }
 
@@ -158,6 +159,8 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 
 	[menuVolInc setKeyEquivalent:kSCMVolumeUpKeyEquivalent];
 	[menuVolDec setKeyEquivalent:kSCMVolumeDownKeyEquivalent];
+	[menuVolInc setKeyEquivalentModifierMask:0];
+	[menuVolDec setKeyEquivalentModifierMask:0];
 	
 	[menuToggleLockAspectRatio setKeyEquivalent:kSCMToggleLockAspectRatioKeyEquivalent];
 	
@@ -186,6 +189,18 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuNextEpisode setKeyEquivalent:kSCMNextEpisodeKeyEquivalent];
 	[menuPrevEpisode setKeyEquivalent:kSCMPrevEpisodeKeyEquivalent];
 
+	[menuResetFrameScaleRatio setKeyEquivalentModifierMask:kSCMResetFrameScaleRatioKeyEquivalentModifierFlagMask];
+	[menuResetFrameScaleRatio setKeyEquivalent:kSCMResetFrameScaleRatioKeyEquivalent];
+	
+	[menuEnlargeFrame setKeyEquivalentModifierMask:kSCMScaleFrameLargerKeyEquivalentModifierFlagMask];
+	[menuEnlargeFrame setKeyEquivalent:kSCMScaleFrameLargerKeyEquivalent];
+	[menuShrinkFrame setKeyEquivalentModifierMask:kSCMScaleFrameSmallerKeyEquivalentModifierFlagMask];
+	[menuShrinkFrame setKeyEquivalent:kSCMScaleFrameSmallerKeyEquivalent];
+	
+	[menuEnlargeFrame2 setKeyEquivalentModifierMask:kSCMScaleFrameLarger2KeyEquivalentModifierFlagMask];
+	[menuEnlargeFrame2 setKeyEquivalent:kSCMScaleFrameLargerKeyEquivalent];
+	[menuShrinkFrame2 setKeyEquivalentModifierMask:kSCMScaleFrameSmaller2KeyEquivalentModifierFlagMask];
+	[menuShrinkFrame2 setKeyEquivalent:kSCMScaleFrameSmallerKeyEquivalent];
 	////////////////////////////////////////load Images////////////////////////////////////////
 	// 初始化音量大小图标
 	volumeButtonImages = [[NSArray alloc] initWithObjects:	[NSImage imageNamed:@"vol_no"], [NSImage imageNamed:@"vol_low"],
@@ -614,6 +629,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			
 			[menuToggleLockAspectRatio setTitle:([dispView lockAspectRatio])?(kMPXStringMenuUnlockAspectRatio):(kMPXStringMenuLockAspectRatio)];
 			[menuToggleLockAspectRatio setEnabled:NO];
+			
+			[menuEnlargeFrame setEnabled:YES];
+			[menuShrinkFrame setEnabled:YES];
+			[menuEnlargeFrame2 setEnabled:YES];
+			[menuShrinkFrame2 setEnabled:YES];
 		} else {
 			// 退出全屏
 			CGDisplayShowCursor(dispView.fullScrnDevID);
@@ -634,6 +654,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 				}
 			}
 			[menuToggleLockAspectRatio setEnabled:YES];
+			
+			[menuEnlargeFrame setEnabled:NO];
+			[menuShrinkFrame setEnabled:NO];
+			[menuEnlargeFrame2 setEnabled:NO];
+			[menuShrinkFrame2 setEnabled:NO];			
 		}
 	} else {
 		// 失败
@@ -644,6 +669,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 		[menuToggleFillScreen setEnabled:NO];
 		
 		[menuToggleLockAspectRatio setEnabled:NO];
+		
+		[menuEnlargeFrame setEnabled:NO];
+		[menuShrinkFrame setEnabled:NO];
+		[menuEnlargeFrame2 setEnabled:NO];
+		[menuShrinkFrame2 setEnabled:NO];			
 	}
 
 	[self windowHasResized:nil];
@@ -954,6 +984,20 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[dispView moveFrameToCenter];
 }
 
+-(IBAction) resetFrameScaleRatio:(id)sender
+{
+	[dispView resetFrameScaleRatio];
+}
+
+-(IBAction) stepFrameScale:(id)sender
+{
+	CGSize rt;
+	rt.width = [sender tag] * [ud floatForKey:kUDKeyFrameScaleStep];
+	rt.height = rt.width;
+	
+	[dispView changeFrameScaleRatioBy:rt];
+}
+
 ////////////////////////////////////////////////FullscreenThings//////////////////////////////////////////////////
 -(void) setFillScreenMode:(NSString*)modeKey state:(NSInteger) state
 {
@@ -1069,6 +1113,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	
 	// 播放全部结束，将渲染区放回中心
 	[dispView moveFrameToCenter];
+	[dispView resetFrameScaleRatio];
 }
 
 -(void) playInfoUpdated:(NSNotification*)notif
