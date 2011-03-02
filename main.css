@@ -292,6 +292,37 @@ section p {
 	margin: 15px 0px 15px 0px;
 }
 
+#releaselist ul li {
+	list-style: none;
+	clear: both;
+}
+
+#releaselist ul li h4 {
+	margin: 4px;
+}
+
+.releaseNote {
+	display: none;
+	line-height: 1.3em
+}
+
+.releaseNote p {
+	margin: 4px 40px 4px 4px;
+}
+
+.releaseTime {
+	display: none;
+	margin: 4px;
+}
+
+#releaselist li:hover, #releaselist li:hover ul li {
+	list-style: disc;
+}
+
+#releaselist li:hover .releaseNote, #releaselist li:hover .releaseTime {
+	display:block;
+}
+
 footer {
 	font-size: 0.8em;
 	clear: both;
