@@ -46,7 +46,6 @@
 -(void) setupLayers;
 -(void) reorderSubviews;
 -(void) prepareForStartingDisplay;
--(void) changeFrameScaleRatioBy:(CGSize)rt;
 
 -(void) playBackOpened:(NSNotification*)notif;
 -(void) playBackStarted:(NSNotification*)notif;
@@ -458,12 +457,12 @@
 	CGSize ratio = [dispLayer scaleRatio];
 	
 	if (fabsf(rt.width) > kScaleFrameRatioStepMax) {
-		rt.width *= (kScaleFrameRatioStepMax / fabsf(rt.width));
+		rt.width = (rt.width > 0)?(kScaleFrameRatioStepMax) : (-kScaleFrameRatioStepMax);
 	}
 	if (fabsf(rt.height) > kScaleFrameRatioStepMax) {
-		rt.height *= (kScaleFrameRatioStepMax / fabsf(rt.height));
+		rt.height = (rt.height > 0)?(kScaleFrameRatioStepMax) : (-kScaleFrameRatioStepMax);
 	}
-	
+
 	ratio.width  += rt.width;
 	ratio.height += rt.height;
 	
