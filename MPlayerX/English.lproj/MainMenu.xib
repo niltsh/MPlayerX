@@ -890,7 +890,7 @@
 												</object>
 												<reference key="NSControlView" ref="658583842"/>
 												<int key="NSButtonFlags">138690815</int>
-												<int key="NSButtonFlags2">130</int>
+												<int key="NSButtonFlags2">194</int>
 												<object class="NSCustomResource" key="NSNormalImage">
 													<string key="NSClassName">NSImage</string>
 													<string key="NSResourceName">prev-episode</string>
@@ -915,7 +915,7 @@
 												<reference key="NSSupport" ref="723267852"/>
 												<reference key="NSControlView" ref="723958092"/>
 												<int key="NSButtonFlags">138690815</int>
-												<int key="NSButtonFlags2">130</int>
+												<int key="NSButtonFlags2">194</int>
 												<object class="NSCustomResource" key="NSNormalImage">
 													<string key="NSClassName">NSImage</string>
 													<string key="NSResourceName">next-episode</string>
@@ -940,7 +940,7 @@
 												<reference key="NSSupport" ref="723267852"/>
 												<reference key="NSControlView" ref="930446879"/>
 												<int key="NSButtonFlags">1215582463</int>
-												<int key="NSButtonFlags2">130</int>
+												<int key="NSButtonFlags2">194</int>
 												<object class="NSCustomResource" key="NSNormalImage">
 													<string key="NSClassName">NSImage</string>
 													<string key="NSResourceName">play</string>
