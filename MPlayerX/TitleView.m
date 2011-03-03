@@ -47,7 +47,7 @@ static NSRect trackRect;
 		titleAttr = [[NSDictionary alloc]
 					 initWithObjectsAndKeys:
 					 [NSColor whiteColor], NSForegroundColorAttributeName,
-					 [NSFont titleBarFontOfSize:12], NSFontAttributeName,
+					 [NSFont titleBarFontOfSize:0], NSFontAttributeName,
 					 nil];
 
 		tbCornerLeft	= [[NSImage imageNamed:@"titlebar-corner-left.png"] retain];
