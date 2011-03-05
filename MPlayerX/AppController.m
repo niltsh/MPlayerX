@@ -71,7 +71,6 @@ static BOOL init_ed = NO;
 {
 	[[NSUserDefaults standardUserDefaults] 
 	 registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-					   /*@"http://mplayerx.googlecode.com/svn/trunk/update/appcast.xml", @"SUFeedURL",*/
 					   [NSNumber numberWithBool:NO], kUDKeyLogMode,
 					   kSnapshotSaveDefaultPath, kUDKeySnapshotSavePath,
 					   nil]];
@@ -94,11 +93,7 @@ static BOOL init_ed = NO;
 
 		ud = [NSUserDefaults standardUserDefaults];
 		notifCenter = [NSNotificationCenter defaultCenter];
-		
-		/////////////////////////setup auto update////////////////////
-		// 设定手动更新
-		// [[SUUpdater sharedUpdater] setAutomaticallyChecksForUpdates:NO];
-		
+
 		NSBundle *mainBundle = [NSBundle mainBundle];
 		// 建立支持格式的Set
 		for( NSDictionary *dict in [mainBundle objectForInfoDictionaryKey:@"CFBundleDocumentTypes"]) {
@@ -287,7 +282,7 @@ static BOOL init_ed = NO;
 
 -(void) applicationDidFinishLaunching:(NSNotification *)notification
 {
-	// [[SUUpdater sharedUpdater] checkForUpdatesInBackground];
+	
 }
 
 @end
