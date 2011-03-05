@@ -111,7 +111,8 @@ enum {
 					   [NSNumber numberWithUnsignedInt:kSubFileNameRuleContain], kUDKeySubFileNameRule,
 					   boolNo, kUDKeyDTSPassThrough,
 					   boolNo, kUDKeyAC3PassThrough,
-					   [NSNumber numberWithUnsignedInt:2], kUDKeyThreadNum,
+					   // Set the default number of threads used by ffmpeg to the number of cpu cores present on the computer.
+					   [NSNumber numberWithUnsignedInt: [[NSProcessInfo processInfo] processorCount]], kUDKeyThreadNum,
 					   boolYes, kUDKeyUseEmbeddedFonts,
 					   [NSNumber numberWithUnsignedInt:10000], kUDKeyCacheSize,
 					   [NSNumber numberWithUnsignedInt:10000], kUDKeyCacheSizeLocal,
