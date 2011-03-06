@@ -39,6 +39,8 @@
 	DisplayFormat fmt;
 	BOOL fillScreen;
 	CGFloat externalAspectRatio;
+	BOOL mirror;
+	BOOL flip;
 	
 	BOOL positionOffset;
 	BOOL scaleEnabled;
@@ -52,6 +54,8 @@
 }
 
 @property (readwrite, assign) BOOL fillScreen;
+@property (readwrite, assign) BOOL mirror;
+@property (readwrite, assign) BOOL flip;
 
 -(NSSize) displaySize;
 -(CGFloat) aspectRatio;

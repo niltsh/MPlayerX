@@ -28,6 +28,9 @@
 
 @implementation DisplayLayer
 
+@synthesize mirror;
+@synthesize flip;
+
 //////////////////////////////////////Init/Dealloc/////////////////////////////////////
 - (id) init
 {
@@ -63,6 +66,9 @@
 		flagPositionOffsetChanged = YES;
 		flagScaleChanged = YES;
 		refitBounds = YES;
+		
+		mirror = NO;
+		flip = NO;
 	}
 	return self;
 }
@@ -301,6 +307,11 @@
 		if (error == kCVReturnSuccess) {
 			// draw
 
+			GLfloat cornerX, cornerY;
+			
+			cornerX = (mirror)?(-1):(1);
+			cornerY = (flip)?(-1):(1);
+			
 			CGLLockContext(glContext);	
 			CGLSetCurrentContext(glContext);
 			
@@ -312,10 +323,10 @@
 			glBegin(GL_QUADS);
 			
 			// 直接计算layer需要的尺寸
-			glTexCoord2f(		 0,			 0);	glVertex2f(-1,	 1);
-			glTexCoord2f(		 0, fmt.height);	glVertex2f(-1,	-1);
-			glTexCoord2f(fmt.width, fmt.height);	glVertex2f( 1,	-1);
-			glTexCoord2f(fmt.width,			 0);	glVertex2f( 1,	 1);
+			glTexCoord2f(		 0,			 0);	glVertex2f(-cornerX,  cornerY);
+			glTexCoord2f(		 0, fmt.height);	glVertex2f(-cornerX, -cornerY);
+			glTexCoord2f(fmt.width, fmt.height);	glVertex2f( cornerX, -cornerY);
+			glTexCoord2f(fmt.width,			 0);	glVertex2f( cornerX,  cornerY);
 			
 			glEnd();
 			

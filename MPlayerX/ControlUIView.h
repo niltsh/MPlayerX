@@ -103,6 +103,8 @@
 	IBOutlet NSMenuItem *menuShrinkFrame;
 	IBOutlet NSMenuItem *menuEnlargeFrame2;
 	IBOutlet NSMenuItem *menuShrinkFrame2;
+	IBOutlet NSMenuItem *menuMirror;
+	IBOutlet NSMenuItem *menuFlip;
 }
 
 ////////////////////////////////显示相关////////////////////////////////
@@ -164,5 +166,8 @@ extern NSString * const kFillScreenButtonImageUBKey;
 -(IBAction) resetFrameScaleRatio:(id)sender;
 
 -(IBAction) stepFrameScale:(id)sender;
+
+-(IBAction) toggleMirror:(id)sender;
+-(IBAction) toggleFlip:(id)sender;
 
 @end

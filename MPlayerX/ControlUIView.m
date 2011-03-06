@@ -201,6 +201,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuEnlargeFrame2 setKeyEquivalent:kSCMScaleFrameLargerKeyEquivalent];
 	[menuShrinkFrame2 setKeyEquivalentModifierMask:kSCMScaleFrameSmaller2KeyEquivalentModifierFlagMask];
 	[menuShrinkFrame2 setKeyEquivalent:kSCMScaleFrameSmallerKeyEquivalent];
+	
+	[menuMirror setKeyEquivalentModifierMask:kSCMMirrorKeyEquivalentModifierFlagMask];
+	[menuMirror setKeyEquivalent:kSCMMirrorKeyEquivalent];
+	[menuFlip setKeyEquivalentModifierMask:kSCMFlipKeyEquivalentModifierFlagMask];
+	[menuFlip setKeyEquivalent:kSCMFlipKeyEquivalent];
 	////////////////////////////////////////load Images////////////////////////////////////////
 	// 初始化音量大小图标
 	volumeButtonImages = [[NSArray alloc] initWithObjects:	[NSImage imageNamed:@"vol_no"], [NSImage imageNamed:@"vol_low"],
@@ -996,6 +1001,20 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	rt.height = rt.width;
 	
 	[dispView changeFrameScaleRatioBy:rt];
+}
+
+-(IBAction) toggleMirror:(id)sender
+{
+	[dispView setMirror:![dispView mirror]];
+	
+	[menuMirror setState:([dispView mirror])?(NSOnState):(NSOffState)];
+}
+
+-(IBAction) toggleFlip:(id)sender
+{
+	[dispView setFlip:![dispView flip]];
+	
+	[menuFlip setState:([dispView flip])?(NSOnState):(NSOffState)];
 }
 
 ////////////////////////////////////////////////FullscreenThings//////////////////////////////////////////////////

@@ -60,9 +60,11 @@ NSString * const kSCMPrevEpisodeKeyEquivalent			= @",";
 
 NSString * const kSCMResetFrameScaleRatioKeyEquivalent	= @"t";
 
-NSString * const kSCMScaleFrameLargerKeyEquivalent	= @"=";
-NSString * const kSCMScaleFrameSmallerKeyEquivalent	= @"-";
+NSString * const kSCMScaleFrameLargerKeyEquivalent		= @"=";
+NSString * const kSCMScaleFrameSmallerKeyEquivalent		= @"-";
 
-NSString * const kSCMScaleFrameLarger2KeyEquivalent	= @"=";
+NSString * const kSCMScaleFrameLarger2KeyEquivalent		= @"=";
 NSString * const kSCMScaleFrameSmaller2KeyEquivalent	= @"-";
 
+NSString * const kSCMMirrorKeyEquivalent				= @"m";
+NSString * const kSCMFlipKeyEquivalent					= @"f";

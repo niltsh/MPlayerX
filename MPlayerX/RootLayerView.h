@@ -72,4 +72,10 @@
 
 -(void) changeFrameScaleRatioBy:(CGSize)rt;
 -(void) resetFrameScaleRatio;
+
+-(BOOL) mirror;
+-(BOOL) flip;
+-(void) setMirror:(BOOL)m;
+-(void) setFlip:(BOOL)f;
+
 @end

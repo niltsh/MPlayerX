@@ -688,6 +688,29 @@
 		[[self window] setLevel: NSNormalWindowLevel];
 	}
 }
+
+-(BOOL) mirror
+{
+	return [dispLayer mirror];
+}
+
+-(BOOL) flip
+{
+	return [dispLayer flip];
+}
+
+-(void) setMirror:(BOOL)m
+{
+	[dispLayer setMirror:m];
+	[dispLayer setNeedsDisplay];
+}
+
+-(void) setFlip:(BOOL)f
+{
+	[dispLayer setFlip:f];
+	[dispLayer setNeedsDisplay];
+}
+
 ///////////////////////////////////for dragging/////////////////////////////////////////
 - (NSDragOperation) draggingEntered:(id <NSDraggingInfo>)sender
 {

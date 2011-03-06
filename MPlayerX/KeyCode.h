@@ -105,3 +105,8 @@ extern NSString * const kSCMScaleFrameLarger2KeyEquivalent;
 extern NSString * const kSCMScaleFrameSmaller2KeyEquivalent;
 #define kSCMScaleFrameSmaller2KeyEquivalentModifierFlagMask	(NSAlternateKeyMask|NSShiftKeyMask)
 
+extern NSString * const kSCMMirrorKeyEquivalent;
+#define kSCMMirrorKeyEquivalentModifierFlagMask		(NSAlternateKeyMask)
+extern NSString * const kSCMFlipKeyEquivalent;
+#define kSCMFlipKeyEquivalentModifierFlagMask		(NSAlternateKeyMask)
+
