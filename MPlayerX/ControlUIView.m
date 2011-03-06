@@ -687,7 +687,16 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 -(IBAction) toggleFillScreen:(id)sender
 {
 	if (sender || ([fillScreenButton state] == NSOnState)) {
-		[fillScreenButton setState: ([dispView toggleFillScreen])?NSOnState:NSOffState];
+		// 如果sender为nil
+		// 那说明是程序内部发出的重置信号，根据button的状态决定是否触发toggle
+		BOOL status = [dispView toggleFillScreen];
+		if (status) {
+			[fillScreenButton setState:NSOnState];
+			[menuToggleFillScreen setState:NSOnState];
+		} else {
+			[fillScreenButton setState:NSOffState];
+			[menuToggleFillScreen setState:NSOffState];
+		}
 	}
 }
 
