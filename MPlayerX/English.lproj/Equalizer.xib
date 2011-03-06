@@ -2,17 +2,16 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10F569</string>
-		<string key="IBDocument.InterfaceBuilderVersion">788</string>
-		<string key="IBDocument.AppKitVersion">1038.29</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.InterfaceBuilderVersion">823</string>
+		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">788</string>
+			<string key="NS.object.0">823</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="2"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -49,7 +48,7 @@
 				<string key="NSWindowContentMaxSize">{493, 312}</string>
 				<string key="NSWindowContentMinSize">{493, 312}</string>
 				<object class="NSView" key="NSWindowView" id="1050457270">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -564,7 +563,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{493, 312}</string>
-					<reference key="NSSuperview"/>
 					<bool key="NSViewCanDrawConcurrently">YES</bool>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
@@ -1442,27 +1440,35 @@
 							<string>changeSubPosBy:</string>
 							<string>changeSubScale:</string>
 							<string>changeVolumeBy:</string>
+							<string>moveFrameToCenter:</string>
 							<string>resetAspectRatio:</string>
+							<string>resetFrameScaleRatio:</string>
 							<string>seekTo:</string>
 							<string>setAudioWithID:</string>
 							<string>setSubWithID:</string>
 							<string>setVideoWithID:</string>
 							<string>setVolume:</string>
-							<string>showMediaInfo:</string>
 							<string>stepAudios:</string>
+							<string>stepFrameScale:</string>
 							<string>stepSubtitles:</string>
 							<string>stepVideos:</string>
 							<string>stepWindowSize:</string>
 							<string>toggleAccessaryControls:</string>
 							<string>toggleFillScreen:</string>
+							<string>toggleFlip:</string>
 							<string>toggleFullScreen:</string>
 							<string>toggleLetterBox:</string>
 							<string>toggleLockAspectRatio:</string>
+							<string>toggleMirror:</string>
 							<string>toggleMute:</string>
 							<string>togglePlayPause:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1501,22 +1507,26 @@
 							<string>changeSubPosBy:</string>
 							<string>changeSubScale:</string>
 							<string>changeVolumeBy:</string>
+							<string>moveFrameToCenter:</string>
 							<string>resetAspectRatio:</string>
+							<string>resetFrameScaleRatio:</string>
 							<string>seekTo:</string>
 							<string>setAudioWithID:</string>
 							<string>setSubWithID:</string>
 							<string>setVideoWithID:</string>
 							<string>setVolume:</string>
-							<string>showMediaInfo:</string>
 							<string>stepAudios:</string>
+							<string>stepFrameScale:</string>
 							<string>stepSubtitles:</string>
 							<string>stepVideos:</string>
 							<string>stepWindowSize:</string>
 							<string>toggleAccessaryControls:</string>
 							<string>toggleFillScreen:</string>
+							<string>toggleFlip:</string>
 							<string>toggleFullScreen:</string>
 							<string>toggleLetterBox:</string>
 							<string>toggleLockAspectRatio:</string>
+							<string>toggleMirror:</string>
 							<string>toggleMute:</string>
 							<string>togglePlayPause:</string>
 						</object>
@@ -1551,7 +1561,15 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">moveFrameToCenter:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">resetAspectRatio:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">resetFrameScaleRatio:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1575,11 +1593,11 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">showMediaInfo:</string>
+								<string key="name">stepAudios:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">stepAudios:</string>
+								<string key="name">stepFrameScale:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1603,6 +1621,10 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">toggleFlip:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">toggleFullScreen:</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -1612,6 +1634,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">toggleLockAspectRatio:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleMirror:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1634,9 +1660,20 @@
 							<string>fillScreenButton</string>
 							<string>fullScreenButton</string>
 							<string>hintTime</string>
+							<string>menuEnlargeFrame</string>
+							<string>menuEnlargeFrame2</string>
+							<string>menuFlip</string>
+							<string>menuMirror</string>
+							<string>menuMoveFrameToCenter</string>
+							<string>menuMoveToTrash</string>
+							<string>menuNextEpisode</string>
 							<string>menuPlayFromLastStoppedPlace</string>
+							<string>menuPrevEpisode</string>
+							<string>menuResetFrameScaleRatio</string>
 							<string>menuResetLockAspectRatio</string>
 							<string>menuShowMediaInfo</string>
+							<string>menuShrinkFrame</string>
+							<string>menuShrinkFrame2</string>
 							<string>menuSizeDec</string>
 							<string>menuSizeInc</string>
 							<string>menuSnapshot</string>
@@ -1645,6 +1682,9 @@
 							<string>menuSwitchAudio</string>
 							<string>menuSwitchSub</string>
 							<string>menuSwitchVideo</string>
+							<string>menuToggleAuxiliaryCtrls</string>
+							<string>menuToggleFillScreen</string>
+							<string>menuToggleFullScreen</string>
 							<string>menuToggleLetterBox</string>
 							<string>menuToggleLockAspectRatio</string>
 							<string>menuVolDec</string>
@@ -1686,6 +1726,20 @@
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
 							<string>OsdText</string>
 							<string>NSButton</string>
 							<string>PlayerController</string>
@@ -1711,9 +1765,20 @@
 							<string>fillScreenButton</string>
 							<string>fullScreenButton</string>
 							<string>hintTime</string>
+							<string>menuEnlargeFrame</string>
+							<string>menuEnlargeFrame2</string>
+							<string>menuFlip</string>
+							<string>menuMirror</string>
+							<string>menuMoveFrameToCenter</string>
+							<string>menuMoveToTrash</string>
+							<string>menuNextEpisode</string>
 							<string>menuPlayFromLastStoppedPlace</string>
+							<string>menuPrevEpisode</string>
+							<string>menuResetFrameScaleRatio</string>
 							<string>menuResetLockAspectRatio</string>
 							<string>menuShowMediaInfo</string>
+							<string>menuShrinkFrame</string>
+							<string>menuShrinkFrame2</string>
 							<string>menuSizeDec</string>
 							<string>menuSizeInc</string>
 							<string>menuSnapshot</string>
@@ -1722,6 +1787,9 @@
 							<string>menuSwitchAudio</string>
 							<string>menuSwitchSub</string>
 							<string>menuSwitchVideo</string>
+							<string>menuToggleAuxiliaryCtrls</string>
+							<string>menuToggleFillScreen</string>
+							<string>menuToggleFullScreen</string>
 							<string>menuToggleLetterBox</string>
 							<string>menuToggleLockAspectRatio</string>
 							<string>menuVolDec</string>
@@ -1767,7 +1835,43 @@
 								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">menuEnlargeFrame</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuEnlargeFrame2</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuFlip</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuMirror</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuMoveFrameToCenter</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuMoveToTrash</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuNextEpisode</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">menuPlayFromLastStoppedPlace</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuPrevEpisode</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuResetFrameScaleRatio</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -1776,6 +1880,14 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">menuShowMediaInfo</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuShrinkFrame</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuShrinkFrame2</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -1808,6 +1920,18 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">menuSwitchVideo</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuToggleAuxiliaryCtrls</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuToggleFillScreen</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuToggleFullScreen</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -2043,7 +2167,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSMenu</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="889439298">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">CocoaAppendix.h</string>
 					</object>
@@ -2054,6 +2178,10 @@
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">../Apple Remote Control/RemoteControl.h</string>
 					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<reference key="sourceIdentifier" ref="889439298"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">OpenURLController</string>
@@ -2166,50 +2294,16 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">PlayerController</string>
 					<string key="superclassName">NSObject</string>
-					<object class="NSMutableDictionary" key="actions">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>openFile:</string>
-							<string>showHelp:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>openFile:</string>
-							<string>showHelp:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBActionInfo">
-								<string key="name">openFile:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showHelp:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-						</object>
-					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>aboutText</string>
 							<string>charsetController</string>
 							<string>controlUI</string>
 							<string>openUrlController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>NSTextField</string>
 							<string>CharsetQueryController</string>
 							<string>ControlUIView</string>
 							<string>OpenURLController</string>
@@ -2219,17 +2313,12 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>aboutText</string>
 							<string>charsetController</string>
 							<string>controlUI</string>
 							<string>openUrlController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">aboutText</string>
-								<string key="candidateClassName">NSTextField</string>
-							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">charsetController</string>
 								<string key="candidateClassName">CharsetQueryController</string>
@@ -2260,17 +2349,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">RootLayerView</string>
 					<string key="superclassName">NSView</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">writeSnapshotToFile:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">writeSnapshotToFile:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">writeSnapshotToFile:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
@@ -2463,6 +2541,7 @@
 							<string>menuVTPanel</string>
 							<string>nrDec</string>
 							<string>nrInc</string>
+							<string>playerController</string>
 							<string>satDec</string>
 							<string>satInc</string>
 							<string>shpDec</string>
@@ -2489,6 +2568,7 @@
 							<string>NSMenuItem</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
+							<string>PlayerController</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
@@ -2518,6 +2598,7 @@
 							<string>menuVTPanel</string>
 							<string>nrDec</string>
 							<string>nrInc</string>
+							<string>playerController</string>
 							<string>satDec</string>
 							<string>satInc</string>
 							<string>shpDec</string>
@@ -2579,6 +2660,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">nrInc</string>
 								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">playerController</string>
+								<string key="candidateClassName">PlayerController</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">satDec</string>
@@ -3028,20 +3113,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">QuartzCore.framework/Headers/CIImageProvider.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">Sparkle.framework/Headers/SUAppcast.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">Sparkle.framework/Headers/SUUpdater.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
