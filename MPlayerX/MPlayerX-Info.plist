@@ -143,7 +143,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.2</string>
+	<string>1.0.3</string>
 	<key>CFBundleSignature</key>
 	<string>NILT</string>
 	<key>CFBundleURLTypes</key>
@@ -207,13 +207,13 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1129</string>
+	<string>1157</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.entertainment</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>MPXCommitHash</key>
-	<string>e373a61f8f95a60387486dd5775ed831004b7d85</string>
+	<string>23d4aab35234ac08631997248a427190d105f269</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2009-2011, Zongyao QU</string>
 	<key>NSMainNibFile</key>
