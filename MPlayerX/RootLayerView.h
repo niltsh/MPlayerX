@@ -45,6 +45,8 @@
 	
 	BOOL firstDisplay;
 	
+	NSInteger threeFingersTap;
+	
 	// 在切换全屏的时候，view的window会发生变化，因此这里用一个成员变量锁定window
 	IBOutlet NSWindow *playerWindow;
 	IBOutlet ControlUIView *controlUI;

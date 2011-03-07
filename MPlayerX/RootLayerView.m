@@ -38,6 +38,10 @@
 #define kScaleFrameRatioMinLimit	(0.05f)
 #define kScaleFrameRatioStepMax		(0.20f)
 
+#define kThreeFingersTapInit	(0)
+#define kThreeFingersTapInvalid	(-1)
+#define kThreeFingersTapReady	(1)
+
 @interface RootLayerView (RootLayerViewInternal)
 -(NSSize) calculateContentSize:(NSSize)refSize;
 -(NSPoint) calculatePlayerWindowPosition:(NSSize)winSize;
@@ -107,6 +111,11 @@
 		lockAspectRatio = YES;
 		dragShouldResize = NO;
 		firstDisplay = YES;
+		
+		threeFingersTap = kThreeFingersTapInit;
+		
+		[self setAcceptsTouchEvents:YES];
+		[self setWantsRestingTouches:NO];
 	}
 	return self;
 }
@@ -547,6 +556,55 @@
 	if (key) {
 		[shortCutManager processKeyDown:[NSEvent makeKeyDownEvent:[NSString stringWithCharacters:&key length:1] modifierFlags:0]];
 	}
+}
+
+-(void) touchesBeganWithEvent:(NSEvent*)event
+{
+	// MPLog(@"BEGAN");
+	NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseBegan|NSTouchPhaseStationary inView:self];
+	
+	if (([touch count] == 3) && (threeFingersTap == kThreeFingersTapInit)) {
+		// 如果是三个指头tap，并且现在是OK的状态，那么就ready了
+		threeFingersTap = kThreeFingersTapReady;
+		// MPLog(@"Three Fingers Tap Ready");
+	}
+	
+	[super touchesBeganWithEvent:event];
+}
+
+-(void) touchesMovedWithEvent:(NSEvent*)event
+{
+	// MPLog(@"MOVED");
+	// 任何时候当move的时候，就不ready了
+	threeFingersTap = kThreeFingersTapInvalid;
+	[super touchesMovedWithEvent:event];
+}
+
+-(void) touchesEndedWithEvent:(NSEvent*)event
+{
+	// MPLog(@"ENDED");
+	NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseTouching inView:self];
+	
+	if ([touch count] == 0) {
+		// 当所有指头都离开之后（除了resting）
+		if (threeFingersTap == kThreeFingersTapReady) {
+			// 如果是ready的话，就toggle play pause
+			[controlUI togglePlayPause:nil];
+			// MPLog(@"Three Fingers Tap Trigger");
+		}
+		// 不论是否是ready还是init还是invalid，所有之后离开之后都重置
+		threeFingersTap = kThreeFingersTapInit;
+	}
+	
+	[super touchesEndedWithEvent:event];
+}
+
+-(void) touchesCancelledWithEvent:(NSEvent*)event
+{
+	// MPLog(@"CANCEL");
+	threeFingersTap = kThreeFingersTapInit;
+
+	[super touchesCancelledWithEvent:event];
 }
 
 -(CIImage*) snapshot
