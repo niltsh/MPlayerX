@@ -418,6 +418,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8674A56412CF294F009A2D05 /* Credits.rtf */,
 				863D0A8A12CDE82F00170081 /* window buttons */,
 				866CD15111DF138300032F96 /* other */,
 				866CD15011DF137200032F96 /* UI */,
@@ -578,7 +579,6 @@
 		866CD15011DF137200032F96 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				8674A56412CF294F009A2D05 /* Credits.rtf */,
 				86030A9211F1E00600F8D1E8 /* Localizable.strings */,
 				860EF90D1127BAE40015B6EE /* MainMenu.xib */,
 				860EF90F1127BB050015B6EE /* Pref.xib */,
