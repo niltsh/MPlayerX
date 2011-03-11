@@ -105,6 +105,7 @@
 	IBOutlet NSMenuItem *menuShrinkFrame2;
 	IBOutlet NSMenuItem *menuMirror;
 	IBOutlet NSMenuItem *menuFlip;
+	IBOutlet NSMenuItem *menuZoom;
 }
 
 ////////////////////////////////显示相关////////////////////////////////

@@ -206,6 +206,9 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuMirror setKeyEquivalent:kSCMMirrorKeyEquivalent];
 	[menuFlip setKeyEquivalentModifierMask:kSCMFlipKeyEquivalentModifierFlagMask];
 	[menuFlip setKeyEquivalent:kSCMFlipKeyEquivalent];
+	
+	[menuZoom setKeyEquivalentModifierMask:kSCMWindowZoomKeyEquivalentModifierFlagMask];
+	[menuZoom setKeyEquivalent:kSCMWindowZoomKeyEquivalent];
 	////////////////////////////////////////load Images////////////////////////////////////////
 	// 初始化音量大小图标
 	volumeButtonImages = [[NSArray alloc] initWithObjects:	[NSImage imageNamed:@"vol_no"], [NSImage imageNamed:@"vol_low"],
