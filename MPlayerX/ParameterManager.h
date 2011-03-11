@@ -44,6 +44,7 @@
 	NSString *vobSub;
 	NSString *subFont;
 	NSString *subCP;
+	unsigned int subBorderWidth;
 	float startTime;
 	float volume;
 	float subPos;
@@ -102,6 +103,7 @@
 @property (assign, readwrite) unsigned int imgEnhance;
 @property (retain, readwrite) NSString *extraOptions;
 @property (retain, readwrite) NSArray *equalizer;
+@property (assign, readwrite) unsigned int subBorderWidth;
 
 -(void) setSubFontColor:(NSColor*)col;
 -(void) setSubFontBorderColor:(NSColor*)col;

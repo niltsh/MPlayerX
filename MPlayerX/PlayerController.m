@@ -129,6 +129,7 @@ enum {
 					   [NSNumber numberWithUnsignedInt:kPMDeInterlaceNone], kUDKeyDeIntMethod,
 					   @"", kUDKeyExtraOptions,
 					   [NSNumber numberWithUnsignedInt:kPMSubAlignDefault], kUDKeySubAlign,
+					   [NSNumber numberWithUnsignedInt:kPMSubBorderWidthDefault], kUDKeySubBorderWidth,
 					   nil]];	
 }
 
@@ -438,6 +439,7 @@ enum {
 
 	[mplayer.pm setExtraOptions:[ud stringForKey:kUDKeyExtraOptions]];
 	[mplayer.pm setSubAlign:[ud integerForKey:kUDKeySubAlign]];
+	[mplayer.pm setSubBorderWidth:[ud integerForKey:kUDKeySubBorderWidth]];
 	
 	if (autoPlayState == kMPCAutoPlayStateJustFound) {
 		// when APN, do not pause at start

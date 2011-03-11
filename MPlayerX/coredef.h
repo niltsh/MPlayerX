@@ -113,6 +113,8 @@ typedef enum {
 
 #define kMPCStateMask		(0x0100)
 
+#define kPMSubBorderWidthDefault	(2)
+
 /////////////////////////////////////strings/////////////////////////////////////
 // 指定两种arch的mplayer路径时所用的key
 extern NSString * const kI386Key;

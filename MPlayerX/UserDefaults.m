@@ -90,6 +90,7 @@ NSString * const kUDKeyAutoSaveEQSettings					= @"ASEQS";
 NSString * const kUDKeyVTSettings							= @"VTSettings";
 NSString * const kUDKeyAutoSaveVTSettings					= @"ASVTS";
 NSString * const kUDKeySubAlign								= @"SubAlign";
+NSString * const kUDKeySubBorderWidth						= @"SubBorderWidth";
 
 NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";

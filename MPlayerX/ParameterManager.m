@@ -101,10 +101,13 @@ NSString * const kPMSubParPPFilter			= @"pp=";
 
 NSString * const kPMSlash					= @"/";
 
-NSString * const kPMValAssForceStylePrefix	= @"BorderStyle=1,Outline=1,MarginV=2";
+NSString * const kPMValAssForceStylePrefix	= @"BorderStyle=1,MarginV=2";
 NSString * const kPMValFmtAssSubAlginment	= @",Alignment=%d";
+NSString * const kPMValFmtAssSubBorderWidth = @",Outline=%d";
 
 #define kSubScaleNoAss		(8.0)
+
+#define kPMSubBorderWidthMax	(4)
 
 @implementation ParameterManager
 
@@ -138,6 +141,7 @@ NSString * const kPMValFmtAssSubAlginment	= @",Alignment=%d";
 @synthesize imgEnhance;
 @synthesize extraOptions;
 @synthesize equalizer;
+@synthesize subBorderWidth;
 
 #pragma mark Init/Dealloc
 -(id) init
@@ -168,6 +172,7 @@ NSString * const kPMValFmtAssSubAlginment	= @",Alignment=%d";
 		subScale = 1.5;
 		subFont = nil;
 		subCP = nil;
+		subBorderWidth = kPMSubBorderWidthDefault;
 		threads = 1;
 		textSubs = nil;
 		vobSub = nil;
@@ -365,10 +370,12 @@ NSString * const kPMValFmtAssSubAlginment	= @",Alignment=%d";
 		[paramArray addObject:kPMParAssBorderColor];
 		[paramArray addObject:[NSString stringWithFormat: kPMFMTHex, borderColor]];
 		
-		if (subAlign == kPMSubAlignDefault) {
-			otherStyles = kPMValAssForceStylePrefix;
-		} else {
-			otherStyles = [kPMValAssForceStylePrefix stringByAppendingFormat:kPMValFmtAssSubAlginment, subAlign];
+		subBorderWidth = MIN(kPMSubBorderWidthMax, subBorderWidth);
+		
+		otherStyles = [kPMValAssForceStylePrefix stringByAppendingFormat:kPMValFmtAssSubBorderWidth, subBorderWidth];
+		
+		if (subAlign != kPMSubAlignDefault) {
+			otherStyles = [otherStyles stringByAppendingFormat:kPMValFmtAssSubAlginment, subAlign];
 		}
 
 		[paramArray addObject:kPMParAssForcrStyle];
