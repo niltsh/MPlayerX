@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10J869</string>
 		<string key="IBDocument.InterfaceBuilderVersion">823</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">823</string>
@@ -2625,7 +2625,7 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="615974115">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2634,13 +2634,14 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 20}, {446, 42}}</string>
 						<reference key="NSSuperview" ref="615974115"/>
+						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="1064472169">
 							<int key="NSCellFlags">67239424</int>
 							<int key="NSCellFlags2">4329472</int>
 							<string type="base64-UTF8" key="NSContents">VGhlIGV4dHJhIG9wdGlvbnMgd2lsbCBiZSBwYXNzZWQgdG8gbXBsYXllciBkaXJlY3RseS4KTWFrZSBz
-dXJlIHlvdXJzZWxmIHJlYWxseSBhIG1wbGF5ZXIgcHJvZmVzc2lvbmFsIHRvIG1vZGlmeSB0aGlzLCBv
-dGhlcndpc2UgcGxlYXNlIGxlYXZlIGl0IGJsYW5rLg</string>
+dXJlIHlvdSBhcmUgcmVhbGx5IGEgbXBsYXllciBwcm9mZXNzaW9uYWwgYmVmb3JlIHlvdSBtb2RpZnkg
+dGhpcywgb3RoZXJ3aXNlIHBsZWFzZSBsZWF2ZSBpdCBibGFuay4</string>
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="672910746"/>
 							<reference key="NSBackgroundColor" ref="592303529"/>
@@ -2656,6 +2657,7 @@ dGhlcndpc2UgcGxlYXNlIGxlYXZlIGl0IGJsYW5rLg</string>
 						<int key="NSvFlags">266</int>
 						<string key="NSFrame">{{110, 68}, {350, 22}}</string>
 						<reference key="NSSuperview" ref="615974115"/>
+						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="1029152748">
 							<int key="NSCellFlags">-1804468671</int>
@@ -2673,6 +2675,7 @@ dGhlcndpc2UgcGxlYXNlIGxlYXZlIGl0IGJsYW5rLg</string>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 70}, {88, 17}}</string>
 						<reference key="NSSuperview" ref="615974115"/>
+						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="955401261">
 							<int key="NSCellFlags">68288064</int>
@@ -2686,6 +2689,8 @@ dGhlcndpc2UgcGxlYXNlIGxlYXZlIGl0IGJsYW5rLg</string>
 					</object>
 				</object>
 				<string key="NSFrameSize">{480, 110}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSUserDefaultsController" id="659034198">
@@ -6444,6 +6449,7 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>menuToggleLockAspectRatio</string>
 							<string>menuVolDec</string>
 							<string>menuVolInc</string>
+							<string>menuZoom</string>
 							<string>osd</string>
 							<string>playPauseButton</string>
 							<string>playerController</string>
@@ -6466,6 +6472,7 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSTextField</string>
+							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
@@ -6549,6 +6556,7 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>menuToggleLockAspectRatio</string>
 							<string>menuVolDec</string>
 							<string>menuVolInc</string>
+							<string>menuZoom</string>
 							<string>osd</string>
 							<string>playPauseButton</string>
 							<string>playerController</string>
@@ -6703,6 +6711,10 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">menuVolInc</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuZoom</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
