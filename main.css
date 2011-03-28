@@ -263,6 +263,10 @@ section p {
 	text-indent: 1em;
 }
 
+#Download #mas {
+	vertical-align: text-top;
+}
+
 #contact p {
 	margin-left: 8px;
 	text-indent: 1em;
