@@ -207,13 +207,13 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1157</string>
+	<string>1169</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.entertainment</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>MPXCommitHash</key>
-	<string>23d4aab35234ac08631997248a427190d105f269</string>
+	<string>0a7e80d4d3d242ef72440121b78f61a648971eef</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2009-2011, Zongyao QU</string>
 	<key>NSMainNibFile</key>
