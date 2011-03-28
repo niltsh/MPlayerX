@@ -573,7 +573,7 @@ enum {
 	NSString *mplayerName;
 	unsigned int threadNum;
 	
-	if (/*mt*/1) {
+	if (/*mt*/0) {
 		// 使用多线程
 		threadNum = MIN(kThreadsNumMax, MAX(1,[ud integerForKey:kUDKeyThreadNum]));
 		mplayerName = kMPCMplayerNameMT;
