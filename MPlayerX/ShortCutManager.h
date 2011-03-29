@@ -33,12 +33,9 @@
 	BOOL repeatCanceled;
 	NSUInteger repeatCounter;
 	float arKeyRepTime;
-	
-	float speedStepIncre;
+
 	float seekStepTimeLR;
 	float seekStepTimeUB;
-	float subDelayStepTime;
-	float audioDelayStepTime;
 
 	IBOutlet PlayerController *playerController;
 	IBOutlet ControlUIView *controlUI;
