@@ -439,7 +439,7 @@
 			}
 			break;
 		case 0:
-			if ((fabsf(x) > fabsf(y*4)) && (![ud boolForKey:kUDKeyDisableHScrollSeek])) {
+			if ((fabsf(x) > fabsf(y*8)) && (![ud boolForKey:kUDKeyDisableHScrollSeek])) {
 				// MPLog(@"%f", x);
 				switch ([playerController playerState]) {
 					case kMPCPausedState:
@@ -453,7 +453,7 @@
 					default:
 						break;
 				}
-			} else if ((fabsf(x*4) < fabsf(y)) && (![ud boolForKey:kUDKeyDisableVScrollVol])) {
+			} else if ((fabsf(x*8) < fabsf(y)) && (![ud boolForKey:kUDKeyDisableVScrollVol])) {
 				[controlUI changeVolumeBy:[NSNumber numberWithFloat:y*0.2]];
 			}
 			break;
