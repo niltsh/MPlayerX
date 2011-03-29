@@ -87,6 +87,8 @@ extern NSString * const kUDKeyVTSettings;
 extern NSString * const kUDKeyAutoSaveVTSettings;
 extern NSString * const kUDKeySubAlign;
 extern NSString * const kUDKeySubBorderWidth;
+extern NSString * const kUDKeyDisableHScrollSeek;
+extern NSString * const kUDKeyDisableVScrollVol;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;

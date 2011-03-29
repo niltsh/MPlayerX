@@ -83,6 +83,8 @@
 					   boolNo, kUDKeyQuitOnClose,
 					   boolNo, kUDKeyPinPMode,
 					   boolNo, kUDKeyAlwaysHideDockInFullScrn,
+					   boolNo, kUDKeyDisableHScrollSeek,
+					   boolNo, kUDKeyDisableVScrollVol,
 					   nil]];
 }
 
@@ -437,7 +439,7 @@
 			}
 			break;
 		case 0:
-			if (fabsf(x) > fabsf(y*4)) {
+			if ((fabsf(x) > fabsf(y*4)) && (![ud boolForKey:kUDKeyDisableHScrollSeek])) {
 				// MPLog(@"%f", x);
 				switch ([playerController playerState]) {
 					case kMPCPausedState:
@@ -451,7 +453,7 @@
 					default:
 						break;
 				}
-			} else if (fabsf(x*4) < fabsf(y)) {
+			} else if ((fabsf(x*4) < fabsf(y)) && (![ud boolForKey:DisableVScrollVol])) {
 				[controlUI changeVolumeBy:[NSNumber numberWithFloat:y*0.2]];
 			}
 			break;
