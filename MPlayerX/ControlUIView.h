@@ -110,14 +110,14 @@
 	IBOutlet NSMenuItem *menuSpeedUp;
 	IBOutlet NSMenuItem *menuSpeedDown;
 	IBOutlet NSMenuItem *menuSpeedReset;
-	
 	IBOutlet NSMenuItem *menuAudioDelayInc;
 	IBOutlet NSMenuItem *menuAudioDelayDec;
 	IBOutlet NSMenuItem *menuAudioDelayReset;
-	
 	IBOutlet NSMenuItem *menuSubDelayInc;
 	IBOutlet NSMenuItem *menuSubDelayDec;
-	IBOutlet NSMenuItem *menuSubDelayReset;	
+	IBOutlet NSMenuItem *menuSubDelayReset;
+	
+	IBOutlet NSMenuItem *menuZoomToOriginSize;
 }
 
 ////////////////////////////////显示相关////////////////////////////////

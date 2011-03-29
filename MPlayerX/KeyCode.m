@@ -70,6 +70,7 @@ NSString * const kSCMMirrorKeyEquivalent				= @"m";
 NSString * const kSCMFlipKeyEquivalent					= @"f";
 
 NSString * const kSCMWindowZoomKeyEquivalent			= @"3";
+NSString * const kSCMWindowZoomToOrgSizeKeyEquivalent	= @"1";
 
 NSString * const kSCMSpeedUpKeyEquivalent				= @"]";
 NSString * const kSCMSpeedDownKeyEquivalent				= @"[";

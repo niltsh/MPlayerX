@@ -227,7 +227,10 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuSubDelayDec setKeyEquivalent:kSCMSubDelayMinusKeyEquivalent];
 	[menuSubDelayReset setKeyEquivalentModifierMask:kSCMSubDelayKeyEquivalentModifierFlagMask];
 	[menuSubDelayReset setKeyEquivalent:kSCMSubDelayResetKeyEquivalent];
-
+	
+	[menuZoomToOriginSize setKeyEquivalentModifierMask:kSCMWindowZoomToOrgSizeKeyEquivalentModifierFlagMask];
+	[menuZoomToOriginSize setKeyEquivalent:kSCMWindowZoomToOrgSizeKeyEquivalent];
+	
 	////////////////////////////////////////load Images////////////////////////////////////////
 	// 初始化音量大小图标
 	volumeButtonImages = [[NSArray alloc] initWithObjects:	[NSImage imageNamed:@"vol_no"], [NSImage imageNamed:@"vol_low"],
