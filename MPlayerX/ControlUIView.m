@@ -209,6 +209,25 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	
 	[menuZoom setKeyEquivalentModifierMask:kSCMWindowZoomKeyEquivalentModifierFlagMask];
 	[menuZoom setKeyEquivalent:kSCMWindowZoomKeyEquivalent];
+	
+	[menuSpeedUp setKeyEquivalent:kSCMSpeedUpKeyEquivalent];
+	[menuSpeedDown setKeyEquivalent:kSCMSpeedDownKeyEquivalent];
+	[menuSpeedReset setKeyEquivalent:kSCMSpeedResetKeyEquivalent];
+	
+	[menuAudioDelayInc setKeyEquivalentModifierMask:kSCMAudioDelayKeyEquivalentModifierFlagMask];
+	[menuAudioDelayInc setKeyEquivalent:kSCMAudioDelayPlusKeyEquivalent];
+	[menuAudioDelayDec setKeyEquivalentModifierMask:kSCMAudioDelayKeyEquivalentModifierFlagMask];
+	[menuAudioDelayDec setKeyEquivalent:kSCMAudioDelayMinusKeyEquivalent];
+	[menuAudioDelayReset setKeyEquivalentModifierMask:kSCMAudioDelayKeyEquivalentModifierFlagMask];
+	[menuAudioDelayReset setKeyEquivalent:kSCMAudioDelayResetKeyEquivalent];
+	
+	[menuSubDelayInc setKeyEquivalentModifierMask:kSCMSubDelayKeyEquivalentModifierFlagMask];
+	[menuSubDelayInc setKeyEquivalent:kSCMSubDelayPlusKeyEquivalent];
+	[menuSubDelayDec setKeyEquivalentModifierMask:kSCMSubDelayKeyEquivalentModifierFlagMask];
+	[menuSubDelayDec setKeyEquivalent:kSCMSubDelayMinusKeyEquivalent];
+	[menuSubDelayReset setKeyEquivalentModifierMask:kSCMSubDelayKeyEquivalentModifierFlagMask];
+	[menuSubDelayReset setKeyEquivalent:kSCMSubDelayResetKeyEquivalent];
+	
 	////////////////////////////////////////load Images////////////////////////////////////////
 	// 初始化音量大小图标
 	volumeButtonImages = [[NSArray alloc] initWithObjects:	[NSImage imageNamed:@"vol_no"], [NSImage imageNamed:@"vol_low"],
