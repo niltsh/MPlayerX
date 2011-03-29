@@ -768,17 +768,45 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 
 -(IBAction) changeSpeed:(id) sender
 {
-	[playerController setSpeed:[sender floatValue]];
+	if ([sender isKindOfClass:[NSMenuItem class]]) {
+		// from changespeed menu
+		if ([sender tag]) {
+			// if not zero, means not reset
+			[playerController changeSpeedBy:[sender tag] * [ud floatForKey:kUDKeySpeedStep]];
+		} else {
+			// if zero, reset
+			[playerController setSpeed:1];
+		}
+	} else {
+		// from textfield
+		[playerController setSpeed:[sender floatValue]];
+	}
 }
 
 -(IBAction) changeAudioDelay:(id) sender
 {
-	[playerController setAudioDelay:[sender floatValue]];	
+	if ([sender isKindOfClass:[NSMenuItem class]]) {
+		if ([sender tag]) {
+			[playerController changeAudioDelayBy:[sender tag] * [ud floatForKey:kUDKeyAudioDelayStepTime]];
+		} else {
+			[playerController setAudioDelay:0];
+		}
+	} else {
+		[playerController setAudioDelay:[sender floatValue]];	
+	}
 }
 
 -(IBAction) changeSubDelay:(id)sender
 {
-	[playerController setSubDelay:[sender floatValue]];
+	if ([sender isKindOfClass:[NSMenuItem class]]) {
+		if ([sender tag]) {
+			[playerController changeSubDelayBy:[sender tag] * [ud floatForKey:kUDKeySubDelayStepTime]];
+		} else {
+			[playerController setSubDelay:0];
+		}
+	} else {
+		[playerController setSubDelay:[sender floatValue]];
+	}
 }
 
 -(IBAction) changeSubScale:(id)sender
