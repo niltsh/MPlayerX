@@ -227,7 +227,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuSubDelayDec setKeyEquivalent:kSCMSubDelayMinusKeyEquivalent];
 	[menuSubDelayReset setKeyEquivalentModifierMask:kSCMSubDelayKeyEquivalentModifierFlagMask];
 	[menuSubDelayReset setKeyEquivalent:kSCMSubDelayResetKeyEquivalent];
-	
+
 	////////////////////////////////////////load Images////////////////////////////////////////
 	// 初始化音量大小图标
 	volumeButtonImages = [[NSArray alloc] initWithObjects:	[NSImage imageNamed:@"vol_no"], [NSImage imageNamed:@"vol_low"],
@@ -329,6 +329,13 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuToggleAuxiliaryCtrls setTitle:kMPXStringMenuShowAuxCtrls];
 	[menuToggleAuxiliaryCtrls setEnabled:NO];
 	
+	[menuSpeedUp setEnabled:NO];
+	[menuSpeedDown setEnabled:NO];
+	[menuAudioDelayInc setEnabled:NO];
+	[menuAudioDelayDec setEnabled:NO];
+	[menuSubDelayInc setEnabled:NO];
+	[menuSubDelayDec setEnabled:NO];
+
 	// set OSD active status
 	[osd setActive:NO];
 	
@@ -1138,6 +1145,13 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuSwitchVideo setEnabled:YES];
 	
 	[menuToggleAuxiliaryCtrls setEnabled:YES];
+	
+	[menuSpeedUp setEnabled:YES];
+	[menuSpeedDown setEnabled:YES];
+	[menuAudioDelayInc setEnabled:YES];
+	[menuAudioDelayDec setEnabled:YES];
+	[menuSubDelayInc setEnabled:YES];
+	[menuSubDelayDec setEnabled:YES];
 }
 
 -(void) playBackWillStop:(NSNotification*)notif
@@ -1174,6 +1188,13 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuSubScaleInc setEnabled:NO];
 	[menuSubScaleDec setEnabled:NO];
 	[menuPlayFromLastStoppedPlace setEnabled:NO];
+	
+	[menuSpeedUp setEnabled:NO];
+	[menuSpeedDown setEnabled:NO];
+	[menuAudioDelayInc setEnabled:NO];
+	[menuAudioDelayDec setEnabled:NO];
+	[menuSubDelayInc setEnabled:NO];
+	[menuSubDelayDec setEnabled:NO];
 }
 
 -(void) playBackFinalized:(NSNotification*)notif
