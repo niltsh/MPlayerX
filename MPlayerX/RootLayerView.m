@@ -453,7 +453,7 @@
 					default:
 						break;
 				}
-			} else if ((fabsf(x*4) < fabsf(y)) && (![ud boolForKey:DisableVScrollVol])) {
+			} else if ((fabsf(x*4) < fabsf(y)) && (![ud boolForKey:kUDKeyDisableVScrollVol])) {
 				[controlUI changeVolumeBy:[NSNumber numberWithFloat:y*0.2]];
 			}
 			break;
