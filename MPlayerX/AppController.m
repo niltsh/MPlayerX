@@ -74,6 +74,7 @@ static BOOL init_ed = NO;
 	 registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 					   [NSNumber numberWithBool:NO], kUDKeyLogMode,
 					   kSnapshotSaveDefaultPath, kUDKeySnapshotSavePath,
+					   @"NO", @"AppleMomentumScrollSupported",
 					   nil]];
 
 	MPSetLogEnable([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyLogMode]);
