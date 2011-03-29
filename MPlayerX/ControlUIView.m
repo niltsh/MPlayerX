@@ -1138,7 +1138,6 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[playPauseButton setState:(playerController.playerState == kMPCPlayingState)?PlayState:PauseState];
 
 	[speedText setEnabled:YES];
-	[subDelayText setEnabled:YES];
 	[audioDelayText setEnabled:YES];
 	
 	[menuSwitchAudio setEnabled:YES];
@@ -1150,8 +1149,6 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuSpeedDown setEnabled:YES];
 	[menuAudioDelayInc setEnabled:YES];
 	[menuAudioDelayDec setEnabled:YES];
-	[menuSubDelayInc setEnabled:YES];
-	[menuSubDelayDec setEnabled:YES];
 }
 
 -(void) playBackWillStop:(NSNotification*)notif
@@ -1406,11 +1403,19 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 		[menuSwitchSub setEnabled:YES];
 		[menuSubScaleInc setEnabled:YES];
 		[menuSubScaleDec setEnabled:YES];
+		[menuSubDelayInc setEnabled:YES];
+		[menuSubDelayDec setEnabled:YES];
+
+		[subDelayText setEnabled:YES];
 		
 	} else if (changeKind == NSKeyValueChangeSetting) {
 		[menuSwitchSub setEnabled:NO];
 		[menuSubScaleInc setEnabled:NO];
 		[menuSubScaleDec setEnabled:NO];
+		[menuSubDelayInc setEnabled:NO];
+		[menuSubDelayDec setEnabled:NO];
+	
+		[subDelayText setEnabled:NO];
 	}
 }
 
