@@ -67,17 +67,6 @@ extern NSString * const kSCMSubDelayMinusKeyEquivalent;
 extern NSString * const kSCMSubDelayResetKeyEquivalent;
 #define kSCMSubDelayKeyEquivalentModifierFlagMask				(NSCommandKeyMask)
 
-#define kSCMPlaybackSpeedUpShortcutKey		(']')
-#define kSCMPlaybackSpeedDownShortcutKey	('[')
-#define kSCMPlaybackSpeedResetShortcutKey	('\\')
-
-#define kSCMAudioDelayPlusShortcutKey		(']')
-#define kSCMAudioDelayMinusShortcutKey		('[')
-#define kSCMAudioDelayResetShortbutKey		('\\')
-
-#define kSCMSubDelayPlusShortcutKey			(']')
-#define kSCMSubDelayMinusShortcutKey		('[')
-#define kSCMSubDelayResetShortcutKey		('\\')
 
 #define kSCMFFMpegHandleStreamShortCurKey	(NSCommandKeyMask)
 
