@@ -70,3 +70,16 @@ NSString * const kSCMMirrorKeyEquivalent				= @"m";
 NSString * const kSCMFlipKeyEquivalent					= @"f";
 
 NSString * const kSCMWindowZoomKeyEquivalent			= @"3";
+
+NSString * const kSCMSpeedUpKeyEquivalent				= @"]";
+NSString * const kSCMSpeedDownKeyEquivalent				= @"[";
+NSString * const kSCMSpeedResetKeyEquivalent			= @"\\";
+
+NSString * const kSCMAudioDelayPlusKeyEquivalent		= @"]";
+NSString * const kSCMAudioDelayMinusKeyEquivalent		= @"[";
+NSString * const kSCMAudioDelayResetKeyEquivalent		= @"\\";
+
+NSString * const kSCMSubDelayPlusKeyEquivalent			= @"]";
+NSString * const kSCMSubDelayMinusKeyEquivalent			= @"[";
+NSString * const kSCMSubDelayResetKeyEquivalent			= @"\\";
+

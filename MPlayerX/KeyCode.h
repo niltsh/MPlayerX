@@ -53,6 +53,20 @@ extern NSString * const kSCMVideoTunerPanelKeyEquivalent;
 
 extern NSString * const kSCMToggleLetterBoxKeyEquivalent;
 
+extern NSString * const kSCMSpeedUpKeyEquivalent;
+extern NSString * const kSCMSpeedDownKeyEquivalent;
+extern NSString * const kSCMSpeedResetKeyEquivalent;
+
+extern NSString * const kSCMAudioDelayPlusKeyEquivalent;
+extern NSString * const kSCMAudioDelayMinusKeyEquivalent;
+extern NSString * const kSCMAudioDelayResetKeyEquivalent;
+#define kSCMAudioDelayKeyEquivalentModifierFlagMask				(NSAlternateKeyMask)
+
+extern NSString * const kSCMSubDelayPlusKeyEquivalent;
+extern NSString * const kSCMSubDelayMinusKeyEquivalent;
+extern NSString * const kSCMSubDelayResetKeyEquivalent;
+#define kSCMSubDelayKeyEquivalentModifierFlagMask				(NSCommandKeyMask)
+
 #define kSCMPlaybackSpeedUpShortcutKey		(']')
 #define kSCMPlaybackSpeedDownShortcutKey	('[')
 #define kSCMPlaybackSpeedResetShortcutKey	('\\')
