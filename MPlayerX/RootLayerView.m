@@ -904,7 +904,7 @@
 	
 	rc = [playerWindow frameRectForContentRect:rc];
 	
-	[playerWindow setFrame:rc display:YES];
+	[playerWindow setFrame:rc display:YES animate:YES];
 	
 	return sizeVal;
 }
