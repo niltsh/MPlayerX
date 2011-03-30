@@ -1086,6 +1086,10 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuFlip setState:([dispView flip])?(NSOnState):(NSOffState)];
 }
 
+-(IBAction) zoomToOriginalSize:(id)sender
+{
+	[dispView zoomToOriginalSize];
+}
 ////////////////////////////////////////////////FullscreenThings//////////////////////////////////////////////////
 -(void) setFillScreenMode:(NSString*)modeKey state:(NSInteger) state
 {

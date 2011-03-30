@@ -771,6 +771,29 @@
 	[dispLayer setNeedsDisplay];
 }
 
+-(void) zoomToOriginalSize
+{
+	if (displaying) {		
+		if ([self isInFullScreenMode]) {
+			NSSize orgSize = [dispLayer displaySize];
+			NSSize curSize = [dispLayer bounds].size;
+			CGFloat ar = [dispLayer aspectRatio];
+			NSSize sr = [dispLayer scaleRatio];
+			
+			orgSize.width = MIN(orgSize.width, orgSize.height * ar);
+			
+			CGFloat r = MAX(orgSize.width/curSize.width, orgSize.height/curSize.height);
+			sr.width *= r;
+			sr.height *= r;
+			
+			[dispLayer setScaleRatio:sr];
+			[dispLayer setNeedsDisplay];
+		} else {
+			// not in full screen
+			[self adjustWindowCoordinateTo:[dispLayer displaySize]];
+		}
+	}
+}
 ///////////////////////////////////for dragging/////////////////////////////////////////
 - (NSDragOperation) draggingEntered:(id <NSDraggingInfo>)sender
 {
