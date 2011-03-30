@@ -560,6 +560,42 @@
 	}
 }
 
+-(void) rotateWithEvent:(NSEvent*)event
+{
+	if ((![self isInFullScreenMode]) && displaying) {
+		// not in full screen mode		
+		if (!lockAspectRatio) {
+			
+			NSSize screenContentSize = [playerWindow contentRectForFrameRect:[[playerWindow screen] visibleFrame]].size;
+			NSSize minSize = [playerWindow contentMinSize];
+			
+			NSSize sz = [self bounds].size;
+			// diagonal length
+			float diagLen = hypotf(sz.width, sz.height);
+			float angle = atan2f(sz.height, sz.width);
+			
+			if ([event modifierFlags] | NSShiftKeyMask) {
+				angle += [event rotation] * 3.1415926 / 360;				
+			} else {
+				angle += [event rotation] * 3.1415926 / 180;
+			}
+
+			angle = MIN(1.4/* 80 degree */, MAX(0.17 /* 10 degree */, angle));
+
+			sz.width  = MAX(minSize.width, MIN(screenContentSize.width, diagLen * cosf(angle)));
+			sz.height = MAX(minSize.height, MIN(screenContentSize.height, diagLen * sinf(angle)));
+			
+			NSPoint pos = [self calculatePlayerWindowPosition:sz];
+			
+			NSRect rc = NSMakeRect(pos.x, pos.y, sz.width, sz.height);
+			
+			rc = [playerWindow frameRectForContentRect:rc];
+			
+			[playerWindow setFrame:rc display:YES];
+		}
+	}
+}
+
 -(void) touchesBeganWithEvent:(NSEvent*)event
 {
 	// MPLog(@"BEGAN");
