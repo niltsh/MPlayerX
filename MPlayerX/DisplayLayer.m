@@ -111,10 +111,12 @@
 	return kDisplayAscpectRatioInvalid;
 }
 
--(void) setExternalAspectRatio:(CGFloat)ar
+-(void) setExternalAspectRatio:(CGFloat)ar display:(BOOL)disp
 {
 	externalAspectRatio = (ar>0)?(ar):(kDisplayAscpectRatioInvalid);
-	flagAspectRatioChanged = YES;
+	if (disp) {
+		flagAspectRatioChanged = YES;
+	}
 }
 
 -(BOOL) fillScreen

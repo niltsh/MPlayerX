@@ -509,7 +509,7 @@
 			NSSize sz = [self bounds].size;
 			
 			[playerWindow setContentAspectRatio:sz];
-			[dispLayer setExternalAspectRatio:(sz.width/sz.height)];
+			[dispLayer setExternalAspectRatio:(sz.width/sz.height) display:YES];
 		} else {
 			[playerWindow setContentResizeIncrements:NSMakeSize(1.0, 1.0)];
 		}
@@ -903,10 +903,11 @@
 	// 调用该函数会使DispLayer锁定并且窗口的比例也会锁定
 	// 因此在这里设定lock是安全的
 	lockAspectRatio = YES;
-	// 虽然如果是全屏的话，是无法调用设定窗口的代码，但是全屏的时候无法改变窗口的size
-	[dispLayer setExternalAspectRatio:kDisplayAscpectRatioInvalid];
 	
 	if ([self isInFullScreenMode]) {
+		// 虽然如果是全屏的话，是无法调用设定窗口的代码，但是全屏的时候无法改变窗口的size
+		[dispLayer setExternalAspectRatio:kDisplayAscpectRatioInvalid display:YES];
+
 		// 如果正在全屏，那么将设定窗口size的工作放到退出全屏的时候进行
 		// 必须砸退出全屏的时候再设定
 		// 在退出全屏之前，这个view并不属于window，设定contentsize不起作用
@@ -919,6 +920,11 @@
 		[controlUI setFillScreenMode:(((sizeVal.height * [dispLayer aspectRatio]) >= sizeVal.width)?kFillScreenButtonImageUBKey:kFillScreenButtonImageLRKey)
 							   state:([dispLayer fillScreen])?NSOnState:NSOffState];
 	} else {
+		// 这里必须设定 not display
+		// 这个函数会被resetAspectRatio调用
+		// 如果为display的话，那么dispLayer会立即根据当前的window size和已经被重置的aspect ratio设定自己的bounds
+		// 并且dispLayer是根据窗口大小自动变化的，这样会导致dispLayer比窗口小，并且AR不对
+		[dispLayer setExternalAspectRatio:kDisplayAscpectRatioInvalid display:NO];
 		// 如果没有在全屏
 		sizeVal = [self adjustWindowCoordinateTo:sizeVal];
 
@@ -1058,7 +1064,7 @@
 	if (!lockAspectRatio) {
 		// 如果没有锁住aspect ratio
 		NSSize sz = [self bounds].size;
-		[dispLayer setExternalAspectRatio:(sz.width/sz.height)];
+		[dispLayer setExternalAspectRatio:(sz.width/sz.height) display:YES];
 	}
 }
 

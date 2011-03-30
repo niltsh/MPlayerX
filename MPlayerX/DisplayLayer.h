@@ -59,7 +59,7 @@
 
 -(NSSize) displaySize;
 -(CGFloat) aspectRatio;
--(void) setExternalAspectRatio:(CGFloat)ar;
+-(void) setExternalAspectRatio:(CGFloat)ar display:(BOOL)disp;
 
 -(int) startWithFormat:(DisplayFormat)displayFormat buffer:(char**)data total:(NSUInteger)num;
 -(void) draw:(NSUInteger)frameNum;
