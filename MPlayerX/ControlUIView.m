@@ -331,13 +331,6 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuToggleAuxiliaryCtrls setTag:NO];
 	[menuToggleAuxiliaryCtrls setTitle:kMPXStringMenuShowAuxCtrls];
 	[menuToggleAuxiliaryCtrls setEnabled:NO];
-	
-	[menuSpeedUp setEnabled:NO];
-	[menuSpeedDown setEnabled:NO];
-	[menuAudioDelayInc setEnabled:NO];
-	[menuAudioDelayDec setEnabled:NO];
-	[menuSubDelayInc setEnabled:NO];
-	[menuSubDelayDec setEnabled:NO];
 
 	// set OSD active status
 	[osd setActive:NO];
@@ -1106,24 +1099,24 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 -(void) displayStarted
 {
 	[fullScreenButton setHidden: NO];
+
 	[menuToggleFullScreen setEnabled:YES];
-	
 	[menuSnapshot setEnabled:YES];
-	
 	if (![dispView isInFullScreenMode]) {
 		[menuToggleLockAspectRatio setEnabled:YES];
 	}
 	[menuToggleLockAspectRatio setTitle:([dispView lockAspectRatio])?(kMPXStringMenuUnlockAspectRatio):(kMPXStringMenuLockAspectRatio)];
+	[menuZoomToOriginSize setEnabled:YES];
 }
 
 -(void) displayStopped
 {
 	[fullScreenButton setHidden: YES];
-	[menuToggleFullScreen setEnabled:NO];
 	
+	[menuToggleFullScreen setEnabled:NO];
 	[menuSnapshot setEnabled:NO];
-
 	[menuToggleLockAspectRatio setEnabled:NO];
+	[menuZoomToOriginSize setEnabled:NO];
 }
 
 ////////////////////////////////////////////////playback//////////////////////////////////////////////////
