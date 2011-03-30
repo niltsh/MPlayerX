@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10J869</string>
 		<string key="IBDocument.InterfaceBuilderVersion">823</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">823</string>
@@ -378,6 +378,25 @@
 							<string key="NSTitle">View</string>
 							<object class="NSMutableArray" key="NSMenuItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSMenuItem" id="824383306">
+									<reference key="NSMenu" ref="912779322"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<string key="NSTitle">Back To Original Size</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="769296136">
+									<reference key="NSMenu" ref="912779322"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 								<object class="NSMenuItem" id="326504228">
 									<reference key="NSMenu" ref="912779322"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -615,6 +634,34 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
+								<object class="NSMenuItem" id="283755832">
+									<reference key="NSMenu" ref="891719963"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<string key="NSTitle">Increase Speed</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+									<int key="NSTag">1</int>
+								</object>
+								<object class="NSMenuItem" id="748140116">
+									<reference key="NSMenu" ref="891719963"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<string key="NSTitle">Decrease Speed</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+									<int key="NSTag">-1</int>
+								</object>
+								<object class="NSMenuItem" id="1050872344">
+									<reference key="NSMenu" ref="891719963"/>
+									<string key="NSTitle">Reset To Normal Speed</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 								<object class="NSMenuItem" id="848891455">
 									<reference key="NSMenu" ref="891719963"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -652,6 +699,34 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
+								<object class="NSMenuItem" id="203791877">
+									<reference key="NSMenu" ref="891719963"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<string key="NSTitle">Increase Audio Delay</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+									<int key="NSTag">1</int>
+								</object>
+								<object class="NSMenuItem" id="729397308">
+									<reference key="NSMenu" ref="891719963"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<string key="NSTitle">Decrease Audio Delay</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+									<int key="NSTag">-1</int>
+								</object>
+								<object class="NSMenuItem" id="220491596">
+									<reference key="NSMenu" ref="891719963"/>
+									<string key="NSTitle">Reset Audio Delay</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 								<object class="NSMenuItem" id="406411077">
 									<reference key="NSMenu" ref="891719963"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -684,6 +759,34 @@
 									<reference key="NSMenu" ref="891719963"/>
 									<bool key="NSIsDisabled">YES</bool>
 									<string key="NSTitle">Decrease Subtitle Size</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="523962749">
+									<reference key="NSMenu" ref="891719963"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<string key="NSTitle">Increase Subtitle Delay</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+									<int key="NSTag">1</int>
+								</object>
+								<object class="NSMenuItem" id="698940786">
+									<reference key="NSMenu" ref="891719963"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<string key="NSTitle">Decrease Subtitle Delay</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+									<int key="NSTag">-1</int>
+								</object>
+								<object class="NSMenuItem" id="851150020">
+									<reference key="NSMenu" ref="891719963"/>
+									<string key="NSTitle">Reset Subtitle Delay</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -2930,6 +3033,166 @@
 					</object>
 					<int key="connectionID">1056</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuSpeedUp</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="283755832"/>
+					</object>
+					<int key="connectionID">1060</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeSpeed:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="283755832"/>
+					</object>
+					<int key="connectionID">1061</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuSpeedDown</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="748140116"/>
+					</object>
+					<int key="connectionID">1062</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeSpeed:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="748140116"/>
+					</object>
+					<int key="connectionID">1063</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuSpeedReset</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="1050872344"/>
+					</object>
+					<int key="connectionID">1064</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeSpeed:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="1050872344"/>
+					</object>
+					<int key="connectionID">1065</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuAudioDelayInc</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="203791877"/>
+					</object>
+					<int key="connectionID">1069</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeAudioDelay:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="203791877"/>
+					</object>
+					<int key="connectionID">1070</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuAudioDelayDec</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="729397308"/>
+					</object>
+					<int key="connectionID">1071</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeAudioDelay:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="729397308"/>
+					</object>
+					<int key="connectionID">1072</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuAudioDelayReset</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="220491596"/>
+					</object>
+					<int key="connectionID">1073</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeAudioDelay:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="220491596"/>
+					</object>
+					<int key="connectionID">1074</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuSubDelayInc</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="523962749"/>
+					</object>
+					<int key="connectionID">1078</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeSubDelay:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="523962749"/>
+					</object>
+					<int key="connectionID">1079</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuSubDelayDec</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="698940786"/>
+					</object>
+					<int key="connectionID">1080</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeSubDelay:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="698940786"/>
+					</object>
+					<int key="connectionID">1081</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuSubDelayReset</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="851150020"/>
+					</object>
+					<int key="connectionID">1082</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeSubDelay:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="851150020"/>
+					</object>
+					<int key="connectionID">1083</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">zoomToOriginalSize:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="824383306"/>
+					</object>
+					<int key="connectionID">1086</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuZoomToOriginSize</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="824383306"/>
+					</object>
+					<int key="connectionID">1087</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -3407,6 +3670,15 @@
 							<reference ref="273671535"/>
 							<reference ref="733720992"/>
 							<reference ref="223276924"/>
+							<reference ref="283755832"/>
+							<reference ref="748140116"/>
+							<reference ref="1050872344"/>
+							<reference ref="203791877"/>
+							<reference ref="729397308"/>
+							<reference ref="220491596"/>
+							<reference ref="523962749"/>
+							<reference ref="698940786"/>
+							<reference ref="851150020"/>
 						</object>
 						<reference key="parent" ref="95117089"/>
 					</object>
@@ -3849,6 +4121,8 @@
 							<reference ref="633689396"/>
 							<reference ref="356932461"/>
 							<reference ref="389315182"/>
+							<reference ref="824383306"/>
+							<reference ref="769296136"/>
 						</object>
 						<reference key="parent" ref="304019076"/>
 					</object>
@@ -4071,6 +4345,61 @@
 						<reference key="object" ref="389315182"/>
 						<reference key="parent" ref="912779322"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1057</int>
+						<reference key="object" ref="283755832"/>
+						<reference key="parent" ref="891719963"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1058</int>
+						<reference key="object" ref="748140116"/>
+						<reference key="parent" ref="891719963"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1059</int>
+						<reference key="object" ref="1050872344"/>
+						<reference key="parent" ref="891719963"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1066</int>
+						<reference key="object" ref="203791877"/>
+						<reference key="parent" ref="891719963"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1067</int>
+						<reference key="object" ref="729397308"/>
+						<reference key="parent" ref="891719963"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1068</int>
+						<reference key="object" ref="220491596"/>
+						<reference key="parent" ref="891719963"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1075</int>
+						<reference key="object" ref="523962749"/>
+						<reference key="parent" ref="891719963"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1076</int>
+						<reference key="object" ref="698940786"/>
+						<reference key="parent" ref="891719963"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1077</int>
+						<reference key="object" ref="851150020"/>
+						<reference key="parent" ref="891719963"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1084</int>
+						<reference key="object" ref="824383306"/>
+						<reference key="parent" ref="912779322"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1085</int>
+						<reference key="object" ref="769296136"/>
+						<reference key="parent" ref="912779322"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -4106,6 +4435,17 @@
 					<string>1049.IBPluginDependency</string>
 					<string>1050.IBPluginDependency</string>
 					<string>1051.IBPluginDependency</string>
+					<string>1057.IBPluginDependency</string>
+					<string>1058.IBPluginDependency</string>
+					<string>1059.IBPluginDependency</string>
+					<string>1066.IBPluginDependency</string>
+					<string>1067.IBPluginDependency</string>
+					<string>1068.IBPluginDependency</string>
+					<string>1075.IBPluginDependency</string>
+					<string>1076.IBPluginDependency</string>
+					<string>1077.IBPluginDependency</string>
+					<string>1084.IBPluginDependency</string>
+					<string>1085.IBPluginDependency</string>
 					<string>124.IBPluginDependency</string>
 					<string>124.ImportedFromIB2</string>
 					<string>125.IBEditorWindowLastContentRect</string>
@@ -4378,6 +4718,17 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{821, 935}, {143, 23}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4419,7 +4770,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{482, 1075}, {442, 20}}</string>
+					<string>{{529, 1000}, {442, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
@@ -4598,7 +4949,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{573, 597}, {244, 273}}</string>
+					<string>{{784, 624}, {244, 453}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4650,7 +5001,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{665, 712}, {246, 363}}</string>
+					<string>{{712, 607}, {246, 393}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4679,7 +5030,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1056</int>
+			<int key="maxID">1087</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4914,9 +5265,11 @@
 							<string>toggleMirror:</string>
 							<string>toggleMute:</string>
 							<string>togglePlayPause:</string>
+							<string>zoomToOriginalSize:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -4981,6 +5334,7 @@
 							<string>toggleMirror:</string>
 							<string>toggleMute:</string>
 							<string>togglePlayPause:</string>
+							<string>zoomToOriginalSize:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -5100,6 +5454,10 @@
 								<string key="name">togglePlayPause:</string>
 								<string key="candidateClassName">id</string>
 							</object>
+							<object class="IBActionInfo">
+								<string key="name">zoomToOriginalSize:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -5112,6 +5470,9 @@
 							<string>fillScreenButton</string>
 							<string>fullScreenButton</string>
 							<string>hintTime</string>
+							<string>menuAudioDelayDec</string>
+							<string>menuAudioDelayInc</string>
+							<string>menuAudioDelayReset</string>
 							<string>menuEnlargeFrame</string>
 							<string>menuEnlargeFrame2</string>
 							<string>menuFlip</string>
@@ -5129,6 +5490,12 @@
 							<string>menuSizeDec</string>
 							<string>menuSizeInc</string>
 							<string>menuSnapshot</string>
+							<string>menuSpeedDown</string>
+							<string>menuSpeedReset</string>
+							<string>menuSpeedUp</string>
+							<string>menuSubDelayDec</string>
+							<string>menuSubDelayInc</string>
+							<string>menuSubDelayReset</string>
 							<string>menuSubScaleDec</string>
 							<string>menuSubScaleInc</string>
 							<string>menuSwitchAudio</string>
@@ -5142,6 +5509,7 @@
 							<string>menuVolDec</string>
 							<string>menuVolInc</string>
 							<string>menuZoom</string>
+							<string>menuZoomToOriginSize</string>
 							<string>osd</string>
 							<string>playPauseButton</string>
 							<string>playerController</string>
@@ -5164,6 +5532,16 @@
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSTextField</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
@@ -5219,6 +5597,9 @@
 							<string>fillScreenButton</string>
 							<string>fullScreenButton</string>
 							<string>hintTime</string>
+							<string>menuAudioDelayDec</string>
+							<string>menuAudioDelayInc</string>
+							<string>menuAudioDelayReset</string>
 							<string>menuEnlargeFrame</string>
 							<string>menuEnlargeFrame2</string>
 							<string>menuFlip</string>
@@ -5236,6 +5617,12 @@
 							<string>menuSizeDec</string>
 							<string>menuSizeInc</string>
 							<string>menuSnapshot</string>
+							<string>menuSpeedDown</string>
+							<string>menuSpeedReset</string>
+							<string>menuSpeedUp</string>
+							<string>menuSubDelayDec</string>
+							<string>menuSubDelayInc</string>
+							<string>menuSubDelayReset</string>
 							<string>menuSubScaleDec</string>
 							<string>menuSubScaleInc</string>
 							<string>menuSwitchAudio</string>
@@ -5249,6 +5636,7 @@
 							<string>menuVolDec</string>
 							<string>menuVolInc</string>
 							<string>menuZoom</string>
+							<string>menuZoomToOriginSize</string>
 							<string>osd</string>
 							<string>playPauseButton</string>
 							<string>playerController</string>
@@ -5288,6 +5676,18 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">hintTime</string>
 								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuAudioDelayDec</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuAudioDelayInc</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuAudioDelayReset</string>
+								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">menuEnlargeFrame</string>
@@ -5358,6 +5758,30 @@
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">menuSpeedDown</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuSpeedReset</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuSpeedUp</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuSubDelayDec</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuSubDelayInc</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuSubDelayReset</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">menuSubScaleDec</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
@@ -5407,6 +5831,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">menuZoom</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuZoomToOriginSize</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
