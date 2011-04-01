@@ -82,8 +82,6 @@ NSString * const kUDKeyAlwaysHideDockInFullScrn				= @"AlwaysHideDockInFullScrn"
 NSString * const kUDKeyLogMode								= @"LogMode";
 NSString * const kUDKeyImgEnhanceMethod						= @"ImgEnhMethod";
 NSString * const kUDKeyDeIntMethod							= @"DeIntMethod";
-NSString * const kUDKeyAutoShowLBInFullScr					= @"AutoShowLBInFullScr";
-NSString * const kUDKeyAutoFSLBMode							= @"AutoFSLBMode";
 NSString * const kUDKeyExtraOptions							= @"ExtraOptions";
 NSString * const kUDKeyEQSettings							= @"EQSettings";
 NSString * const kUDKeyAutoSaveEQSettings					= @"ASEQS";
@@ -93,7 +91,7 @@ NSString * const kUDKeySubAlign								= @"SubAlign";
 NSString * const kUDKeySubBorderWidth						= @"SubBorderWidth";
 NSString * const kUDKeyDisableHScrollSeek					= @"DisableHScrollSeek";
 NSString * const kUDKeyDisableVScrollVol					= @"DisableVScrollVol";
-
+NSString * const kUDKeyLBAutoHeightInFullScrn				= @"LBAutoHeightInFullScrn";
 
 NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";
