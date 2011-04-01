@@ -930,6 +930,7 @@
 
 		[playerWindow setContentAspectRatio:sizeVal];
 		
+		[dispLayer adujustToFitBounds];
 		if (![playerWindow isVisible]) {
 			[playerWindow makeKeyAndOrderFront:self];
 		}
