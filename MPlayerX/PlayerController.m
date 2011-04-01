@@ -118,7 +118,7 @@ enum {
 					   boolYes, kUDKeyPreferIPV6,
 					   boolNo, kUDKeyCachingLocal,
 					   [NSNumber numberWithUnsignedInt:kPMLetterBoxModeNotDisplay], kUDKeyLetterBoxMode,
-					   [NSNumber numberWithUnsignedInt:kPMLetterBoxModeBottomOnly], kUDKeyLetterBoxModeAlt,
+					   [NSNumber numberWithUnsignedInt:kPMLetterBoxModeBoth], kUDKeyLetterBoxModeAlt,
 					   [NSNumber numberWithFloat:0.1], kUDKeyLetterBoxHeight,
 					   boolYes, kUDKeyPlayWhenOpened,
 					   boolYes, kUDKeyOverlapSub,
