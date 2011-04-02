@@ -578,7 +578,9 @@ void MPSetLogEnable(BOOL en)
 		
 		NSString *ext = [[(NSURL*)fontURL pathExtension] lowercaseString];
 		
-		if ([ext isEqualToString:@"ttf"] || [ext isEqualToString:@"ttc"]) {
+		if ([ext isEqualToString:@"ttf"] || 
+			[ext isEqualToString:@"ttc"] ||
+			[ext isEqualToString:@"otf"]) {
 			// only accept ttf and ttc
 			mItem = [[NSMenuItem alloc] init];
 			
