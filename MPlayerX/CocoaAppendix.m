@@ -517,6 +517,93 @@ void MPSetLogEnable(BOOL en)
 }
 @end
 
+@implementation NSMenu (FontListAppend)
+
+-(NSMenuItem*) getFontItemFromURL:(CFURLRef)url
+{
+	NSMenuItem *mItem = nil;
+	// get descs from url
+	CFArrayRef fonts = CTFontManagerCreateFontDescriptorsFromURL(url);
+	
+	if (fonts) {
+		// get the first desc
+		CTFontDescriptorRef fontDesc = CFArrayGetValueAtIndex(fonts, 0);
+		
+		if (fontDesc) {
+			CFStringRef fontFamilyName;
+			CFURLRef fontURL;
+			
+			// get family name (localized)
+			fontFamilyName = CTFontDescriptorCopyLocalizedAttribute(fontDesc, kCTFontFamilyNameAttribute, NULL);
+			// get url
+			fontURL = CTFontDescriptorCopyAttribute(fontDesc, kCTFontURLAttribute);
+			
+			mItem = [[NSMenuItem alloc] init];
+			
+			// set title
+			[mItem setTitle:(NSString*)fontFamilyName];
+			// set url as rep
+			[mItem setRepresentedObject:[(NSURL*)fontURL path]];
+
+			CFRelease(fontFamilyName);
+			CFRelease(fontURL);
+		}
+		CFRelease(fonts);
+	}
+	return [mItem autorelease];
+}
+
+-(NSMenuItem*) getFontItemFromFamilyName:(CFStringRef)name
+{
+	NSMenuItem *mItem = nil;
+	// the .name font should be hidden
+	if (CFStringGetCharacterAtIndex(name, 0) == '.') {
+		return mItem;
+	}
+
+	// create attribute
+	NSDictionary *attr = [[NSDictionary alloc] initWithObjectsAndKeys:
+						  (NSString*)name, (NSString*)kCTFontFamilyNameAttribute, nil];
+	// create desc
+	CTFontDescriptorRef fontDesc = CTFontDescriptorCreateWithAttributes((CFDictionaryRef)attr);
+	
+	if (fontDesc) {
+		CFStringRef fontFamilyName;
+		CFURLRef fontURL;
+		
+		// get family name (localized)
+		fontFamilyName = CTFontDescriptorCopyLocalizedAttribute(fontDesc, kCTFontFamilyNameAttribute, NULL);
+		// get url
+		fontURL = CTFontDescriptorCopyAttribute(fontDesc, kCTFontURLAttribute);
+		
+		NSString *ext = [[(NSURL*)fontURL pathExtension] lowercaseString];
+		
+		if ([ext isEqualToString:@"ttf"] || [ext isEqualToString:@"ttc"]) {
+			// only accept ttf and ttc
+			mItem = [[NSMenuItem alloc] init];
+			
+			CTFontRef menuFont = CTFontCreateWithFontDescriptor(fontDesc, 14, NULL);
+			NSDictionary *strAttr = [NSDictionary dictionaryWithObject:(NSFont*)menuFont forKey:NSFontAttributeName];
+			NSAttributedString *menuStr = [[NSAttributedString alloc] initWithString:(NSString*)fontFamilyName attributes:strAttr];
+			
+			[mItem setAttributedTitle:menuStr];
+			// [mItem setTitle:(NSString*)fontFamilyName];
+			
+			[mItem setRepresentedObject:[(NSURL*)fontURL path]];
+			
+			[menuStr release];
+			CFRelease(menuFont);			
+		}
+		CFRelease(fontFamilyName);
+		CFRelease(fontURL);		
+		CFRelease(fontDesc);		
+	}
+	[attr release];
+	
+	return [mItem autorelease];
+}
+@end
+
 @implementation NSString (MPXAdditional)
 
 -(unsigned int)hexValue

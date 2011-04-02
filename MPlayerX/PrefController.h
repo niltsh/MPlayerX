@@ -43,6 +43,7 @@
     IBOutlet RootLayerView *dispView;
 	IBOutlet ControlUIView *controlUI;
 	IBOutlet NSPopUpButton *charsetListPopup;
+	IBOutlet NSPopUpButton *fontListPopup;
 }
 
 -(IBAction) showUI:(id)sender;
@@ -55,5 +56,6 @@
 -(IBAction) checkCacheFormat:(id)sender;
 -(IBAction) letterBoxModeChanged:(id)sender;
 -(IBAction) subEncodingSchemeChanged:(id)sender;
+-(IBAction) fontSelected:(id)sender;
 
 @end

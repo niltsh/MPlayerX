@@ -91,6 +91,64 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 
 		[mItem release];
 		
+		///////////////////////init font list/////////////////////////////////
+		NSAutoreleasePool *fontPool = [[NSAutoreleasePool alloc] init];
+		
+		NSMenu *fontMenu = [fontListPopup menu];
+		
+		[fontMenu removeAllItems];
+		
+		NSMenuItem *defaultFontMItem = [fontMenu getFontItemFromURL:(CFURLRef)[NSURL fileURLWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:kMPCDefaultSubFontPath] isDirectory:NO]];
+		if (defaultFontMItem) {
+			[defaultFontMItem setRepresentedObject:kMPCDefaultSubFontPath];
+			[fontMenu addItem:defaultFontMItem];
+			
+			[fontMenu addItem:[NSMenuItem separatorItem]];			
+		}
+		
+		CFArrayRef fontFamilies = CTFontManagerCopyAvailableFontFamilyNames();
+		
+		if (fontFamilies) {
+			CFIndex cnt = CFArrayGetCount(fontFamilies);
+			CFIndex idx;
+			
+			for (idx = 0; idx < cnt; ++idx) {
+				CFStringRef name = CFArrayGetValueAtIndex(fontFamilies, idx);
+				mItem = [fontMenu getFontItemFromFamilyName:name];
+				if (mItem) {
+					[fontMenu addItem:mItem];
+				}
+			}
+			CFRelease(fontFamilies);
+		}
+		
+		NSString *subFontPath = [ud stringForKey:kUDKeySubFontPath];
+		
+		if ([subFontPath isEqualToString:kMPCDefaultSubFontPath]) {
+			[fontListPopup selectItem:defaultFontMItem];
+		} else {
+			CFArrayRef fonts = CTFontManagerCreateFontDescriptorsFromURL((CFURLRef)[NSURL fileURLWithPath:subFontPath isDirectory:NO]);
+			if (fonts) {
+				CTFontDescriptorRef fontDesc = CFArrayGetValueAtIndex(fonts, 0);
+				CFStringRef fontFamilyName = CTFontDescriptorCopyLocalizedAttribute(fontDesc, kCTFontFamilyNameAttribute, NULL);
+				
+				NSMenuItem *prefMItem = [fontListPopup itemWithTitle:(NSString*)fontFamilyName];
+				
+				if (prefMItem) {
+					[fontListPopup selectItem:prefMItem];
+				} else {
+					[fontListPopup selectItem:defaultFontMItem];
+					[ud setObject:kMPCDefaultSubFontPath forKey:kUDKeySubFontPath];
+				}
+			} else {
+				[fontListPopup selectItem:defaultFontMItem];
+				[ud setObject:kMPCDefaultSubFontPath forKey:kUDKeySubFontPath];
+			}
+		}
+
+		[fontPool drain];
+
+		/////////////////////////////////////////////////////////////////////
 		CGFloat winH = [prefWin frame].size.height;
 		
 		prefViews = [[NSArray alloc] initWithObjects:viewGeneral, viewVideo, viewAudio, viewSub, viewNetwork, viewAdvanced, nil];
@@ -201,6 +259,12 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 	}
 }
 
+-(IBAction) fontSelected:(id)sender
+{
+	NSString *subFontPath = [[fontListPopup selectedItem] representedObject];
+	
+	[ud setObject:subFontPath forKey:kUDKeySubFontPath];
+}
 /////////////////////////////Toolbar Delegate/////////////////////
 /*
  * 如何添加新的Pref View

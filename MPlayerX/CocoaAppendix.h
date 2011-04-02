@@ -31,6 +31,11 @@ void MPSetLogEnable(BOOL en);
 -(void) appendCharsetList;
 @end
 
+@interface NSMenu (FontListAppend)
+-(NSMenuItem*) getFontItemFromURL:(CFURLRef)url;
+-(NSMenuItem*) getFontItemFromFamilyName:(CFStringRef)name;
+@end
+
 @interface NSColor (MPXAdditional)
 -(uint32) hexValue;
 @end
