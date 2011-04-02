@@ -87,6 +87,8 @@
 		863D0AA012CDE85900170081 /* zoom-inactive-disabled.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 863D0A9412CDE85900170081 /* zoom-inactive-disabled.tiff */; };
 		863D0AA212CDE85900170081 /* zoom-rollover.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 863D0A9612CDE85900170081 /* zoom-rollover.tiff */; };
 		8654807F10CBB231009438A4 /* FloatWrapFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8654807E10CBB231009438A4 /* FloatWrapFormatter.m */; };
+		865845171346D7E900570BA6 /* def.m in Sources */ = {isa = PBXBuildFile; fileRef = 865845161346D7E900570BA6 /* def.m */; };
+		8658451B1346D8E300570BA6 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8658451A1346D8E300570BA6 /* ApplicationServices.framework */; };
 		865A5D2A12CA0E100021CF8E /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 865A5D2912CA0E100021CF8E /* AppController.m */; };
 		865AB3FD10EC82A300065E2F /* PrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 865AB3FC10EC82A300065E2F /* PrefController.m */; };
 		8661414210FA2B7E007F36DA /* SubConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8661414110FA2B7E007F36DA /* SubConverter.m */; };
@@ -260,6 +262,9 @@
 		86450B871108840700E79645 /* LocalizedStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 2; path = LocalizedStrings.h; sourceTree = "<group>"; };
 		8654807D10CBB231009438A4 /* FloatWrapFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 2; path = FloatWrapFormatter.h; sourceTree = "<group>"; };
 		8654807E10CBB231009438A4 /* FloatWrapFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 2; path = FloatWrapFormatter.m; sourceTree = "<group>"; };
+		865845151346D7E900570BA6 /* def.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = def.h; sourceTree = "<group>"; };
+		865845161346D7E900570BA6 /* def.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = def.m; sourceTree = "<group>"; };
+		8658451A1346D8E300570BA6 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		865A5D2812CA0E100021CF8E /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		865A5D2912CA0E100021CF8E /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
 		865AB3FB10EC82A300065E2F /* PrefController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 2; path = PrefController.h; sourceTree = "<group>"; };
@@ -343,6 +348,7 @@
 				8609C28110C6944A00B102CE /* IOKit.framework in Frameworks */,
 				86A34A0910F60F7E00AECBB2 /* UniversalDetector.framework in Frameworks */,
 				869DA29C1223A2FE00D0D57A /* BGHUDAppKit.framework in Frameworks */,
+				8658451B1346D8E300570BA6 /* ApplicationServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +363,8 @@
 				86450B871108840700E79645 /* LocalizedStrings.h */,
 				86C02AED12309BCF004E8181 /* UserDefaults.h */,
 				86C02AEE12309BCF004E8181 /* UserDefaults.m */,
+				865845151346D7E900570BA6 /* def.h */,
+				865845161346D7E900570BA6 /* def.m */,
 				86B99CFE10C93E4D00AB28FB /* Controllers */,
 				8609C25010C6938800B102CE /* shortcut */,
 				866CD1C811DF490300032F96 /* UI components */,
@@ -381,6 +389,7 @@
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+				8658451A1346D8E300570BA6 /* ApplicationServices.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
@@ -932,6 +941,7 @@
 				86C02AEF12309BCF004E8181 /* UserDefaults.m in Sources */,
 				865A5D2A12CA0E100021CF8E /* AppController.m in Sources */,
 				8612503F12D1C2290085DFF0 /* InspectorController.m in Sources */,
+				865845171346D7E900570BA6 /* def.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
