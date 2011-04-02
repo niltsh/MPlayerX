@@ -19,7 +19,7 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import "coredef.h"
+#import "def.h"
 #import "MovieInfo.h"
 #import <IOKit/pwr_mgt/IOPMLib.h>
 

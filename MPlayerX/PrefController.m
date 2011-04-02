@@ -25,6 +25,8 @@
 #import "RootLayerView.h"
 #import "ControlUIView.h"
 #import "CocoaAppendix.h"
+#import "def.h"
+#import <ApplicationServices/ApplicationServices.h>
 
 NSString * const PrefToolBarItemIdGeneral	= @"TBIGeneral";
 NSString * const PrefToolBarItemIdVideo		= @"TBIVideo";

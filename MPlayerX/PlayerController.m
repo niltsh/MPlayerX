@@ -45,8 +45,6 @@ NSString * const kMPCPlayInfoUpdatedNotification	= @"kMPCPlayInfoUpdatedNotifica
 NSString * const kMPCPlayInfoUpdatedKeyPathKey		= @"kMPCPlayInfoUpdatedKeyPathKey";
 NSString * const kMPCPlayInfoUpdatedChangeDictKey	= @"kMPCPlayInfoUpdatedChangeDictKey";
 
-NSString * const kMPCDefaultSubFontPath			= @"wqy-microhei.ttc";
-
 NSString * const kMPCMplayerNameMT		= @"mplayer-mt";
 NSString * const kMPCMplayerName		= @"mplayer";
 NSString * const kMPCFMTMplayerPathM32	= @"binaries/m32/%@";
