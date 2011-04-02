@@ -164,18 +164,7 @@ enum {
 
 		/////////////////////////setup CoreController////////////////////
 		[self setMultiThreadMode:[ud boolForKey:kUDKeyEnableMultiThread]];
-		
-		// 得到字幕字体文件的路径
-		NSString *subFontPath = [ud stringForKey:kUDKeySubFontPath];
-		
-		if ([subFontPath isEqualToString:kMPCDefaultSubFontPath]) {
-			// 如果是默认的路径的话，需要添加一些路径头
-			[mplayer.pm setSubFont:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:subFontPath]];
-		} else {
-			// 否则直接设定
-			[mplayer.pm setSubFont:subFontPath];
-		}
-		
+
 		// 决定是否使用64bit的mplayer
 		[mplayer.pm setPrefer64bMPlayer:[self shouldRun64bitMPlayer]];
 
@@ -419,6 +408,16 @@ enum {
 	[mplayer.pm setSubScale:[ud floatForKey:kUDKeySubScale]];
 	[mplayer.pm setSubFontColor: [NSUnarchiver unarchiveObjectWithData: [ud objectForKey:kUDKeySubFontColor]]];
 	[mplayer.pm setSubFontBorderColor: [NSUnarchiver unarchiveObjectWithData: [ud objectForKey:kUDKeySubFontBorderColor]]];
+	// 得到字幕字体文件的路径
+	NSString *subFontPath = [ud stringForKey:kUDKeySubFontPath];
+	
+	if ([subFontPath isEqualToString:kMPCDefaultSubFontPath]) {
+		// 如果是默认的路径的话，需要添加一些路径头
+		[mplayer.pm setSubFont:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:kMPCDefaultSubFontPath]];
+	} else {
+		// 否则直接设定
+		[mplayer.pm setSubFont:subFontPath];
+	}
 	
 	[mplayer.pm setForceIndex:[ud boolForKey:kUDKeyForceIndex]];
 	[mplayer.pm setSubNameRule:[ud integerForKey:kUDKeySubFileNameRule]];
