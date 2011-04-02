@@ -162,6 +162,16 @@ enum {
 		[mplayer setWorkDirectory:workDir];
 		[mplayer setSubConverterDelegate:self];
 
+		NSString *subFontPath = [ud stringForKey:kUDKeySubFontPath];
+		
+		if (![subFontPath isEqualToString:kMPCDefaultSubFontPath]) {
+			// 如果不是默认的path
+			isDir = YES;
+			if ((![fm fileExistsAtPath:subFontPath isDirectory:&isDir]) || isDir) {
+				[ud setObject:kMPCDefaultSubFontPath forKey:kUDKeySubFontPath];
+			}
+		}
+
 		/////////////////////////setup CoreController////////////////////
 		[self setMultiThreadMode:[ud boolForKey:kUDKeyEnableMultiThread]];
 
