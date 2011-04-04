@@ -27,7 +27,7 @@
 @synthesize	currentTime;
 @synthesize	currentAudioID;
 @synthesize currentVideoID;
-@synthesize	currentSub;
+@synthesize	currentSubID;
 
 @synthesize	volume;
 @synthesize	audioBalance;
@@ -50,7 +50,7 @@
 		currentTime = [floatZero retain];
 		currentAudioID = nil;
 		currentVideoID = nil;
-		currentSub = 0;
+		currentSubID = nil;
 		volume = 100;
 		audioBalance = 0;
 		mute = NO;
@@ -75,6 +75,7 @@
 	
 	[currentAudioID release];
 	[currentVideoID release];
+	[currentSubID release];
 	
 	[super dealloc];
 }
@@ -84,7 +85,7 @@
 	NSNumber *floatZero = [NSNumber numberWithFloat:0.0];
 	
 	currentChapter = 0;
-	currentSub = 0;
+
 	// 将来可能都会用到KVO
 	[self setAudioBalance:0];
 	
@@ -101,5 +102,6 @@
 
 	[self setCurrentAudioID:nil];
 	[self setCurrentVideoID:nil];
+	[self setCurrentSubID:nil];
 }
 @end

@@ -31,7 +31,7 @@
 	NSNumber		*currentTime;
 	NSNumber		*currentAudioID;
 	NSNumber		*currentVideoID;
-	unsigned char	currentSub;
+	NSNumber		*currentSubID;
 	
 	float volume;
 	float audioBalance;
@@ -48,7 +48,7 @@
 @property(retain, readwrite) NSNumber		*currentTime;
 @property(retain, readwrite) NSNumber		*currentAudioID;
 @property(retain, readwrite) NSNumber		*currentVideoID;
-@property(assign, readwrite) unsigned char	currentSub;
+@property(assign, readwrite) NSNumber		*currentSubID;
 
 @property(assign, readwrite) float volume;
 @property(assign, readwrite) float audioBalance;
