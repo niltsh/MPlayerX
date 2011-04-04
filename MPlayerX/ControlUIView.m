@@ -1458,8 +1458,13 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 		}
 		
 		if (changeKind == NSKeyValueChangeSetting) {
-			[[subListMenu itemAtIndex:0] setState:NSOnState];
+			// 这个地方只有在最初playback刚刚开始，sub加载的时候才会被调用，因此是安全的
+			// 当sub被clear的时候，是不会进入这个分支的
+			[[subListMenu itemWithTag:[[[[playerController mediaInfo] playingInfo] currentSubID] integerValue]]
+			 setState:NSOnState];
 		} else {
+			// 当某个sub在中途被加载的时候会调用这里
+			// 默认激活这个载入的sub
 			[self setSubWithID:mItem];
 		}
 
