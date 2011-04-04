@@ -92,6 +92,7 @@ NSString * const kUDKeySubBorderWidth						= @"SubBorderWidth";
 NSString * const kUDKeyDisableHScrollSeek					= @"DisableHScrollSeek";
 NSString * const kUDKeyDisableVScrollVol					= @"DisableVScrollVol";
 NSString * const kUDKeyLBAutoHeightInFullScrn				= @"LBAutoHeightInFullScrn";
+NSString * const kUDKeyNoDispSub							= @"NoDispSub";
 
 NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";

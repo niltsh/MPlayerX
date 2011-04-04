@@ -71,6 +71,7 @@
 	unsigned int imgEnhance;
 	NSString *extraOptions;
 	NSArray *equalizer;
+	BOOL noDispSub;
 }
 
 @property (assign, readwrite) SUBFILE_NAMERULE subNameRule;
@@ -104,6 +105,7 @@
 @property (retain, readwrite) NSString *extraOptions;
 @property (retain, readwrite) NSArray *equalizer;
 @property (assign, readwrite) unsigned int subBorderWidth;
+@property (assign, readwrite) BOOL noDispSub;
 
 -(void) setSubFontColor:(NSColor*)col;
 -(void) setSubFontBorderColor:(NSColor*)col;

@@ -105,6 +105,8 @@ NSString * const kPMValAssForceStylePrefix	= @"BorderStyle=1,MarginV=2";
 NSString * const kPMValFmtAssSubAlginment	= @",Alignment=%d";
 NSString * const kPMValFmtAssSubBorderWidth = @",Outline=%d";
 
+NSString * const kPMParSubID				= @"-subid";
+
 #define kSubScaleNoAss		(8.0)
 
 #define kPMSubBorderWidthMax	(4)
@@ -142,6 +144,7 @@ NSString * const kPMValFmtAssSubBorderWidth = @",Outline=%d";
 @synthesize extraOptions;
 @synthesize equalizer;
 @synthesize subBorderWidth;
+@synthesize noDispSub;
 
 #pragma mark Init/Dealloc
 -(id) init
@@ -194,6 +197,8 @@ NSString * const kPMValFmtAssSubBorderWidth = @",Outline=%d";
 		
 		extraOptions = nil;
 		equalizer = nil;
+		
+		noDispSub = NO;
 	}
 	return self;
 }
@@ -432,6 +437,11 @@ NSString * const kPMValFmtAssSubBorderWidth = @",Outline=%d";
 
 	if (pauseAtStart) {
 		[paramArray addObject:kPMParSTPause];
+	}
+	
+	if (noDispSub) {
+		[paramArray addObject:kPMParSubID];
+		[paramArray addObject:@"-1"];
 	}
 	
 	if (1) {

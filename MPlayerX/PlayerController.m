@@ -128,6 +128,7 @@ enum {
 					   @"", kUDKeyExtraOptions,
 					   [NSNumber numberWithUnsignedInt:kPMSubAlignDefault], kUDKeySubAlign,
 					   [NSNumber numberWithUnsignedInt:kPMSubBorderWidthDefault], kUDKeySubBorderWidth,
+					   boolNo, kUDKeyNoDispSub,
 					   nil]];	
 }
 
@@ -454,6 +455,8 @@ enum {
 	} else {
 		[mplayer.pm setPauseAtStart:![ud boolForKey:kUDKeyPlayWhenOpened]];
 	}
+	
+	[mplayer.pm setNoDispSub:[ud boolForKey:kUDKeyNoDispSub]];
 
 	// 这里必须要retain，否则如果用lastPlayedPath作为参数传入的话会有问题
 	lastPlayedPathPre = [[url absoluteURL] retain];
