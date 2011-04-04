@@ -83,7 +83,7 @@
 					   boolNo, kUDKeyQuitOnClose,
 					   boolNo, kUDKeyPinPMode,
 					   boolNo, kUDKeyAlwaysHideDockInFullScrn,
-					   boolNo, kUDKeyDisableHScrollSeek,
+					   boolYes, kUDKeyDisableHScrollSeek,
 					   boolNo, kUDKeyDisableVScrollVol,
 					   nil]];
 }
