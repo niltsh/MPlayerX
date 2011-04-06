@@ -1502,6 +1502,7 @@
 							<int key="NSvFlags">289</int>
 							<string key="NSFrame">{{466, 2}, {12, 12}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<bool key="NSViewIsLayerTreeHost">YES</bool>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSClassName">ResizeIndicator</string>
 						</object>
@@ -1510,6 +1511,7 @@
 							<int key="NSvFlags">274</int>
 							<string key="NSFrame">{{17, 92}, {446, 243}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<bool key="NSViewIsLayerTreeHost">YES</bool>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="838931917">
@@ -1535,6 +1537,7 @@
 							<int key="NSvFlags">266</int>
 							<string key="NSFrame">{{0, 337}, {480, 23}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<bool key="NSViewIsLayerTreeHost">YES</bool>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSClassName">TitleView</string>
 						</object>
@@ -6397,6 +6400,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>checkCacheFormat:</string>
 							<string>controlUIAppearanceChanged:</string>
+							<string>fontSelected:</string>
 							<string>letterBoxModeChanged:</string>
 							<string>multiThreadChanged:</string>
 							<string>onTopModeChanged:</string>
@@ -6407,6 +6411,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -6424,6 +6429,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>checkCacheFormat:</string>
 							<string>controlUIAppearanceChanged:</string>
+							<string>fontSelected:</string>
 							<string>letterBoxModeChanged:</string>
 							<string>multiThreadChanged:</string>
 							<string>onTopModeChanged:</string>
@@ -6440,6 +6446,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">controlUIAppearanceChanged:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">fontSelected:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -6479,6 +6489,7 @@
 							<string>charsetListPopup</string>
 							<string>controlUI</string>
 							<string>dispView</string>
+							<string>fontListPopup</string>
 							<string>playerController</string>
 							<string>prefToolbar</string>
 							<string>prefWin</string>
@@ -6494,6 +6505,7 @@
 							<string>NSPopUpButton</string>
 							<string>ControlUIView</string>
 							<string>RootLayerView</string>
+							<string>NSPopUpButton</string>
 							<string>PlayerController</string>
 							<string>NSToolbar</string>
 							<string>NSWindow</string>
@@ -6512,6 +6524,7 @@
 							<string>charsetListPopup</string>
 							<string>controlUI</string>
 							<string>dispView</string>
+							<string>fontListPopup</string>
 							<string>playerController</string>
 							<string>prefToolbar</string>
 							<string>prefWin</string>
@@ -6535,6 +6548,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">dispView</string>
 								<string key="candidateClassName">RootLayerView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">fontListPopup</string>
+								<string key="candidateClassName">NSPopUpButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">playerController</string>
@@ -7502,6 +7519,13 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">Foundation.framework/Headers/NSURLDownload.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">PrintCore.framework/Headers/PDEPluginInterface.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
