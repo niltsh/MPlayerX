@@ -359,10 +359,22 @@
 					[playerWindow setFrame:[playerWindow frameRectForContentRect:winRC] display:YES];
 					// MPLog(@"should resize");
 				} else {
-					NSPoint winPos = [playerWindow frame].origin;
-					winPos.x += delta.x;
-					winPos.y += delta.y;
-					[playerWindow setFrameOrigin:winPos];
+					NSRect winFrm = [playerWindow frame];
+					NSScreen *currentScrn = [[self window] screen];
+					
+					winFrm.origin.x += delta.x;
+					winFrm.origin.y += delta.y;
+					
+					if (currentScrn == [[NSScreen screens] objectAtIndex:0]) {
+						// 现在的屏幕是在menubar的话
+						NSRect scrnFrm = [currentScrn visibleFrame];
+						
+						if ((winFrm.origin.y + winFrm.size.height) > (scrnFrm.origin.y + scrnFrm.size.height)) {
+							winFrm.origin.y = scrnFrm.origin.y + scrnFrm.size.height - winFrm.size.height;
+						}
+					}
+					
+					[playerWindow setFrameOrigin:winFrm.origin];
 					// MPLog(@"should move");
 				}
 			}
