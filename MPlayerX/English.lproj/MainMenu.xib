@@ -203,6 +203,15 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
+								<object class="NSMenuItem" id="45875320">
+									<reference key="NSMenu" ref="720053764"/>
+									<string key="NSTitle">Open VIDEO_TS...</string>
+									<string key="NSKeyEquiv">d</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 								<object class="NSMenuItem" id="462099003">
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Open URL...</string>
@@ -3196,6 +3205,14 @@
 					</object>
 					<int key="connectionID">1087</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">openVIDEOTS:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="45875320"/>
+					</object>
+					<int key="connectionID">1089</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -3281,6 +3298,7 @@
 							<reference ref="462099003"/>
 							<reference ref="628185863"/>
 							<reference ref="728876290"/>
+							<reference ref="45875320"/>
 						</object>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -4403,6 +4421,11 @@
 						<reference key="object" ref="769296136"/>
 						<reference key="parent" ref="912779322"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1088</int>
+						<reference key="object" ref="45875320"/>
+						<reference key="parent" ref="720053764"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -4449,6 +4472,7 @@
 					<string>1077.IBPluginDependency</string>
 					<string>1084.IBPluginDependency</string>
 					<string>1085.IBPluginDependency</string>
+					<string>1088.IBPluginDependency</string>
 					<string>124.IBPluginDependency</string>
 					<string>124.ImportedFromIB2</string>
 					<string>125.IBEditorWindowLastContentRect</string>
@@ -4732,6 +4756,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{821, 935}, {143, 23}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4961,7 +4986,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{695, 593}, {192, 143}}</string>
+					<string>{{626, 837}, {211, 163}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{145, 474}, {199, 203}}</string>
@@ -5033,7 +5058,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1087</int>
+			<int key="maxID">1089</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5050,10 +5075,12 @@
 							<string>gotoWikiPage:</string>
 							<string>moveToTrash:</string>
 							<string>openFile:</string>
+							<string>openVIDEOTS:</string>
 							<string>writeSnapshotToFile:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -5071,6 +5098,7 @@
 							<string>gotoWikiPage:</string>
 							<string>moveToTrash:</string>
 							<string>openFile:</string>
+							<string>openVIDEOTS:</string>
 							<string>writeSnapshotToFile:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -5093,6 +5121,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">openFile:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">openVIDEOTS:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

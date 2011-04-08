@@ -39,7 +39,6 @@ extern NSString * const kMPCPlayInfoUpdatedNotification;
 extern NSString * const kMPCPlayInfoUpdatedKeyPathKey;
 extern NSString * const kMPCPlayInfoUpdatedChangeDictKey;
 
-
 @class ControlUIView, OpenURLController, CharsetQueryController, CoreController;
 
 @interface PlayerController : NSObject <SubConverterDelegate, CoreControllerDelegate>
@@ -68,6 +67,7 @@ extern NSString * const kMPCPlayInfoUpdatedChangeDictKey;
 -(id) setDisplayDelegateForMPlayer:(id<CoreDisplayDelegate>) delegate;
 -(int) playerState;
 -(BOOL) couldAcceptCommand;
+-(void) setPlayDisk:(NSInteger)pd;
 
 -(MovieInfo*) mediaInfo;
 -(void) setMultiThreadMode:(BOOL) mt;

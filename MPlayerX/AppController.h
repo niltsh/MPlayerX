@@ -48,6 +48,7 @@
 +(AppController*) sharedAppController;
 
 -(IBAction) openFile:(id) sender;
+-(IBAction) openVIDEOTS:(id) sender;
 -(IBAction) gotoWikiPage:(id) sender;
 -(IBAction) writeSnapshotToFile:(id)sender;
 -(IBAction) moveToTrash:(id) sender;

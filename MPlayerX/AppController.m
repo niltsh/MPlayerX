@@ -182,6 +182,24 @@ static BOOL init_ed = NO;
 	}
 }
 
+-(IBAction) openVIDEOTS:(id) sender
+{
+	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+	[openPanel setCanChooseFiles:NO];
+	[openPanel setCanChooseDirectories:YES];
+	[openPanel setResolvesAliases:NO];
+	// 现在还不支持播放列表，因此禁用多选择
+	[openPanel setAllowsMultipleSelection:NO];
+	[openPanel setCanCreateDirectories:NO];
+	[openPanel setTitle:kMPXStringOpenVideo_TS];
+	
+	if ([openPanel runModal] == NSFileHandlingPanelOKButton) {
+		[playerController setPlayDisk:kPMPlayDiskDVD];
+		[playerController loadFiles:[openPanel URLs] fromLocal:YES];
+		[playerController setPlayDisk:kPMPlayDiskNone];
+	}	
+}
+
 -(IBAction) gotoWikiPage:(id) sender
 {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kMPXWikiURL]];

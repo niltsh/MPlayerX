@@ -115,6 +115,8 @@ typedef enum {
 
 #define kPMSubBorderWidthDefault	(2)
 
+#define kPMPlayDiskNone		(0)
+#define kPMPlayDiskDVD		(1)
 /////////////////////////////////////strings/////////////////////////////////////
 // 指定两种arch的mplayer路径时所用的key
 extern NSString * const kI386Key;

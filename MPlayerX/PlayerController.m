@@ -295,20 +295,10 @@ enum {
 	return mplayer;
 }
 
--(int) playerState
-{
-	return mplayer.state;
-}
-
--(BOOL) couldAcceptCommand
-{
-	return PlayerCouldAcceptCommand;
-}
-
--(MovieInfo*) mediaInfo
-{
-	return [mplayer movieInfo];
-}
+-(int) playerState { return mplayer.state; }
+-(BOOL) couldAcceptCommand { return PlayerCouldAcceptCommand; }
+-(MovieInfo*) mediaInfo { return [mplayer movieInfo]; }
+-(void) setPlayDisk:(NSInteger) pd { [mplayer.pm setPlayDisk:pd]; }
 
 -(void) enablePowerSave:(BOOL)en
 {
@@ -357,42 +347,47 @@ enum {
 					path = [file path];
 					isDir = YES;
 					
-					if ([fm fileExistsAtPath:path isDirectory:&isDir] && (!isDir)) {
-						// 如果文件存在
-						NSString *ext = [[path pathExtension] lowercaseString];
-						
-						if ([[[AppController sharedAppController] supportVideoFormats] containsObject:ext] || 
-							[[[AppController sharedAppController] supportAudioFormats] containsObject:ext]) {
-							// 如果是支持的格式
+					if ([fm fileExistsAtPath:path isDirectory:&isDir]) {
+						if (isDir) {
+							// 如果是文件夹
 							[self playMedia:file];
 							break;
-							
-						} else if ([[[AppController sharedAppController] supportSubFormats] containsObject:ext]) {
-							// 如果是字幕文件
-							if (PlayerCouldAcceptCommand) {
-								// 如果是在播放状态，就加载字幕
-								[self loadSubFile:path];
-							} else {
-								// 如果是在停止状态，那么应该是想打开媒体文件先
-								// 需要根据字幕文件名去寻找影片文件
-								NSURL *autoSearchMediaFile = [self findFirstMediaFileFromSubFile:path];
-								
-								if (autoSearchMediaFile) {
-									// 如果找到了
-									[self playMedia:autoSearchMediaFile];
-								}
-								// 不管有没有找到，都需要break
-								// 找到了就播放
-								// 没有找到。说明按照当前的文件名规则并不存在相应的媒体文件
-								if (!autoSearchMediaFile) {
-									// 如果没有找到合适的播放文件
-									[self showAlertPanelModal:kMPXStringCantFindMediaFile];
-								}
-								break;
-							}
 						} else {
-							// 否则提示
-							[self showAlertPanelModal:kMPXStringFileNotSupported];
+							// 如果文件存在
+							NSString *ext = [[path pathExtension] lowercaseString];
+							
+							if ([[[AppController sharedAppController] playableFormats] containsObject:ext]) {
+								// 如果是支持的格式
+								[self playMedia:file];
+								break;
+								
+							} else if ([[[AppController sharedAppController] supportSubFormats] containsObject:ext]) {
+								// 如果是字幕文件
+								if (PlayerCouldAcceptCommand) {
+									// 如果是在播放状态，就加载字幕
+									[self loadSubFile:path];
+								} else {
+									// 如果是在停止状态，那么应该是想打开媒体文件先
+									// 需要根据字幕文件名去寻找影片文件
+									NSURL *autoSearchMediaFile = [self findFirstMediaFileFromSubFile:path];
+									
+									if (autoSearchMediaFile) {
+										// 如果找到了
+										[self playMedia:autoSearchMediaFile];
+									}
+									// 不管有没有找到，都需要break
+									// 找到了就播放
+									// 没有找到。说明按照当前的文件名规则并不存在相应的媒体文件
+									if (!autoSearchMediaFile) {
+										// 如果没有找到合适的播放文件
+										[self showAlertPanelModal:kMPXStringCantFindMediaFile];
+									}
+									break;
+								}
+							} else {
+								// 否则提示
+								[self showAlertPanelModal:kMPXStringFileNotSupported];
+							}	
 						}
 					} else {
 						// 文件不存在
@@ -517,6 +512,11 @@ enum {
 	SAFERELEASE(lastPlayedPath);
 	lastPlayedPath = lastPlayedPathPre;
 	lastPlayedPathPre = nil;
+	
+	////////////////////////////////////////////////////////////////////
+	// 自动复位
+	[self setPlayDisk:kPMPlayDiskNone];
+	////////////////////////////////////////////////////////////////////
 }
 
 -(NSURL*) findFirstMediaFileFromSubFile:(NSString*)path
@@ -549,8 +549,7 @@ enum {
 			[directoryEnumerator skipDescendants];
 
 		} else if ([[fileAttr objectForKey:NSFileType] isEqualToString: NSFileTypeRegular] &&
-					([[[AppController sharedAppController] supportVideoFormats] containsObject:ext] || 
-					 [[[AppController sharedAppController] supportAudioFormats] containsObject:ext])) {
+					([[[AppController sharedAppController] playableFormats] containsObject:ext])) {
 			// 如果是正常文件，并且是媒体文件
 			NSString *mediaName = [[mediaFile stringByDeletingPathExtension] lowercaseString];
 			

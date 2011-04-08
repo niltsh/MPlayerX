@@ -106,6 +106,8 @@ NSString * const kPMValFmtAssSubAlginment	= @",Alignment=%d";
 NSString * const kPMValFmtAssSubBorderWidth = @",Outline=%d";
 
 NSString * const kPMParSubID				= @"-subid";
+NSString * const kPMParDVDProto				= @"dvd://";
+NSString * const kPMParDVDDevice			= @"-dvd-device";
 
 #define kSubScaleNoAss		(8.0)
 
@@ -145,6 +147,7 @@ NSString * const kPMParSubID				= @"-subid";
 @synthesize equalizer;
 @synthesize subBorderWidth;
 @synthesize noDispSub;
+@synthesize playDisk;
 
 #pragma mark Init/Dealloc
 -(id) init
@@ -199,6 +202,7 @@ NSString * const kPMParSubID				= @"-subid";
 		equalizer = nil;
 		
 		noDispSub = NO;
+		playDisk = kPMPlayDiskNone;
 	}
 	return self;
 }
@@ -537,6 +541,11 @@ NSString * const kPMParSubID				= @"-subid";
 		}
 	}
 
+	if (playDisk == kPMPlayDiskDVD) {
+		[paramArray insertObject:kPMParDVDProto atIndex:0];
+		[paramArray addObject:kPMParDVDDevice];
+	}
+	
 	return paramArray;
 }
 
