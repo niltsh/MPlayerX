@@ -184,4 +184,7 @@ extern NSString * const kFillScreenButtonImageUBKey;
 -(IBAction) toggleFlip:(id)sender;
 
 -(IBAction) zoomToOriginalSize:(id)sender;
+
+-(IBAction) toggleTimeAltDisplayMode:(id)sender;
+
 @end

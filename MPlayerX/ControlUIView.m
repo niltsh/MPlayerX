@@ -1146,6 +1146,12 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 {
 	[dispView zoomToOriginalSize];
 }
+
+-(IBAction) toggleTimeAltDisplayMode:(id)sender
+{
+	[ud setBool:![ud boolForKey:kUDKeyTimeTextAltTotal] forKey:kUDKeyTimeTextAltTotal];
+}
+
 ////////////////////////////////////////////////FullscreenThings//////////////////////////////////////////////////
 -(void) setFillScreenMode:(NSString*)modeKey state:(NSInteger) state
 {
