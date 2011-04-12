@@ -1212,6 +1212,13 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuSpeedDown setEnabled:YES];
 	[menuAudioDelayInc setEnabled:YES];
 	[menuAudioDelayDec setEnabled:YES];
+	
+	if ([playerController isPassingThrough]) {
+		[volumeButton setEnabled:NO];
+		[volumeSlider setEnabled:NO];
+		[menuVolInc setEnabled:NO];
+		[menuVolDec setEnabled:NO];		
+	}
 }
 
 -(void) playBackWillStop:(NSNotification*)notif
@@ -1233,6 +1240,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	
 	// 由于mplayer无法静音开始，因此每次都要回到非静音状态
 	[volumeButton setState:NSOffState];
+	[volumeButton setEnabled:YES];
 	[volumeSlider setEnabled:YES];
 	[menuVolInc setEnabled:YES];
 	[menuVolDec setEnabled:YES];

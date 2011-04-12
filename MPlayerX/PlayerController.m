@@ -636,14 +636,41 @@ enum {
 
 -(BOOL) toggleMute
 {
-	return (PlayerCouldAcceptCommand)? ([mplayer setMute:!mplayer.movieInfo.playingInfo.mute]):NO;
+	if (PlayerCouldAcceptCommand && (![self isPassingThrough])) {
+		return [mplayer setMute:!mplayer.movieInfo.playingInfo.mute];
+	} else {
+		return NO;
+	}
 }
 
 -(float) setVolume:(float) vol
 {
-	vol = [mplayer setVolume:vol];
-	[mplayer.pm setVolume:vol];
+	if ([self isPassingThrough]) {
+		// if is passing through, do nothing
+		// and return the current volume
+		vol = mplayer.pm.volume;
+	} else {
+		vol = [mplayer setVolume:vol];
+		[mplayer.pm setVolume:vol];
+	}
 	return vol;
+}
+
+-(BOOL) isPassingThrough
+{
+	BOOL ret = NO;
+	if (PlayerCouldAcceptCommand) {
+		AudioInfo *ai = [mplayer.movieInfo audioInfoForID:[mplayer.movieInfo.playingInfo currentAudioID]];
+		if (ai) {
+			NSString *format = [[ai format] uppercaseString];
+			MPLog(@"audio format:%@", format);
+			if ((([format isEqualToString:@"0X2000"] || [format isEqualToString:@"AC-3"]) && [mplayer.pm ac3Pass]) ||
+				(([format isEqualToString:@"0X2001"] || [format isEqualToString:@"DTS"]) && [mplayer.pm dtsPass])) {
+				ret = YES;
+			}
+		}
+	}
+	return ret;
 }
 
 -(float) seekTo:(float)time mode:(SEEK_MODE)seekMode
