@@ -98,5 +98,6 @@ NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";
 NSString * const kUDKeyResizeStep							= @"ResizeStep";
 NSString * const kUDKeyFrameScaleStep						= @"FrameScaleStep";
+NSString * const kUDKeyThreeFingersPinchThreshRatio			= @"TFPThreshRatio";
 
 NSString * const kUDKeyPinPMode								= @"PinPMode";

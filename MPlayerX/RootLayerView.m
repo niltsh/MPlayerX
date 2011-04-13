@@ -38,9 +38,13 @@
 #define kScaleFrameRatioMinLimit	(0.05f)
 #define kScaleFrameRatioStepMax		(0.20f)
 
-#define kThreeFingersTapInit	(0)
-#define kThreeFingersTapInvalid	(-1)
-#define kThreeFingersTapReady	(1)
+#define kThreeFingersTapInit		(0)
+#define kThreeFingersTapInvalid		(-1)
+#define kThreeFingersTapReady		(1)
+
+#define kThreeFingersPinchInit		(0)
+#define kThreeFingersPinchInvalid	(-1)
+#define kThreeFingersPinchReady		(1)
 
 @interface RootLayerView (RootLayerViewInternal)
 -(NSSize) calculateContentSize:(NSSize)refSize;
@@ -85,6 +89,7 @@
 					   boolNo, kUDKeyAlwaysHideDockInFullScrn,
 					   boolYes, kUDKeyDisableHScrollSeek,
 					   boolNo, kUDKeyDisableVScrollVol,
+					   [NSNumber numberWithFloat:1.5], kUDKeyThreeFingersPinchThreshRatio,
 					   nil]];
 }
 
@@ -115,7 +120,9 @@
 		firstDisplay = YES;
 		
 		threeFingersTap = kThreeFingersTapInit;
-		
+		threeFingersPinch = kThreeFingersPinchInit;
+		threeFingersPinchDistance = 0;
+
 		[self setAcceptsTouchEvents:YES];
 		[self setWantsRestingTouches:NO];
 	}
@@ -608,15 +615,33 @@
 	}
 }
 
+float DistanceOf(NSPoint p1, NSPoint p2, NSPoint p3)
+{
+	return fabs(p1.x - p2.x) + fabs(p1.y - p2.y) +
+		   fabs(p1.x - p3.x) + fabs(p1.y - p3.y) +
+		   fabs(p2.x - p3.x) + fabs(p2.y - p3.y);
+}
+
 -(void) touchesBeganWithEvent:(NSEvent*)event
 {
 	// MPLog(@"BEGAN");
-	NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseBegan|NSTouchPhaseStationary inView:self];
+	NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseTouching inView:self];
 	
-	if (([touch count] == 3) && (threeFingersTap == kThreeFingersTapInit)) {
-		// 如果是三个指头tap，并且现在是OK的状态，那么就ready了
-		threeFingersTap = kThreeFingersTapReady;
-		// MPLog(@"Three Fingers Tap Ready");
+	if ([touch count] == 3) {
+		if (threeFingersTap == kThreeFingersTapInit) {
+			// 如果是三个指头tap，并且现在是OK的状态，那么就ready了
+			threeFingersTap = kThreeFingersTapReady;
+			// MPLog(@"Three Fingers Tap Ready");
+		}
+
+		if (threeFingersPinch == kThreeFingersPinchInit) {
+			threeFingersPinch = kThreeFingersPinchReady;
+			NSArray *touchAr = [touch allObjects];
+			threeFingersPinchDistance = DistanceOf([[touchAr objectAtIndex:0] normalizedPosition],
+												   [[touchAr objectAtIndex:1] normalizedPosition], 
+												   [[touchAr objectAtIndex:2] normalizedPosition]);
+			MPLog(@"Init 3f Dist:%f", threeFingersPinchDistance);
+		}
 	}
 	
 	[super touchesBeganWithEvent:event];
@@ -627,6 +652,28 @@
 	// MPLog(@"MOVED");
 	// 任何时候当move的时候，就不ready了
 	threeFingersTap = kThreeFingersTapInvalid;
+	
+	if (threeFingersPinch == kThreeFingersPinchReady) {
+		NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseMoved|NSTouchPhaseStationary inView:self];
+
+		if ([touch count] == 3) {
+			NSArray *touchAr = [touch allObjects];
+			float dist = DistanceOf([[touchAr objectAtIndex:0] normalizedPosition],
+									[[touchAr objectAtIndex:1] normalizedPosition], 
+									[[touchAr objectAtIndex:2] normalizedPosition]);
+			float thresh = [ud floatForKey:kUDKeyThreeFingersPinchThreshRatio];
+			
+			MPLog(@"Curr 3f Dist:%f", dist/threeFingersPinchDistance);
+			if (((![self isInFullScreenMode]) && (dist > threeFingersPinchDistance * thresh)) ||
+				(( [self isInFullScreenMode]) && (dist * thresh < threeFingersPinchDistance))){
+				// toggle fullscreen
+				[controlUI performKeyEquivalent:[NSEvent makeKeyDownEvent:kSCMFullScrnKeyEquivalent
+															modifierFlags:kSCMFullscreenKeyEquivalentModifierFlagMask]];
+				threeFingersPinch = kThreeFingersPinchInit;
+			}
+		}
+	}
+	
 	[super touchesMovedWithEvent:event];
 }
 
@@ -644,6 +691,8 @@
 		}
 		// 不论是否是ready还是init还是invalid，所有之后离开之后都重置
 		threeFingersTap = kThreeFingersTapInit;
+		
+		threeFingersPinch = kThreeFingersPinchInit;
 	}
 	
 	[super touchesEndedWithEvent:event];
@@ -653,7 +702,8 @@
 {
 	// MPLog(@"CANCEL");
 	threeFingersTap = kThreeFingersTapInit;
-
+	threeFingersPinch = kThreeFingersPinchInit;
+	
 	[super touchesCancelledWithEvent:event];
 }
 
