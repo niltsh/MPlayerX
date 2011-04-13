@@ -94,7 +94,7 @@
 					   boolYes, kUDKeyDisableHScrollSeek,
 					   boolNo, kUDKeyDisableVScrollVol,
 					   [NSNumber numberWithFloat:1.5], kUDKeyThreeFingersPinchThreshRatio,
-					   [NSNumber numberWithFloat:2], kUDKeyFourFingersPinchThreshRatio,
+					   [NSNumber numberWithFloat:1.8], kUDKeyFourFingersPinchThreshRatio,
 					   nil]];
 }
 
