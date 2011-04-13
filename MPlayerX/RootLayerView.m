@@ -46,6 +46,10 @@
 #define kThreeFingersPinchInvalid	(-1)
 #define kThreeFingersPinchReady		(1)
 
+#define kFourFingersPinchInit		(0)
+#define kFourFingersPinchInvalid	(-1)
+#define kFourFingersPinchReady		(1)
+
 @interface RootLayerView (RootLayerViewInternal)
 -(NSSize) calculateContentSize:(NSSize)refSize;
 -(NSPoint) calculatePlayerWindowPosition:(NSSize)winSize;
@@ -90,6 +94,7 @@
 					   boolYes, kUDKeyDisableHScrollSeek,
 					   boolNo, kUDKeyDisableVScrollVol,
 					   [NSNumber numberWithFloat:1.5], kUDKeyThreeFingersPinchThreshRatio,
+					   [NSNumber numberWithFloat:2], kUDKeyFourFingersPinchThreshRatio,
 					   nil]];
 }
 
@@ -121,7 +126,9 @@
 		
 		threeFingersTap = kThreeFingersTapInit;
 		threeFingersPinch = kThreeFingersPinchInit;
-		threeFingersPinchDistance = 0;
+		threeFingersPinchDistance = 1;
+		fourFingersPinch = kFourFingersPinchInit;
+		fourFingersPinchDistance = 1;
 
 		[self setAcceptsTouchEvents:YES];
 		[self setWantsRestingTouches:NO];
@@ -622,28 +629,70 @@ float DistanceOf(NSPoint p1, NSPoint p2, NSPoint p3)
 		   fabs(p2.x - p3.x) + fabs(p2.y - p3.y);
 }
 
+float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
+{
+	CGFloat top, bottom, left, right;
+	top = p1.y;
+	bottom = p1.y;
+	left = p1.x;
+	right = p1.x;
+	
+	if (left   > p2.x) { left   = p2.x; }
+	if (right  < p2.x) { right  = p2.x; }
+	if (top    < p2.y) { top    = p2.y; }
+	if (bottom > p2.y) { bottom = p2.y; }
+	if (left   > p3.x) { left   = p3.x; }
+	if (right  < p3.x) { right  = p3.x; }
+	if (top    < p3.y) { top    = p3.y; }
+	if (bottom > p3.y) { bottom = p3.y; }
+	if (left   > p4.x) { left   = p4.x; }
+	if (right  < p4.x) { right  = p4.x; }
+	if (top    < p4.y) { top    = p4.y; }
+	if (bottom > p4.y) { bottom = p4.y; }
+	
+	return fabs(top - bottom) * fabs(right - left);
+}
+
 -(void) touchesBeganWithEvent:(NSEvent*)event
 {
 	// MPLog(@"BEGAN");
 	NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseTouching inView:self];
 	
-	if ([touch count] == 3) {
-		if (threeFingersTap == kThreeFingersTapInit) {
-			// 如果是三个指头tap，并且现在是OK的状态，那么就ready了
-			threeFingersTap = kThreeFingersTapReady;
-			// MPLog(@"Three Fingers Tap Ready");
-		}
+	switch ([touch count]) {
+		case 3:
+			if (threeFingersTap == kThreeFingersTapInit) {
+				// 如果是三个指头tap，并且现在是OK的状态，那么就ready了
+				threeFingersTap = kThreeFingersTapReady;
+				// MPLog(@"Three Fingers Tap Ready");
+			}
+		
+			if (threeFingersPinch == kThreeFingersPinchInit) {
+				threeFingersPinch = kThreeFingersPinchReady;
+				NSArray *touchAr = [touch allObjects];
+				threeFingersPinchDistance = DistanceOf([[touchAr objectAtIndex:0] normalizedPosition],
+													   [[touchAr objectAtIndex:1] normalizedPosition], 
+													   [[touchAr objectAtIndex:2] normalizedPosition]);
+				MPLog(@"Init 3f Dist:%f", threeFingersPinchDistance);
+			}
+			break;
+		case 4:
+			threeFingersTap = kThreeFingersTapInit;
+			threeFingersPinch = kThreeFingersPinchInit;
+			
+			if (fourFingersPinch == kFourFingersPinchInit) {
+				fourFingersPinch = kFourFingersPinchReady;
+				NSArray *touchAr = [touch allObjects];
+				fourFingersPinchDistance = AreaOf([[touchAr objectAtIndex:0] normalizedPosition],
+												  [[touchAr objectAtIndex:1] normalizedPosition],
+												  [[touchAr objectAtIndex:2] normalizedPosition],
+												  [[touchAr objectAtIndex:3] normalizedPosition]);
+				MPLog(@"Init 4f Dist:%f", fourFingersPinchDistance);
+			}
+			break;
 
-		if (threeFingersPinch == kThreeFingersPinchInit) {
-			threeFingersPinch = kThreeFingersPinchReady;
-			NSArray *touchAr = [touch allObjects];
-			threeFingersPinchDistance = DistanceOf([[touchAr objectAtIndex:0] normalizedPosition],
-												   [[touchAr objectAtIndex:1] normalizedPosition], 
-												   [[touchAr objectAtIndex:2] normalizedPosition]);
-			MPLog(@"Init 3f Dist:%f", threeFingersPinchDistance);
-		}
+		default:
+			break;
 	}
-	
 	[super touchesBeganWithEvent:event];
 }
 
@@ -674,6 +723,23 @@ float DistanceOf(NSPoint p1, NSPoint p2, NSPoint p3)
 		}
 	}
 	
+	if (fourFingersPinch == kFourFingersPinchReady) {
+		NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseMoved|NSTouchPhaseStationary inView:self];
+		
+		if ([touch count] == 4) {
+			NSArray *touchAr = [touch allObjects];
+			float dist = AreaOf([[touchAr objectAtIndex:0] normalizedPosition],
+								[[touchAr objectAtIndex:1] normalizedPosition],
+								[[touchAr objectAtIndex:2] normalizedPosition],
+								[[touchAr objectAtIndex:3] normalizedPosition]);
+			MPLog(@"Curr 4f Dist:%f", dist / fourFingersPinchDistance);
+			
+			if (dist * [ud floatForKey:kUDKeyFourFingersPinchThreshRatio] < fourFingersPinchDistance) {
+				fourFingersPinch = kFourFingersPinchInit;
+				[playerController stop];
+			}
+		}
+	}
 	[super touchesMovedWithEvent:event];
 }
 
@@ -693,6 +759,7 @@ float DistanceOf(NSPoint p1, NSPoint p2, NSPoint p3)
 		threeFingersTap = kThreeFingersTapInit;
 		
 		threeFingersPinch = kThreeFingersPinchInit;
+		fourFingersPinch = kFourFingersPinchInit;
 	}
 	
 	[super touchesEndedWithEvent:event];
@@ -703,6 +770,7 @@ float DistanceOf(NSPoint p1, NSPoint p2, NSPoint p3)
 	// MPLog(@"CANCEL");
 	threeFingersTap = kThreeFingersTapInit;
 	threeFingersPinch = kThreeFingersPinchInit;
+	fourFingersPinch = kFourFingersPinchInit;
 	
 	[super touchesCancelledWithEvent:event];
 }

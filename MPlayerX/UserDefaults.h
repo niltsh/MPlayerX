@@ -96,6 +96,7 @@ extern NSString * const kUDKeyCloseWindowWhenStopped;
 extern NSString * const kUDKeyResizeStep;
 extern NSString * const kUDKeyFrameScaleStep;
 extern NSString * const kUDKeyThreeFingersPinchThreshRatio;
+extern NSString * const kUDKeyFourFingersPinchThreshRatio;
 
 // still not implemented
 extern NSString * const kUDKeyPinPMode;						// TODO
