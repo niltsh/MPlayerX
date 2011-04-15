@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10J869</string>
 		<string key="IBDocument.InterfaceBuilderVersion">823</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">823</string>
@@ -1680,6 +1680,22 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDButtonCell</string>
+					<string key="superclassName">NSButtonCell</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../BGHUDAppKit/Framework/BGHUDButtonCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">BGHUDSliderCell</string>
+					<string key="superclassName">NSSliderCell</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../BGHUDAppKit/Framework/BGHUDSliderCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">CharsetQueryController</string>
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="actions">
@@ -1753,6 +1769,8 @@
 						<string key="toggleMirror:">id</string>
 						<string key="toggleMute:">id</string>
 						<string key="togglePlayPause:">id</string>
+						<string key="toggleTimeAltDisplayMode:">id</string>
+						<string key="zoomToOriginalSize:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="changeAudioBalanceBy:">
@@ -1871,6 +1889,14 @@
 							<string key="name">togglePlayPause:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="toggleTimeAltDisplayMode:">
+							<string key="name">toggleTimeAltDisplayMode:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="zoomToOriginalSize:">
+							<string key="name">zoomToOriginalSize:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="accessaryContainer">NSView</string>
@@ -1879,6 +1905,9 @@
 						<string key="fillScreenButton">NSButton</string>
 						<string key="fullScreenButton">NSButton</string>
 						<string key="hintTime">NSTextField</string>
+						<string key="menuAudioDelayDec">NSMenuItem</string>
+						<string key="menuAudioDelayInc">NSMenuItem</string>
+						<string key="menuAudioDelayReset">NSMenuItem</string>
 						<string key="menuEnlargeFrame">NSMenuItem</string>
 						<string key="menuEnlargeFrame2">NSMenuItem</string>
 						<string key="menuFlip">NSMenuItem</string>
@@ -1896,6 +1925,12 @@
 						<string key="menuSizeDec">NSMenuItem</string>
 						<string key="menuSizeInc">NSMenuItem</string>
 						<string key="menuSnapshot">NSMenuItem</string>
+						<string key="menuSpeedDown">NSMenuItem</string>
+						<string key="menuSpeedReset">NSMenuItem</string>
+						<string key="menuSpeedUp">NSMenuItem</string>
+						<string key="menuSubDelayDec">NSMenuItem</string>
+						<string key="menuSubDelayInc">NSMenuItem</string>
+						<string key="menuSubDelayReset">NSMenuItem</string>
 						<string key="menuSubScaleDec">NSMenuItem</string>
 						<string key="menuSubScaleInc">NSMenuItem</string>
 						<string key="menuSwitchAudio">NSMenuItem</string>
@@ -1908,6 +1943,8 @@
 						<string key="menuToggleLockAspectRatio">NSMenuItem</string>
 						<string key="menuVolDec">NSMenuItem</string>
 						<string key="menuVolInc">NSMenuItem</string>
+						<string key="menuZoom">NSMenuItem</string>
+						<string key="menuZoomToOriginSize">NSMenuItem</string>
 						<string key="osd">OsdText</string>
 						<string key="playPauseButton">NSButton</string>
 						<string key="playerController">PlayerController</string>
@@ -1946,6 +1983,18 @@
 						<object class="IBToOneOutletInfo" key="hintTime">
 							<string key="name">hintTime</string>
 							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menuAudioDelayDec">
+							<string key="name">menuAudioDelayDec</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menuAudioDelayInc">
+							<string key="name">menuAudioDelayInc</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menuAudioDelayReset">
+							<string key="name">menuAudioDelayReset</string>
+							<string key="candidateClassName">NSMenuItem</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="menuEnlargeFrame">
 							<string key="name">menuEnlargeFrame</string>
@@ -2015,6 +2064,30 @@
 							<string key="name">menuSnapshot</string>
 							<string key="candidateClassName">NSMenuItem</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="menuSpeedDown">
+							<string key="name">menuSpeedDown</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menuSpeedReset">
+							<string key="name">menuSpeedReset</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menuSpeedUp">
+							<string key="name">menuSpeedUp</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menuSubDelayDec">
+							<string key="name">menuSubDelayDec</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menuSubDelayInc">
+							<string key="name">menuSubDelayInc</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menuSubDelayReset">
+							<string key="name">menuSubDelayReset</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="menuSubScaleDec">
 							<string key="name">menuSubScaleDec</string>
 							<string key="candidateClassName">NSMenuItem</string>
@@ -2061,6 +2134,14 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="menuVolInc">
 							<string key="name">menuVolInc</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menuZoom">
+							<string key="name">menuZoom</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menuZoomToOriginSize">
+							<string key="name">menuZoomToOriginSize</string>
 							<string key="candidateClassName">NSMenuItem</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="osd">
@@ -2487,22 +2568,6 @@
 			</array>
 			<array class="NSMutableArray" key="referencedPartialClassDescriptionsV3.2+">
 				<object class="IBPartialClassDescription">
-					<string key="className">BGHUDButtonCell</string>
-					<string key="superclassName">NSButtonCell</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">BGHUDAppKit.framework/Headers/BGHUDButtonCell.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">BGHUDSliderCell</string>
-					<string key="superclassName">NSSliderCell</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">BGHUDAppKit.framework/Headers/BGHUDSliderCell.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">NSActionCell</string>
 					<string key="superclassName">NSCell</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -2867,6 +2932,13 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">Foundation.framework/Headers/NSURLDownload.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">PrintCore.framework/Headers/PDEPluginInterface.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
