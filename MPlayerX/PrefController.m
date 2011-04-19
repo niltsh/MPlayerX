@@ -140,6 +140,8 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 					[fontListPopup selectItem:defaultFontMItem];
 					[ud setObject:kMPCDefaultSubFontPath forKey:kUDKeySubFontPath];
 				}
+				CFRelease(fontFamilyName);
+				CFRelease(fonts);
 			} else {
 				[fontListPopup selectItem:defaultFontMItem];
 				[ud setObject:kMPCDefaultSubFontPath forKey:kUDKeySubFontPath];
