@@ -942,9 +942,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	if (displaying) {		
 		if ([self isInFullScreenMode]) {
 			NSSize orgSize = [dispLayer displaySize];
-			NSSize curSize = [dispLayer bounds].size;
+			CGSize curSize = [dispLayer bounds].size;
 			CGFloat ar = [dispLayer aspectRatio];
-			NSSize sr = [dispLayer scaleRatio];
+			CGSize sr = [dispLayer scaleRatio];
 			
 			orgSize.width = MIN(orgSize.width, orgSize.height * ar);
 			
