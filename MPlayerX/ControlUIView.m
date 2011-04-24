@@ -1225,6 +1225,8 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 		[menuVolInc setEnabled:NO];
 		[menuVolDec setEnabled:NO];		
 	}
+	
+	[self showUp];
 }
 
 -(void) playBackWillStop:(NSNotification*)notif

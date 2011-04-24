@@ -108,7 +108,7 @@
 		notifCenter = [NSNotificationCenter defaultCenter];
 		
 		trackingArea = [[NSTrackingArea alloc] initWithRect:NSInsetRect([self frame], 1, 1) 
-													options:NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveAlways | NSTrackingInVisibleRect | NSTrackingAssumeInside
+													options:NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveAlways | NSTrackingInVisibleRect
 													  owner:self
 												   userInfo:nil];
 		[self addTrackingArea:trackingArea];
