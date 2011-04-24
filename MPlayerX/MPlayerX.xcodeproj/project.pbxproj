@@ -366,7 +366,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		080E96DDFE201D6D7F000001 /* Classes */ = {
+		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				86E7A8EF1155E8980014155D /* CocoaAppendix.h */,
@@ -382,8 +382,11 @@
 				86F4DAD810BC3272007AE56A /* ControlUI */,
 				8608652910BA557700459392 /* Display */,
 				86CAF22310BA447900848B8E /* PlayerCore */,
+				868CB5B41358707B00EDC86F /* BGHUDAppKit */,
+				861097F210F1C9E70085B3DF /* MPlayerX_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
-			name = Classes;
+			name = Source;
 			sourceTree = "<group>";
 		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
@@ -416,24 +419,13 @@
 		29B97314FDCFA39411CA2CEA /* MplayerX */ = {
 			isa = PBXGroup;
 			children = (
-				868CB5B41358707B00EDC86F /* BGHUDAppKit */,
 				863CD3B312D9A96200C8E321 /* VersionRelated */,
-				080E96DDFE201D6D7F000001 /* Classes */,
-				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				080E96DDFE201D6D7F000001 /* Source */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = MplayerX;
-			sourceTree = "<group>";
-		};
-		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-				861097F210F1C9E70085B3DF /* MPlayerX_Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
-			);
-			name = "Other Sources";
 			sourceTree = "<group>";
 		};
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
