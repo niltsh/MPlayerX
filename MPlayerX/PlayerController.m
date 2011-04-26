@@ -912,7 +912,11 @@ enum {
 	
 		[self enablePowerSave:YES];
 		
-		[notifCenter postNotificationName:kMPCPlayFinalizedNotification object:self userInfo:nil];	
+		[notifCenter postNotificationName:kMPCPlayFinalizedNotification object:self userInfo:nil];
+		
+		if ([ud boolForKey:kUDKeyQuitOnClose]) {
+			[NSApp terminate:nil];
+		}	
 	}
 }
 
