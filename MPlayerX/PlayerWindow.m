@@ -81,7 +81,12 @@
 
 -(void) performZoom:(id)sender
 {
-	[self zoom:sender];
+	if ([self delegate]) {
+		NSRect frm = [[self delegate] windowWillUseStandardFrame:self defaultFrame:[[self screen] visibleFrame]];
+		[self setFrame:frm display:YES animate:YES];
+	} else {
+		[self zoom:sender];		
+	}
 }
 
 -(void) performMiniaturize:(id)sender
