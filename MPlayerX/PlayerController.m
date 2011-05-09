@@ -914,7 +914,7 @@ enum {
 		
 		[notifCenter postNotificationName:kMPCPlayFinalizedNotification object:self userInfo:nil];
 		
-		if ([ud boolForKey:kUDKeyQuitOnClose]) {
+		if ([ud boolForKey:kUDKeyQuitOnClose] && (!stoppedByForce)) {
 			[NSApp terminate:nil];
 		}	
 	}
