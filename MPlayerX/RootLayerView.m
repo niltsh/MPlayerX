@@ -1183,7 +1183,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 - (NSRect)windowWillUseStandardFrame:(NSWindow *)window defaultFrame:(NSRect)newFrame
 {
 	if ((window == playerWindow)) {
-		NSRect scrnRect = [[window screen] frame];
+		NSRect scrnRect = [[window screen] visibleFrame];
 		
 		// get the corrent coordination of the zooming window
 		newFrame.size = [self calculateContentSize:scrnRect.size];
