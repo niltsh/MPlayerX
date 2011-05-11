@@ -95,6 +95,7 @@
 					   boolNo, kUDKeyDisableVScrollVol,
 					   [NSNumber numberWithFloat:1.5], kUDKeyThreeFingersPinchThreshRatio,
 					   [NSNumber numberWithFloat:1.8], kUDKeyFourFingersPinchThreshRatio,
+					   boolNo, kUDKeyCloseWndOnEsc,
 					   nil]];
 }
 
@@ -444,6 +445,10 @@
 	if ([self isInFullScreenMode]) {
 		// when pressing Escape, exit fullscreen if being fullscreen
 		[controlUI toggleFullScreen:nil];
+	} else {
+		if ([ud boolForKey:kUDKeyCloseWndOnEsc]) {
+			[[self window] performClose:nil];
+		}
 	}
 }
 
