@@ -84,5 +84,5 @@
 -(void) setMirror:(BOOL)m;
 -(void) setFlip:(BOOL)f;
 
--(void) zoomToOriginalSize;
+-(void) zoomToSize:(float)ratio;
 @end

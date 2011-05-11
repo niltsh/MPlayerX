@@ -205,10 +205,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuMirror setKeyEquivalent:kSCMMirrorKeyEquivalent];
 	[menuFlip setKeyEquivalentModifierMask:kSCMFlipKeyEquivalentModifierFlagMask];
 	[menuFlip setKeyEquivalent:kSCMFlipKeyEquivalent];
-	
-	[menuZoom setKeyEquivalentModifierMask:kSCMWindowZoomKeyEquivalentModifierFlagMask];
-	[menuZoom setKeyEquivalent:kSCMWindowZoomKeyEquivalent];
-	
+
 	[menuSpeedUp setKeyEquivalent:kSCMSpeedUpKeyEquivalent];
 	[menuSpeedDown setKeyEquivalent:kSCMSpeedDownKeyEquivalent];
 	[menuSpeedReset setKeyEquivalent:kSCMSpeedResetKeyEquivalent];
@@ -229,6 +226,10 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	
 	[menuZoomToOriginSize setKeyEquivalentModifierMask:kSCMWindowZoomToOrgSizeKeyEquivalentModifierFlagMask];
 	[menuZoomToOriginSize setKeyEquivalent:kSCMWindowZoomToOrgSizeKeyEquivalent];
+	[menuZoomToDoubleSize setKeyEquivalentModifierMask:kSCMWindowZoomDblSizeKeyEquivalentModifierFlagMask];
+	[menuZoomToDoubleSize setKeyEquivalent:kSCMWindowZoomDblSizeKeyEquivalent];
+	[menuWndFitToScrn setKeyEquivalentModifierMask:kSCMWindowFitToScreenKeyEquivalentModifierFlagMask];
+	[menuWndFitToScrn setKeyEquivalent:kSCMWindowFitToScreenKeyEquivalent];
 	
 	////////////////////////////////////////load Images////////////////////////////////////////
 	// 初始化音量大小图标
@@ -663,6 +664,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			[menuShrinkFrame setEnabled:YES];
 			[menuEnlargeFrame2 setEnabled:YES];
 			[menuShrinkFrame2 setEnabled:YES];
+			[menuWndFitToScrn setEnabled:NO];
 			
 			if ([ud boolForKey:kUDKeyLBAutoHeightInFullScrn]) {
 				NSInteger lb = [ud integerForKey:kUDKeyLetterBoxMode];
@@ -749,6 +751,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			[menuShrinkFrame setEnabled:NO];
 			[menuEnlargeFrame2 setEnabled:NO];
 			[menuShrinkFrame2 setEnabled:NO];
+			[menuWndFitToScrn setEnabled:YES];
 			
 			if ([ud boolForKey:kUDKeyLBAutoHeightInFullScrn]) {
 				[self toggleLetterBox:nil];
@@ -767,7 +770,8 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 		[menuEnlargeFrame setEnabled:NO];
 		[menuShrinkFrame setEnabled:NO];
 		[menuEnlargeFrame2 setEnabled:NO];
-		[menuShrinkFrame2 setEnabled:NO];			
+		[menuShrinkFrame2 setEnabled:NO];
+		[menuWndFitToScrn setEnabled:NO];
 	}
 	[self windowHasResized:nil];
 }
@@ -1142,9 +1146,9 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuFlip setState:([dispView flip])?(NSOnState):(NSOffState)];
 }
 
--(IBAction) zoomToOriginalSize:(id)sender
+-(IBAction) zoomToSize:(id)sender
 {
-	[dispView zoomToOriginalSize];
+	[dispView zoomToSize:[sender tag]];
 }
 
 -(IBAction) toggleTimeAltDisplayMode:(id)sender
@@ -1173,9 +1177,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuSnapshot setEnabled:YES];
 	if (![dispView isInFullScreenMode]) {
 		[menuToggleLockAspectRatio setEnabled:YES];
+		[menuWndFitToScrn setEnabled:YES];
 	}
 	[menuToggleLockAspectRatio setTitle:([dispView lockAspectRatio])?(kMPXStringMenuUnlockAspectRatio):(kMPXStringMenuLockAspectRatio)];
 	[menuZoomToOriginSize setEnabled:YES];
+	[menuZoomToDoubleSize setEnabled:YES];
 }
 
 -(void) displayStopped
@@ -1186,6 +1192,8 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuSnapshot setEnabled:NO];
 	[menuToggleLockAspectRatio setEnabled:NO];
 	[menuZoomToOriginSize setEnabled:NO];
+	[menuZoomToDoubleSize setEnabled:NO];
+	[menuWndFitToScrn setEnabled:NO];
 }
 
 ////////////////////////////////////////////////playback//////////////////////////////////////////////////

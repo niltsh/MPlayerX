@@ -113,8 +113,10 @@ extern NSString * const kSCMMirrorKeyEquivalent;
 extern NSString * const kSCMFlipKeyEquivalent;
 #define kSCMFlipKeyEquivalentModifierFlagMask		(NSAlternateKeyMask)
 
-extern NSString * const kSCMWindowZoomKeyEquivalent;
-#define kSCMWindowZoomKeyEquivalentModifierFlagMask	(NSCommandKeyMask)
-
 extern NSString * const kSCMWindowZoomToOrgSizeKeyEquivalent;
 #define kSCMWindowZoomToOrgSizeKeyEquivalentModifierFlagMask	(NSCommandKeyMask)
+extern NSString * const kSCMWindowZoomDblSizeKeyEquivalent;
+#define kSCMWindowZoomDblSizeKeyEquivalentModifierFlagMask		(NSCommandKeyMask)
+extern NSString * const kSCMWindowFitToScreenKeyEquivalent;
+#define kSCMWindowFitToScreenKeyEquivalentModifierFlagMask		(NSCommandKeyMask)
+

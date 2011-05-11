@@ -105,7 +105,6 @@
 	IBOutlet NSMenuItem *menuShrinkFrame2;
 	IBOutlet NSMenuItem *menuMirror;
 	IBOutlet NSMenuItem *menuFlip;
-	IBOutlet NSMenuItem *menuZoom;
 	
 	IBOutlet NSMenuItem *menuSpeedUp;
 	IBOutlet NSMenuItem *menuSpeedDown;
@@ -118,6 +117,8 @@
 	IBOutlet NSMenuItem *menuSubDelayReset;
 	
 	IBOutlet NSMenuItem *menuZoomToOriginSize;
+	IBOutlet NSMenuItem *menuZoomToDoubleSize;
+	IBOutlet NSMenuItem *menuWndFitToScrn;
 }
 
 ////////////////////////////////显示相关////////////////////////////////
@@ -183,7 +184,7 @@ extern NSString * const kFillScreenButtonImageUBKey;
 -(IBAction) toggleMirror:(id)sender;
 -(IBAction) toggleFlip:(id)sender;
 
--(IBAction) zoomToOriginalSize:(id)sender;
+-(IBAction) zoomToSize:(id)sender;
 
 -(IBAction) toggleTimeAltDisplayMode:(id)sender;
 

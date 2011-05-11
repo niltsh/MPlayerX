@@ -937,7 +937,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	[dispLayer setNeedsDisplay];
 }
 
--(void) zoomToOriginalSize
+-(void) zoomToSize:(float)ratio
 {
 	if (displaying) {		
 		if ([self isInFullScreenMode]) {
@@ -945,6 +945,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			CGSize curSize = [dispLayer bounds].size;
 			CGFloat ar = [dispLayer aspectRatio];
 			CGSize sr = [dispLayer scaleRatio];
+			
+			orgSize.width *= ratio;
+			orgSize.height *= ratio;
 			
 			orgSize.width = MIN(orgSize.width, orgSize.height * ar);
 			
@@ -956,7 +959,10 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			[dispLayer setNeedsDisplay];
 		} else {
 			// not in full screen
-			[self adjustWindowCoordinateTo:[dispLayer displaySize]];
+			NSSize sz = [dispLayer displaySize];
+			sz.width *= ratio;
+			sz.height *= ratio;
+			[self adjustWindowCoordinateTo:sz];
 		}
 	}
 }
