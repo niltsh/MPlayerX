@@ -1,5 +1,5 @@
 /*
- * MPlayerX - InspectorController.h
+ * MPlayerX - InspectorController.m
  *
  * Copyright (C) 2009 - 2011, Zongyao QU
  * 
