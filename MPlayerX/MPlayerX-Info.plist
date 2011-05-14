@@ -219,6 +219,6 @@
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
+	<string>MPApplication</string>
 </dict>
 </plist>

@@ -31,6 +31,7 @@
 
 @interface ShortCutManager (ShortCutManagerInternal)
 -(void)simulateEvent:(NSArray*) arg;
+-(void) mediaKeyPressed:(NSNotification*)notif;
 @end
 
 @implementation ShortCutManager
@@ -75,6 +76,18 @@
 												 selector:@selector(applicationWillResignActive:)
 													 name:NSApplicationWillResignActiveNotification
 												   object:NSApp];
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(mediaKeyPressed:)
+													 name:kMPXMediaKeyPlayPauseNotification
+												   object:NSApp];
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(mediaKeyPressed:)
+													 name:kMPXMediaKeyForwardNotification
+												   object:NSApp];
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(mediaKeyPressed:)
+													 name:kMPXMediaKeyBackwardNotification
+												   object:NSApp];
 	}
 	return self;
 }
@@ -85,6 +98,17 @@
 	[appleRemoteControl release];
 
 	[super dealloc];
+}
+
+-(void) mediaKeyPressed:(NSNotification*)notif
+{
+	if ([[notif name] isEqualToString:kMPXMediaKeyPlayPauseNotification]) {
+		[controlUI togglePlayPause:nil];
+	} else if ([[notif name] isEqualToString:kMPXMediaKeyForwardNotification]) {
+		[mainMenu performKeyEquivalent:[NSEvent makeKeyDownEvent:kSCMNextEpisodeKeyEquivalent modifierFlags:0]];
+	} else if ([[notif name] isEqualToString:kMPXMediaKeyBackwardNotification]) {
+		[mainMenu performKeyEquivalent:[NSEvent makeKeyDownEvent:kSCMPrevEpisodeKeyEquivalent modifierFlags:0]];
+	}
 }
 
 -(BOOL) processKeyDown:(NSEvent*) event

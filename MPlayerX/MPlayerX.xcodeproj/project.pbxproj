@@ -24,6 +24,7 @@
 		86030A9311F1E00600F8D1E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86030A9211F1E00600F8D1E8 /* Localizable.strings */; };
 		86034C3210D13DBF001CB180 /* fold.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 86034C3010D13DBF001CB180 /* fold.pdf */; };
 		86034C3310D13DBF001CB180 /* unfold.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 86034C3110D13DBF001CB180 /* unfold.pdf */; };
+		8605F0D6137E67FE00317941 /* MPApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 8605F0D5137E67FE00317941 /* MPApplication.m */; };
 		8608652E10BA55CE00459392 /* DisplayLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8608652B10BA55CE00459392 /* DisplayLayer.m */; };
 		8608652F10BA55CE00459392 /* RootLayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8608652D10BA55CE00459392 /* RootLayerView.m */; };
 		8608653910BA56A700459392 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8608653810BA56A700459392 /* OpenGL.framework */; };
@@ -183,6 +184,8 @@
 		86030A8E11F1DFA300F8D1E8 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		86034C3010D13DBF001CB180 /* fold.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = fold.pdf; sourceTree = "<group>"; };
 		86034C3110D13DBF001CB180 /* unfold.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = unfold.pdf; sourceTree = "<group>"; };
+		8605F0D4137E67FE00317941 /* MPApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPApplication.h; sourceTree = "<group>"; };
+		8605F0D5137E67FE00317941 /* MPApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPApplication.m; sourceTree = "<group>"; };
 		8608645C10BA533400459392 /* binaries */ = {isa = PBXFileReference; lastKnownFileType = folder; path = binaries; sourceTree = SOURCE_ROOT; };
 		8608652A10BA55CE00459392 /* DisplayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DisplayLayer.h; sourceTree = "<group>"; };
 		8608652B10BA55CE00459392 /* DisplayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DisplayLayer.m; sourceTree = "<group>"; };
@@ -666,6 +669,8 @@
 				86E7A89D1155C1740014155D /* CharsetQueryController.m */,
 				8612503D12D1C2290085DFF0 /* InspectorController.h */,
 				8612503E12D1C2290085DFF0 /* InspectorController.m */,
+				8605F0D4137E67FE00317941 /* MPApplication.h */,
+				8605F0D5137E67FE00317941 /* MPApplication.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -953,6 +958,7 @@
 				868CB5CA1358710200EDC86F /* BGHUDSliderCell.m in Sources */,
 				868CB5CB1358710200EDC86F /* BGTheme.m in Sources */,
 				868CB5CC1358710200EDC86F /* BGThemeManager.m in Sources */,
+				8605F0D6137E67FE00317941 /* MPApplication.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
