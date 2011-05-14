@@ -226,15 +226,15 @@ static BOOL init_ed = NO;
 			savePath = [savePath stringByExpandingTildeInPath];
 		}
 		NSString *mediaPath = ([playerController.lastPlayedPath isFileURL])?([playerController.lastPlayedPath path]):([playerController.lastPlayedPath absoluteString]);
+		NSString *dateTime = [NSDateFormatter localizedStringFromDate:[NSDate date]
+															dateStyle:NSDateFormatterMediumStyle
+															timeStyle:NSDateFormatterMediumStyle];
+		dateTime = [dateTime stringByReplacingOccurrencesOfString:@":" withString:@"."];
+		dateTime = [dateTime stringByReplacingOccurrencesOfString:@"/" withString:@"."];
+		
 		// 创建文件名
 		// 修改文件名中的：，因为：无法作为文件名存储
-		savePath = [NSString stringWithFormat:@"%@/%@_%@.png",
-					savePath, 
-					[[mediaPath lastPathComponent] stringByDeletingPathExtension],
-					[[NSDateFormatter localizedStringFromDate:[NSDate date]
-													dateStyle:NSDateFormatterMediumStyle
-													timeStyle:NSDateFormatterMediumStyle] 
-					 stringByReplacingOccurrencesOfString:@":" withString:@"."]];							   
+		savePath = [NSString stringWithFormat:@"%@/%@_%@.png", savePath, [[mediaPath lastPathComponent] stringByDeletingPathExtension],dateTime];							   
 		// 写文件
 		[imData writeToFile:savePath atomically:YES];
 		[imRep release];
