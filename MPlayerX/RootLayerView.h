@@ -32,6 +32,8 @@
 	NSBitmapImageRep *logo;
 	
 	BOOL shouldResize;
+	NSRect rcBeforeFullScrn;
+	
 	DisplayLayer *dispLayer;
 	
 	BOOL displaying;

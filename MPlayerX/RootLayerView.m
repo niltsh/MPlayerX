@@ -52,7 +52,7 @@
 
 @interface RootLayerView (RootLayerViewInternal)
 -(NSSize) calculateContentSize:(NSSize)refSize;
--(NSPoint) calculatePlayerWindowPosition:(NSSize)winSize;
+-(NSPoint) calculatePlayerWindowPosition:(NSSize)contentSize;
 -(void) adjustWindowCoordinateAndAspectRatio:(NSSize) sizeVal;
 -(NSSize) adjustWindowCoordinateTo:(NSSize)sizeVal;
 -(void) setupLayers;
@@ -114,6 +114,8 @@
 												   userInfo:nil];
 		[self addTrackingArea:trackingArea];
 		shouldResize = NO;
+		rcBeforeFullScrn = [[self window] frame];
+		
 		dispLayer = [[DisplayLayer alloc] init];
 		displaying = NO;
 		fullScreenOptions = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
@@ -817,31 +819,62 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	// ！注意：这里的显示状态和mplayer的播放状态时不一样的，比如，mplayer在MP3的时候，播放状态为YES，显示状态为NO
 	if ([self isInFullScreenMode]) {
 		// 无论否在显示都可以退出全屏
-
-		[self exitFullScreenModeWithOptions:fullScreenOptions];
 		
 		// 必须砸退出全屏的时候再设定
 		// 在退出全屏之前，这个view并不属于window，设定contentsize不起作用
 		if (shouldResize) {
 			shouldResize = NO;
 			
-			NSSize sz = [self adjustWindowCoordinateTo:[[playerWindow contentView] bounds].size];
+			NSRect rc;
+			NSRect screenRc = [[playerWindow screen] visibleFrame];
+			
+			rc.size = [self calculateContentSize:rcBeforeFullScrn.size];
+			rc.origin = rcBeforeFullScrn.origin;
+			
+			rc.origin.x += (rcBeforeFullScrn.size.width  - rc.size.width)  / 2;
+			rc.origin.y += (rcBeforeFullScrn.size.height - rc.size.height) / 2;
 
-			[playerWindow setContentAspectRatio:sz];			
+			rc.origin.x = MAX(screenRc.origin.x, MIN(rc.origin.x, screenRc.origin.x + screenRc.size.width - rc.size.width));
+			rc.origin.y = MAX(screenRc.origin.y, MIN(rc.origin.y, screenRc.origin.y + screenRc.size.height- rc.size.height));
+			
+			[self exitFullScreenModeWithOptions:fullScreenOptions];
+			[dispLayer enablePositionOffset:NO];
+			[dispLayer enableScale:NO];
+			[dispLayer setNeedsDisplay];
+			
+			[playerWindow makeKeyAndOrderFront:self];
+
+			[playerWindow setFrame:[playerWindow frameRectForContentRect:rc] display:YES animate:YES];
+			[playerWindow setContentAspectRatio:rc.size];			
+
+			// 推出全屏，重新根据现在的尺寸比例渲染图像
+			[dispLayer adujustToFitBounds];
+			[dispLayer setNeedsDisplay];
+		} else {
+			[self exitFullScreenModeWithOptions:fullScreenOptions];
+
+			// 推出全屏，重新根据现在的尺寸比例渲染图像
+			[dispLayer adujustToFitBounds];
+			[dispLayer enablePositionOffset:NO];
+			[dispLayer enableScale:NO];
+			[dispLayer setNeedsDisplay];
+			
+			[playerWindow makeKeyAndOrderFront:self];
 		}
-		// 推出全屏，重新根据现在的尺寸比例渲染图像
-		[dispLayer adujustToFitBounds];
-		[dispLayer enablePositionOffset:NO];
-		[dispLayer enableScale:NO];
-		
-		[playerWindow makeKeyAndOrderFront:self];
 		[playerWindow makeFirstResponder:self];
-		
+
 		// 必须要在退出全屏之后才能设定window level
 		[self setPlayerWindowLevel];
 	} else if (displaying) {
 		// 应该进入全屏
 		// 只有在显示图像的时候才能进入全屏
+		
+		// 先记下全屏前窗口的方位
+		rcBeforeFullScrn = [playerWindow frame];
+		// 动画进入全屏
+		[playerWindow performZoom:nil];
+		
+		shouldResize = YES;
 		
 		// 强制Lock Aspect Ratio
 		[self setLockAspectRatio:YES];
@@ -876,6 +909,8 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		[dispLayer adujustToFitBounds];
 		[dispLayer enablePositionOffset:YES];
 		[dispLayer enableScale:YES];
+		// 暂停的时候能够正确显示
+		[dispLayer setNeedsDisplay];
 
 		[playerWindow orderOut:self];
 
@@ -891,10 +926,10 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 							   state:([dispLayer fillScreen])?NSOnState:NSOffState];
 	} else {
 		[dispLayer adujustToFitBounds];
+		// 暂停的时候能够正确显示
+		[dispLayer setNeedsDisplay];
 		return NO;
 	}
-	// 暂停的时候能够正确显示
-	[dispLayer setNeedsDisplay];
 	return YES;
 }
 
@@ -1128,19 +1163,19 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	return refSize;
 }
 
--(NSPoint) calculatePlayerWindowPosition:(NSSize) winSize
+-(NSPoint) calculatePlayerWindowPosition:(NSSize) contentSize
 {
 	NSPoint pos = [playerWindow frame].origin;
 	NSSize orgSz = [[playerWindow contentView] bounds].size;
 	
-	pos.x += (orgSz.width - winSize.width)  / 2;
-	pos.y += (orgSz.height - winSize.height)/ 2;
+	pos.x += (orgSz.width  - contentSize.width)  / 2;
+	pos.y += (orgSz.height - contentSize.height) / 2;
 	
 	// would not let the monitor screen cut the window
 	NSRect screenRc = [[playerWindow screen] visibleFrame];
 
-	pos.x = MAX(screenRc.origin.x, MIN(pos.x, screenRc.origin.x + screenRc.size.width - winSize.width));
-	pos.y = MAX(screenRc.origin.y, MIN(pos.y, screenRc.origin.y + screenRc.size.height- winSize.height));
+	pos.x = MAX(screenRc.origin.x, MIN(pos.x, screenRc.origin.x + screenRc.size.width - contentSize.width));
+	pos.y = MAX(screenRc.origin.y, MIN(pos.y, screenRc.origin.y + screenRc.size.height- contentSize.height));
 	
 	return pos;
 }
