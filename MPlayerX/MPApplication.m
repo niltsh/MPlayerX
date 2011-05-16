@@ -18,44 +18,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#import <iokit/hidsystem/ev_keymap.h>
 #import "MPApplication.h"
 #import "CocoaAppendix.h"
 #import "def.h"
+#import "SPMediaKeyTap.h"
 
 @implementation MPApplication
 
--(void) sendEvent:(NSEvent*)event
+-(void) sendEvent:(NSEvent*)theEvent
 {
-	// Catch media key events
-    if ([event type] == NSSystemDefined && [event subtype] == 8) {
-        int keyCode = (([event data1] & 0xFFFF0000) >> 16);
-        int keyState = (((([event data1] & 0x0000FFFF) & 0xFF00) >> 8)) == 0xA;
-		
-		switch (keyCode) {
-			case NX_KEYTYPE_PLAY:
-				if (keyState == NO) {
-					MPLog(@"play/pause");
-					[[NSNotificationCenter defaultCenter] postNotificationName:kMPXMediaKeyPlayPauseNotification object:self];
-				}
-				break;
-			case NX_KEYTYPE_FAST:
-				if (keyState == YES) {
-					MPLog(@"forward");
-					[[NSNotificationCenter defaultCenter] postNotificationName:kMPXMediaKeyForwardNotification object:self];
-				}
-				break;
-			case NX_KEYTYPE_REWIND:
-				if (keyState == YES) {
-					MPLog(@"backward");
-					[[NSNotificationCenter defaultCenter] postNotificationName:kMPXMediaKeyBackwardNotification object:self];
-				}
-				break;
-			default:
-				break;
-		}
+	// If event tap is not installed, handle events that reach the app instead	
+	if((![SPMediaKeyTap usesGlobalMediaKeyTap]) && 
+	   [theEvent type] == NSSystemDefined && 
+	   [theEvent subtype] == SPSystemDefinedEventMediaKeys) {
+		[(id)[self delegate] mediaKeyTap:nil receivedMediaKeyEvent:theEvent];
 	}
-	[super sendEvent:event];
+	[super sendEvent:theEvent];
 }
 
 @end

@@ -20,7 +20,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class PlayerController, OpenURLController, RootLayerView;
+@class PlayerController, OpenURLController, RootLayerView, SPMediaKeyTap;
 
 @interface AppController : NSObject <NSApplicationDelegate>
 {
@@ -33,6 +33,8 @@
 	NSSet *playableFormats;
 
 	NSMutableDictionary *bookmarks;
+	
+	SPMediaKeyTap *keyTap;
 
 	IBOutlet PlayerController *playerController;
 	IBOutlet OpenURLController *openUrlController;

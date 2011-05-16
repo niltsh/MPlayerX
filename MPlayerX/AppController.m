@@ -25,6 +25,7 @@
 #import "OpenURLController.h"
 #import "LocalizedStrings.h"
 #import "RootLayerView.h"
+#import "SPMediaKeyTap.h"
 
 #define kSnapshotSaveDefaultPath	(@"~/Desktop")
 
@@ -75,6 +76,7 @@ static BOOL init_ed = NO;
 					   [NSNumber numberWithBool:NO], kUDKeyLogMode,
 					   kSnapshotSaveDefaultPath, kUDKeySnapshotSavePath,
 					   @"NO", @"AppleMomentumScrollSupported",
+					   [SPMediaKeyTap defaultMediaKeyUserBundleIdentifiers], kMediaKeyUsingBundleIdentifiersDefaultsKey,
 					   nil]];
 
 	MPSetLogEnable([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyLogMode]);
@@ -275,6 +277,42 @@ static BOOL init_ed = NO;
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kMPXFeedbackURL]];
 }
 
+//////////////////////////////////////Media Key Delegate//////////////////////////////////////
+-(void) mediaKeyTap:(SPMediaKeyTap*)keyTap receivedMediaKeyEvent:(NSEvent*)event
+{
+	NSAssert([event type] == NSSystemDefined && [event subtype] == SPSystemDefinedEventMediaKeys, @"Unexpected NSEvent in mediaKeyTap:receivedMediaKeyEvent:");
+	// here be dragons...
+	int keyCode = (([event data1] & 0xFFFF0000) >> 16);
+	int keyFlags = ([event data1] & 0x0000FFFF);
+	BOOL keyIsPressed = (((keyFlags & 0xFF00) >> 8)) == 0xA;
+	int keyRepeat = (keyFlags & 0x1);
+	
+	if (!keyRepeat) {
+		switch (keyCode) {
+			case NX_KEYTYPE_PLAY:
+				if (keyIsPressed == NO) {
+					MPLog(@"Media Key: play/pause");
+					[[NSNotificationCenter defaultCenter] postNotificationName:kMPXMediaKeyPlayPauseNotification object:NSApp];
+				}
+				break;
+			case NX_KEYTYPE_FAST:
+				if (keyIsPressed == YES) {
+					MPLog(@"Media Key: forward");
+					[[NSNotificationCenter defaultCenter] postNotificationName:kMPXMediaKeyForwardNotification object:NSApp];
+				}
+				break;
+			case NX_KEYTYPE_REWIND:
+				if (keyIsPressed == YES) {
+					MPLog(@"Media Key: backward");
+					[[NSNotificationCenter defaultCenter] postNotificationName:kMPXMediaKeyBackwardNotification object:NSApp];
+				}
+				break;
+			default:
+				MPLog(@"Media Key %d pressed", keyCode);
+				break;
+		}
+	}
+}
 /////////////////////////////////////Application Delegate//////////////////////////////////////
 -(BOOL) application:(NSApplication *)theApplication openFile:(NSString *)filename
 {
@@ -305,7 +343,12 @@ static BOOL init_ed = NO;
 
 -(void) applicationDidFinishLaunching:(NSNotification *)notification
 {
-	
+	keyTap = [[SPMediaKeyTap alloc] initWithDelegate:self];
+	if ([SPMediaKeyTap usesGlobalMediaKeyTap]) {
+		[keyTap startWatchingMediaKeys];
+	} else {
+		MPLog(@"MediaKey monitoring Disabled.");
+	}
 }
 
 @end

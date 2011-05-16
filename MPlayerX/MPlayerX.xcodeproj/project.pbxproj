@@ -78,6 +78,9 @@
 		863B5A8210F2175C001111F6 /* exitfullscreen.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 863B5A7C10F2175C001111F6 /* exitfullscreen.pdf */; };
 		863B5A8310F2175C001111F6 /* fillscreen_lr.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 863B5A7D10F2175C001111F6 /* fillscreen_lr.pdf */; };
 		863B5A8410F2175C001111F6 /* fillscreen_ub.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 863B5A7E10F2175C001111F6 /* fillscreen_ub.pdf */; };
+		863C0FE013801A9A00B5C906 /* SPMediaKeyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 863C0FDF13801A9A00B5C906 /* SPMediaKeyTap.m */; };
+		863C0FE313801AAF00B5C906 /* NSObject+SPInvocationGrabbing.m in Sources */ = {isa = PBXBuildFile; fileRef = 863C0FE213801AAF00B5C906 /* NSObject+SPInvocationGrabbing.m */; };
+		863C0FED138020A700B5C906 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 863C0FEC138020A700B5C906 /* Carbon.framework */; };
 		863D0A9712CDE85900170081 /* close-active.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 863D0A8B12CDE85900170081 /* close-active.tiff */; };
 		863D0A9812CDE85900170081 /* close-inactive-disabled.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 863D0A8C12CDE85900170081 /* close-inactive-disabled.tiff */; };
 		863D0A9A12CDE85900170081 /* close-rollover.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 863D0A8E12CDE85900170081 /* close-rollover.tiff */; };
@@ -253,6 +256,11 @@
 		863B5A7C10F2175C001111F6 /* exitfullscreen.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = exitfullscreen.pdf; sourceTree = "<group>"; };
 		863B5A7D10F2175C001111F6 /* fillscreen_lr.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = fillscreen_lr.pdf; sourceTree = "<group>"; };
 		863B5A7E10F2175C001111F6 /* fillscreen_ub.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = fillscreen_ub.pdf; sourceTree = "<group>"; };
+		863C0FDE13801A9A00B5C906 /* SPMediaKeyTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMediaKeyTap.h; sourceTree = "<group>"; };
+		863C0FDF13801A9A00B5C906 /* SPMediaKeyTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMediaKeyTap.m; sourceTree = "<group>"; };
+		863C0FE113801AAF00B5C906 /* NSObject+SPInvocationGrabbing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SPInvocationGrabbing.h"; sourceTree = "<group>"; };
+		863C0FE213801AAF00B5C906 /* NSObject+SPInvocationGrabbing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SPInvocationGrabbing.m"; sourceTree = "<group>"; };
+		863C0FEC138020A700B5C906 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		863CD3B412D9A98800C8E321 /* updateInfoPlist.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = updateInfoPlist.rb; sourceTree = "<group>"; };
 		863CD3B512D9A98800C8E321 /* version.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = version.sh; sourceTree = "<group>"; };
 		863D0A8B12CDE85900170081 /* close-active.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "close-active.tiff"; sourceTree = "<group>"; };
@@ -357,6 +365,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				863C0FED138020A700B5C906 /* Carbon.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				8608653910BA56A700459392 /* OpenGL.framework in Frameworks */,
 				8608654010BA56C100459392 /* QuartzCore.framework in Frameworks */,
@@ -386,6 +395,7 @@
 				8608652910BA557700459392 /* Display */,
 				86CAF22310BA447900848B8E /* PlayerCore */,
 				868CB5B41358707B00EDC86F /* BGHUDAppKit */,
+				863C0FCC1380155900B5C906 /* SPMediaKeyTap */,
 				861097F210F1C9E70085B3DF /* MPlayerX_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -395,6 +405,10 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				863C0FEC138020A700B5C906 /* Carbon.framework */,
+				8609C28010C6944A00B102CE /* IOKit.framework */,
+				8608653F10BA56C100459392 /* QuartzCore.framework */,
+				8608653810BA56A700459392 /* OpenGL.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -450,9 +464,6 @@
 			children = (
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
-				8608653810BA56A700459392 /* OpenGL.framework */,
-				8608653F10BA56C100459392 /* QuartzCore.framework */,
-				8609C28010C6944A00B102CE /* IOKit.framework */,
 				86A34A0810F60F7E00AECBB2 /* UniversalDetector.framework */,
 			);
 			name = Frameworks;
@@ -550,6 +561,17 @@
 				861EE3F61167263300D16C87 /* titlebar-middle.png */,
 			);
 			name = buttons;
+			sourceTree = "<group>";
+		};
+		863C0FCC1380155900B5C906 /* SPMediaKeyTap */ = {
+			isa = PBXGroup;
+			children = (
+				863C0FE113801AAF00B5C906 /* NSObject+SPInvocationGrabbing.h */,
+				863C0FE213801AAF00B5C906 /* NSObject+SPInvocationGrabbing.m */,
+				863C0FDE13801A9A00B5C906 /* SPMediaKeyTap.h */,
+				863C0FDF13801A9A00B5C906 /* SPMediaKeyTap.m */,
+			);
+			name = SPMediaKeyTap;
 			sourceTree = "<group>";
 		};
 		863CD3B312D9A96200C8E321 /* VersionRelated */ = {
@@ -959,6 +981,8 @@
 				868CB5CB1358710200EDC86F /* BGTheme.m in Sources */,
 				868CB5CC1358710200EDC86F /* BGThemeManager.m in Sources */,
 				8605F0D6137E67FE00317941 /* MPApplication.m in Sources */,
+				863C0FE013801A9A00B5C906 /* SPMediaKeyTap.m in Sources */,
+				863C0FE313801AAF00B5C906 /* NSObject+SPInvocationGrabbing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
