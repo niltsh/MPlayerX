@@ -607,7 +607,7 @@
 			float diagLen = hypotf(sz.width, sz.height);
 			float angle = atan2f(sz.height, sz.width);
 			
-			if ([event modifierFlags] | NSShiftKeyMask) {
+			if ([event modifierFlags] & NSShiftKeyMask) {
 				angle += [event rotation] * 3.1415926 / 720;				
 			} else {
 				angle += [event rotation] * 3.1415926 / 180;
