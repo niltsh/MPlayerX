@@ -90,6 +90,7 @@ extern NSString * const kUDKeyDisableVScrollVol;
 extern NSString * const kUDKeyLBAutoHeightInFullScrn;
 extern NSString * const kUDKeyNoDispSub;
 extern NSString * const kUDKeyCloseWndOnEsc;
+extern NSString * const kUDKeyPlayWhenEnterFullScrn;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;

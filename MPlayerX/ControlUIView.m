@@ -100,6 +100,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 					   boolNo, kUDKeyHideTitlebar,
 					   [NSNumber numberWithFloat:0.001], kUDKeyFrameScaleStep,
 					   boolNo, kUDKeyLBAutoHeightInFullScrn,
+					   boolNo, kUDKeyPlayWhenEnterFullScrn,
 					   nil]];
 }
 
@@ -725,6 +726,10 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 						}
 						break;						
 				}
+			}
+			
+			if ([ud boolForKey:kUDKeyPlayWhenEnterFullScrn] && ([playerController playerState] == kMPCPausedState)) {
+				[self togglePlayPause:nil];
 			}
 		} else {
 			// 退出全屏
