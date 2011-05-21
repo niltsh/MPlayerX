@@ -95,6 +95,7 @@ NSString * const kUDKeyLBAutoHeightInFullScrn				= @"LBAutoHeightInFullScrn";
 NSString * const kUDKeyNoDispSub							= @"NoDispSub";
 NSString * const kUDKeyCloseWndOnEsc						= @"CloseWndOnEsc";
 NSString * const kUDKeyPlayWhenEnterFullScrn				= @"PlayWhenEnterFullScrn";
+NSString * const kUDKeySupportAppleRemote					= @"SupportAppleRemote";
 
 NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";

@@ -91,6 +91,7 @@ extern NSString * const kUDKeyLBAutoHeightInFullScrn;
 extern NSString * const kUDKeyNoDispSub;
 extern NSString * const kUDKeyCloseWndOnEsc;
 extern NSString * const kUDKeyPlayWhenEnterFullScrn;
+extern NSString * const kUDKeySupportAppleRemote;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;

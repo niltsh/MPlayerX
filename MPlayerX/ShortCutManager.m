@@ -47,6 +47,7 @@
 					   [NSNumber numberWithFloat:0.1], kUDKeyAudioDelayStepTime,
 					   [NSNumber numberWithFloat:0.3], kUDKeyARKeyRepeatTimeInterval,
 					   [NSNumber numberWithFloat:1.0], kUDKeyARKeyRepeatTimeIntervalLong,
+					   [NSNumber numberWithBool:YES], kUDKeySupportAppleRemote,
 					   nil]];
 }
 
@@ -66,7 +67,11 @@
 		repeatCanceled = NO;
 		repeatCounter = 0;
 		
-		appleRemoteControl = [[AppleRemote alloc] initWithDelegate:self];
+		if ([ud boolForKey:kUDKeySupportAppleRemote]) {
+			appleRemoteControl = [[AppleRemote alloc] initWithDelegate:self];			
+		} else {
+			appleRemoteControl = nil;
+		}
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												 selector:@selector(applicationWillBecomeActive:)
@@ -349,12 +354,16 @@
 
 -(void) applicationWillBecomeActive:(NSNotification*) notif
 {
-	[appleRemoteControl startListening:self];
+	if (appleRemoteControl) {
+		[appleRemoteControl startListening:self];
+	}
 }
 
 -(void) applicationWillResignActive:(NSNotification*) notif
 {
-	[appleRemoteControl stopListening:self];
+	if (appleRemoteControl) {
+		[appleRemoteControl stopListening:self];
+	}
 }
 
 @end
