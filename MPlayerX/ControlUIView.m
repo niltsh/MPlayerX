@@ -43,6 +43,8 @@
 
 #define LASTSTOPPEDTIMERATIO	(100)
 
+#define ASPECTRATIOBASE			(900)
+
 NSString * const kFillScreenButtonImageLRKey = @"LR";
 NSString * const kFillScreenButtonImageUBKey = @"UB";
 
@@ -318,7 +320,6 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	// set menu status
 	[menuToggleLockAspectRatio setEnabled:NO];
 	[menuToggleLockAspectRatio setTitle:([dispView lockAspectRatio])?(kMPXStringMenuUnlockAspectRatio):(kMPXStringMenuLockAspectRatio)];
-	[menuResetLockAspectRatio setAlternate:YES];
 	
 	[menuToggleLetterBox setTitle:([ud integerForKey:kUDKeyLetterBoxMode] == kPMLetterBoxModeNotDisplay)?(kMPXStringMenuShowLetterBox):
 																										 (kMPXStringMenuHideLetterBox)];
@@ -1067,6 +1068,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			updateTimer:YES];
 }
 
+-(IBAction) setAspectRatio:(id)sender
+{
+	[dispView setAspectRatio:((CGFloat)[sender tag]) / ASPECTRATIOBASE];
+}
+
 -(IBAction) toggleLetterBox:(id)sender
 {
 	NSInteger lbMode = [ud integerForKey:kUDKeyLetterBoxMode];
@@ -1678,7 +1684,6 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 		[hintTime setFrameOrigin:pt];
 		
 		[hintTime.animator setAlphaValue:1];
-		// [self setNeedsDisplay:YES];
 	} else {
 		[hintTime.animator setAlphaValue:0];
 	}

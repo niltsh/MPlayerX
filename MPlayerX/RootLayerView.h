@@ -87,4 +87,6 @@
 -(void) setFlip:(BOOL)f;
 
 -(void) zoomToSize:(float)ratio;
+
+-(void) setAspectRatio:(CGFloat)ar;
 @end

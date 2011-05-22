@@ -565,6 +565,66 @@
 	[self adjustWindowCoordinateAndAspectRatio:[[playerWindow contentView] bounds].size];
 }
 
+-(void) setAspectRatio:(CGFloat) ar
+{
+	if (displaying) {
+		NSSize sz;
+		
+		if ([self isInFullScreenMode]) {
+			sz = rcBeforeFullScrn.size;
+		} else {
+			sz = [self bounds].size; 
+		}
+		
+		NSSize screenContentSize = [playerWindow contentRectForFrameRect:[[playerWindow screen] visibleFrame]].size;
+		NSSize minSize = [playerWindow contentMinSize];
+		
+		float diagLen = hypotf(sz.width, sz.height);
+		float angle = atanf(1/ar);
+		sz.width  = diagLen * cosf(angle);
+		sz.height = diagLen * sinf(angle);
+		
+		if (sz.width > screenContentSize.width) {
+			sz.width  = screenContentSize.width;
+			sz.height = sz.width / ar;
+		}
+		if (sz.height > screenContentSize.height) {
+			sz.height = screenContentSize.height;
+			sz.width  = sz.height * ar;
+		}
+		if (sz.width < minSize.width) {
+			sz.width  = minSize.width;
+			sz.height = sz.width / ar;
+		}
+		if (sz.height < minSize.height) {
+			sz.height = minSize.height;
+			sz.width  = sz.height * ar;
+		}
+
+		if (![self isInFullScreenMode]) {
+			// 非全屏
+			NSPoint pos = [self calculatePlayerWindowPosition:sz];
+			NSRect contentRC = NSMakeRect(pos.x, pos.y, sz.width, sz.height);
+			[playerWindow setFrame:[playerWindow frameRectForContentRect:contentRC] display:YES animate:YES];
+		} else {
+			// 全屏目前是始终锁定AR的
+			shouldResize = YES;
+			[dispLayer setExternalAspectRatio:(sz.width/sz.height) display:YES];
+		}
+		
+		if (lockAspectRatio) {
+			//如果是锁定AR的，那么需要重新设定比例
+			[playerWindow setContentAspectRatio:sz];
+			[dispLayer setExternalAspectRatio:(sz.width/sz.height) display:YES];
+			if ([playerController playerState] == kMPCPausedState) {
+				[dispLayer setNeedsDisplay];
+			}
+		} else {
+			// 如果没有锁定AR，那么dispLayer的AR会随着window变，所以目前不需要做什么事情
+		}
+	}
+}
+
 -(void) magnifyWithEvent:(NSEvent *)event
 {
 	if ([self isInFullScreenMode]) {
@@ -853,6 +913,8 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			[playerWindow makeKeyAndOrderFront:self];
 
 			[playerWindow setFrame:[playerWindow frameRectForContentRect:rc] display:YES animate:YES];
+			// 当进入全屏的时候，回强制锁定ar
+			// 当出了全屏，更新了window的size之后，在这里需要再一次设定window的ar
 			[playerWindow setContentAspectRatio:rc.size];			
 
 			// 推出全屏，重新根据现在的尺寸比例渲染图像

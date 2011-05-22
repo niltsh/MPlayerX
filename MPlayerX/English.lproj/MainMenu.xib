@@ -467,23 +467,133 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="436413833">
+								<object class="NSMenuItem" id="101001662">
 									<reference key="NSMenu" ref="912779322"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<string key="NSTitle">Unlock Aspect Ratio</string>
+									<string key="NSTitle">Aspect Ratio</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
-								</object>
-								<object class="NSMenuItem" id="976320646">
-									<reference key="NSMenu" ref="912779322"/>
-									<bool key="NSIsAlternate">YES</bool>
-									<string key="NSTitle">Restore Aspect Ratio</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="35465992"/>
-									<reference key="NSMixedImage" ref="502551668"/>
+									<string key="NSAction">submenuAction:</string>
+									<object class="NSMenu" key="NSSubmenu" id="454004890">
+										<string key="NSTitle">Aspect Ratio</string>
+										<object class="NSMutableArray" key="NSMenuItems">
+											<bool key="EncodedWithXMLCoder">YES</bool>
+											<object class="NSMenuItem" id="436413833">
+												<reference key="NSMenu" ref="454004890"/>
+												<bool key="NSIsDisabled">YES</bool>
+												<string key="NSTitle">Unlock Aspect Ratio</string>
+												<string key="NSKeyEquiv"/>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="35465992"/>
+												<reference key="NSMixedImage" ref="502551668"/>
+											</object>
+											<object class="NSMenuItem" id="249967610">
+												<reference key="NSMenu" ref="454004890"/>
+												<bool key="NSIsDisabled">YES</bool>
+												<bool key="NSIsSeparator">YES</bool>
+												<string key="NSTitle"/>
+												<string key="NSKeyEquiv"/>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="35465992"/>
+												<reference key="NSMixedImage" ref="502551668"/>
+											</object>
+											<object class="NSMenuItem" id="129701701">
+												<reference key="NSMenu" ref="454004890"/>
+												<string key="NSTitle">1:1</string>
+												<string key="NSKeyEquiv"/>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="35465992"/>
+												<reference key="NSMixedImage" ref="502551668"/>
+												<int key="NSTag">900</int>
+											</object>
+											<object class="NSMenuItem" id="120208815">
+												<reference key="NSMenu" ref="454004890"/>
+												<string key="NSTitle">5:4</string>
+												<string key="NSKeyEquiv"/>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="35465992"/>
+												<reference key="NSMixedImage" ref="502551668"/>
+												<int key="NSTag">1125</int>
+											</object>
+											<object class="NSMenuItem" id="537036030">
+												<reference key="NSMenu" ref="454004890"/>
+												<string key="NSTitle">4:3</string>
+												<string key="NSKeyEquiv">4</string>
+												<int key="NSKeyEquivModMask">1048576</int>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="35465992"/>
+												<reference key="NSMixedImage" ref="502551668"/>
+												<int key="NSTag">1200</int>
+											</object>
+											<object class="NSMenuItem" id="1062784036">
+												<reference key="NSMenu" ref="454004890"/>
+												<string key="NSTitle">16:10</string>
+												<string key="NSKeyEquiv"/>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="35465992"/>
+												<reference key="NSMixedImage" ref="502551668"/>
+												<int key="NSTag">1440</int>
+											</object>
+											<object class="NSMenuItem" id="502055886">
+												<reference key="NSMenu" ref="454004890"/>
+												<string key="NSTitle">16:9</string>
+												<string key="NSKeyEquiv">5</string>
+												<int key="NSKeyEquivModMask">1048576</int>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="35465992"/>
+												<reference key="NSMixedImage" ref="502551668"/>
+												<int key="NSTag">1600</int>
+											</object>
+											<object class="NSMenuItem" id="600024068">
+												<reference key="NSMenu" ref="454004890"/>
+												<string key="NSTitle">2.21:1</string>
+												<string key="NSKeyEquiv"/>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="35465992"/>
+												<reference key="NSMixedImage" ref="502551668"/>
+												<int key="NSTag">1989</int>
+											</object>
+											<object class="NSMenuItem" id="828420651">
+												<reference key="NSMenu" ref="454004890"/>
+												<string key="NSTitle">2.35:1</string>
+												<string key="NSKeyEquiv">6</string>
+												<int key="NSKeyEquivModMask">1048576</int>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="35465992"/>
+												<reference key="NSMixedImage" ref="502551668"/>
+												<int key="NSTag">2115</int>
+											</object>
+											<object class="NSMenuItem" id="771921439">
+												<reference key="NSMenu" ref="454004890"/>
+												<string key="NSTitle">2.39:1</string>
+												<string key="NSKeyEquiv"/>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="35465992"/>
+												<reference key="NSMixedImage" ref="502551668"/>
+												<int key="NSTag">2151</int>
+											</object>
+											<object class="NSMenuItem" id="29916556">
+												<reference key="NSMenu" ref="454004890"/>
+												<bool key="NSIsDisabled">YES</bool>
+												<bool key="NSIsSeparator">YES</bool>
+												<string key="NSTitle"/>
+												<string key="NSKeyEquiv"/>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="35465992"/>
+												<reference key="NSMixedImage" ref="502551668"/>
+											</object>
+											<object class="NSMenuItem" id="976320646">
+												<reference key="NSMenu" ref="454004890"/>
+												<string key="NSTitle">Restore Aspect Ratio</string>
+												<string key="NSKeyEquiv"/>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="35465992"/>
+												<reference key="NSMixedImage" ref="502551668"/>
+											</object>
+										</object>
+										<bool key="NSNoAutoenable">YES</bool>
+									</object>
 								</object>
 								<object class="NSMenuItem" id="639891003">
 									<reference key="NSMenu" ref="912779322"/>
@@ -1029,7 +1139,7 @@
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMinSize">{480, 360}</string>
 				<object class="NSView" key="NSWindowView" id="439893737">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1630,7 +1740,6 @@
 						</object>
 					</object>
 					<string key="NSFrame">{{7, 11}, {480, 360}}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="417279129"/>
 					<bool key="NSViewIsLayerTreeHost">YES</bool>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
@@ -3325,6 +3434,70 @@
 					</object>
 					<int key="connectionID">1101</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setAspectRatio:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="129701701"/>
+					</object>
+					<int key="connectionID">1115</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setAspectRatio:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="120208815"/>
+					</object>
+					<int key="connectionID">1116</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setAspectRatio:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="537036030"/>
+					</object>
+					<int key="connectionID">1117</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setAspectRatio:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="1062784036"/>
+					</object>
+					<int key="connectionID">1118</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setAspectRatio:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="502055886"/>
+					</object>
+					<int key="connectionID">1119</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setAspectRatio:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="600024068"/>
+					</object>
+					<int key="connectionID">1120</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setAspectRatio:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="828420651"/>
+					</object>
+					<int key="connectionID">1121</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setAspectRatio:</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="771921439"/>
+					</object>
+					<int key="connectionID">1122</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -4234,8 +4407,6 @@
 						<reference key="object" ref="912779322"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="436413833"/>
-							<reference ref="976320646"/>
 							<reference ref="21662899"/>
 							<reference ref="639891003"/>
 							<reference ref="750247554"/>
@@ -4259,18 +4430,9 @@
 							<reference ref="769296136"/>
 							<reference ref="113600501"/>
 							<reference ref="1072153058"/>
+							<reference ref="101001662"/>
 						</object>
 						<reference key="parent" ref="304019076"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">903</int>
-						<reference key="object" ref="436413833"/>
-						<reference key="parent" ref="912779322"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">904</int>
-						<reference key="object" ref="976320646"/>
-						<reference key="parent" ref="912779322"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">916</int>
@@ -4565,6 +4727,95 @@
 						<reference key="object" ref="1072153058"/>
 						<reference key="parent" ref="912779322"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1102</int>
+						<reference key="object" ref="101001662"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="454004890"/>
+						</object>
+						<reference key="parent" ref="912779322"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1103</int>
+						<reference key="object" ref="454004890"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="436413833"/>
+							<reference ref="976320646"/>
+							<reference ref="249967610"/>
+							<reference ref="129701701"/>
+							<reference ref="537036030"/>
+							<reference ref="502055886"/>
+							<reference ref="1062784036"/>
+							<reference ref="600024068"/>
+							<reference ref="828420651"/>
+							<reference ref="771921439"/>
+							<reference ref="120208815"/>
+							<reference ref="29916556"/>
+						</object>
+						<reference key="parent" ref="101001662"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">903</int>
+						<reference key="object" ref="436413833"/>
+						<reference key="parent" ref="454004890"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">904</int>
+						<reference key="object" ref="976320646"/>
+						<reference key="parent" ref="454004890"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1105</int>
+						<reference key="object" ref="249967610"/>
+						<reference key="parent" ref="454004890"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1106</int>
+						<reference key="object" ref="129701701"/>
+						<reference key="parent" ref="454004890"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1107</int>
+						<reference key="object" ref="537036030"/>
+						<reference key="parent" ref="454004890"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1108</int>
+						<reference key="object" ref="502055886"/>
+						<reference key="parent" ref="454004890"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1109</int>
+						<reference key="object" ref="1062784036"/>
+						<reference key="parent" ref="454004890"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1110</int>
+						<reference key="object" ref="600024068"/>
+						<reference key="parent" ref="454004890"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1111</int>
+						<reference key="object" ref="828420651"/>
+						<reference key="parent" ref="454004890"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1112</int>
+						<reference key="object" ref="771921439"/>
+						<reference key="parent" ref="454004890"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1113</int>
+						<reference key="object" ref="120208815"/>
+						<reference key="parent" ref="454004890"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1114</int>
+						<reference key="object" ref="29916556"/>
+						<reference key="parent" ref="454004890"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -4616,6 +4867,18 @@
 					<string>1091.IBPluginDependency</string>
 					<string>1093.IBPluginDependency</string>
 					<string>1098.IBPluginDependency</string>
+					<string>1102.IBPluginDependency</string>
+					<string>1103.IBPluginDependency</string>
+					<string>1105.IBPluginDependency</string>
+					<string>1106.IBPluginDependency</string>
+					<string>1107.IBPluginDependency</string>
+					<string>1108.IBPluginDependency</string>
+					<string>1109.IBPluginDependency</string>
+					<string>1110.IBPluginDependency</string>
+					<string>1111.IBPluginDependency</string>
+					<string>1112.IBPluginDependency</string>
+					<string>1113.IBPluginDependency</string>
+					<string>1114.IBPluginDependency</string>
 					<string>124.IBPluginDependency</string>
 					<string>124.ImportedFromIB2</string>
 					<string>125.IBEditorWindowLastContentRect</string>
@@ -4871,6 +5134,18 @@
 							<string key="toolTip">In fullscreen mode, you could also enlarge/shrink frame by alt + scroll or magnify on touchpad</string>
 						</object>
 					</object>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -5187,7 +5462,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1101</int>
+			<int key="maxID">1122</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5419,6 +5694,7 @@
 							<string>resetAspectRatio:</string>
 							<string>resetFrameScaleRatio:</string>
 							<string>seekTo:</string>
+							<string>setAspectRatio:</string>
 							<string>setAudioWithID:</string>
 							<string>setSubWithID:</string>
 							<string>setVideoWithID:</string>
@@ -5473,6 +5749,7 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
@@ -5490,6 +5767,7 @@
 							<string>resetAspectRatio:</string>
 							<string>resetFrameScaleRatio:</string>
 							<string>seekTo:</string>
+							<string>setAspectRatio:</string>
 							<string>setAudioWithID:</string>
 							<string>setSubWithID:</string>
 							<string>setVideoWithID:</string>
@@ -5555,6 +5833,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">seekTo:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">setAspectRatio:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

@@ -171,6 +171,7 @@ extern NSString * const kFillScreenButtonImageUBKey;
 
 -(IBAction) toggleLockAspectRatio:(id)sender;
 -(IBAction) resetAspectRatio:(id)sender;
+-(IBAction) setAspectRatio:(id)sender;
 
 -(IBAction) toggleLetterBox:(id)sender;
 
