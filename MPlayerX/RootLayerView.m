@@ -344,7 +344,9 @@
 				pt.y += (delta.y / sz.height);
 
 				[dispLayer setPositoinOffsetRatio:pt];
-				[dispLayer setNeedsDisplay];
+				if ([playerController playerState] == kMPCPausedState) {
+					[dispLayer setNeedsDisplay];
+				}
 			}
 			break;
 		//////////////////////////////////////////////////////////////////////////////////////////////////////
