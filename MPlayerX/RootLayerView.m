@@ -498,7 +498,9 @@
 -(void) resetFrameScaleRatio
 {
 	[dispLayer setScaleRatio:CGSizeMake(1, 1)];
-	[dispLayer setNeedsDisplay];
+	if ([playerController playerState] == kMPCPausedState) {
+		[dispLayer setNeedsDisplay];
+	}
 }
 
 -(void) changeFrameScaleRatioBy:(CGSize)rt
@@ -523,13 +525,17 @@
 	}
 	
 	[dispLayer setScaleRatio:ratio];
-	[dispLayer setNeedsDisplay];	
+	if ([playerController playerState] == kMPCPausedState) {
+		[dispLayer setNeedsDisplay];
+	}
 }
 
 -(void) moveFrameToCenter
 {
 	[dispLayer setPositoinOffsetRatio:CGPointMake(0, 0)];
-	[dispLayer setNeedsDisplay];
+	if ([playerController playerState] == kMPCPausedState) {
+		[dispLayer setNeedsDisplay];
+	}
 }
 
 -(void) setLockAspectRatio:(BOOL) lock
@@ -849,7 +855,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 
 			// 推出全屏，重新根据现在的尺寸比例渲染图像
 			[dispLayer adujustToFitBounds];
-			[dispLayer setNeedsDisplay];
+			if ([playerController playerState] == kMPCPausedState) {
+				[dispLayer setNeedsDisplay];
+			}
 		} else {
 			[self exitFullScreenModeWithOptions:fullScreenOptions];
 
@@ -857,7 +865,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			[dispLayer adujustToFitBounds];
 			[dispLayer enablePositionOffset:NO];
 			[dispLayer enableScale:NO];
-			[dispLayer setNeedsDisplay];
+			if ([playerController playerState] == kMPCPausedState) {
+				[dispLayer setNeedsDisplay];
+			}
 			
 			[playerWindow makeKeyAndOrderFront:self];
 		}
@@ -910,7 +920,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		[dispLayer enablePositionOffset:YES];
 		[dispLayer enableScale:YES];
 		// 暂停的时候能够正确显示
-		[dispLayer setNeedsDisplay];
+		if ([playerController playerState] == kMPCPausedState) {
+			[dispLayer setNeedsDisplay];
+		}
 
 		[playerWindow orderOut:self];
 
@@ -927,7 +939,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	} else {
 		[dispLayer adujustToFitBounds];
 		// 暂停的时候能够正确显示
-		[dispLayer setNeedsDisplay];
+		if ([playerController playerState] == kMPCPausedState) {
+			[dispLayer setNeedsDisplay];
+		}
 		return NO;
 	}
 	return YES;
@@ -937,7 +951,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 {
 	[dispLayer setFillScreen: ![dispLayer fillScreen]];
 	// 暂停的时候能够正确显示
-	[dispLayer setNeedsDisplay];
+	if ([playerController playerState] == kMPCPausedState) {
+		[dispLayer setNeedsDisplay];
+	}
 	return [dispLayer fillScreen];
 }
 
@@ -968,13 +984,17 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 -(void) setMirror:(BOOL)m
 {
 	[dispLayer setMirror:m];
-	[dispLayer setNeedsDisplay];
+	if ([playerController playerState] == kMPCPausedState) {
+		[dispLayer setNeedsDisplay];
+	}
 }
 
 -(void) setFlip:(BOOL)f
 {
 	[dispLayer setFlip:f];
-	[dispLayer setNeedsDisplay];
+	if ([playerController playerState] == kMPCPausedState) {
+		[dispLayer setNeedsDisplay];
+	}
 }
 
 -(void) zoomToSize:(float)ratio
@@ -996,7 +1016,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			sr.height *= r;
 			
 			[dispLayer setScaleRatio:sr];
-			[dispLayer setNeedsDisplay];
+			if ([playerController playerState] == kMPCPausedState) {
+				[dispLayer setNeedsDisplay];
+			}
 		} else {
 			// not in full screen
 			NSSize sz = [dispLayer displaySize];
@@ -1242,6 +1264,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		// 如果没有锁住aspect ratio
 		NSSize sz = [self bounds].size;
 		[dispLayer setExternalAspectRatio:(sz.width/sz.height) display:YES];
+		if ([playerController playerState] == kMPCPausedState) {
+			[dispLayer setNeedsDisplay];
+		}
 	}
 }
 
