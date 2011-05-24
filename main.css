@@ -329,6 +329,11 @@ section p {
 	display:block;
 }
 
+#gad {
+	display: block;
+	margin-left: 36px;
+}
+
 footer {
 	font-size: 0.8em;
 	clear: both;
