@@ -29,6 +29,7 @@
 #import "CharsetQueryController.h"
 #import "AppController.h"
 #import "CoreController.h"
+#import <sys/mount.h>
 
 NSString * const kMPCPlayOpenedNotification			= @"kMPCPlayOpenedNotification";
 NSString * const kMPCPlayOpenedURLKey				= @"kMPCPlayOpenedURLKey";
@@ -404,6 +405,27 @@ enum {
 	}
 }
 
+static BOOL isNetworkPath(const char *path)
+{
+	BOOL ret = NO;
+	
+	if (path) {
+		struct statfs buf;
+		
+		if (statfs(path, &buf) == 0) {
+			if ((strncasecmp(buf.f_fstypename, "nfs", 3) == 0) ||
+				(strncasecmp(buf.f_fstypename, "afp", 3) == 0) ||
+				(strncasecmp(buf.f_fstypename, "smb", 3) == 0) ||
+				(strncasecmp(buf.f_fstypename, "web", 3) == 0) ||
+				(strncasecmp(buf.f_fstypename, "ftp", 3) == 0)) {
+				MPLog(@"Actually a network path:%s", buf.f_fstypename);
+				ret = YES;
+			}
+		}
+	}
+	return ret;
+}
+
 -(void) playMedia:(NSURL*)url
 {
 	// 内部函数，没有那么必要判断url的有效性
@@ -460,13 +482,13 @@ enum {
 		// local files
 		path = [url path];
 
-		/**
-		 * OS will caching the media file, this cause the memory decreasing until it runs out
-		 * so I have to turn off caching in mplayer, but this will slow down the IO speed, 
-		 * causing some HD contents lagging
-		 * so CachingLocal should be ON always
-		 */
-		[mplayer.pm setCache:([ud boolForKey:kUDKeyCachingLocal])?([ud integerForKey:kUDKeyCacheSizeLocal]):(0)];
+		if (isNetworkPath([path UTF8String])) {
+			// is network path
+			[mplayer.pm setCache:[ud integerForKey:kUDKeyCacheSize]];
+		} else {
+			// local path
+			[mplayer.pm setCache:([ud boolForKey:kUDKeyCachingLocal])?([ud integerForKey:kUDKeyCacheSizeLocal]):(0)];
+		}
 		[mplayer.pm setRtspOverHttp:NO];
 		
 		// 将文件加入Recent Menu里，只能加入本地文件
