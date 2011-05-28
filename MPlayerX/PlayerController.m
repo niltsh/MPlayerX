@@ -386,8 +386,15 @@ enum {
 									break;
 								}
 							} else {
-								// 否则提示
-								[self showAlertPanelModal:kMPXStringFileNotSupported];
+								if ([NSEvent modifierFlags] & NSControlKeyMask) {
+									// open the file while control key pressing
+									// try to open the file 
+									[self playMedia:file];
+									break;
+								} else {
+									// 否则提示
+									[self showAlertPanelModal:kMPXStringFileNotSupported];									
+								}
 							}	
 						}
 					} else {
