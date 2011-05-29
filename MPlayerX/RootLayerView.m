@@ -811,7 +811,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			
 			if (dist * [ud floatForKey:kUDKeyFourFingersPinchThreshRatio] < fourFingersPinchDistance) {
 				fourFingersPinch = kFourFingersPinchInit;
-				[playerController stop];
+				[[self window] performClose:self];
 			}
 		}
 	}
