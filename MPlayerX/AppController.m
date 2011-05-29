@@ -316,13 +316,31 @@ static BOOL init_ed = NO;
 /////////////////////////////////////Application Delegate//////////////////////////////////////
 -(BOOL) application:(NSApplication *)theApplication openFile:(NSString *)filename
 {
-	[playerController loadFiles:[NSArray arrayWithObject:filename] fromLocal:YES];
+	BOOL isDir = NO;
+	[[NSFileManager defaultManager] fileExistsAtPath:filename isDirectory:&isDir];
+	
+	if (isDir) {
+		[playerController setPlayDisk:kPMPlayDiskDVD];
+		[playerController loadFiles:[NSArray arrayWithObject:filename] fromLocal:YES];
+		[playerController setPlayDisk:kPMPlayDiskNone];
+	} else {
+		[playerController loadFiles:[NSArray arrayWithObject:filename] fromLocal:YES];
+	}
 	return YES;
 }
 
 -(void) application:(NSApplication *)theApplication openFiles:(NSArray *)filenames
 {
-	[playerController loadFiles:filenames fromLocal:YES];
+	BOOL isDir = NO;
+	[[NSFileManager defaultManager] fileExistsAtPath:[filenames objectAtIndex:0] isDirectory:&isDir];
+	
+	if (isDir) {
+		[playerController setPlayDisk:kPMPlayDiskDVD];
+		[playerController loadFiles:filenames fromLocal:YES];
+		[playerController setPlayDisk:kPMPlayDiskNone];
+	} else {
+		[playerController loadFiles:filenames fromLocal:YES];
+	}
 	[theApplication replyToOpenOrPrint:NSApplicationDelegateReplySuccess];
 }
 
