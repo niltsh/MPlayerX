@@ -72,6 +72,8 @@
 		8629FF52115F2874001BD30A /* AudioInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CAF23710BA44D100848B8E /* AudioInfo.m */; };
 		8629FF72115F2D44001BD30A /* VideoInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CAF25010BA451100848B8E /* VideoInfo.m */; };
 		862F149610C29B0A00F5E970 /* ShortCutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 862F149510C29B0A00F5E970 /* ShortCutManager.m */; };
+		863702E4138EA4AB00FD13BE /* AODetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 863702E3138EA4AB00FD13BE /* AODetector.m */; };
+		863702E7138EA5C200FD13BE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 863702E6138EA5C200FD13BE /* CoreAudio.framework */; };
 		863B5A7F10F2175C001111F6 /* enterfullscreen.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 863B5A7910F2175C001111F6 /* enterfullscreen.pdf */; };
 		863B5A8010F2175C001111F6 /* exitfillscreen_lr.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 863B5A7A10F2175C001111F6 /* exitfillscreen_lr.pdf */; };
 		863B5A8110F2175C001111F6 /* exitfillscreen_ub.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 863B5A7B10F2175C001111F6 /* exitfillscreen_ub.pdf */; };
@@ -250,6 +252,9 @@
 		862926FF10C1507E0077B63E /* TimeSliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TimeSliderCell.h; sourceTree = "<group>"; };
 		862F149410C29B0A00F5E970 /* ShortCutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ShortCutManager.h; sourceTree = "<group>"; };
 		862F149510C29B0A00F5E970 /* ShortCutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ShortCutManager.m; sourceTree = "<group>"; };
+		863702E2138EA4AB00FD13BE /* AODetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AODetector.h; sourceTree = "<group>"; };
+		863702E3138EA4AB00FD13BE /* AODetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AODetector.m; sourceTree = "<group>"; };
+		863702E6138EA5C200FD13BE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		863B5A7910F2175C001111F6 /* enterfullscreen.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = enterfullscreen.pdf; sourceTree = "<group>"; };
 		863B5A7A10F2175C001111F6 /* exitfillscreen_lr.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = exitfillscreen_lr.pdf; sourceTree = "<group>"; };
 		863B5A7B10F2175C001111F6 /* exitfillscreen_ub.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = exitfillscreen_ub.pdf; sourceTree = "<group>"; };
@@ -365,6 +370,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				863702E7138EA5C200FD13BE /* CoreAudio.framework in Frameworks */,
 				863C0FED138020A700B5C906 /* Carbon.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				8608653910BA56A700459392 /* OpenGL.framework in Frameworks */,
@@ -381,6 +387,8 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				863702E2138EA4AB00FD13BE /* AODetector.h */,
+				863702E3138EA4AB00FD13BE /* AODetector.m */,
 				86E7A8EF1155E8980014155D /* CocoaAppendix.h */,
 				86E7A8F01155E8980014155D /* CocoaAppendix.m */,
 				86450B871108840700E79645 /* LocalizedStrings.h */,
@@ -417,6 +425,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				863702E6138EA5C200FD13BE /* CoreAudio.framework */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
@@ -983,6 +992,7 @@
 				8605F0D6137E67FE00317941 /* MPApplication.m in Sources */,
 				863C0FE013801A9A00B5C906 /* SPMediaKeyTap.m in Sources */,
 				863C0FE313801AAF00B5C906 /* NSObject+SPInvocationGrabbing.m in Sources */,
+				863702E4138EA4AB00FD13BE /* AODetector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,6 +29,7 @@
 #import "CharsetQueryController.h"
 #import "AppController.h"
 #import "CoreController.h"
+#import "AODetector.h"
 #import <sys/mount.h>
 
 NSString * const kMPCPlayOpenedNotification			= @"kMPCPlayOpenedNotification";
@@ -130,6 +131,7 @@ enum {
 					   [NSNumber numberWithUnsignedInt:kPMSubAlignDefault], kUDKeySubAlign,
 					   [NSNumber numberWithUnsignedInt:kPMSubBorderWidthDefault], kUDKeySubBorderWidth,
 					   boolNo, kUDKeyNoDispSub,
+					   boolYes, kUDKeyAutoDetectSPDIF,
 					   nil]];	
 }
 
@@ -456,8 +458,15 @@ static BOOL isNetworkPath(const char *path)
 	
 	[mplayer.pm setForceIndex:[ud boolForKey:kUDKeyForceIndex]];
 	[mplayer.pm setSubNameRule:[ud integerForKey:kUDKeySubFileNameRule]];
-	[mplayer.pm setDtsPass:[ud boolForKey:kUDKeyDTSPassThrough]];
-	[mplayer.pm setAc3Pass:[ud boolForKey:kUDKeyAC3PassThrough]];
+	
+	if ([ud boolForKey:kUDKeyAutoDetectSPDIF]) {
+		BOOL digi = [[AODetector defaultDetector] isDigital];
+		[mplayer.pm setDtsPass:digi];
+		[mplayer.pm setAc3Pass:digi];
+	} else {
+		[mplayer.pm setDtsPass:[ud boolForKey:kUDKeyDTSPassThrough]];
+		[mplayer.pm setAc3Pass:[ud boolForKey:kUDKeyAC3PassThrough]];
+	}
 	[mplayer.pm setUseEmbeddedFonts:[ud boolForKey:kUDKeyUseEmbeddedFonts]];
 	
 	[mplayer.pm setLetterBoxMode:[ud integerForKey:kUDKeyLetterBoxMode]];

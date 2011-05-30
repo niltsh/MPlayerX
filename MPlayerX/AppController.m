@@ -26,6 +26,7 @@
 #import "LocalizedStrings.h"
 #import "RootLayerView.h"
 #import "SPMediaKeyTap.h"
+#import "AODetector.h"
 
 #define kSnapshotSaveDefaultPath	(@"~/Desktop")
 
@@ -356,6 +357,9 @@ static BOOL init_ed = NO;
 	
 	[bookmarks writeToFile:lastStoppedTimePath atomically:YES];
 	
+	// 先不起用监听功能
+	// [[AODetector defaultDetector] stopListening];
+	
 	return NSTerminateNow;	
 }
 
@@ -367,6 +371,14 @@ static BOOL init_ed = NO;
 	} else {
 		MPLog(@"MediaKey monitoring Disabled.");
 	}
+	
+	// 开始监听AudioDevice
+	// 如果是双击文件打开程序的话，application:(NSApplication *)theApplication openFile:(NSString *)filename 会在 这个method之前被调用
+	// 也就是说，在startListening之前，就要开始play了
+	// 但是没有关系，即使不listen，playerController在播放的时候因为是调用[AODetector defaultDetector]，会强制判断一次是否是digital，所以不会有问题
+	// 将这个method放到这里是因为不想耽误启动的时间
+	// 先不起用监听功能
+	// [[AODetector defaultDetector] startListening];	
 }
 
 @end
