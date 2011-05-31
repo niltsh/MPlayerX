@@ -910,13 +910,13 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 				[playerWindow makeKeyAndOrderFront:self];
 			}
 
+			[dispLayer forceAdjustToFitBounds:YES];
 			[playerWindow setFrame:[playerWindow frameRectForContentRect:rc] display:YES animate:YES];
+			[dispLayer forceAdjustToFitBounds:NO];
 			// 当进入全屏的时候，回强制锁定ar
 			// 当出了全屏，更新了window的size之后，在这里需要再一次设定window的ar
 			[playerWindow setContentAspectRatio:rc.size];			
 
-			// 推出全屏，重新根据现在的尺寸比例渲染图像
-			[dispLayer adujustToFitBounds];
 			if ([playerController playerState] == kMPCPausedState) {
 				[dispLayer setNeedsDisplay];
 			}
@@ -944,14 +944,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	} else if (displaying) {
 		// 应该进入全屏
 		// 只有在显示图像的时候才能进入全屏
-		
-		// 先记下全屏前窗口的方位
-		rcBeforeFullScrn = [playerWindow frame];
-		// 动画进入全屏
-		[playerWindow performZoom:nil];
-		
-		shouldResize = YES;
-		
+
 		// 强制Lock Aspect Ratio
 		[self setLockAspectRatio:YES];
 
@@ -979,6 +972,14 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		// whether grab all the screens
 		[fullScreenOptions setObject:[NSNumber numberWithBool:!keepOtherSrn] forKey:NSFullScreenModeAllScreens];
 
+		// 先记下全屏前窗口的方位
+		rcBeforeFullScrn = [playerWindow frame];
+		// 动画进入全屏
+		[dispLayer forceAdjustToFitBounds:YES];
+		[playerWindow setFrame:[chosenScreen frame] display:YES animate:YES];
+		[dispLayer forceAdjustToFitBounds:NO];
+		shouldResize = YES;
+		
 		[self enterFullScreenMode:chosenScreen withOptions:fullScreenOptions];
 
 		// 推出全屏，重新根据现在的尺寸比例渲染图像
@@ -1002,11 +1003,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		[controlUI setFillScreenMode:(((sz.height * [dispLayer aspectRatio]) >= sz.width)?kFillScreenButtonImageUBKey:kFillScreenButtonImageLRKey)
 							   state:([dispLayer fillScreen])?NSOnState:NSOffState];
 	} else {
-		[dispLayer adujustToFitBounds];
-		// 暂停的时候能够正确显示
-		if ([playerController playerState] == kMPCPausedState) {
-			[dispLayer setNeedsDisplay];
-		}
+		[dispLayer forceAdjustToFitBounds:YES];
+		[dispLayer setNeedsDisplay];
+		[dispLayer forceAdjustToFitBounds:NO];
 		return NO;
 	}
 	return YES;
@@ -1193,7 +1192,6 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 
 		[playerWindow setContentAspectRatio:sizeVal];
 		
-		[dispLayer adujustToFitBounds];
 		if (![playerWindow isVisible]) {
 			[playerWindow makeKeyAndOrderFront:self];
 		}
@@ -1210,7 +1208,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	
 	rc = [playerWindow frameRectForContentRect:rc];
 	
+	[dispLayer forceAdjustToFitBounds:YES];
 	[playerWindow setFrame:rc display:YES animate:YES];
+	[dispLayer forceAdjustToFitBounds:NO];
 	
 	return sizeVal;
 }
