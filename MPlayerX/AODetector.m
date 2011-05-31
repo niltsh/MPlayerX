@@ -126,7 +126,7 @@ static int AudioStreamSupportsDigital( AudioStreamID i_stream_id )
     i_formats = i_param_size / sizeof(AudioStreamBasicDescription);
 	
     for (i = 0; i < i_formats; ++i) {
-        print_format("supported format:", &p_format_list[i]);
+        print_format("Supported format:", &p_format_list[i]);
 		
         if ((p_format_list[i].mFormatID == 'IAC3') || (p_format_list[i].mFormatID == 'iac3') ||
 			(p_format_list[i].mFormatID == kAudioFormat60958AC3) || (p_format_list[i].mFormatID == kAudioFormatAC3)) {
@@ -233,10 +233,10 @@ static BOOL init_ed = NO;
 				
 			} else {
 				defaultDevID = kAudioDeviceUnknown;
-					MPLog(@"DevName: [%4.4s]\n", (char *)&err);
+					MPLog(@"DevName Error: [%4.4s]\n", (char *)&err);
 			}
 		} else {
-			MPLog(@"Default Audio Device: [%4.4s]\n", (char *)&err);
+			MPLog(@"Default Audio Device Error: [%4.4s]\n", (char *)&err);
 		}
 	}
 	return self;
@@ -288,7 +288,7 @@ static BOOL init_ed = NO;
 		if (err == noErr) {
 			listening = YES;
 		} else {
-			MPLog(@"Listen: [%4.4s]\n", (char *)&err);
+			MPLog(@"Listen Error: [%4.4s]\n", (char *)&err);
 		}
 		[[NSNotificationCenter defaultCenter] postNotificationName:kMPXDefaultAudioDeviceChanged object:self];
 	}

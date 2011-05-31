@@ -578,9 +578,7 @@ void MPSetLogEnable(BOOL en)
 		
 		NSString *ext = [[(NSURL*)fontURL pathExtension] lowercaseString];
 		
-		if ([ext isEqualToString:@"ttf"] || 
-			[ext isEqualToString:@"ttc"] ||
-			[ext isEqualToString:@"otf"]) {
+		if ([ext isEqualToString:@"ttf"] || [ext isEqualToString:@"ttc"] || [ext isEqualToString:@"otf"]) {
 			// only accept ttf and ttc
 			mItem = [[NSMenuItem alloc] init];
 			
@@ -638,7 +636,7 @@ void MPSetLogEnable(BOOL en)
 +(NSEvent*) makeKeyDownEvent:(NSString*)str modifierFlags:(NSUInteger)flags
 {
 	return [NSEvent keyEventWithType:NSKeyDown
-							location:NSMakePoint(0, 0)
+							location:NSZeroPoint
 					   modifierFlags:flags
 						   timestamp:0
 						windowNumber:0

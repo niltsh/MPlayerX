@@ -169,6 +169,7 @@
 	[root setBackgroundColor:col];
 	CGColorRelease(col);
 	
+	// 边框颜色
 	col = CGColorCreateGenericRGB(0.392, 0.643, 0.812, 0.75);
 	[root setBorderColor:col];
 	CGColorRelease(col);
@@ -176,6 +177,7 @@
 	// 自动尺寸适应
 	[root setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
 
+	// 图标设定
 	logo = [[NSBitmapImageRep alloc] initWithCIImage:
 			[CIImage imageWithContentsOfURL:
 			 [[[NSBundle mainBundle] resourceURL] URLByAppendingPathComponent:@"logo.png"]]];
@@ -324,9 +326,9 @@
 				CGSize sz = dispLayer.bounds.size;
 				
 				if (ShiftKeyPressed) {
-					if (fabsf(delta.x) > fabsf(4 * delta.y)) {
+					if (fabsf(delta.x) > fabsf(8 * delta.y)) {
 						delta.y = 0;
-					} else if (fabsf(4 * delta.x) < fabsf(delta.y)) {
+					} else if (fabsf(8 * delta.x) < fabsf(delta.y)) {
 						delta.x = 0;
 					} else {
 						// if use shift to drag the area, only X or only Y are accepted
@@ -528,7 +530,7 @@
 
 -(void) moveFrameToCenter
 {
-	[dispLayer setPositoinOffsetRatio:CGPointMake(0, 0)];
+	[dispLayer setPositoinOffsetRatio:CGPointZero];
 	if ([playerController playerState] == kMPCPausedState) {
 		[dispLayer setNeedsDisplay];
 	}
@@ -901,7 +903,6 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			[self exitFullScreenModeWithOptions:fullScreenOptions];
 			[dispLayer enablePositionOffset:NO];
 			[dispLayer enableScale:NO];
-			[dispLayer setNeedsDisplay];
 			
 			if (displaying) {
 				// 如果选定了CloseWindowWhenStopped的话
@@ -910,16 +911,15 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 				[playerWindow makeKeyAndOrderFront:self];
 			}
 
+			// 这里会强制强制刷新dispLayer
 			[dispLayer forceAdjustToFitBounds:YES];
-			[playerWindow setFrame:[playerWindow frameRectForContentRect:rc] display:YES animate:YES];
+			// 如果没有displaying，那么就不需要动画了
+			[playerWindow setFrame:[playerWindow frameRectForContentRect:rc] display:YES animate:displaying];
 			[dispLayer forceAdjustToFitBounds:NO];
+			
 			// 当进入全屏的时候，回强制锁定ar
 			// 当出了全屏，更新了window的size之后，在这里需要再一次设定window的ar
-			[playerWindow setContentAspectRatio:rc.size];			
-
-			if ([playerController playerState] == kMPCPausedState) {
-				[dispLayer setNeedsDisplay];
-			}
+			[playerWindow setContentAspectRatio:rc.size];
 		} else {
 			[self exitFullScreenModeWithOptions:fullScreenOptions];
 
@@ -1003,6 +1003,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		[controlUI setFillScreenMode:(((sz.height * [dispLayer aspectRatio]) >= sz.width)?kFillScreenButtonImageUBKey:kFillScreenButtonImageLRKey)
 							   state:([dispLayer fillScreen])?NSOnState:NSOffState];
 	} else {
+		// 强制渲染一次
 		[dispLayer forceAdjustToFitBounds:YES];
 		[dispLayer setNeedsDisplay];
 		[dispLayer forceAdjustToFitBounds:NO];
@@ -1188,6 +1189,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		// 并且dispLayer是根据窗口大小自动变化的，这样会导致dispLayer比窗口小，并且AR不对
 		[dispLayer setExternalAspectRatio:kDisplayAscpectRatioInvalid display:NO];
 		// 如果没有在全屏
+		// 这个函数里面会强制渲染dispLayer，所以之后不用再强制渲染
 		sizeVal = [self adjustWindowCoordinateTo:sizeVal];
 
 		[playerWindow setContentAspectRatio:sizeVal];
@@ -1208,6 +1210,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	
 	rc = [playerWindow frameRectForContentRect:rc];
 	
+	// 强制渲染
 	[dispLayer forceAdjustToFitBounds:YES];
 	[playerWindow setFrame:rc display:YES animate:YES];
 	[dispLayer forceAdjustToFitBounds:NO];

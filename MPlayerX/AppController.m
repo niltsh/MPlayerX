@@ -317,32 +317,39 @@ static BOOL init_ed = NO;
 /////////////////////////////////////Application Delegate//////////////////////////////////////
 -(BOOL) application:(NSApplication *)theApplication openFile:(NSString *)filename
 {
-	BOOL isDir = NO;
-	[[NSFileManager defaultManager] fileExistsAtPath:filename isDirectory:&isDir];
+	BOOL isDir = NO, ret = NO;
 	
-	if (isDir) {
-		[playerController setPlayDisk:kPMPlayDiskDVD];
-		[playerController loadFiles:[NSArray arrayWithObject:filename] fromLocal:YES];
-		[playerController setPlayDisk:kPMPlayDiskNone];
-	} else {
-		[playerController loadFiles:[NSArray arrayWithObject:filename] fromLocal:YES];
+	// 这里判断文件是否存在，是为了给command line arguments做准备
+	if ([[NSFileManager defaultManager] fileExistsAtPath:filename isDirectory:&isDir]) {
+		if (isDir) {
+			[playerController setPlayDisk:kPMPlayDiskDVD];
+			[playerController loadFiles:[NSArray arrayWithObject:filename] fromLocal:YES];
+			[playerController setPlayDisk:kPMPlayDiskNone];
+		} else {
+			[playerController loadFiles:[NSArray arrayWithObject:filename] fromLocal:YES];
+		}
+		ret = YES;
 	}
-	return YES;
+	return ret;
 }
 
 -(void) application:(NSApplication *)theApplication openFiles:(NSArray *)filenames
 {
 	BOOL isDir = NO;
-	[[NSFileManager defaultManager] fileExistsAtPath:[filenames objectAtIndex:0] isDirectory:&isDir];
+	NSApplicationDelegateReply reply = NSApplicationDelegateReplyFailure;
 	
-	if (isDir) {
-		[playerController setPlayDisk:kPMPlayDiskDVD];
-		[playerController loadFiles:filenames fromLocal:YES];
-		[playerController setPlayDisk:kPMPlayDiskNone];
-	} else {
-		[playerController loadFiles:filenames fromLocal:YES];
+	// 这里判断文件是否存在，是为了给command line arguments做准备
+	if ([[NSFileManager defaultManager] fileExistsAtPath:[filenames objectAtIndex:0] isDirectory:&isDir]) {
+		if (isDir) {
+			[playerController setPlayDisk:kPMPlayDiskDVD];
+			[playerController loadFiles:filenames fromLocal:YES];
+			[playerController setPlayDisk:kPMPlayDiskNone];
+		} else {
+			[playerController loadFiles:filenames fromLocal:YES];
+		}
+		reply = NSApplicationDelegateReplySuccess;
 	}
-	[theApplication replyToOpenOrPrint:NSApplicationDelegateReplySuccess];
+	[theApplication replyToOpenOrPrint:reply];
 }
 
 -(NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender
@@ -351,11 +358,10 @@ static BOOL init_ed = NO;
 	
 	[ud synchronize];
 
-	NSString *lastStoppedTimePath = [[NSFileManager applicationSupportPathWithSuffix:kMPCStringMPlayerX] stringByAppendingPathComponent:kMPCFMTBookmarkPath];
-
 	[openUrlController syncToBookmark:bookmarks];
 	
-	[bookmarks writeToFile:lastStoppedTimePath atomically:YES];
+	[bookmarks writeToFile:[[NSFileManager applicationSupportPathWithSuffix:kMPCStringMPlayerX] stringByAppendingPathComponent:kMPCFMTBookmarkPath]
+				atomically:YES];
 	
 	// 先不起用监听功能
 	// [[AODetector defaultDetector] stopListening];
