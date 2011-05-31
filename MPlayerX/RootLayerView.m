@@ -903,7 +903,12 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			[dispLayer enableScale:NO];
 			[dispLayer setNeedsDisplay];
 			
-			[playerWindow makeKeyAndOrderFront:self];
+			if (displaying) {
+				// 如果选定了CloseWindowWhenStopped的话
+				// 播放完毕退出全屏会在这里显示窗口，然后退出到ControlUIView里面在关闭窗口
+				// 出现窗口闪动，因此只有当在diplaying的时候才主动显示窗口
+				[playerWindow makeKeyAndOrderFront:self];
+			}
 
 			[playerWindow setFrame:[playerWindow frameRectForContentRect:rc] display:YES animate:YES];
 			// 当进入全屏的时候，回强制锁定ar
@@ -925,7 +930,12 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 				[dispLayer setNeedsDisplay];
 			}
 			
-			[playerWindow makeKeyAndOrderFront:self];
+			if (displaying) {
+				// 如果选定了CloseWindowWhenStopped的话
+				// 播放完毕退出全屏会在这里显示窗口，然后退出到ControlUIView里面在关闭窗口
+				// 出现窗口闪动，因此只有当在diplaying的时候才主动显示窗口
+				[playerWindow makeKeyAndOrderFront:self];
+			}
 		}
 		[playerWindow makeFirstResponder:self];
 

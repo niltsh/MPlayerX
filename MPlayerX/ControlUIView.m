@@ -1304,6 +1304,10 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	if ([ud boolForKey:kUDKeyCloseWindowWhenStopped]) {
 		// 这里不能用close方法，因为如果用close的话会激发wiindowWillClose方法
 		[[dispView window] orderOut:self];
+	} else {
+		// 这个时候，如果是从全屏退出来的，那么就不会显示窗口
+		// 需要强制显示窗口
+		[[dispView window] makeKeyAndOrderFront:nil];
 	}
 	
 	// 播放全部结束，将渲染区放回中心
