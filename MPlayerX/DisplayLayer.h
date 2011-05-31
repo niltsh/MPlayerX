@@ -56,6 +56,7 @@
 @property (readwrite, assign) BOOL fillScreen;
 @property (readwrite, assign) BOOL mirror;
 @property (readwrite, assign) BOOL flip;
+@property (readwrite, assign, setter = forceAdjustToFitBounds:) BOOL refitBounds;
 
 -(NSSize) displaySize;
 -(CGFloat) aspectRatio;
@@ -74,7 +75,4 @@
 -(void) enableScale:(BOOL)en;
 -(void) setScaleRatio:(CGSize) ratio;
 -(CGSize) scaleRatio;
-
--(void) adujustToFitBounds;
-
 @end

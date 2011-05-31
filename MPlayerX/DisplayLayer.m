@@ -30,6 +30,7 @@
 
 @synthesize mirror;
 @synthesize flip;
+@synthesize refitBounds;
 
 //////////////////////////////////////Init/Dealloc/////////////////////////////////////
 - (id) init
@@ -65,7 +66,7 @@
 		flagAspectRatioChanged = YES;
 		flagPositionOffsetChanged = YES;
 		flagScaleChanged = YES;
-		refitBounds = YES;
+		refitBounds = NO;
 		
 		mirror = NO;
 		flip = NO;
@@ -145,11 +146,6 @@
 {
 	positionOffset = offset;
 	flagPositionOffsetChanged = YES;
-}
-
--(void) adujustToFitBounds
-{
-	refitBounds = YES;
 }
 
 -(void) enableScale:(BOOL)en
@@ -378,7 +374,6 @@
 		flagAspectRatioChanged = NO;
 		flagFillScrnChanged = NO;
 		flagScaleChanged = NO;
-		refitBounds = NO;
 	}
 	
 	if (flagPositionOffsetChanged) {
