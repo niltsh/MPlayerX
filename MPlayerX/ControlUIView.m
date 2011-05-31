@@ -1302,7 +1302,8 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[self toggleFillScreen:nil];
 	
 	if ([ud boolForKey:kUDKeyCloseWindowWhenStopped]) {
-		[dispView closePlayerWindow];
+		// 这里不能用close方法，因为如果用close的话会激发wiindowWillClose方法
+		[[dispView window] orderOut:self];
 	}
 	
 	// 播放全部结束，将渲染区放回中心

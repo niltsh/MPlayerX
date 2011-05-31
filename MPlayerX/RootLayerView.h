@@ -67,7 +67,6 @@
 
 -(void) resetAspectRatio;
 -(void) setPlayerWindowLevel;
--(void) closePlayerWindow;
 
 -(BOOL) toggleFullScreen;
 -(BOOL) toggleFillScreen;

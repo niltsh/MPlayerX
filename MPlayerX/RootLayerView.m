@@ -235,12 +235,6 @@
 						name:NSApplicationDidResignActiveNotification object:NSApp];
 }
 
--(void) closePlayerWindow
-{
-	// 这里不能用close方法，因为如果用close的话会激发wiindowWillClose方法
-	[playerWindow orderOut:self];
-}
-
 -(void) playBackStopped:(NSNotification*)notif
 {
 	firstDisplay = YES;
@@ -375,7 +369,7 @@
 					
 					winRC.origin.y -= (winRC.size.height - [[playerWindow contentView] bounds].size.height);
 					
-					[playerWindow setFrame:[playerWindow frameRectForContentRect:winRC] display:YES];
+					[playerWindow setFrame:[playerWindow frameRectForContentRect:winRC] display:YES animate:NO];
 					// MPLog(@"should resize");
 				} else {
 					NSRect winFrm = [playerWindow frame];
@@ -412,7 +406,7 @@
 				break;
 			 */
 			case 0:
-				[controlUI performKeyEquivalent:[NSEvent makeKeyDownEvent:kSCMFullScrnKeyEquivalent modifierFlags:kSCMFullscreenKeyEquivalentModifierFlagMask]];
+				[controlUI toggleFullScreen:nil];
 				break;
 			default:
 				break;
@@ -692,7 +686,7 @@
 			
 			rc = [playerWindow frameRectForContentRect:rc];
 			
-			[playerWindow setFrame:rc display:YES];
+			[playerWindow setFrame:rc display:YES animate:NO];
 		}
 	}
 }
@@ -791,9 +785,8 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			if (((![self isInFullScreenMode]) && (dist > threeFingersPinchDistance * thresh)) ||
 				(( [self isInFullScreenMode]) && (dist * thresh < threeFingersPinchDistance))){
 				// toggle fullscreen
-				[controlUI performKeyEquivalent:[NSEvent makeKeyDownEvent:kSCMFullScrnKeyEquivalent
-															modifierFlags:kSCMFullscreenKeyEquivalentModifierFlagMask]];
 				threeFingersPinch = kThreeFingersPinchInit;
+				[controlUI toggleFullScreen:nil];
 			}
 		}
 	}
@@ -926,7 +919,6 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			[self exitFullScreenModeWithOptions:fullScreenOptions];
 
 			// 推出全屏，重新根据现在的尺寸比例渲染图像
-			[dispLayer adujustToFitBounds];
 			[dispLayer enablePositionOffset:NO];
 			[dispLayer enableScale:NO];
 			if ([playerController playerState] == kMPCPausedState) {
@@ -980,7 +972,6 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		[self enterFullScreenMode:chosenScreen withOptions:fullScreenOptions];
 
 		// 推出全屏，重新根据现在的尺寸比例渲染图像
-		[dispLayer adujustToFitBounds];
 		[dispLayer enablePositionOffset:YES];
 		[dispLayer enableScale:YES];
 		// 暂停的时候能够正确显示
@@ -1147,7 +1138,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		[controlUI displayStarted];
 		
 		if ([ud boolForKey:kUDKeyStartByFullScreen] && (![self isInFullScreenMode])) {
-			[controlUI performKeyEquivalent:[NSEvent makeKeyDownEvent:kSCMFullScrnKeyEquivalent modifierFlags:kSCMFullscreenKeyEquivalentModifierFlagMask]];
+			[controlUI toggleFullScreen:nil];
 		}
 	} else {
 		[controlUI displayStarted];
