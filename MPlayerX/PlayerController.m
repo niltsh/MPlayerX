@@ -952,7 +952,7 @@ static BOOL isNetworkPath(const char *path)
 		
 		[notifCenter postNotificationName:kMPCPlayFinalizedNotification object:self userInfo:nil];
 		
-		if ([ud boolForKey:kUDKeyQuitOnClose] && (!stoppedByForce)) {
+		if ([ud boolForKey:kUDKeyQuitOnClose] && (!stoppedByForce) && [ud boolForKey:kUDKeyCloseWindowWhenStopped]) {
 			[NSApp terminate:nil];
 		}	
 	}
