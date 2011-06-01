@@ -900,10 +900,12 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			rc.origin.x = MAX(screenRc.origin.x, MIN(rc.origin.x, screenRc.origin.x + screenRc.size.width - rc.size.width));
 			rc.origin.y = MAX(screenRc.origin.y, MIN(rc.origin.y, screenRc.origin.y + screenRc.size.height- rc.size.height));
 			
+			if (displaying) {
+				[playerWindow orderWindow:NSWindowBelow relativeTo:[[self window] windowNumber]];
+			}
 			[self exitFullScreenModeWithOptions:fullScreenOptions];
 			[dispLayer enablePositionOffset:NO];
 			[dispLayer enableScale:NO];
-			
 			if (displaying) {
 				// 如果选定了CloseWindowWhenStopped的话
 				// 播放完毕退出全屏会在这里显示窗口，然后退出到ControlUIView里面在关闭窗口
