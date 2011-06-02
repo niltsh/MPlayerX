@@ -97,6 +97,7 @@ NSString * const kUDKeyCloseWndOnEsc						= @"CloseWndOnEsc";
 NSString * const kUDKeyPlayWhenEnterFullScrn				= @"PlayWhenEnterFullScrn";
 NSString * const kUDKeySupportAppleRemote					= @"SupportAppleRemote";
 NSString * const kUDKeyAutoDetectSPDIF						= @"AutoDetectSPDIF";
+NSString * const kUDKeyAssSubMarginV						= @"AssSubMarginV";
 
 NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";

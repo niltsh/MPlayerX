@@ -114,6 +114,7 @@ typedef enum {
 #define kMPCStateMask		(0x0100)
 
 #define kPMSubBorderWidthDefault	(2)
+#define kPMAssSubMarginVDefault		(4)
 
 #define kPMPlayDiskNone		(0)
 #define kPMPlayDiskDVD		(1)

@@ -101,9 +101,8 @@ NSString * const kPMSubParPPFilter			= @"pp=";
 
 NSString * const kPMSlash					= @"/";
 
-NSString * const kPMValAssForceStylePrefix	= @"BorderStyle=1,MarginV=2";
+NSString * const kPMValAssForceStylePrefixMarginVOutline	= @"BorderStyle=1,MarginV=%d,Outline=%d";
 NSString * const kPMValFmtAssSubAlginment	= @",Alignment=%d";
-NSString * const kPMValFmtAssSubBorderWidth = @",Outline=%d";
 
 NSString * const kPMParSubID				= @"-subid";
 NSString * const kPMParDVDProto				= @"dvd://";
@@ -148,6 +147,7 @@ NSString * const kPMParDVDDevice			= @"-dvd-device";
 @synthesize subBorderWidth;
 @synthesize noDispSub;
 @synthesize playDisk;
+@synthesize assSubMarginV;
 
 #pragma mark Init/Dealloc
 -(id) init
@@ -168,6 +168,7 @@ NSString * const kPMParDVDDevice			= @"-dvd-device";
 		assEnabled = YES;
 		frontColor = 0xFFFFFF00; //RRGGBBAA
 		borderColor = 0x0000000F; //RRGGBBAA
+		assSubMarginV = kPMAssSubMarginVDefault;
 		
 		prefer64bMPlayer = YES;
 		guessSubCP = YES;
@@ -381,7 +382,7 @@ NSString * const kPMParDVDDevice			= @"-dvd-device";
 		
 		subBorderWidth = MIN(kPMSubBorderWidthMax, subBorderWidth);
 		
-		otherStyles = [kPMValAssForceStylePrefix stringByAppendingFormat:kPMValFmtAssSubBorderWidth, subBorderWidth];
+		otherStyles = [NSString stringWithFormat:kPMValAssForceStylePrefixMarginVOutline, assSubMarginV, subBorderWidth];
 		
 		if (subAlign != kPMSubAlignDefault) {
 			otherStyles = [otherStyles stringByAppendingFormat:kPMValFmtAssSubAlginment, subAlign];

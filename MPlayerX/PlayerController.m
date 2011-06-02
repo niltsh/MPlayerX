@@ -130,6 +130,7 @@ enum {
 					   @"", kUDKeyExtraOptions,
 					   [NSNumber numberWithUnsignedInt:kPMSubAlignDefault], kUDKeySubAlign,
 					   [NSNumber numberWithUnsignedInt:kPMSubBorderWidthDefault], kUDKeySubBorderWidth,
+					   [NSNumber numberWithUnsignedInt:kPMAssSubMarginVDefault], kUDKeyAssSubMarginV,
 					   boolNo, kUDKeyNoDispSub,
 					   boolYes, kUDKeyAutoDetectSPDIF,
 					   nil]];	
@@ -481,6 +482,7 @@ static BOOL isNetworkPath(const char *path)
 	[mplayer.pm setExtraOptions:[ud stringForKey:kUDKeyExtraOptions]];
 	[mplayer.pm setSubAlign:[ud integerForKey:kUDKeySubAlign]];
 	[mplayer.pm setSubBorderWidth:[ud integerForKey:kUDKeySubBorderWidth]];
+	[mplayer.pm setAssSubMarginV:[ud integerForKey:kUDKeyAssSubMarginV]];
 	
 	if (autoPlayState == kMPCAutoPlayStateJustFound) {
 		// when APN, do not pause at start

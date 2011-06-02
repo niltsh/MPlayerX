@@ -34,6 +34,7 @@
 	uint32 frontColor;
 	uint32 borderColor;
 	BOOL assEnabled;
+	NSInteger assSubMarginV;
 
 	// unsigned char autoSync;
 	BOOL frameDrop;
@@ -107,7 +108,8 @@
 @property (retain, readwrite) NSArray *equalizer;
 @property (assign, readwrite) unsigned int subBorderWidth;
 @property (assign, readwrite) BOOL noDispSub;
-@property (assign, readwrite) NSInteger playDisk; 
+@property (assign, readwrite) NSInteger playDisk;
+@property (assign, readwrite) NSInteger assSubMarginV; 
 
 -(void) setSubFontColor:(NSColor*)col;
 -(void) setSubFontBorderColor:(NSColor*)col;
