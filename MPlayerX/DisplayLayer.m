@@ -112,12 +112,27 @@
 	return kDisplayAscpectRatioInvalid;
 }
 
--(void) setExternalAspectRatio:(CGFloat)ar display:(BOOL)disp
+-(CGFloat) originalAspectRatio
+{
+	return fmt.aspect;
+}
+
+-(CGFloat) externalAspectRatio
+{
+	return externalAspectRatio;
+}
+
+-(void) setExternalAspectRatio:(CGFloat)ar
 {
 	externalAspectRatio = (ar>0)?(ar):(kDisplayAscpectRatioInvalid);
-	if (disp) {
-		flagAspectRatioChanged = YES;
-	}
+	flagAspectRatioChanged = YES;
+}
+
+-(void) updateCoordinate
+{
+	refitBounds = YES;
+	[self setNeedsDisplay];
+	refitBounds = NO;
 }
 
 -(BOOL) fillScreen
@@ -228,6 +243,11 @@
 		memset(&fmt, 0, sizeof(fmt));
 		fmt.aspect = kDisplayAscpectRatioInvalid;
 		flagAspectRatioChanged = YES;
+		
+		// 这里不能清除externalAspectRatio
+		// 因为有可能在一次播放过程中出现多次start，stop
+		// 用户强制设定了externalAspectRaio的时候，即使多次start，stop也不应该重置externalAspectRatio
+		// 因此应该在外部重置
 
 		[self setNeedsDisplay];
 	}

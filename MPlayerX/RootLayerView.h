@@ -41,6 +41,7 @@
 	CGDirectDisplayID fullScrnDevID;
 	
 	BOOL lockAspectRatio;
+	CGFloat frameAspectRatio;
 	
 	NSPoint dragMousePos;
 	BOOL dragShouldResize;

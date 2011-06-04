@@ -1312,10 +1312,6 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 		// 需要强制显示窗口
 		[[dispView window] makeKeyAndOrderFront:nil];
 	}
-	
-	// 播放全部结束，将渲染区放回中心
-	[dispView moveFrameToCenter];
-	[dispView resetFrameScaleRatio];
 }
 
 -(void) playInfoUpdated:(NSNotification*)notif

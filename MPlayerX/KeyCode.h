@@ -120,3 +120,5 @@ extern NSString * const kSCMWindowZoomDblSizeKeyEquivalent;
 extern NSString * const kSCMWindowFitToScreenKeyEquivalent;
 #define kSCMWindowFitToScreenKeyEquivalentModifierFlagMask		(NSCommandKeyMask)
 
+#define kSCMRotateKeyEquivalentModifierFlagMask					(NSAlternateKeyMask)
+
