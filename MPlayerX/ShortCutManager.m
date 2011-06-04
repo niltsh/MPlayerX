@@ -269,6 +269,11 @@
 				{
 				NSAppleScript *sleepScript = [[NSAppleScript alloc] initWithSource:@"do shell script \"pmset sleepnow\""];
 				NSDictionary *err;
+				
+				// 如果正在播放就先暂停
+				if ([playerController playerState] == kMPCPlayingState) {
+					[controlUI togglePlayPause:nil];
+				}
 				[sleepScript executeAndReturnError:&err];
 				[sleepScript release];
 				}
