@@ -678,32 +678,35 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 				switch (lb) {
 					case kPMLetterBoxModeBoth:
 						margin = ((scrnSize.height * (1 + height * 2) * [dispView aspectRatio] / scrnSize.width) - 1) / 2;
-						// NSLog(@"SRN:%f,%f, AR:%f, MH:%f, MRG:%f", scrnSize.width, scrnSize.height, [dispView aspectRatio], [dispView displaySize].height, margin);
+						// MPLog(@"SRN:%f,%f, AR:%f, MH:%f, MRG:%f", scrnSize.width, scrnSize.height, [dispView aspectRatio], [dispView displaySize].height, margin);
+						MPLog(@"AutoLBH, AR:%f, margin:%f", [dispView aspectRatio], margin);
 						if (margin > 0) {
 							[playerController setLetterBox:YES top:margin bottom:margin];
-							[playerController changeTimeBy:0.01f];
+							// [playerController changeTimeBy:0.01f];
 						}
 						break;
 					case kPMLetterBoxModeBottomOnly:
 						margin = ((scrnSize.height * (1 + height) * [dispView aspectRatio] / scrnSize.width) - 1);
 						// NSLog(@"SRN:%f,%f, AR:%f, MH:%f, MRG:%f", scrnSize.width, scrnSize.height, [dispView aspectRatio], [dispView displaySize].height, margin);
+						MPLog(@"AutoLBH, AR:%f, margin:%f", [dispView aspectRatio], margin);
 						if (margin > 0) {
 							[playerController setLetterBox:YES top:-1.0f bottom:margin];
-							[playerController changeTimeBy:0.01f];
+							// [playerController changeTimeBy:0.01f];
 						}
 						break;
 					case kPMLetterBoxModeTopOnly:
 						margin = ((scrnSize.height * (1 + height) * [dispView aspectRatio] / scrnSize.width) - 1);
 						// NSLog(@"SRN:%f,%f, AR:%f, MH:%f, MRG:%f", scrnSize.width, scrnSize.height, [dispView aspectRatio], [dispView displaySize].height, margin);
+						MPLog(@"AutoLBH, AR:%f, margin:%f", [dispView aspectRatio], margin);
 						if (margin > 0) {
 							[playerController setLetterBox:YES top:margin bottom:-1.0f];
-							[playerController changeTimeBy:0.01f];
+							// [playerController changeTimeBy:0.01f];
 						}
 						break;
 					default:		
 						margin = ((scrnSize.height * [dispView aspectRatio] / scrnSize.width) - 1);
 						// NSLog(@"SRN:%f,%f, AR:%f, MH:%f, MRG:%f", scrnSize.width, scrnSize.height, [dispView aspectRatio], [dispView displaySize].height, margin);
-						
+						MPLog(@"AutoLBH, AR:%f, margin:%f", [dispView aspectRatio], margin);
 						if (margin > 0) {
 							NSInteger lbAlt = [ud integerForKey:kUDKeyLetterBoxModeAlt];
 							
@@ -711,15 +714,15 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 								case kPMLetterBoxModeBoth:
 									margin /= 2;
 									[playerController setLetterBox:YES top:margin bottom:margin];
-									[playerController changeTimeBy:0.01f];
+									// [playerController changeTimeBy:0.01f];
 									break;
 								case kPMLetterBoxModeBottomOnly:
 									[playerController setLetterBox:YES top:-1.0f bottom:margin];
-									[playerController changeTimeBy:0.01f];
+									// [playerController changeTimeBy:0.01f];
 									break;
 								case kPMLetterBoxModeTopOnly:
 									[playerController setLetterBox:YES top:margin bottom:-1.0f];
-									[playerController changeTimeBy:0.01f];
+									// [playerController changeTimeBy:0.01f];
 									break;
 								default:
 									break;
@@ -1112,7 +1115,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			[playerController setLetterBox:NO top:-1.0f bottom:-1.0f];
 			break;
 	}
-	[playerController changeTimeBy:0.01f];
+	// [playerController changeTimeBy:0.01f];
 }
 
 -(IBAction) stepWindowSize:(id)sender
