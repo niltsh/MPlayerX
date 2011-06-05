@@ -944,6 +944,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		if ([self isInFullScreenMode]) {
 			[self setExternalAspectRatio:ar];
 			[self updateFrameForFullScreen];
+			newFrame = rcBeforeFullScrn;
 		} else {
 			newFrame = [self calculateFrameFrom:[[self window] frame] toFit:ar mode:kCalFrameFixPosCenter | kCalFrameSizeDiag];
 			[playerWindow setFrame:newFrame display:YES animate:YES];
