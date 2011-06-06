@@ -94,6 +94,7 @@ extern NSString * const kUDKeyPlayWhenEnterFullScrn;
 extern NSString * const kUDKeySupportAppleRemote;
 extern NSString * const kUDKeyAutoDetectSPDIF;
 extern NSString * const kUDKeyAssSubMarginV;
+extern NSString * const kUDKeyDontResizeWhenContinuousPlay;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;

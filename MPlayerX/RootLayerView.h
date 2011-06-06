@@ -47,6 +47,7 @@
 	BOOL dragShouldResize;
 	
 	BOOL firstDisplay;
+	BOOL playbackFinalized;
 	
 	NSInteger threeFingersTap;
 	NSInteger threeFingersPinch;

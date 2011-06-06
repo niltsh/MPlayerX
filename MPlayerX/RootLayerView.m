@@ -106,6 +106,7 @@
 					   [NSNumber numberWithFloat:1.5], kUDKeyThreeFingersPinchThreshRatio,
 					   [NSNumber numberWithFloat:1.8], kUDKeyFourFingersPinchThreshRatio,
 					   boolNo, kUDKeyCloseWndOnEsc,
+					   boolYes, kUDKeyDontResizeWhenContinuousPlay,
 					   nil]];
 }
 
@@ -136,6 +137,7 @@
 		frameAspectRatio = kDisplayAscpectRatioInvalid;
 		dragShouldResize = NO;
 		firstDisplay = YES;
+		playbackFinalized = YES;
 		
 		threeFingersTap = kThreeFingersTapInit;
 		threeFingersPinch = kThreeFingersPinchInit;
@@ -253,6 +255,7 @@
 
 -(void) playeBackFinalized:(NSNotification*)notif
 {
+	playbackFinalized = YES;
 	// 全部的播放完成，这个时候resetAspectRatio
 	[self setExternalAspectRatio:kDisplayAscpectRatioInvalid];
 	
@@ -264,6 +267,7 @@
 -(void) playBackStopped:(NSNotification*)notif
 {
 	firstDisplay = YES;
+	playbackFinalized = NO;
 	[self setPlayerWindowLevel];
 	[playerWindow setTitle:kMPCStringMPlayerX];
 	[[self layer] setContents:(id)[logo CGImage]];
@@ -1255,7 +1259,15 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		if ([self isInFullScreenMode]) {
 			[self updateFrameForFullScreen];
 		} else {
-			[self zoomToSize:1];
+			if ((![ud boolForKey:kUDKeyDontResizeWhenContinuousPlay]) || playbackFinalized) {
+				// 如果强制resize，或者 不是连续播放，就resize到原始尺寸
+				[self zoomToSize:1];
+			} else {
+				// 这里需要调整AR
+				// 如果设定了外部强制AR，那么就根据这个AR设定窗口
+				// 如果没有设定AR，就将AR归为原始AR
+				[self setAspectRatio:[dispLayer externalAspectRatio]];
+			}
 			
 			[playerWindow setContentAspectRatio:[self bounds].size];
 			
