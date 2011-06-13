@@ -52,7 +52,7 @@
 
 		// [self setMasksToBounds:YES];
 		[self setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
-		[self setDoubleSided:NO];
+		// [self setDoubleSided:NO];
 		[self setAsynchronous:NO];
 		// The layer could not be Opaque, since it wil cover
 		// the root layer for logo display
@@ -254,29 +254,6 @@
 }
 
 //////////////////////////////////////OpenGLLayer inherent/////////////////////////////////////
--(CGLPixelFormatObj) copyCGLPixelFormatForDisplayMask:(uint32_t)mask
-{
-	CGLPixelFormatObj px = NULL;
-	GLint i;
-
-	NSOpenGLPixelFormatAttribute attribs[] = {
-        kCGLPFADoubleBuffer,
-        kCGLPFAAccelerated,
-        kCGLPFANoRecovery,
-        kCGLPFAColorSize, 24,
-        kCGLPFAAlphaSize, 8,
-        kCGLPFADepthSize, 24,
-        kCGLPFAWindow,
-		kCGLPFADisplayMask, mask,
-        0 };
-	
-	if (!((CGLChoosePixelFormat(attribs, &px, &i) == kCGLNoError) && px)) {
-		MPLog(@"can't choose my pf");
-		px = [super copyCGLPixelFormatForDisplayMask:mask];
-	}
-	return px;
-}
-
 -(CGLContextObj) copyCGLContextForPixelFormat:(CGLPixelFormatObj)pf
 {
 	GLint i = 1;
