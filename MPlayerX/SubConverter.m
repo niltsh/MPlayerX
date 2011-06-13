@@ -161,6 +161,16 @@ NSString * const kWorkDirSubDir = @"Subs";
 				
 				subFileOld = [NSString stringWithContentsOfFile:subPathOld encoding:ne error:NULL];
 				
+				if (!subFileOld) {
+					// 如果没有成功打开，有可能是编码指定有一些问题
+					if (ce == kCFStringEncodingBig5) {
+						// 如果是Big5的话，就再试试HKSCS看看
+						ne = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingBig5_HKSCS_1999);
+						subFileOld = [NSString stringWithContentsOfFile:subPathOld encoding:ne error:NULL];
+					} else {
+					}
+				}
+				
 				if (subFileOld) {
 					// 成功读出文件
 					// 因为UCD也有猜错的时候，这个时候就直接拷贝文件了
