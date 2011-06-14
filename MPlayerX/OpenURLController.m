@@ -26,6 +26,7 @@
 NSString * const kBookmarkURLKey	= @"Bookmark:URL";
 
 NSString * const kStringURLSchemaHttp	= @"http";
+NSString * const kStringURLSchemaHttps	= @"https";
 NSString * const kStringURLSchemaFtp	= @"ftp";
 NSString * const kStringURLSchemaMms	= @"mms";
 NSString * const kStringURLSchemaRtsp	= @"rtsp";
@@ -105,8 +106,10 @@ NSString * const kStringURLSchemaRtsp	= @"rtsp";
 
 	NSString *scheme = [[url scheme] lowercaseString];
 	
-	if (scheme && ([scheme isEqualToString:kStringURLSchemaHttp] || [scheme isEqualToString:kStringURLSchemaFtp] || 
-				   [scheme isEqualToString:kStringURLSchemaRtsp] || [scheme isEqualToString:kStringURLSchemaMms])) {
+	if (scheme && 
+		([scheme isEqualToString:kStringURLSchemaHttp] || [scheme isEqualToString:kStringURLSchemaFtp] || 
+		 [scheme isEqualToString:kStringURLSchemaRtsp] || [scheme isEqualToString:kStringURLSchemaMms] ||
+		 [scheme isEqualToString:kStringURLSchemaHttps])) {
 		// 先修正URL
 		[urlBox setStringValue:[[url standardizedURL] absoluteString]];
 		// 退出Modal模式
