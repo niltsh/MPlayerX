@@ -36,6 +36,7 @@
 #define kMITypeAudioGotID	(7)
 #define kMITypeVideoGotID	(8)
 
+
 NSString * const kMPCPlayStoppedByForceKey		= @"kMPCPlayStoppedByForceKey";
 NSString * const kMPCPlayStoppedTimeKey			= @"kMPCPlayStoppedTimeKey";
 
