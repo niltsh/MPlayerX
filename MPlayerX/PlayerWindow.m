@@ -44,6 +44,12 @@
 	[self setCollectionBehavior:NSWindowCollectionBehaviorManaged];
 
 	[self setContentMinSize:NSMakeSize(480, 360)];
+	
+	NSRect scrnRC = [[self screen] visibleFrame];
+	NSRect winRC  = [self frame];
+	scrnRC.origin.x += (scrnRC.size.width - winRC.size.width) / 2;
+	scrnRC.origin.y += (scrnRC.size.height-winRC.size.height) / 2;
+	[self setFrameOrigin:scrnRC.origin];
 }
 
 -(BOOL) canBecomeKeyWindow { return YES;}
