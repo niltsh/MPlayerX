@@ -222,11 +222,5 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>MPApplication</string>
-	<key>NSServices</key>
-	<array/>
-	<key>UTExportedTypeDeclarations</key>
-	<array/>
-	<key>UTImportedTypeDeclarations</key>
-	<array/>
 </dict>
 </plist>
