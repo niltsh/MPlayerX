@@ -42,7 +42,7 @@ NSString * const kSCMToggleLockAspectRatioKeyEquivalent	= @"r";
 
 NSString * const kSCMResetLockAspectRatioKeyEquivalent	= @"r";
 
-NSString * const kSCMVideoTunerPanelKeyEquivalent		= @"v";
+NSString * const kSCMVideoTunerPanelKeyEquivalent		= @"d";
 
 NSString * const kSCMToggleLetterBoxKeyEquivalent		= @"l";
 

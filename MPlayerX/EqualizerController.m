@@ -69,8 +69,7 @@
 {
 	if (!nibLoaded) {
 		[menuEQPanel setKeyEquivalent:kSCMEqualizerPanelKeyEquivalent];
-		[menuEQPanel setKeyEquivalentModifierMask:kSCMEqualizerPanelKeyEquivalentModifierFlagMask];
-		
+
 		if ([ud integerForKey:kUDKeyAutoSaveEQSettings] != kAutoSaveEQSettingsLifeUserDefaults) {
 			// 如果不是永远保存设置，那么就删除设置
 			[ud removeObjectForKey:kUDKeyEQSettings];

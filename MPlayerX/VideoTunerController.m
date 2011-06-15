@@ -106,8 +106,7 @@ NSString * const kCILayerHueAngleEnabledKeyPath		= @"filters.hueFilter.enabled";
 {
 	if (!nibLoaded) {
 		[menuVTPanel setKeyEquivalent:kSCMVideoTunerPanelKeyEquivalent];
-		[menuVTPanel setKeyEquivalentModifierMask:kSCMVideoTunerPanelKeyEquivalentModifierFlagMask];
-		
+
 		if ([ud integerForKey:kUDKeyAutoSaveVTSettings] != kAutoSaveVTSettingsLifeUserDefaults) {
 			[ud removeObjectForKey:kUDKeyVTSettings];
 		}

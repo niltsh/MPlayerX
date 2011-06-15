@@ -49,7 +49,6 @@ extern NSString * const kSCMResetLockAspectRatioKeyEquivalent;
 #define kSCMResetLockAspectRatioKeyEquivalentModifierFlagMask	(NSShiftKeyMask)
 
 extern NSString * const kSCMVideoTunerPanelKeyEquivalent;
-#define kSCMVideoTunerPanelKeyEquivalentModifierFlagMask		(NSControlKeyMask)
 
 extern NSString * const kSCMToggleLetterBoxKeyEquivalent;
 
@@ -78,7 +77,6 @@ extern NSString * const kSCMWindowSizeDecKeyEquivalent;
 extern NSString * const kSCMShowMediaInfoKeyEquivalent;
 
 extern NSString * const kSCMEqualizerPanelKeyEquivalent;
-#define kSCMEqualizerPanelKeyEquivalentModifierFlagMask		(NSControlKeyMask)
 
 #define kSCMMoveToTrashKeyEquivalent					(NSBackspaceCharacter)
 #define kSCMMoveToTrashKeyEquivalentModifierFlagMask	(NSCommandKeyMask)
