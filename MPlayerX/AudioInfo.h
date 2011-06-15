@@ -29,6 +29,7 @@
 	NSString *format;
 	int bitRate;
 	int sampleRate;
+	int sampleSize;
 	int channels;
 }
 @property(assign, readwrite) int ID;
@@ -38,6 +39,7 @@
 @property(retain, readwrite) NSString *format;
 @property(assign, readwrite) int bitRate;
 @property(assign, readwrite) int sampleRate;
+@property(assign, readwrite) int sampleSize;
 @property(assign, readwrite) int channels;
 
 /**
@@ -46,8 +48,9 @@
  * [1] Format
  * [2] BitRate
  * [3] SampleRate
- * [4] Number of channels
- * [5] Codec name
+ * [4] Bits per Sample
+ * [5] Number of channels
+ * [6] Codec name
  *
  * This definition is depended on the output of mplayer.
  * should de-coupling with mplayer

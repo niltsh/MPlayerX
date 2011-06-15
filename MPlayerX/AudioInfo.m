@@ -29,6 +29,7 @@
 @synthesize format;
 @synthesize bitRate;
 @synthesize sampleRate;
+@synthesize sampleSize;
 @synthesize channels;
 
 -(id) init
@@ -42,6 +43,7 @@
 		format = nil;
 		bitRate = 0;
 		sampleRate = 0;
+		sampleSize = 0;
 		channels = 0;
 	}
 	return self;
@@ -58,12 +60,13 @@
 
 -(void) setInfoDataWithArray:(NSArray*)arr
 {
-	if ([arr count] >= 6) {
+	if ([arr count] >= 7) {
 		[self setFormat:[arr objectAtIndex:1]];
 		[self setBitRate:[[arr objectAtIndex:2] intValue]];
 		[self setSampleRate:[[arr objectAtIndex:3] intValue]];
-		[self setChannels:[[arr objectAtIndex:4] intValue]];
-		[self setCodec:[arr objectAtIndex:5]];	
+		[self setSampleSize:[[arr objectAtIndex:4] intValue] * 8];
+		[self setChannels:[[arr objectAtIndex:5] intValue]];
+		[self setCodec:[arr objectAtIndex:6]];	
 	}	
 }
 

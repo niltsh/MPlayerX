@@ -263,12 +263,14 @@ static BOOL init_ed = NO;
 						[dispStr appendFormat:kMPXStringInfoAudioInfoNoBPS,
 						 format,
 						 ((float)[ai sampleRate])/1000.0f,
+						 [ai sampleSize],
 						 [ai channels]];						
 					} else {
 						[dispStr appendFormat:kMPXStringInfoAudioInfo,
 						 format,
 						 ((float)[ai bitRate])/1000.0f,
 						 ((float)[ai sampleRate])/1000.0f,
+						 [ai sampleSize],
 						 [ai channels]];						
 					}
 

@@ -69,10 +69,10 @@
 #define kMPXStringInfoTrackTrackText			(NSLocalizedString(@" tracks", @"Inspector Info"))
 
 #define kMPXStringInfoVideoInfoNoBPS			(NSLocalizedString(@"%@, %d×%d, %.1ffps\n", @"OSD hint media info"))
-#define kMPXStringInfoAudioInfoNoBPS			(NSLocalizedString(@"%@, %.1fkHz, %d channels", @"OSD hint media info"))
+#define kMPXStringInfoAudioInfoNoBPS			(NSLocalizedString(@"%@, %.1fkHz %dbit, %d channels", @"OSD hint media info"))
 
 #define kMPXStringInfoVideoInfo					(NSLocalizedString(@"%@, %.1fkbps, %d×%d, %.1ffps\n", @"OSD hint media info"))
-#define kMPXStringInfoAudioInfo					(NSLocalizedString(@"%@, %.1fkbps, %.1fkHz, %d channels", @"OSD hint media info"))
+#define kMPXStringInfoAudioInfo					(NSLocalizedString(@"%@, %.1fkbps, %.1fkHz %dbit, %d channels", @"OSD hint media info"))
 
 #define kMPXStringUseFFMpegHandleStream			(NSLocalizedString(@"⌘-OK: Use FFMpeg to handle the stream", @"OpenURL Panel"))
 #define kMPXStringUseMPlayerHandleStream		(NSLocalizedString(@"⌘-OK: Use MPlayer to handle the stream", @"OpenURL Panel"))
