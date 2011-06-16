@@ -99,6 +99,7 @@ NSString * const kUDKeySupportAppleRemote					= @"SupportAppleRemote";
 NSString * const kUDKeyAutoDetectSPDIF						= @"AutoDetectSPDIF";
 NSString * const kUDKeyAssSubMarginV						= @"AssSubMarginV";
 NSString * const kUDKeyDontResizeWhenContinuousPlay			= @"DontResizeWhenContinuousPlay";
+NSString * const kUDKeyEnableMediaKeyTap					= @"EnableMediaKeyTap";
 
 NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";

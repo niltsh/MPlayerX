@@ -78,6 +78,7 @@ static BOOL init_ed = NO;
 					   kSnapshotSaveDefaultPath, kUDKeySnapshotSavePath,
 					   @"NO", @"AppleMomentumScrollSupported",
 					   [SPMediaKeyTap defaultMediaKeyUserBundleIdentifiers], kMediaKeyUsingBundleIdentifiersDefaultsKey,
+					   [NSNumber numberWithBool:YES], kUDKeyEnableMediaKeyTap,
 					   nil]];
 
 	MPSetLogEnable([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyLogMode]);
@@ -130,6 +131,7 @@ static BOOL init_ed = NO;
 			// 如果文件不存在或者格式非法
 			bookmarks = [[NSMutableDictionary alloc] initWithCapacity:10];
 		}
+		keyTap = nil;
 	}
 	return self;
 }
@@ -149,7 +151,7 @@ static BOOL init_ed = NO;
 	[playableFormats release];
 	
 	[bookmarks release];
-	
+	[keyTap release];
 	sharedInstance = nil;
 	
 	[super dealloc];
@@ -354,6 +356,10 @@ static BOOL init_ed = NO;
 
 -(NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender
 {
+	if (keyTap) {
+		[keyTap stopWatchingMediaKeys];
+	}
+	
 	[playerController stop];
 	
 	[ud synchronize];
@@ -371,11 +377,13 @@ static BOOL init_ed = NO;
 
 -(void) applicationDidFinishLaunching:(NSNotification *)notification
 {
-	keyTap = [[SPMediaKeyTap alloc] initWithDelegate:self];
-	if ([SPMediaKeyTap usesGlobalMediaKeyTap]) {
-		[keyTap startWatchingMediaKeys];
-	} else {
-		MPLog(@"MediaKey monitoring Disabled.");
+	if ([ud boolForKey:kUDKeyEnableMediaKeyTap]) {
+		keyTap = [[SPMediaKeyTap alloc] initWithDelegate:self];
+		if ([SPMediaKeyTap usesGlobalMediaKeyTap]) {
+			[keyTap startWatchingMediaKeys];
+		} else {
+			MPLog(@"MediaKey monitoring Disabled.");
+		}
 	}
 	
 	// 开始监听AudioDevice

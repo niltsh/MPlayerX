@@ -95,6 +95,7 @@ extern NSString * const kUDKeySupportAppleRemote;
 extern NSString * const kUDKeyAutoDetectSPDIF;
 extern NSString * const kUDKeyAssSubMarginV;
 extern NSString * const kUDKeyDontResizeWhenContinuousPlay;
+extern NSString * const kUDKeyEnableMediaKeyTap;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;
