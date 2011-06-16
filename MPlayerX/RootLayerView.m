@@ -281,7 +281,9 @@
 		// if audio only
 		[[self layer] setContents:(id)[logo CGImage]];
 		[playerWindow setContentSize:[playerWindow contentMinSize]];
-		[playerWindow makeKeyAndOrderFront:nil];
+		if (![NSApp isHidden]) {
+			[playerWindow makeKeyAndOrderFront:nil];
+		}
 	} else {
 		// if has video
 		[[self layer] setContents:nil];
@@ -1274,7 +1276,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			if ([ud boolForKey:kUDKeyStartByFullScreen]) {
 				[controlUI toggleFullScreen:nil];
 			} else {
-				[playerWindow makeKeyAndOrderFront:self];
+				if (![NSApp isHidden]) {
+					[playerWindow makeKeyAndOrderFront:self];
+				}
 			}
 		}
 	} else {
