@@ -570,15 +570,21 @@ void MPSetLogEnable(BOOL en)
 	if (fontDesc) {
 		CFStringRef fontFamilyName;
 		CFURLRef fontURL;
+		CFNumberRef fontFormat;
+		uint32_t ffint;
 		
 		// get family name (localized)
 		fontFamilyName = CTFontDescriptorCopyLocalizedAttribute(fontDesc, kCTFontFamilyNameAttribute, NULL);
 		// get url
 		fontURL = CTFontDescriptorCopyAttribute(fontDesc, kCTFontURLAttribute);
-		
-		NSString *ext = [[(NSURL*)fontURL pathExtension] lowercaseString];
-		
-		if ([ext isEqualToString:@"ttf"] || [ext isEqualToString:@"ttc"] || [ext isEqualToString:@"otf"]) {
+		// font format
+		fontFormat = CTFontDescriptorCopyAttribute(fontDesc, kCTFontFormatAttribute);
+
+		CFNumberGetValue(fontFormat, kCFNumberSInt32Type, &ffint);
+
+		if ((ffint == kCTFontFormatOpenTypePostScript) ||
+			(ffint == kCTFontFormatOpenTypeTrueType) ||
+			(ffint == kCTFontFormatTrueType)) {
 			// only accept ttf and ttc
 			mItem = [[NSMenuItem alloc] init];
 			
@@ -594,6 +600,8 @@ void MPSetLogEnable(BOOL en)
 			[menuStr release];
 			CFRelease(menuFont);			
 		}
+		
+		CFRelease(fontFormat);
 		CFRelease(fontFamilyName);
 		CFRelease(fontURL);		
 		CFRelease(fontDesc);		
