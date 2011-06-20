@@ -107,6 +107,7 @@
 					   [NSNumber numberWithFloat:1.8], kUDKeyFourFingersPinchThreshRatio,
 					   boolNo, kUDKeyCloseWndOnEsc,
 					   boolYes, kUDKeyDontResizeWhenContinuousPlay,
+					   [NSNumber numberWithFloat:1.0], kUDKeyInitialFrameSizeRatio,
 					   nil]];
 }
 
@@ -1263,7 +1264,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		} else {
 			if ((![ud boolForKey:kUDKeyDontResizeWhenContinuousPlay]) || playbackFinalized) {
 				// 如果强制resize，或者 不是连续播放，就resize到原始尺寸
-				[self zoomToSize:1];
+				[self zoomToSize:[ud floatForKey:kUDKeyInitialFrameSizeRatio]];
 			} else {
 				// 这里需要调整AR
 				// 如果设定了外部强制AR，那么就根据这个AR设定窗口

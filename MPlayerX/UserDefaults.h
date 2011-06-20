@@ -97,6 +97,7 @@ extern NSString * const kUDKeyAssSubMarginV;
 extern NSString * const kUDKeyDontResizeWhenContinuousPlay;
 extern NSString * const kUDKeyEnableMediaKeyTap;
 extern NSString * const kUDKeyResizeControlBar;
+extern NSString * const kUDKeyInitialFrameSizeRatio;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;
