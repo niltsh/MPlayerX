@@ -103,6 +103,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 					   [NSNumber numberWithFloat:0.001], kUDKeyFrameScaleStep,
 					   boolNo, kUDKeyLBAutoHeightInFullScrn,
 					   boolNo, kUDKeyPlayWhenEnterFullScrn,
+					   boolYes, kUDKeyResizeControlBar,
 					   nil]];
 }
 
@@ -138,6 +139,12 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[self refreshBackgroundAlpha];
 	// 自动隐藏设定
 	[self refreshAutoHideTimer];
+	
+	if ([ud boolForKey:kUDKeyResizeControlBar]) {
+		[self setAutoresizingMask:NSViewWidthSizable|NSViewMinXMargin|NSViewMaxXMargin]; 
+	} else {
+		[self setAutoresizingMask:NSViewNotSizable|NSViewMinXMargin|NSViewMaxXMargin];	 
+	}
 	
 	////////////////////////////////////////set KeyEquivalents////////////////////////////////////////
 	[volumeButton setKeyEquivalent:kSCMMuteKeyEquivalent];

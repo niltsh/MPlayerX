@@ -96,6 +96,7 @@ extern NSString * const kUDKeyAutoDetectSPDIF;
 extern NSString * const kUDKeyAssSubMarginV;
 extern NSString * const kUDKeyDontResizeWhenContinuousPlay;
 extern NSString * const kUDKeyEnableMediaKeyTap;
+extern NSString * const kUDKeyResizeControlBar;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;
