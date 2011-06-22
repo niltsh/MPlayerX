@@ -132,7 +132,7 @@ enum {
 					   [NSNumber numberWithUnsignedInt:kPMSubBorderWidthDefault], kUDKeySubBorderWidth,
 					   [NSNumber numberWithUnsignedInt:kPMAssSubMarginVDefault], kUDKeyAssSubMarginV,
 					   boolNo, kUDKeyNoDispSub,
-					   boolYes, kUDKeyAutoDetectSPDIF,
+					   boolNo, kUDKeyAutoDetectSPDIF,
 					   nil]];	
 }
 
