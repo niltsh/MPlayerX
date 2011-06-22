@@ -392,7 +392,25 @@ static BOOL init_ed = NO;
 	// 但是没有关系，即使不listen，playerController在播放的时候因为是调用[AODetector defaultDetector]，会强制判断一次是否是digital，所以不会有问题
 	// 将这个method放到这里是因为不想耽误启动的时间
 	// 先不起用监听功能
-	// [[AODetector defaultDetector] startListening];	
+	// [[AODetector defaultDetector] startListening];
+	
+	NSString *cmdStr;
+	
+	cmdStr = [ud stringForKey:@"url"];
+	
+	if (cmdStr) {
+		MPLog(@"url:%@", cmdStr);
+		
+		[playerController loadFiles:[NSArray arrayWithObject:cmdStr] fromLocal:NO];
+		
+	} else {
+		cmdStr = [ud stringForKey:@"file"];
+		
+		if (cmdStr) {
+			MPLog(@"file:%@", cmdStr);
+			[self application:NSApp openFile:cmdStr];
+		}
+	}
 }
 
 @end
