@@ -74,6 +74,8 @@
 
 -(void) applicationDidBecomeActive:(NSNotification*)notif;
 -(void) applicationDidResignActive:(NSNotification*)notif;
+
+-(void) screenConfigurationChanged:(NSNotification*)notif;
 @end
 
 @interface RootLayerView (CoreDisplayDelegate)
@@ -81,6 +83,27 @@
 -(void) coreController:(id)sender draw:(NSUInteger)frameNum;
 -(void) coreControllerStop:(id)sender;
 @end
+
+BOOL doesPrimaryScreenHasScreenAbove( void )
+{
+	NSRect frm, curFrm;
+	NSScreen *scrn;
+	NSEnumerator *it = [[NSScreen screens] objectEnumerator];
+	
+	// get the coordination of the Primary Screen
+	frm = [[it nextObject] frame];
+	
+	// from the second screen
+	while ((scrn = [it nextObject])) {
+		
+		curFrm = [scrn frame];
+		
+		if ((curFrm.origin.y - frm.origin.y) >= (frm.size.height - 1)) {
+			return YES;
+		}
+	}
+	return NO;
+}
 
 @implementation RootLayerView
 
@@ -139,6 +162,7 @@
 		dragShouldResize = NO;
 		firstDisplay = YES;
 		playbackFinalized = YES;
+		canMoveAcrossMenuBar = doesPrimaryScreenHasScreenAbove();
 		
 		threeFingersTap = kThreeFingersTapInit;
 		threeFingersPinch = kThreeFingersPinchInit;
@@ -250,6 +274,16 @@
 						name:NSApplicationDidBecomeActiveNotification object:NSApp];
 	[notifCenter addObserver:self selector:@selector(applicationDidResignActive:)
 						name:NSApplicationDidResignActiveNotification object:NSApp];
+	
+	[notifCenter addObserver:self selector:@selector(screenConfigurationChanged:)
+						name:NSApplicationDidChangeScreenParametersNotification object:NSApp];
+}
+
+-(void) screenConfigurationChanged:(NSNotification *)notif
+{
+	MPLog(@"Screen Changed");
+	canMoveAcrossMenuBar = doesPrimaryScreenHasScreenAbove();
+	MPLog(@"canMoveAcrossMenuBar:%d", canMoveAcrossMenuBar);
 }
 
 #pragma mark MPCNotification
@@ -407,7 +441,7 @@
 					winFrm.origin.x += delta.x;
 					winFrm.origin.y += delta.y;
 					
-					if (currentScrn == [[NSScreen screens] objectAtIndex:0]) {
+					if (currentScrn == [[NSScreen screens] objectAtIndex:0] && (!canMoveAcrossMenuBar)) {
 						// 现在的屏幕是有menubar的话，让窗口不要超过menubar
 						NSRect scrnFrm = [currentScrn visibleFrame];
 						

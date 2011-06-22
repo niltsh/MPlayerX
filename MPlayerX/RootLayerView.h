@@ -49,6 +49,8 @@
 	BOOL firstDisplay;
 	BOOL playbackFinalized;
 	
+	BOOL canMoveAcrossMenuBar;
+	
 	NSInteger threeFingersTap;
 	NSInteger threeFingersPinch;
 	float threeFingersPinchDistance;
