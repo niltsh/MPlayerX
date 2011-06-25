@@ -218,6 +218,7 @@
 		}
 		flagAspectRatioChanged = YES;
 	}
+	[self setOpaque:YES];
 	return (bufRefs)?0:1;
 }
 
@@ -251,6 +252,7 @@
 
 		[self setNeedsDisplay];
 	}
+	[self setOpaque:NO];
 }
 
 //////////////////////////////////////OpenGLLayer inherent/////////////////////////////////////
