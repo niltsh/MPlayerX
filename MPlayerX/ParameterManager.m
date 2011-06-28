@@ -108,7 +108,9 @@ NSString * const kPMParSubID				= @"-subid";
 NSString * const kPMParDVDProto				= @"dvd://";
 NSString * const kPMParDVDDevice			= @"-dvd-device";
 
-#define kSubScaleNoAss		(8.0)
+NSString * const kPMParNoDispCacheLog		= @"-nodispclog";
+
+#define kSubScaleNoAss			(8.0)
 
 #define kPMSubBorderWidthMax	(4)
 
@@ -148,6 +150,7 @@ NSString * const kPMParDVDDevice			= @"-dvd-device";
 @synthesize noDispSub;
 @synthesize playDisk;
 @synthesize assSubMarginV;
+@synthesize displayCacheLog;
 
 #pragma mark Init/Dealloc
 -(id) init
@@ -204,6 +207,7 @@ NSString * const kPMParDVDDevice			= @"-dvd-device";
 		
 		noDispSub = NO;
 		playDisk = kPMPlayDiskNone;
+		displayCacheLog = YES;
 	}
 	return self;
 }
@@ -530,6 +534,10 @@ NSString * const kPMParDVDDevice			= @"-dvd-device";
 		[vfSettings release];
 	}
 
+	if (!displayCacheLog) {
+		[paramArray addObject:kPMParNoDispCacheLog];
+ 	}
+	
 	if (extraOptions) {
 		NSArray *extrasArray = [extraOptions componentsSeparatedByString:@" "];
 		

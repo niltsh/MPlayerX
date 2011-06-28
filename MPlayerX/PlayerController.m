@@ -114,9 +114,9 @@ enum {
 					   [NSNumber numberWithUnsignedInt:[[NSProcessInfo processInfo] processorCount]], kUDKeyThreadNum,
 					   boolYes, kUDKeyUseEmbeddedFonts,
 					   [NSNumber numberWithUnsignedInt:10000], kUDKeyCacheSize,
-					   [NSNumber numberWithUnsignedInt:10000], kUDKeyCacheSizeLocal,
+					   [NSNumber numberWithUnsignedInt:5000], kUDKeyCacheSizeLocalMinLimit,
+					   [NSNumber numberWithUnsignedInt:12], kUDKeyCacheSizeLocalTime,
 					   boolYes, kUDKeyPreferIPV6,
-					   boolNo, kUDKeyCachingLocal,
 					   [NSNumber numberWithUnsignedInt:kPMLetterBoxModeNotDisplay], kUDKeyLetterBoxMode,
 					   [NSNumber numberWithUnsignedInt:kPMLetterBoxModeBoth], kUDKeyLetterBoxModeAlt,
 					   [NSNumber numberWithFloat:0.1], kUDKeyLetterBoxHeight,
@@ -503,9 +503,19 @@ static BOOL isNetworkPath(const char *path)
 		if (isNetworkPath([path UTF8String])) {
 			// is network path
 			[mplayer.pm setCache:[ud integerForKey:kUDKeyCacheSize]];
+			[mplayer.pm setDisplayCacheLog:YES];
 		} else {
 			// local path
-			[mplayer.pm setCache:([ud boolForKey:kUDKeyCachingLocal])?([ud integerForKey:kUDKeyCacheSizeLocal]):(0)];
+			// the local cache should use another value
+			unsigned long long cacheSize = 0;
+			NSDictionary *fileInfo = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:NULL];
+
+			if (fileInfo) {
+				// assuming one movie is 6000 seconds, 
+				cacheSize = [[fileInfo objectForKey:NSFileSize] unsignedLongLongValue] * [ud integerForKey:kUDKeyCacheSizeLocalTime] / 6000000;
+			}
+			[mplayer.pm setCache:(unsigned int)(MAX(cacheSize, [ud integerForKey:kUDKeyCacheSizeLocalMinLimit]))];
+			[mplayer.pm setDisplayCacheLog:NO];
 		}
 		[mplayer.pm setRtspOverHttp:NO];
 		
@@ -518,6 +528,7 @@ static BOOL isNetworkPath(const char *path)
 		[mplayer.pm setCache:[ud integerForKey:kUDKeyCacheSize]];
 		[mplayer.pm setPreferIPV6:[ud boolForKey:kUDKeyPreferIPV6]];
 		[mplayer.pm setRtspOverHttp:[ud boolForKey:kUDKeyRtspOverHttp]];
+		[mplayer.pm setDisplayCacheLog:YES];
 		
 		// 将URL加入OpenURLController
 		[openUrlController addUrl:path];

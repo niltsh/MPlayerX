@@ -74,6 +74,7 @@
 	NSArray *equalizer;
 	BOOL noDispSub;
 	NSInteger playDisk;
+	BOOL displayCacheLog;
 }
 
 @property (assign, readwrite) SUBFILE_NAMERULE subNameRule;
@@ -110,6 +111,7 @@
 @property (assign, readwrite) BOOL noDispSub;
 @property (assign, readwrite) NSInteger playDisk;
 @property (assign, readwrite) NSInteger assSubMarginV; 
+@property (assign, readwrite) BOOL displayCacheLog;
 
 -(void) setSubFontColor:(NSColor*)col;
 -(void) setSubFontBorderColor:(NSColor*)col;
