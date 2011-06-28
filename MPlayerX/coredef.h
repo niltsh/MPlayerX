@@ -118,6 +118,15 @@ typedef enum {
 
 #define kPMPlayDiskNone		(0)
 #define kPMPlayDiskDVD		(1)
+
+// Audio Mono output
+#define kMPCMonoAudioNone			(0)
+#define kMPCMonoAudioStereo			(1)
+#define kMPCMonoAudioLeftOnly		(2)
+#define kMPCMonoAudioRightOnly		(3)
+#define kMPCMonoAudioLeftExpand		(4)
+#define kMPCMonoAudioRightExpand	(5)
+
 /////////////////////////////////////strings/////////////////////////////////////
 // 指定两种arch的mplayer路径时所用的key
 extern NSString * const kI386Key;

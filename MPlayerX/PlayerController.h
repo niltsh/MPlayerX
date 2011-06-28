@@ -108,4 +108,5 @@ extern NSString * const kMPCPlayInfoUpdatedChangeDictKey;
 
 -(void) loadSubFile:(NSString*)subPath;
 
+-(void) mapAudioChannelsTo:(NSInteger)mode;
 @end

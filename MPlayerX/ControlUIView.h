@@ -119,6 +119,7 @@
 	IBOutlet NSMenuItem *menuZoomToOriginSize;
 	IBOutlet NSMenuItem *menuZoomToDoubleSize;
 	IBOutlet NSMenuItem *menuWndFitToScrn;
+	IBOutlet NSMenuItem *menuAudioChannels;
 }
 
 ////////////////////////////////显示相关////////////////////////////////
@@ -189,4 +190,5 @@ extern NSString * const kFillScreenButtonImageUBKey;
 
 -(IBAction) toggleTimeAltDisplayMode:(id)sender;
 
+-(IBAction) mapAudioChannelsTo:(id)sender;
 @end

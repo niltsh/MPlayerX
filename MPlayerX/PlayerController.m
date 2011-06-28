@@ -862,6 +862,12 @@ static BOOL isNetworkPath(const char *path)
 	[mplayer.pm setEqualizer:amps];
 }
 
+-(void) mapAudioChannelsTo:(NSInteger)mode
+{
+	if (PlayerCouldAcceptCommand) {
+		[mplayer mapAudioChannelsTo:mode];
+	}
+}
 //////////////////////////////////////private methods////////////////////////////////////////////////////
 -(BOOL) shouldRun64bitMPlayer
 {

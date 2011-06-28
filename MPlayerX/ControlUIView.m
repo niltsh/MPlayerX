@@ -1177,6 +1177,18 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[ud setBool:![ud boolForKey:kUDKeyTimeTextAltTotal] forKey:kUDKeyTimeTextAltTotal];
 }
 
+-(IBAction) mapAudioChannelsTo:(id)sender
+{
+	[playerController mapAudioChannelsTo:[sender tag]];
+	
+	for (NSMenuItem *mitem in [[menuAudioChannels submenu] itemArray]) {
+		if ([mitem state] == NSOnState) {
+			[mitem setState:NSOffState];
+			break;
+		}
+	}
+	[sender setState:NSOnState];
+}
 ////////////////////////////////////////////////FullscreenThings//////////////////////////////////////////////////
 -(void) setFillScreenMode:(NSString*)modeKey state:(NSInteger) state
 {
@@ -1253,6 +1265,15 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 		[volumeSlider setEnabled:NO];
 		[menuVolInc setEnabled:NO];
 		[menuVolDec setEnabled:NO];		
+	} else {
+		[menuAudioChannels setEnabled:YES];
+		for (NSMenuItem *mitem in [[menuAudioChannels submenu] itemArray]) {
+			if ([mitem tag] == kMPCMonoAudioNone) {
+				[mitem setState:NSOnState];
+			} else {
+				[mitem setState:NSOffState];
+			}
+		}
 	}
 	
 	[self showUp];
@@ -1300,6 +1321,8 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuAudioDelayDec setEnabled:NO];
 	[menuSubDelayInc setEnabled:NO];
 	[menuSubDelayDec setEnabled:NO];
+	
+	[menuAudioChannels setEnabled:NO];
 }
 
 -(void) playBackFinalized:(NSNotification*)notif

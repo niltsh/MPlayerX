@@ -117,6 +117,6 @@
 
 -(void) setEqualizer:(NSArray*)amps;
 
--(void) mapAudioChannelsTo:(NSInteger) chDst;
+-(void) mapAudioChannelsTo:(NSInteger)mode;
 
 @end

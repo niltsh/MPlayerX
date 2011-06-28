@@ -611,23 +611,71 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 	}
 }
 
--(void) mapAudioChannelsTo:(NSInteger) chDst
+-(void) mapAudioChannelsTo:(NSInteger)mode
 {
-	[playerCore sendStringCommand:[NSString stringWithFormat:@"%@ %@ %@\n", kMPCPausingKeepForce, kMPCAfDelCmd, kMPCPan]];
+	if (pm.dtsPass || pm.ac3Pass) {
+		return;
+	}
 	
-	AudioInfo *ai = [movieInfo audioInfoForID:[movieInfo.playingInfo currentAudioID]];
-	
-	if (ai) {
-		NSInteger chSrc = [ai channels];
+	// get the current audio info
+ 	AudioInfo *ai = [movieInfo audioInfoForID:[movieInfo.playingInfo currentAudioID]];
+ 	
+ 	if (ai) {
+		// must have current audio stream
+		NSString *panString = nil;
 		
-		if (chDst == 2) {
-			if (chSrc == 1) {
-				[playerCore sendStringCommand:[NSString stringWithFormat:@"%@ %@ %@=2:1:1\n", kMPCPausingKeepForce, kMPCAfAddCmd, kMPCPan]];
-			} else if (chSrc == 6) {
-				[playerCore sendStringCommand:[NSString stringWithFormat:@"%@ %@ %@=2:0.48:0:0:0.48:0.24:0:0:0.24:0.28:0.28:0.15:0.15\n", kMPCPausingKeepForce, kMPCAfAddCmd, kMPCPan]];
-			} else if (chSrc == 8) {
-				[playerCore sendStringCommand:[NSString stringWithFormat:@"%@ %@ %@=2:0.4:0:0:0.4:0.24:0:0:0.24:0.28:0:0:0.28:0.13:0.13:0.1:0.1\n", kMPCPausingKeepForce, kMPCAfAddCmd, kMPCPan]];
-			}
+		// delete the current PAN filter
+		[playerCore sendStringCommand:[NSString stringWithFormat:@"%@ %@ %@\n", kMPCPausingKeepForce, kMPCAfDelCmd, kMPCPan]];
+		
+		switch (mode) {
+			case kMPCMonoAudioLeftOnly:
+				panString = @"2:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0";
+				break;
+			case kMPCMonoAudioRightOnly:
+				panString = @"2:0:0:0:1:0:0:0:0:0:0:0:0:0:0:0:0";
+				break;
+			case kMPCMonoAudioLeftExpand:
+				panString = @"2:1:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0";
+				break;
+			case kMPCMonoAudioRightExpand:
+				panString = @"2:0:0:1:1:0:0:0:0:0:0:0:0:0:0:0:0";
+				break;
+			case kMPCMonoAudioStereo:
+			default: // kMPCMonoAudioNone
+				{
+					NSInteger chSrc = [ai channels];
+
+					if ((chSrc > 2) && (pm.mixToStereo || (mode == kMPCMonoAudioStereo))) {
+						// 只有在没有pass through的前提下，强制channels==2或者 双声道，才需要回复原来的filter
+						switch (chSrc) {
+							case 3:
+								panString = @"2:0.6:0:0:0.6:0.4:0.4";
+								break;
+							case 4:
+								panString = @"2:0.6:0:0:0.6:0.4:0:0:0.4";
+								break;
+							case 5:
+								panString = @"2:0.5:0:0:0.5:0.2:0:0:0.2:0.3:0.3";
+								break;
+							case 6:
+								panString = @"2:0.4:0:0:0.4:0.2:0:0:0.2:0.3:0.3:0.1:0.1";
+								break;
+							case 7:
+								panString = @"2:0.4:0:0:0.4:0.2:0:0:0.2:0.3:0.3:0.1:0:0:0.1";
+								break;
+							case 8:
+								panString = @"2:0.4:0:0:0.4:0.15:0:0:0.15:0.25:0.25:0.1:0.1:0.1:0:0:0.1";
+								break;
+							default:
+								break;
+						}
+					}
+				}
+				break;
+		}
+		// set the pan filter
+		if (panString) {
+			[playerCore sendStringCommand:[NSString stringWithFormat:@"%@ %@ %@=%@\n", kMPCPausingKeepForce, kMPCAfAddCmd, kMPCPan, panString]];
 		}
 	}
 }
