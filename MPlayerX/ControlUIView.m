@@ -907,7 +907,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	
 	// 找到目前被选中的字幕
 	for (mItem in [subListMenu itemArray]) {
-		if ([mItem state] == NSOnState) {
+		if (([mItem state] == NSOnState) && (![mItem isSeparatorItem])) {
 			selectedTag = [mItem tag];
 			break;
 		}
@@ -929,7 +929,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 		[playerController setSubtitle:[sender tag]];
 		
 		for (NSMenuItem* mItem in [subListMenu itemArray]) {
-			if ([mItem state] == NSOnState) {
+			if (([mItem state] == NSOnState) && (![mItem isSeparatorItem])) {
 				[mItem setState:NSOffState];
 				break;
 			}
@@ -1182,7 +1182,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[playerController mapAudioChannelsTo:[sender tag]];
 	
 	for (NSMenuItem *mitem in [[menuAudioChannels submenu] itemArray]) {
-		if ([mitem state] == NSOnState) {
+		if (([mitem state] == NSOnState) && (![mitem isSeparatorItem])) {
 			[mitem setState:NSOffState];
 			break;
 		}
