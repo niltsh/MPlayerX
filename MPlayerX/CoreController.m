@@ -425,11 +425,11 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 {
 	switch (state) {
 		case kMPCPlayingState:
-			[playerCore sendStringCommand: kMPCTogglePauseCmd];
+			[playerCore sendStringCommand: kMPCPauseCmd];
 			state = kMPCPausedState;
 			break;
 		case kMPCPausedState:
-			[playerCore sendStringCommand: kMPCTogglePauseCmd];
+			[playerCore sendStringCommand: kMPCPlayCmd];
 			state = kMPCPlayingState;
 			break;
 

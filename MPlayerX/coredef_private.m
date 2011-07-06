@@ -22,7 +22,9 @@
 #import "coredef.h"
 
 // mplayer通信所用的command的字符串
-NSString * const kMPCTogglePauseCmd		= @"pause\n";
+NSString * const kMPCPauseCmd			= @"pause 1\n";
+NSString * const kMPCPlayCmd			= @"pause -1\n";
+
 NSString * const kMPCFrameStepCmd		= @"frame_step\n";
 NSString * const kMPCSubSelectCmd		= @"sub_select\n";
 NSString * const kMPCSeekCmd			= @"seek";

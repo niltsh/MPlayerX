@@ -23,7 +23,8 @@
 #define GetRealVolume(x)		(0.01*(x)*(x))
 
 // mplayer通信所用的command的字符串
-extern NSString * const kMPCTogglePauseCmd;
+extern NSString * const kMPCPauseCmd;
+extern NSString * const kMPCPlayCmd;
 extern NSString * const kMPCFrameStepCmd;
 extern NSString * const kMPCSubSelectCmd;
 extern NSString * const kMPCSeekCmd;

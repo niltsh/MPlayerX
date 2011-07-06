@@ -1535,6 +1535,14 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			// 当某个sub在中途被加载的时候会调用这里
 			// 默认激活这个载入的sub
 			[self setSubWithID:mItem];
+			
+			// 这是一个权宜之计，因为在暂停的情况下加载字幕的话
+			// 因为无法保持暂停状态而加载，所以播放会自动开始
+			// 这样会造成mplayer状态和MPX状态不一致，这里判断MPX的状态，如果是暂停情况下加载的话，就toggle
+			// 底层发出的命令是 pause -1,该命令在播放状态下没有副作用，只是重置了MPX的状态。
+			if ([playerController playerState] == kMPCPausedState) {
+				[self togglePlayPause:nil];
+			}
 		}
 
 		[menuSwitchSub setEnabled:YES];
