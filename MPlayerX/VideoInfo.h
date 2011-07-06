@@ -25,6 +25,7 @@
 {
 	int ID;
 	NSString *language;
+	NSString *name;
 	
 	NSString *codec;
 	NSString *format;
@@ -36,6 +37,7 @@
 }
 @property(assign, readwrite) int ID;
 @property(retain, readwrite) NSString *language;
+@property(retain, readwrite) NSString *name;
 
 @property (retain, readwrite) NSString *codec;
 @property (retain, readwrite) NSString *format;

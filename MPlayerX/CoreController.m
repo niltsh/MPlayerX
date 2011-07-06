@@ -701,11 +701,11 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 					// 这里如果直接使用KVO的话，产生的时Insert的change，效率太低
 					// 因此手动发生KVO
 					{
-						NSArray *res = [[dict objectForKey:key] componentsSeparatedByString:@"::"];
+						NSArray *res = [[dict objectForKey:key] componentsSeparatedByString:@";;"];
 						[movieInfo.playingInfo setCurrentSubID:[res lastObject]];
 						
 						[movieInfo willChangeValueForKey:kMovieInfoKVOSubInfo];
-						[movieInfo.subInfo setArray:[[res objectAtIndex:0] componentsSeparatedByString:@":"]];
+						[movieInfo.subInfo setArray:[[res objectAtIndex:0] componentsSeparatedByString:@"^^"]];
 						[movieInfo didChangeValueForKey:kMovieInfoKVOSubInfo];
 					}
 					break;
@@ -732,17 +732,18 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 				{
 					AudioInfo *info;
 					NSArray *idLang;
-					NSArray *IDs = [[dict objectForKey:key] componentsSeparatedByString:@":"];
+					NSArray *IDs = [[dict objectForKey:key] componentsSeparatedByString:@";;"];
 					
 					[movieInfo willChangeValueForKey:kMovieInfoKVOAudioInfo];
 					
 					for (NSString *str in IDs) {
-						idLang = [str componentsSeparatedByString:@","];
+						idLang = [str componentsSeparatedByString:@"^^"];
 						
 						info = [[AudioInfo alloc] init];
 
 						[info setID:[[idLang objectAtIndex:0] intValue]];
-						[info setLanguage:[idLang objectAtIndex:1]];
+						[info setName:[idLang objectAtIndex:1]];
+						[info setLanguage:[idLang objectAtIndex:2]];
 						
 						[movieInfo.audioInfo addObject:info];
 						
@@ -755,17 +756,18 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 				{
 					VideoInfo *info;
 					NSArray *idLang;
-					NSArray *IDs = [[dict objectForKey:key] componentsSeparatedByString:@":"];
+					NSArray *IDs = [[dict objectForKey:key] componentsSeparatedByString:@";;"];
 					
 					[movieInfo willChangeValueForKey:kMovieInfoKVOVideoInfo];
 					
 					for (NSString *str in IDs) {
-						idLang = [str componentsSeparatedByString:@","];
+						idLang = [str componentsSeparatedByString:@"^^"];
 						
 						info = [[VideoInfo alloc] init];
 						
 						[info setID:[[idLang objectAtIndex:0] intValue]];
-						[info setLanguage:[idLang objectAtIndex:1]];
+						[info setName:[idLang objectAtIndex:1]];
+						[info setLanguage:[idLang objectAtIndex:2]];						
 						
 						[movieInfo.videoInfo addObject:info];
 						

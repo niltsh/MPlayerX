@@ -25,6 +25,7 @@
 
 @synthesize ID;
 @synthesize language;
+@synthesize name;
 @synthesize codec;
 @synthesize format;
 @synthesize bitRate;
@@ -39,6 +40,7 @@
 	if (self) {
 		ID = -2;
 		language = nil;
+		name = nil;
 		codec = nil;
 		format = nil;
 		bitRate = 0;
@@ -53,6 +55,7 @@
 {
 	[codec release];
 	[language release];
+	[name release];
 	[format release];
 	
 	[super dealloc];
@@ -72,9 +75,10 @@
 
 -(NSString*) description
 {
-	NSString *str = (language)?(language):(@"unknown");
-	
-	return [NSString stringWithFormat:@"%d: %@", ID, str];
+	NSString *strName = (name)?(name):(@"noname");
+	NSString *strLang = (language)?(language):(@"unknown");
+ 	
+	return [NSString stringWithFormat:@"%d: %@ [%@]", ID, strName, strLang];
 }
 
 @end
