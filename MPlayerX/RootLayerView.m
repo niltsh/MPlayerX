@@ -330,7 +330,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	NSURL *url = [[notif userInfo] objectForKey:kMPCPlayOpenedURLKey];
 	if (url) {		
 		if ([url isFileURL]) {
-			[playerWindow setTitle:[[url path] lastPathComponent]];
+			[playerWindow setTitle:[[[url path] lastPathComponent] stringByDeletingPathExtension]];
 		} else {
 			[playerWindow setTitle:[[url absoluteString] lastPathComponent]];
 		}
