@@ -25,4 +25,6 @@
 
 }
 
++(NSString*) stringForIntegerValue:(NSInteger)time;
+
 @end

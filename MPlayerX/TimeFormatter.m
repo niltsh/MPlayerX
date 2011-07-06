@@ -23,10 +23,8 @@
 
 @implementation TimeFormatter
 
-
-- (NSString *)stringForObjectValue:(id)obj
++(NSString*) stringForIntegerValue:(NSInteger)time
 {
-	NSInteger time = [obj integerValue];
 	NSInteger hour, minute, sec;
 	NSString *formatString;
 	
@@ -36,14 +34,19 @@
 	} else {
 		formatString = @"%02d:%02d:%02d";
 	}
-
+	
 	sec = time % 60;
 	time = (time - sec) / 60;
 	
 	minute = time % 60;
 	hour = (time - minute) / 60;
+	
+	return [NSString stringWithFormat:formatString, hour, minute, sec];	
+}
 
-	return [NSString stringWithFormat:formatString, hour, minute, sec];
+- (NSString *)stringForObjectValue:(id)obj
+{
+	return [TimeFormatter stringForIntegerValue:[obj integerValue]];
 }
 
 - (BOOL)getObjectValue:(out id *)obj forString:(NSString *)string errorDescription:(out NSString **)error
