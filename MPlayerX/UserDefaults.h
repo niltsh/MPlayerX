@@ -26,7 +26,6 @@ extern NSString * const kUDKeySeekStepLR;
 extern NSString * const kUDKeySeekStepUB;
 extern NSString * const kUDKeyVolumeStep;
 extern NSString * const kUDKeyAutoPlayNext;
-extern NSString * const kUDKeyAPNFuzzy;
 extern NSString * const kUDKeySubFontPath;
 extern NSString * const kUDKeySnapshotSavePath;
 extern NSString * const kUDKeyStartByFullScreen;

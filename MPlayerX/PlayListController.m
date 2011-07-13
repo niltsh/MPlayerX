@@ -19,7 +19,6 @@
  */
 
 #import "PlayListController.h"
-#import "UserDefaults.h"
 #import "PlayerController.h"
 #import "CocoaAppendix.h"
 #import "AppController.h"
@@ -209,7 +208,6 @@ static BOOL init_ed = NO;
 + (NSString*) SearchPreviousMoviePathFrom:(NSString*)path inFormats:(NSSet*)exts
 {
 	NSString *nextPath = nil;
-	BOOL fuzzySearch = [[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyAPNFuzzy];
 
 	if (path) {
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -217,8 +215,8 @@ static BOOL init_ed = NO;
 		NSArray *filesCandidates = nil;
 		NSRange digitRange, lastRange;
 		NSString *idxNext, *fileNamePrefix = nil, *idxNextTemp;
-		BOOL isDir, isTen;
-		NSInteger i = 0, digitLast, nonFuzzySuffixPos = 0, idxNow;
+		BOOL isTen;
+		NSInteger i = 0, idxNow, digitLast; //, nonFuzzySuffixPos = 0; //;
 		// 得到文件的名字，没有后缀
 		NSString *movieName = [[path lastPathComponent] stringByDeletingPathExtension];
 		// directory path
@@ -257,8 +255,7 @@ static BOOL init_ed = NO;
 					digitRange.length = idxNextLen;
 				}
 
-				if ((lastRange.length > 0) &&
-					([[movieName substringWithRange:lastRange] integerValue] == 1)) {
+				if ((lastRange.length > 0) && ([[movieName substringWithRange:lastRange] integerValue] == 1)) {
 					// 如果不是最末尾的字段
 					// 而且上一个字段为1，那么说明到了一个season的第一集，需要找上一个season的最后一集
 					
@@ -289,6 +286,8 @@ static BOOL init_ed = NO;
 										  [movieName substringToIndex:digitRange.location],
 										  idxNextTemp,
 										  [movieName substringWithRange:NSMakeRange(digitLast, lastRange.location-digitLast)]];
+
+						MPLog(@"0: %@", fileNamePrefix);
 
 						NSRange rng;
 						for (NSString *name in filesCandidates) {
@@ -330,49 +329,22 @@ static BOOL init_ed = NO;
 						}
 						// 如果不是1，那可能是没有意义的字段，或者是普通的某一集
 						// 或者最末尾的字段
-						if (lastRange.length > 0) {
-							// 之前有字段的话
-							digitLast = digitRange.location + digitRange.length;
-							fileNamePrefix = [NSString stringWithFormat:@"%@%@%@", 
-											  [movieName substringToIndex:digitRange.location],
-											  idxNextTemp,
-											  [movieName substringWithRange:NSMakeRange(digitLast, lastRange.location-digitLast+lastRange.length)]];
-							nonFuzzySuffixPos = lastRange.location + lastRange.length;
-						} else {
-							fileNamePrefix = [[movieName substringToIndex:digitRange.location] stringByAppendingString:idxNextTemp];
-							nonFuzzySuffixPos = digitRange.location + digitRange.length;
+						fileNamePrefix = [[movieName substringToIndex:digitRange.location] stringByAppendingString:idxNextTemp];
+						
+						MPLog(@"1: %@", fileNamePrefix);
+
+						// fuzzy matching
+						if (!filesCandidates) {
+							// lazy load
+							filesCandidates = enumerateAllFilesAt(dirPath, exts);
 						}
-						// MPLog(@"%@", fileNamePrefix);
-										
-						if (fuzzySearch) {
-							// fuzzy matching
-							if (!filesCandidates) {
-								// lazy load
-								filesCandidates = enumerateAllFilesAt(dirPath, exts);
-							}
 							
-							NSRange rng;
-							for (NSString *name in filesCandidates) {
-								rng = [name rangeOfString:fileNamePrefix options:NSCaseInsensitiveSearch|NSAnchoredSearch];
-								if (rng.length != 0) {
-									// found the name
-									nextPath = [[dirPath stringByAppendingPathComponent:name] retain];
-									goto ExitLoopPrev;
-								}
-							}
-						} else {
-							// exactly matching
-							nextPath = [[NSString alloc] initWithFormat:@"%@/%@%@.%@",
-										dirPath,
-										fileNamePrefix,
-										[movieName substringFromIndex:nonFuzzySuffixPos],
-										[path pathExtension]];
-							// MPLog(@"Next File:%@", nextPath);
-							isDir = YES;
-							if ((![[NSFileManager defaultManager] fileExistsAtPath:nextPath  isDirectory:&isDir]) || isDir) {
-								[nextPath release];
-								nextPath = nil;
-							} else {
+						NSRange rng;
+						for (NSString *name in filesCandidates) {
+							rng = [name rangeOfString:fileNamePrefix options:NSCaseInsensitiveSearch|NSAnchoredSearch];
+							if (rng.length != 0) {
+								// found the name
+								nextPath = [[dirPath stringByAppendingPathComponent:name] retain];
 								goto ExitLoopPrev;
 							}
 						}
@@ -390,7 +362,6 @@ ExitLoopPrev:
 +(NSString*) SearchNextMoviePathFrom:(NSString*)path inFormats:(NSSet*)exts
 {
 	NSString *nextPath = nil;
-	BOOL fuzzySearch = [[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyAPNFuzzy];
 	
 	if (path) {
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -398,8 +369,7 @@ ExitLoopPrev:
 		NSArray *filesCandidates = nil;
 		NSRange digitRange, lastRange;
 		NSString *idxNext, *fileNamePrefix = nil;
-		BOOL isDir;
-		NSInteger i = 0, digitLast, nonFuzzySuffixPos = 0;
+		NSInteger i = 0, digitLast; //, nonFuzzySuffixPos = 0;
 		// 得到文件的名字，没有后缀
 		NSString *movieName = [[path lastPathComponent] stringByDeletingPathExtension];
 		// directory path
@@ -437,8 +407,8 @@ ExitLoopPrev:
 											  idxNext,
 											  [movieName substringWithRange:NSMakeRange(digitLast, lastRange.location-digitLast)],
 											  1];
-							nonFuzzySuffixPos = lastRange.location + lastRange.length;
-							// MPLog(@"%@", fileNamePrefix);
+							// nonFuzzySuffixPos = lastRange.location + lastRange.length;
+							MPLog(@"%@", fileNamePrefix);
 						} else {
 							continue;
 						}
@@ -452,60 +422,35 @@ ExitLoopPrev:
 											  [movieName substringToIndex:digitRange.location],
 											  idxNext,
 											  [movieName substringWithRange:NSMakeRange(digitLast, lastRange.location-digitLast)]];
-							nonFuzzySuffixPos = lastRange.location + lastRange.length;
-							// MPLog(@"%@", fileNamePrefix);
+							// nonFuzzySuffixPos = lastRange.location + lastRange.length;
+							MPLog(@"%@", fileNamePrefix);
 						} else {
 							continue;
 						}
 						break;
 					default:
 						// match the increment +1
-						if (lastRange.length > 0) {
-							digitLast = digitRange.location + digitRange.length;
-							fileNamePrefix = [NSString stringWithFormat:@"%@%@%@", 
-											  [movieName substringToIndex:digitRange.location],
-											  idxNext,
-											  [movieName substringWithRange:NSMakeRange(digitLast, lastRange.location-digitLast+lastRange.length)]];
-							nonFuzzySuffixPos = lastRange.location + lastRange.length;
-						} else {
-							fileNamePrefix = [[movieName substringToIndex:digitRange.location] stringByAppendingString:idxNext];
-							nonFuzzySuffixPos = digitRange.location + digitRange.length;
-						}
-						// MPLog(@"%@", fileNamePrefix);
+						
+						fileNamePrefix = [[movieName substringToIndex:digitRange.location] stringByAppendingString:idxNext];
+						
+						MPLog(@"%@", fileNamePrefix);
 						break;
 				}
-				if (fuzzySearch) {
-					// fuzzy matching
-					if (!filesCandidates) {
-						// lazy load
-						filesCandidates = enumerateAllFilesAt(dirPath, exts);
-					}
-					
-					NSRange rng;
-					for (NSString *name in filesCandidates) {
-						rng = [name rangeOfString:fileNamePrefix options:NSCaseInsensitiveSearch|NSAnchoredSearch];
-						if (rng.length != 0) {
-							// found the name
-							nextPath = [[dirPath stringByAppendingPathComponent:name] retain];
-							goto ExitLoop;
-						}
-					}
-				} else {
-					// exactly matching
-					nextPath = [[NSString alloc] initWithFormat:@"%@/%@%@.%@",
-								dirPath,
-								fileNamePrefix,
-								[movieName substringFromIndex:nonFuzzySuffixPos],
-								[path pathExtension]];
-					// MPLog(@"Next File:%@", nextPath);
-					isDir = YES;
-					if ((![[NSFileManager defaultManager] fileExistsAtPath:nextPath  isDirectory:&isDir]) || isDir) {
-						[nextPath release];
-						nextPath = nil;
-					} else {
+				// fuzzy matching
+				if (!filesCandidates) {
+					// lazy load
+					filesCandidates = enumerateAllFilesAt(dirPath, exts);
+				}
+
+				NSRange rng;
+				for (NSString *name in filesCandidates) {
+					rng = [name rangeOfString:fileNamePrefix options:NSCaseInsensitiveSearch|NSAnchoredSearch];
+					if (rng.length != 0) {
+						// found the name
+						nextPath = [[dirPath stringByAppendingPathComponent:name] retain];
 						goto ExitLoop;
 					}
-				}				
+				}		
 			}
 			lastRange = digitRange;
 		}

@@ -98,7 +98,6 @@ enum {
 	[[NSUserDefaults standardUserDefaults] 
 	 registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 					   boolYes, kUDKeyAutoPlayNext,
-					   boolYes, kUDKeyAPNFuzzy,
 					   kMPCDefaultSubFontPath, kUDKeySubFontPath,
 					   boolYes, kUDKeyPrefer64bitMPlayer,
 					   boolYes, kUDKeyEnableMultiThread,
