@@ -39,3 +39,5 @@ NSString * const kKVOPropertyKeyPathVideoInfo		= @"movieInfo.videoInfo";
 NSString * const kKVOPropertyKeyPathAudioInfo		= @"movieInfo.audioInfo";
 NSString * const kKVOPropertyKeyPathVideoInfoID		= @"movieInfo.playingInfo.currentVideoID";
 NSString * const kKVOPropertyKeyPathAudioInfoID		= @"movieInfo.playingInfo.currentAudioID";
+
+NSString * const kKVOPropertyKeyPathChapterInfo		= @"movieInfo.chapterInfo";

@@ -154,3 +154,5 @@ extern NSString * const kKVOPropertyKeyPathAudioInfo;
 
 extern NSString * const kKVOPropertyKeyPathVideoInfoID;
 extern NSString * const kKVOPropertyKeyPathAudioInfoID;
+
+extern NSString * const kKVOPropertyKeyPathChapterInfo;

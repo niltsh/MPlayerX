@@ -72,5 +72,6 @@ NSString * const kMPCVideoInfoID		= @"VIDEOINFO";
 NSString * const kMPCAudioIDs			= @"AUDIO_IDS";
 NSString * const kMPCVideoIDs			= @"VIDEO_IDS";
 NSString * const kMPCDemuxerID			= @"DEMUXER";
+NSString * const kMPCChapterInfoID		= @"CHAPTERSINFO";
 
 NSString * const kKVOPropertyKeyPathState	= @"state";

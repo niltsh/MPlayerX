@@ -44,6 +44,7 @@
 #define kMPXStringOSDSubtitleHint		(NSLocalizedString(@"Sub: %@", @"OSD hint"))
 #define kMPXStringOSDAudioHint			(NSLocalizedString(@"Audio %@", @"OSD hint"))
 #define kMPXStringOSDVideoHint			(NSLocalizedString(@"Video %@", @"OSD hint"))
+#define kMPXStringOSDChapterHint		(NSLocalizedString(@"Chapter: %@", @"OSD hint"))
 #define kMPXStringOSDSpeedHint			(NSLocalizedString(@"Speed: %.1fX", @"OSD hint"))
 #define kMPXStringOSDSubDelayHint		(NSLocalizedString(@"Sub Delay: %.1f s", @"OSD hint"))
 #define kMPXStringOSDAudioDelayHint		(NSLocalizedString(@"Audio Delay: %.1f s", @"OSD hint"))

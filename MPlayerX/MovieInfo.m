@@ -22,15 +22,16 @@
 #import "coredef_private.h"
 #import "ParameterManager.h"
 
-NSString * const kDemuxValueDefault = @"unknown";
+NSString * const kDemuxValueDefault			= @"unknown";
 NSString * const kMovieInfoKVOSubInfo		= @"subInfo";
 NSString * const kMovieInfoKVOAudioInfo		= @"audioInfo";
 NSString * const kMovieInfoKVOVideoInfo		= @"videoInfo";
+NSString * const kMovieInfoKVOChapterInfo	= @"chapterInfo";
 
 @implementation MovieInfo
 
 @synthesize demuxer;
-@synthesize chapters;
+@synthesize chapterInfo;
 @synthesize length;
 @synthesize seekable;
 @synthesize playingInfo;
@@ -47,12 +48,14 @@ NSString * const kMovieInfoKVOVideoInfo		= @"videoInfo";
 		NSNumber *zero = [NSNumber numberWithInt:0];
 		
 		demuxer = [kDemuxValueDefault retain];
-		chapters = [zero retain];
 		length = [zero retain];
 		seekable = [zero retain];
 		
 		playingInfo = [[PlayingInfo alloc] init];
 		metaData = [[NSMutableDictionary alloc] init];
+		
+		chapterInfo = [[NSMutableArray alloc] init];
+		
 		videoInfo = [[NSMutableArray alloc] init];
 		audioInfo = [[NSMutableArray alloc] init];
 		subInfo = [[NSMutableArray alloc] init];
@@ -63,7 +66,7 @@ NSString * const kMovieInfoKVOVideoInfo		= @"videoInfo";
 -(void) dealloc
 {
 	[demuxer release];
-	[chapters release];
+	[chapterInfo release];
 	[length release];
 	[seekable release];
 	[playingInfo release];
@@ -132,10 +135,12 @@ NSString * const kMovieInfoKVOVideoInfo		= @"videoInfo";
 	[subInfo removeAllObjects];
 	[self didChangeValueForKey:kMovieInfoKVOSubInfo];
 	
+	[self willChangeValueForKey:kMovieInfoKVOChapterInfo];
+	[chapterInfo removeAllObjects];
+	[self didChangeValueForKey:kMovieInfoKVOChapterInfo];
+	
 	[self setSeekable:zero];
 	[self setDemuxer:kDemuxValueDefault];
-	[self setChapters:zero];
 	[self setLength:zero];
-	
 }
 @end

@@ -23,17 +23,18 @@
 #import "SubInfo.h"
 #import "VideoInfo.h"
 #import "AudioInfo.h"
+#import "ChapterItem.h"
 
 extern NSString * const kMovieInfoKVOSubInfo;
 extern NSString * const kMovieInfoKVOAudioInfo;
 extern NSString * const kMovieInfoKVOVideoInfo;
+extern NSString * const kMovieInfoKVOChapterInfo;
 
 @class ParameterManager;
 
 @interface MovieInfo : NSObject
 {
 	NSString *demuxer;
-	NSNumber *chapters;
 	NSNumber *length;
 	NSNumber *seekable;
 	
@@ -41,19 +42,22 @@ extern NSString * const kMovieInfoKVOVideoInfo;
 	
 	NSMutableDictionary *metaData;
 	
+	NSMutableArray *chapterInfo;
+	
 	NSMutableArray *videoInfo;
 	NSMutableArray *audioInfo;
 	NSMutableArray *subInfo;
 }
 
 @property (retain, readwrite) NSString *demuxer;
-@property (retain, readwrite) NSNumber *chapters;
 @property (retain, readwrite) NSNumber *length;
 @property (retain, readwrite) NSNumber *seekable;
 
 @property (retain, readwrite) PlayingInfo *playingInfo;
 
 @property (retain, readwrite) NSMutableDictionary *metaData;
+
+@property (retain, readwrite) NSMutableArray *chapterInfo;
 
 @property (retain, readwrite) NSMutableArray *videoInfo;
 @property (retain, readwrite) NSMutableArray *audioInfo;

@@ -245,6 +245,10 @@ enum {
 				  forKeyPath:kKVOPropertyKeyPathVideoInfoID
 					 options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
 					 context:NULL];
+		[mplayer addObserver:self
+				  forKeyPath:kKVOPropertyKeyPathChapterInfo
+					 options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
+					 context:NULL];
 		kvoSetuped = YES;	
 	}
 }
@@ -264,6 +268,7 @@ enum {
 		[mplayer removeObserver:self forKeyPath:kKVOPropertyKeyPathVideoInfo];
 		[mplayer removeObserver:self forKeyPath:kKVOPropertyKeyPathAudioInfoID];
 		[mplayer removeObserver:self forKeyPath:kKVOPropertyKeyPathVideoInfoID];
+		[mplayer removeObserver:self forKeyPath:kKVOPropertyKeyPathChapterInfo];
 		
 		kvoSetuped = NO;
 	}

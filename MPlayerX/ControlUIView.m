@@ -59,6 +59,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 -(void) resetSubtitleMenu;
 -(void) resetAudioMenu;
 -(void) resetVideoMenu;
+-(void) resetChapterListMenu;
 -(void) tryToHide;
 
 -(void) playBackOpened:(NSNotification*)notif;
@@ -78,6 +79,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 -(void) gotCachingPercent:(NSNumber*) caching;
 -(void) gotAudioInfo:(NSArray*) ais;
 -(void) gotVideoInfo:(NSArray*) vis;
+-(void) gotChapterInfo:(NSArray*) cis;
 @end
 
 
@@ -126,6 +128,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 		subListMenu = [[NSMenu alloc] initWithTitle:@"SubListMenu"];
 		audioListMenu = [[NSMenu alloc] initWithTitle:@"AudioListMenu"];
 		videoListMenu = [[NSMenu alloc] initWithTitle:@"VideoListMenu"];
+		chapterListMenu = [[NSMenu alloc] initWithTitle:@"ChapterListMenu"];
 	}
 	return self;
 }
@@ -317,6 +320,10 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[videoListMenu setAutoenablesItems:NO];
 	[self resetVideoMenu];
 	
+	[menuChapterList setSubmenu:chapterListMenu];
+	[chapterListMenu setAutoenablesItems:NO];
+	[self resetChapterListMenu];
+	
 	// set menuItem tags
 	[menuSubScaleInc setTag:1];
 	[menuSubScaleDec setTag:-1];
@@ -390,6 +397,9 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	
 	[menuSwitchVideo setSubmenu:nil];
 	[videoListMenu release];
+	
+	[menuChapterList setSubmenu:nil];
+	[chapterListMenu release];
 	
 	[fillGradient release];
 	[backGroundColor release];
@@ -1033,6 +1043,19 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	}
 }
 
+-(IBAction) setChapterWithTime:(id)sender
+{
+	if (sender) {
+		[playerController seekTo:[sender tag] / kMPCChapterTimeBase mode:kMPCSeekModeRelative];
+		
+		[self updateHintTime];
+		
+		[osd setStringValue:[NSString stringWithFormat:kMPXStringOSDChapterHint, [sender representedObject]]
+					  owner:kOSDOwnerOther
+				updateTimer:YES];
+	}
+}
+
 -(IBAction) changeSubPosBy:(id)sender
 {
 	if (sender) {
@@ -1389,6 +1412,10 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	} else if ([keyPath isEqualToString:kKVOPropertyKeyPathVideoInfo]) {
 		// got the video info
 		[self gotVideoInfo:[change objectForKey:NSKeyValueChangeNewKey]];
+		
+	} else if ([keyPath isEqualToString:kKVOPropertyKeyPathChapterInfo]) {
+		// got chapter info
+		[self gotChapterInfo:[change objectForKey:NSKeyValueChangeNewKey]];
 	}
 }
 ////////////////////////////////////////////////KVO for time//////////////////////////////////////////////////
@@ -1645,6 +1672,40 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 		[menuSwitchVideo setEnabled:NO];
 	}
 }
+
+-(void) resetChapterListMenu
+{
+	[chapterListMenu removeAllItems];
+}
+
+-(void) gotChapterInfo:(NSArray*) cis
+{
+	[chapterListMenu removeAllItems];
+	
+	if (cis && (cis != (id)[NSNull null]) && [cis count]) {
+		
+		NSMenuItem *mItem = nil;
+		
+		for (ChapterItem *info in cis) {
+			mItem = [[NSMenuItem alloc] init];
+			[mItem setEnabled:YES];
+			[mItem setTarget:self];
+			[mItem setAction:@selector(setChapterWithTime:)];
+			[mItem setTitle:[info description]];
+			[mItem setTag:[info start]];
+			[mItem setState:NSOffState];
+			[mItem setRepresentedObject:[info name]];
+			
+			[chapterListMenu addItem:mItem];
+			[mItem release];
+		}
+		
+		[menuChapterList setEnabled:YES];
+	} else {
+		[menuChapterList setEnabled:NO];
+	}
+}
+
 ////////////////////////////////////////////////draw myself//////////////////////////////////////////////////
 - (void)drawRect:(NSRect)dirtyRect
 {

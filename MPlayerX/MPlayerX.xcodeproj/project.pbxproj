@@ -132,6 +132,7 @@
 		86E7A89E1155C1740014155D /* CharsetQueryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E7A89D1155C1740014155D /* CharsetQueryController.m */; };
 		86E7A8F11155E8980014155D /* CocoaAppendix.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E7A8F01155E8980014155D /* CocoaAppendix.m */; };
 		86E7A8FF1155EBCD0014155D /* SubEncoding.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86E7A8FE1155EBCD0014155D /* SubEncoding.xib */; };
+		86EA467B13BF23E300B1F588 /* ChapterItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EA467A13BF23E300B1F588 /* ChapterItem.m */; };
 		86F4DADB10BC329F007AE56A /* ControlUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F4DADA10BC329F007AE56A /* ControlUIView.m */; };
 		86F4DD8110BD6ECA007AE56A /* pause.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 86F4DD7F10BD6ECA007AE56A /* pause.pdf */; };
 		86F4DD8210BD6ECA007AE56A /* play.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 86F4DD8010BD6ECA007AE56A /* play.pdf */; };
@@ -353,6 +354,8 @@
 		86E7A8EF1155E8980014155D /* CocoaAppendix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CocoaAppendix.h; sourceTree = "<group>"; };
 		86E7A8F01155E8980014155D /* CocoaAppendix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CocoaAppendix.m; sourceTree = "<group>"; };
 		86E7A8FC1155EBC60014155D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SubEncoding.xib; sourceTree = "<group>"; };
+		86EA467913BF23E300B1F588 /* ChapterItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChapterItem.h; sourceTree = "<group>"; };
+		86EA467A13BF23E300B1F588 /* ChapterItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChapterItem.m; sourceTree = "<group>"; };
 		86F4DAD910BC329F007AE56A /* ControlUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ControlUIView.h; sourceTree = "<group>"; };
 		86F4DADA10BC329F007AE56A /* ControlUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ControlUIView.m; sourceTree = "<group>"; };
 		86F4DD7F10BD6ECA007AE56A /* pause.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pause.pdf; sourceTree = "<group>"; };
@@ -709,6 +712,8 @@
 		86CAF22110BA446800848B8E /* Info */ = {
 			isa = PBXGroup;
 			children = (
+				86EA467913BF23E300B1F588 /* ChapterItem.h */,
+				86EA467A13BF23E300B1F588 /* ChapterItem.m */,
 				86CAF24B10BA451100848B8E /* PlayingInfo.h */,
 				86CAF24C10BA451100848B8E /* PlayingInfo.m */,
 				86CAF23F10BA44EA00848B8E /* MovieInfo.h */,
@@ -993,6 +998,7 @@
 				863C0FE013801A9A00B5C906 /* SPMediaKeyTap.m in Sources */,
 				863C0FE313801AAF00B5C906 /* NSObject+SPInvocationGrabbing.m in Sources */,
 				863702E4138EA4AB00FD13BE /* AODetector.m in Sources */,
+				86EA467B13BF23E300B1F588 /* ChapterItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

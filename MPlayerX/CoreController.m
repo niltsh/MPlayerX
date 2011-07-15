@@ -35,7 +35,7 @@
 #define kMITypeAudioGotInfo	(6)
 #define kMITypeAudioGotID	(7)
 #define kMITypeVideoGotID	(8)
-
+#define KMITypeChapterInfo	(9)
 
 NSString * const kMPCPlayStoppedByForceKey		= @"kMPCPlayStoppedByForceKey";
 NSString * const kMPCPlayStoppedTimeKey			= @"kMPCPlayStoppedTimeKey";
@@ -108,6 +108,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 																	kKVOPropertyKeyPathAudioInfo, kMPCAudioIDs,
 																	kKVOPropertyKeyPathVideoInfo, kMPCVideoIDs,
 																	kKVOPropertyKeyPathDemuxer, kMPCDemuxerID,
+																	kKVOPropertyKeyPathChapterInfo, kMPCChapterInfoID,
 																	nil];
 		typeDict = [[NSDictionary alloc] initWithObjectsAndKeys:flatValue, kMPCTimePos, 
 																flatValue, kMPCLengthID,
@@ -121,6 +122,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 																[NSNumber numberWithInt:kMITypeAudioGotID], kMPCAudioIDs,
 																[NSNumber numberWithInt:kMITypeVideoGotID], kMPCVideoIDs,
 																flatValue, kMPCDemuxerID,
+																[NSNumber numberWithInt:KMITypeChapterInfo], kMPCChapterInfoID,
 																nil];
 		dispDelegate = nil;
 		delegate = nil;
@@ -808,6 +810,28 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 					}
 					[self setValue:currentID forKeyPath:idKeyPath];
 					break;	
+				}
+				case KMITypeChapterInfo:
+				{
+					ChapterItem *item;
+					NSArray *nameTime;
+					NSArray *chapters = [[dict objectForKey:key] componentsSeparatedByString:@";;"];
+					
+					[movieInfo willChangeValueForKey:kMovieInfoKVOChapterInfo];
+					
+					for (NSString *str in chapters) {
+						nameTime = [str componentsSeparatedByString:@"^^"];
+						
+						item = [[ChapterItem alloc] init];
+						
+						[item setName:[nameTime objectAtIndex:0]];
+						[item setStart:[[nameTime objectAtIndex:1] integerValue]];
+						[item setEnd:[[nameTime objectAtIndex:2] integerValue]];
+						// MPLog(@"%@, %d, %d", [item name], [item start], [item end]);
+						[movieInfo.chapterInfo addObject:item];	
+					}
+					[movieInfo didChangeValueForKey:kMovieInfoKVOChapterInfo];
+					break;
 				}
 				default:
 					break;

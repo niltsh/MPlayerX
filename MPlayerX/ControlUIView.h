@@ -48,6 +48,7 @@
 	NSMenu *subListMenu;
 	NSMenu *audioListMenu;
 	NSMenu *videoListMenu;
+	NSMenu *chapterListMenu;
 		
 	float volStep;
 	float orgHeight;
@@ -120,6 +121,7 @@
 	IBOutlet NSMenuItem *menuZoomToDoubleSize;
 	IBOutlet NSMenuItem *menuWndFitToScrn;
 	IBOutlet NSMenuItem *menuAudioChannels;
+	IBOutlet NSMenuItem *menuChapterList;
 }
 
 ////////////////////////////////显示相关////////////////////////////////
@@ -166,6 +168,8 @@ extern NSString * const kFillScreenButtonImageUBKey;
 
 -(IBAction) stepVideos:(id)sender;
 -(IBAction) setVideoWithID:(id)sender;
+
+-(IBAction) setChapterWithTime:(id)sender;
 
 -(IBAction) changeSubPosBy:(id)sender;
 -(IBAction) changeAudioBalanceBy:(id)sender;
