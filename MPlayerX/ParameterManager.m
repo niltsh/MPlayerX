@@ -328,10 +328,7 @@ NSString * const kPMParNoDispCacheLog		= @"-nodispclog";
 		[paramArray addObject:kPMParStartTime];
 		[paramArray addObject:[NSString stringWithFormat:kPMFMTFloat1, startTime]];
 	}
-	
-	[paramArray addObject:kPMParVolume];
-	[paramArray addObject:[NSString stringWithFormat: kPMFMTFloat1,GetRealVolume(volume)]];
-	
+
 	[paramArray addObject:kPMParSubPos];
 	[paramArray addObject:[NSString stringWithFormat: kPMFMTInt,((unsigned int)subPos)]];
 
@@ -439,9 +436,14 @@ NSString * const kPMParNoDispCacheLog		= @"-nodispclog";
 			passStr = [passStr stringByAppendingString:kPMParHWAC3];
 		}
 		[paramArray addObject:passStr];
-	} else if (mixToStereo == kPMMixDTS5_1ToStereo) {
-		[paramArray addObject:kPMParChannels];
-		[paramArray addObject:kPMVal2];
+	} else {
+		[paramArray addObject:kPMParVolume];
+		[paramArray addObject:[NSString stringWithFormat: kPMFMTFloat1,GetRealVolume(volume)]];
+
+		if (mixToStereo == kPMMixDTS5_1ToStereo) {
+			[paramArray addObject:kPMParChannels];
+			[paramArray addObject:kPMVal2];
+		}
 	}
 
 	if (pauseAtStart) {

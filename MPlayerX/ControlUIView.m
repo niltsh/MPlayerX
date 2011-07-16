@@ -1297,6 +1297,14 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 				[mitem setState:NSOffState];
 			}
 		}
+		// 如果是DD的设置的话，ParameterManager里面不会设置音量。
+		// 但是如果最后文件不是按照DD播放的话，需要重新设置音量
+		// 并且不显示OSD
+		BOOL oldAct = [osd isActive];
+		[osd setActive:NO];
+		// 这个可能是mplayer的bug，当轮转一圈从各个音轨到无声在回到音轨时，声音会变到最大，所以这里再设定一次音量
+		[self setVolume:volumeSlider];
+		[osd setActive:oldAct];
 	}
 	
 	[self showUp];
