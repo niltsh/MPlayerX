@@ -76,6 +76,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 
 @interface CoreController (CoreControllerInternal)
 -(void) getCurrentTime:(NSTimer*)theTimer;
+-(void) renderRoutine;
 @end
 
 @implementation CoreController
@@ -144,8 +145,10 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 		imageData = NULL;
 		imageSize = 0;
 		sharedBufferName = [[NSString alloc] initWithFormat:@"MPlayerX_%X", self];
-		renderConn = [[NSConnection serviceConnectionWithName:sharedBufferName rootObject:self] retain];
-		[renderConn runInNewThread];
+		
+		renderThread = [[NSThread alloc] initWithTarget:self selector:@selector(renderRoutine) object:nil];
+		[renderThread setThreadPriority:0.9];
+		[renderThread start];
 		
 		pollingTimer = nil;
 	}
@@ -170,7 +173,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 {
 	delegate = nil;
 
-	[renderConn release];
+	[renderThread release];
 	[keyPathDict release];
 	[typeDict release];
 
@@ -184,6 +187,20 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 	[subConv release];
 
 	[super dealloc];
+}
+
+-(void) renderRoutine
+{
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	NSRunLoop *rl = [NSRunLoop currentRunLoop];
+	NSConnection *renderConn = [[NSConnection serviceConnectionWithName:sharedBufferName rootObject:self] retain];
+	
+	[rl run];
+	
+	[renderConn release];
+	[pool drain];	
+	[NSThread exit];
 }
 
 //////////////////////////////////////////////Hack to get communicate with mplayer/////////////////////////////////////////////
@@ -202,7 +219,11 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 	// and stop always happens before mplayer really exit
 	// so imageData is there means stop is forgotten
 	if (imageData) {
-		[self stop];
+		[self performSelector:@selector(stop)
+					 onThread:renderThread
+				   withObject:nil
+				waitUntilDone:YES
+						modes:[NSArray arrayWithObjects:NSDefaultRunLoopMode, NSModalPanelRunLoopMode, NSEventTrackingRunLoopMode, nil]];
 	}
 	
 	if (delegate) {

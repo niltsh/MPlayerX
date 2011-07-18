@@ -43,7 +43,7 @@
 	void *imageData;
 	unsigned int imageSize;
 	NSString *sharedBufferName;
-	NSConnection *renderConn;
+	NSThread *renderThread;
 
 	// delegates
 	id<CoreDisplayDelegate> dispDelegate;
