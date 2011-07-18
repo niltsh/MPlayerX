@@ -197,6 +197,10 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	// 得到基本的rootLayer
 	CALayer *root = [self layer];
 	
+	[CATransaction begin];
+	[CATransaction setDisableActions:YES];
+
+	[root removeAllAnimations];
 	// 禁用修改尺寸的action
 	[root setDelegate:self];
 	[root setDoubleSided:NO];
@@ -227,6 +231,8 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	// 通知DispLayer
 	[dispLayer setBounds:[root bounds]];
 	[dispLayer setPosition:CGPointMake(root.bounds.size.width/2, root.bounds.size.height/2)];
+	
+	[CATransaction commit];
 }
 -(id<CAAction>) actionForLayer:(CALayer*)layer forKey:(NSString*)event { return ((id<CAAction>)[NSNull null]); }
 
