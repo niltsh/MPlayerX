@@ -101,6 +101,7 @@ NSString * const kUDKeyDontResizeWhenContinuousPlay			= @"DontResizeWhenContinuo
 NSString * const kUDKeyEnableMediaKeyTap					= @"EnableMediaKeyTap";
 NSString * const kUDKeyResizeControlBar						= @"ResizeControlBar";
 NSString * const kUDKeyInitialFrameSizeRatio				= @"InitialFrameSizeRatio";
+NSString * const kUDKeyDisableLastStopBookmark				= @"DisableLastStopBookmark";
 
 NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";

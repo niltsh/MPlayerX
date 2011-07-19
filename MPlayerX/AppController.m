@@ -79,6 +79,7 @@ static BOOL init_ed = NO;
 					   @"NO", @"AppleMomentumScrollSupported",
 					   [SPMediaKeyTap defaultMediaKeyUserBundleIdentifiers], kMediaKeyUsingBundleIdentifiersDefaultsKey,
 					   [NSNumber numberWithBool:YES], kUDKeyEnableMediaKeyTap,
+					   [NSNumber numberWithBool:NO], kUDKeyDisableLastStopBookmark,
 					   nil]];
 
 	MPSetLogEnable([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyLogMode]);
@@ -161,6 +162,11 @@ static BOOL init_ed = NO;
 {
 	// setup url list for OpenURL Panel
 	[openUrlController initURLList:bookmarks];
+	
+	if ([ud boolForKey:kUDKeyDisableLastStopBookmark]) {
+		// disable bookmark completely
+		[bookmarks removeAllObjects];
+	}
 }
 
 -(BOOL) validateMenuItem:(NSMenuItem *)menuItem

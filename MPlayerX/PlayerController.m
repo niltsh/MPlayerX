@@ -936,14 +936,17 @@ static BOOL isNetworkPath(const char *path)
 
 	[notifCenter postNotificationName:kMPCPlayStoppedNotification object:self userInfo:nil];
 
-	if (stoppedByForce) {
-		// 如果是强制停止
-		// 用文件名做key，记录这个文件的播放时间
-		[[[AppController sharedAppController] bookmarks] setObject:[dict objectForKey:kMPCPlayStoppedTimeKey] forKey:[lastPlayedPath absoluteString]];
-	} else {
-		// 自然关闭
-		// 删除这个文件key的播放时间
-		[[[AppController sharedAppController] bookmarks] removeObjectForKey:[lastPlayedPath absoluteString]];
+	if (![ud boolForKey:kUDKeyDisableLastStopBookmark]) {
+		// if not disable bookmark completely
+		if (stoppedByForce) {
+			// 如果是强制停止
+			// 用文件名做key，记录这个文件的播放时间
+			[[[AppController sharedAppController] bookmarks] setObject:[dict objectForKey:kMPCPlayStoppedTimeKey] forKey:[lastPlayedPath absoluteString]];
+		} else {
+			// 自然关闭
+			// 删除这个文件key的播放时间
+			[[[AppController sharedAppController] bookmarks] removeObjectForKey:[lastPlayedPath absoluteString]];
+		}
 	}
 	
 	if ([ud boolForKey:kUDKeyAutoPlayNext] && [lastPlayedPath isFileURL] && (!stoppedByForce)) {
