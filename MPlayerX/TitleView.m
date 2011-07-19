@@ -70,21 +70,21 @@ static NSRect trackRect;
 		miniButton  = [[NSButton alloc] initWithFrame:NSMakeRect(25, 0, 22, 22)];
 		zoomButton  = [[NSButton alloc] initWithFrame:NSMakeRect(46, 0, 22, 22)];
 		
-		[closeButton setButtonType:NSSwitchButton];
+		[closeButton setButtonType:NSMomentaryPushInButton];
 		[closeButton setImage:imgCloseActive];
 		[closeButton setImagePosition:NSImageOnly];
 		[closeButton setBordered:NO];		
 		[closeButton setAutoresizingMask:NSViewMaxXMargin|NSViewMaxYMargin];
 		[closeButton setContinuous:NO];
 
-		[miniButton setButtonType:NSSwitchButton];
+		[miniButton setButtonType:NSMomentaryPushInButton];
 		[miniButton setImage:imgMiniActive];
 		[miniButton setImagePosition:NSImageOnly];
 		[miniButton setBordered:NO];
 		[miniButton setAutoresizingMask:NSViewMaxXMargin|NSViewMaxYMargin];
 		[miniButton setContinuous:NO];
 		
-		[zoomButton setButtonType:NSSwitchButton];
+		[zoomButton setButtonType:NSMomentaryPushInButton];
 		[zoomButton setImage:imgZoomActive];
 		[zoomButton setImagePosition:NSImageOnly];
 		[zoomButton setBordered:NO];
