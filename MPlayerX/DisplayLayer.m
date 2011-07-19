@@ -26,6 +26,10 @@
 #define SAFERELEASEOPENGLBUFFER(x)		{if(x){CVOpenGLBufferRelease(x); x=NULL;}}
 #define SAFERELEASETEXTURE(x)			{if(x){CVOpenGLTextureRelease(x);x=NULL;}}
 
+@interface DisplayLayer (DisplayLayerInternal)
+-(void) reshape;
+@end
+
 @implementation DisplayLayer
 
 @synthesize mirror;
@@ -50,14 +54,17 @@
 		fillScreen = NO;
 		externalAspectRatio = kDisplayAscpectRatioInvalid;
 
-		// [self setMasksToBounds:YES];
+		[CATransaction begin];
+		[CATransaction setDisableActions:YES];
+		
 		[self setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
-		// [self setDoubleSided:NO];
 		[self setAsynchronous:NO];
 		// The layer could not be Opaque, since it wil cover
 		// the root layer for logo display
 		// [self setOpaque:YES];
 		
+		[CATransaction commit];
+
 		positionOffset = NO;
 		scaleEnabled = NO;
 		renderRatio = CGRectMake(0, 0, 1, 1);
@@ -128,13 +135,6 @@
 	flagAspectRatioChanged = YES;
 }
 
--(void) updateCoordinate
-{
-	refitBounds = YES;
-	[self setNeedsDisplay];
-	refitBounds = NO;
-}
-
 -(BOOL) fillScreen
 {
 	return fillScreen;
@@ -178,6 +178,54 @@
 -(CGSize) scaleRatio
 {
 	return renderRatio.size;
+}
+
+-(void) reshape
+{
+	if (flagFillScrnChanged || flagAspectRatioChanged || flagScaleChanged || refitBounds) {
+		MPLog(@"as fil changed");
+		CGRect rc = self.superlayer.bounds;
+		CGFloat sAspect = [self aspectRatio];
+		
+		if (((sAspect * rc.size.height) > rc.size.width) == fillScreen) {
+			rc.size.width = rc.size.height * sAspect;
+		} else {
+			rc.size.height = rc.size.width / sAspect;
+		}
+		
+		if (scaleEnabled) {
+			rc.size.width *= renderRatio.size.width;
+			rc.size.height *= renderRatio.size.height;
+		}
+		
+		[CATransaction begin];
+		[CATransaction setDisableActions:YES];
+		self.bounds = rc;
+		[CATransaction commit];	
+		
+		flagAspectRatioChanged = NO;
+		flagFillScrnChanged = NO;
+		flagScaleChanged = NO;
+	}
+	
+	if (flagPositionOffsetChanged) {
+		MPLog(@"pos changed");
+		CGRect rc = self.superlayer.bounds;
+		CGPoint pt = CGPointMake(rc.size.width/2, rc.size.height/2);
+		
+		rc = self.bounds;
+		
+		if (positionOffset) {
+			pt.x += rc.size.width  * renderRatio.origin.x;
+			pt.y += rc.size.height * renderRatio.origin.y;
+		}
+		[CATransaction begin];
+		[CATransaction setDisableActions:YES];
+		self.position = pt;
+		[CATransaction commit];	
+		
+		flagPositionOffsetChanged = NO;
+	}	
 }
 
 /**
@@ -225,7 +273,7 @@
 -(void) draw:(NSUInteger)frameNum
 {
 	frameNow = frameNum;
-	[self setNeedsDisplay];
+	[self display];
 }
 
 -(void) stop
@@ -352,45 +400,22 @@
 
 -(void) display
 {
-	if (flagFillScrnChanged || flagAspectRatioChanged || flagScaleChanged || refitBounds) {
-		MPLog(@"as fil changed");
-		CGRect rc = self.superlayer.bounds;
-		CGFloat sAspect = [self aspectRatio];
-		
-		if (((sAspect * rc.size.height) > rc.size.width) == fillScreen) {
-			rc.size.width = rc.size.height * sAspect;
-		} else {
-			rc.size.height = rc.size.width / sAspect;
-		}
-		
-		if (scaleEnabled) {
-			rc.size.width *= renderRatio.size.width;
-			rc.size.height *= renderRatio.size.height;
-		}
-
-		self.bounds = rc;
-		
-		flagAspectRatioChanged = NO;
-		flagFillScrnChanged = NO;
-		flagScaleChanged = NO;
-	}
-	
-	if (flagPositionOffsetChanged) {
-		MPLog(@"pos changed");
-		CGRect rc = self.superlayer.bounds;
-		CGPoint pt = CGPointMake(rc.size.width/2, rc.size.height/2);
-		
-		rc = self.bounds;
-		
-		if (positionOffset) {
-			pt.x += rc.size.width  * renderRatio.origin.x;
-			pt.y += rc.size.height * renderRatio.origin.y;
-		}
-		self.position = pt;
-		
-		flagPositionOffsetChanged = NO;
-	}
+	[self reshape];
 	[super display];
 }
 
+-(void) layoutSublayers
+{
+	/*
+	 Called when the layer requires layout.
+	 Discussion
+	 The default implementation invokes the layout manager method layoutSublayersOfLayer:,
+	 if a layout manager is specified and it implements that method.
+	 Subclasses can override this method to provide their own layout algorithm,
+	 which must set the frame of each sublayer.
+	 
+	 This is called when met with onLayout event,
+	 since I don't have any sublayer, I could ignore this function.
+	 */
+}
 @end

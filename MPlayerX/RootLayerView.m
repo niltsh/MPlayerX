@@ -407,9 +407,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 				pt.y += (delta.y / sz.height);
 
 				[dispLayer setPositoinOffsetRatio:pt];
-				if ([playerController playerState] == kMPCPausedState) {
-					[dispLayer updateCoordinate];
-				}
+				[dispLayer display];
 			}
 			break;
 		//////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -768,9 +766,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 -(void) resetFrameScaleRatio
 {
 	[dispLayer setScaleRatio:CGSizeMake(1, 1)];
-	if ([playerController playerState] == kMPCPausedState) {
-		[dispLayer updateCoordinate];
-	}
+	[dispLayer display];
 }
 
 -(void) changeFrameScaleRatioBy:(CGSize)rt
@@ -795,17 +791,13 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	}
 	
 	[dispLayer setScaleRatio:ratio];
-	if ([playerController playerState] == kMPCPausedState) {
-		[dispLayer updateCoordinate];
-	}
+	[dispLayer display];
 }
 
 -(void) moveFrameToCenter
 {
 	[dispLayer setPositoinOffsetRatio:CGPointZero];
-	if ([playerController playerState] == kMPCPausedState) {
-		[dispLayer updateCoordinate];
-	}
+	[dispLayer display];
 }
 
 -(NSRect) calculateFrameFrom:(NSRect)orgFrame toFit:(CGFloat)ar mode:(NSUInteger)modeMask
@@ -1002,9 +994,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			//如果是锁定AR的，那么需要重新设定比例
 			[playerWindow setContentAspectRatio:[playerWindow contentRectForFrameRect:newFrame].size];
 
-			if ([playerController playerState] == kMPCPausedState) {
-				[dispLayer updateCoordinate];
-			}
+			[dispLayer display];
 		} else {
 			// 如果没有锁定AR，那么dispLayer的AR会随着window变，所以目前不需要做什么事情
 		}
@@ -1080,9 +1070,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 
 			// 如果没有displaying，那么就不需要动画了
 			[playerWindow setFrame:rcBeforeFullScrn display:YES animate:displaying];
-			if ([playerController playerState] == kMPCPausedState) {
-				[dispLayer setNeedsDisplay];
-			}
+			[dispLayer display];
 			[dispLayer forceAdjustToFitBounds:NO];
 			
 			// 当进入全屏的时候，回强制锁定ar
@@ -1094,9 +1082,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			// 推出全屏，重新根据现在的尺寸比例渲染图像
 			[dispLayer enablePositionOffset:NO];
 			[dispLayer enableScale:NO];
-			if ([playerController playerState] == kMPCPausedState) {
-				[dispLayer updateCoordinate];
-			}
+			[dispLayer display];
 			
 			if (displaying) {
 				// 如果选定了CloseWindowWhenStopped的话
@@ -1147,20 +1133,16 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		
 		[dispLayer forceAdjustToFitBounds:YES];
 		[playerWindow setFrame:[chosenScreen frame] display:YES animate:YES];
-		if ([playerController playerState] == kMPCPausedState) {
-			[dispLayer setNeedsDisplay];
-		}
+		[dispLayer display];
+
 		// 进入全屏
 		[self enterFullScreenMode:chosenScreen withOptions:fullScreenOptions];
 		// 推出全屏，重新根据现在的尺寸比例渲染图像
 		[dispLayer enablePositionOffset:YES];
 		[dispLayer enableScale:YES];
 		// 暂停的时候能够正确显示
-		if ([playerController playerState] == kMPCPausedState) {
-			[dispLayer updateCoordinate];
-		}
+		[dispLayer display];
 		[dispLayer forceAdjustToFitBounds:NO];
-
 
 		[playerWindow orderOut:self];
 
@@ -1176,9 +1158,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 							   state:([dispLayer fillScreen])?NSOnState:NSOffState];
 	} else {
 		// 强制渲染一次
-		if ([playerController playerState] == kMPCPausedState) {
-			[dispLayer updateCoordinate];
-		}
+		[dispLayer display];
 		return NO;
 	}
 	return YES;
@@ -1188,9 +1168,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 {
 	[dispLayer setFillScreen: ![dispLayer fillScreen]];
 	// 暂停的时候能够正确显示
-	if ([playerController playerState] == kMPCPausedState) {
-		[dispLayer updateCoordinate];
-	}
+	[dispLayer display];
 	return [dispLayer fillScreen];
 }
 
@@ -1221,17 +1199,13 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 -(void) setMirror:(BOOL)m
 {
 	[dispLayer setMirror:m];
-	if ([playerController playerState] == kMPCPausedState) {
-		[dispLayer updateCoordinate];
-	}
+	[dispLayer display];
 }
 
 -(void) setFlip:(BOOL)f
 {
 	[dispLayer setFlip:f];
-	if ([playerController playerState] == kMPCPausedState) {
-		[dispLayer updateCoordinate];
-	}
+	[dispLayer display];
 }
 
 -(void) zoomToSize:(float)ratio
@@ -1254,9 +1228,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			sr.height *= r;
 			
 			[dispLayer setScaleRatio:sr];
-			if ([playerController playerState] == kMPCPausedState) {
-				[dispLayer updateCoordinate];
-			}
+			[dispLayer display];
 		} else {
 			// not in full screen
 			NSRect rc = [playerWindow contentRectForFrameRect:[playerWindow frame]];
@@ -1365,9 +1337,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 					[dispLayer setExternalAspectRatio:ar];
 				}
 			}
-			if ([playerController playerState] == kMPCPausedState) {
-				[dispLayer updateCoordinate];
-			}
+			[dispLayer display];
 		} else {
 			NSRect frm = [self calculateFrameFrom:[playerWindow frame]
 											toFit:IsDisplayLayerAspectValid(ar)?(ar):[dispLayer originalAspectRatio]
@@ -1489,9 +1459,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		// 如果没有锁住aspect ratio
 		NSSize sz = [self bounds].size;
 		[self setExternalAspectRatio:(sz.width/sz.height)];
-		if ([playerController playerState] == kMPCPausedState) {
-			[dispLayer updateCoordinate];
-		}
+		[dispLayer display];
 	}
 }
 
