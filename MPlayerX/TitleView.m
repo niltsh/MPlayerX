@@ -20,6 +20,7 @@
 
 #import "TitleView.h"
 #import "CocoaAppendix.h"
+#import "MPXWindowButton.h"
 
 static NSString * const kStringDots = @"...";
 static NSRect trackRect;
@@ -32,6 +33,9 @@ static NSRect trackRect;
 @implementation TitleView
 
 @synthesize title;
+@synthesize closeButton;
+@synthesize miniButton;
+@synthesize zoomButton;
 
 +(void) initialize
 {
@@ -66,30 +70,13 @@ static NSRect trackRect;
 		imgZoomInactive	 = [[NSImage imageNamed:@"zoom-inactive-disabled.tiff"] retain];
 		imgZoomRollover	 = [[NSImage imageNamed:@"zoom-rollover.tiff"] retain];
 
-		closeButton = [[NSButton alloc] initWithFrame:NSMakeRect( 4, 0, 22, 22)];
-		miniButton  = [[NSButton alloc] initWithFrame:NSMakeRect(25, 0, 22, 22)];
-		zoomButton  = [[NSButton alloc] initWithFrame:NSMakeRect(46, 0, 22, 22)];
+		closeButton = [[MPXWindowButton alloc] initWithFrame:NSMakeRect( 4, 0, 22, 22) type:kMPXWindowCloseButtonType];
+		miniButton  = [[MPXWindowButton alloc] initWithFrame:NSMakeRect(25, 0, 22, 22) type:kMPXWindowMinimizeButtonType];
+		zoomButton  = [[MPXWindowButton alloc] initWithFrame:NSMakeRect(46, 0, 22, 22) type:kMPXWindowZoomButtonType];
 		
-		[closeButton setButtonType:NSMomentaryPushInButton];
 		[closeButton setImage:imgCloseActive];
-		[closeButton setImagePosition:NSImageOnly];
-		[closeButton setBordered:NO];		
-		[closeButton setAutoresizingMask:NSViewMaxXMargin|NSViewMaxYMargin];
-		[closeButton setContinuous:NO];
-
-		[miniButton setButtonType:NSMomentaryPushInButton];
 		[miniButton setImage:imgMiniActive];
-		[miniButton setImagePosition:NSImageOnly];
-		[miniButton setBordered:NO];
-		[miniButton setAutoresizingMask:NSViewMaxXMargin|NSViewMaxYMargin];
-		[miniButton setContinuous:NO];
-		
-		[zoomButton setButtonType:NSMomentaryPushInButton];
 		[zoomButton setImage:imgZoomActive];
-		[zoomButton setImagePosition:NSImageOnly];
-		[zoomButton setBordered:NO];
-		[zoomButton setAutoresizingMask:NSViewMaxXMargin|NSViewMaxYMargin];
-		[zoomButton setContinuous:NO];
 		
 		mouseEntered = NO;
 	}

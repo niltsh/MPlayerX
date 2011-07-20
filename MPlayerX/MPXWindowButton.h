@@ -1,5 +1,5 @@
 /*
- * MPlayerX - TitleView.h
+ * MPlayerX - MPXWindowButton.h
  *
  * Copyright (C) 2009 - 2011, Zongyao QU
  * 
@@ -20,39 +20,24 @@
 
 #import <Cocoa/Cocoa.h>
 
+typedef enum {
+	kMPXWindowCloseButtonType = 1,
+	kMPXWindowMinimizeButtonType = 2,
+	kMPXWindowZoomButtonType = 3
+}MPXWindowButtonType;
 
-@interface TitleView : NSView
+@interface MPXWindowButton : NSButton
 {
-	NSButton *closeButton;
-	NSButton *miniButton;
-	NSButton *zoomButton;
-	
-	NSImage *tbCornerLeft;
-	NSImage *tbCornerRight;
-	NSImage *tbMiddle;
-	
-	NSImage *imgCloseActive;
-	NSImage *imgCloseInactive;
-	NSImage *imgCloseRollover;
-	
-	NSImage *imgMiniActive;
-	NSImage *imgMiniInactive;
-	NSImage *imgMiniRollover;
-	
-	NSImage *imgZoomActive;
-	NSImage *imgZoomInactive;
-	NSImage *imgZoomRollover;
-
-	NSString *title;
-	NSDictionary *titleAttr;
-	
-	BOOL mouseEntered;
+	MPXWindowButtonType windowButtonType;
 }
 
-@property(retain, readwrite) NSString *title;
+@property (readonly) MPXWindowButtonType windowButtonType;
 
-@property(readonly) NSButton *closeButton;
-@property(readonly) NSButton *miniButton;
-@property(readonly) NSButton *zoomButton;
+-(id) initWithFrame:(NSRect)frame type:(MPXWindowButtonType)type;
 
+@end
+
+@interface MPXWindowButtonCell : NSButtonCell
+{
+}
 @end

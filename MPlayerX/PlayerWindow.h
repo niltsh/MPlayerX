@@ -20,6 +20,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString * const kMPXAccessibilityWindowFrameAttribute;
+
 @class TitleView;
 
 @interface PlayerWindow : NSWindow

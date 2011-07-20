@@ -111,6 +111,7 @@
 		868CB5CA1358710200EDC86F /* BGHUDSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 868CB5C31358710200EDC86F /* BGHUDSliderCell.m */; };
 		868CB5CB1358710200EDC86F /* BGTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 868CB5C51358710200EDC86F /* BGTheme.m */; };
 		868CB5CC1358710200EDC86F /* BGThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 868CB5C71358710200EDC86F /* BGThemeManager.m */; };
+		869A336113D6EBFA0014B201 /* MPXWindowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 869A336013D6EBFA0014B201 /* MPXWindowButton.m */; };
 		86A34A0910F60F7E00AECBB2 /* UniversalDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A34A0810F60F7E00AECBB2 /* UniversalDetector.framework */; };
 		86A34A2510F60FA000AECBB2 /* UniversalDetector.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 86A34A0810F60F7E00AECBB2 /* UniversalDetector.framework */; };
 		86A5E40C10C7D24D00D061C7 /* wqy-microhei.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 86A5E40B10C7D24D00D061C7 /* wqy-microhei.ttc */; };
@@ -311,6 +312,8 @@
 		868CB5C61358710200EDC86F /* BGThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BGThemeManager.h; path = ../BGHUDAppKit/Framework/BGThemeManager.h; sourceTree = SOURCE_ROOT; };
 		868CB5C71358710200EDC86F /* BGThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BGThemeManager.m; path = ../BGHUDAppKit/Framework/BGThemeManager.m; sourceTree = SOURCE_ROOT; };
 		868CB5CD1358718500EDC86F /* BGHUDGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BGHUDGeometry.h; path = ../BGHUDAppKit/Framework/BGHUDGeometry.h; sourceTree = SOURCE_ROOT; };
+		869A335F13D6EBFA0014B201 /* MPXWindowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPXWindowButton.h; sourceTree = "<group>"; };
+		869A336013D6EBFA0014B201 /* MPXWindowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPXWindowButton.m; sourceTree = "<group>"; };
 		86A34A0810F60F7E00AECBB2 /* UniversalDetector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = UniversalDetector.framework; path = ../UniversalDetector/build/Release/UniversalDetector.framework; sourceTree = SOURCE_ROOT; };
 		86A5E40B10C7D24D00D061C7 /* wqy-microhei.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "wqy-microhei.ttc"; sourceTree = "<group>"; };
 		86B99D0010C9418600AB28FB /* OpenURLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = OpenURLController.h; sourceTree = "<group>"; };
@@ -494,6 +497,8 @@
 				861EE1EA11662BF600D16C87 /* PlayerWindow.m */,
 				861EE37B116718AF00D16C87 /* TitleView.h */,
 				861EE37C116718AF00D16C87 /* TitleView.m */,
+				869A335F13D6EBFA0014B201 /* MPXWindowButton.h */,
+				869A336013D6EBFA0014B201 /* MPXWindowButton.m */,
 			);
 			name = Display;
 			sourceTree = "<group>";
@@ -999,6 +1004,7 @@
 				863C0FE313801AAF00B5C906 /* NSObject+SPInvocationGrabbing.m in Sources */,
 				863702E4138EA4AB00FD13BE /* AODetector.m in Sources */,
 				86EA467B13BF23E300B1F588 /* ChapterItem.m in Sources */,
+				869A336113D6EBFA0014B201 /* MPXWindowButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

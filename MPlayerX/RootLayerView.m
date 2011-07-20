@@ -30,6 +30,7 @@
 #import "VideoTunerController.h"
 #import "TitleView.h"
 #import "CocoaAppendix.h"
+#import "PlayerWindow.h"
 
 #define kOnTopModeNormal		(0)
 #define kOnTopModeAlways		(1)
@@ -1463,4 +1464,31 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	}
 }
 
+#pragma mark Accessibility
+-(void)accessibilitySetValue:(id)value forAttribute:(NSString *)attr
+{
+	if (![self isInFullScreenMode]) {
+		NSRect rc = [playerWindow frame];
+		
+		if ([attr isEqualToString:NSAccessibilityPositionAttribute]) {
+			rc.origin = [value pointValue];
+		} else if ([attr isEqualToString:NSAccessibilitySizeAttribute]) {
+			NSSize sz = [value sizeValue];
+			
+			// 目标Rect
+			rc.origin.x -= (sz.width  - rc.size.width)  / 2;
+			rc.origin.y -= (sz.height - rc.size.height) / 2;
+			rc.size = sz;
+		} else if ([attr isEqualToString:kMPXAccessibilityWindowFrameAttribute]) {
+			rc = [value rectValue];
+
+		} else {
+			// only respond to position and size
+			return;
+		}
+		
+		rc = [self calculateFrameFrom:rc toFit:[dispLayer aspectRatio] mode:kCalFrameFixPosCenter|kCalFrameSizeInFit];
+		[playerWindow setFrame:rc display:YES animate:NO];
+	}
+}
 @end

@@ -21,6 +21,9 @@
 #import "PlayerWindow.h"
 #import "TitleView.h"
 
+NSString * const kMPXAccessibilityPlayerWindowDesc		= @"PlayerWindow";
+NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
+
 @implementation PlayerWindow
 
 -(id) initWithContentRect:(NSRect)contentRect 
@@ -98,4 +101,75 @@
 {
 	[self close];
 }
+
+#pragma mark Accessibility
+
+-(NSArray*) accessibilityAttributeNames
+{
+	NSArray* ret = [super accessibilityAttributeNames];
+	if (ret && (![ret containsObject:NSAccessibilitySubroleAttribute])) {
+		ret = [ret arrayByAddingObjectsFromArray:[NSArray arrayWithObjects:NSAccessibilitySubroleAttribute, kMPXAccessibilityWindowFrameAttribute, nil]];
+	}
+	return ret;
+}
+
+-(id) accessibilityAttributeValue:(NSString*)attr
+{
+	id ret;
+	
+	if ([attr isEqualToString:NSAccessibilityCloseButtonAttribute]) {
+		ret = [titlebar closeButton];
+		
+	} else if ([attr isEqualToString:NSAccessibilityMinimizeButtonAttribute]) {
+		ret = [titlebar miniButton];
+		
+	} else if ([attr isEqualToString:NSAccessibilityZoomButtonAttribute]) {
+		ret = [titlebar zoomButton];
+		
+	} else if ([attr isEqualToString:NSAccessibilityDescriptionAttribute]) {
+		ret = kMPXAccessibilityPlayerWindowDesc;
+		
+	} else if ([attr isEqualToString:NSAccessibilitySubroleAttribute]) {
+		ret = NSAccessibilityStandardWindowSubrole;
+		
+	} else if ([attr isEqualToString:kMPXAccessibilityWindowFrameAttribute]) {
+		ret = [NSValue valueWithRect:[self frame]];
+
+	} else {
+		ret = [super accessibilityAttributeValue:attr];
+	}
+	return ret;
+}
+
+-(BOOL)accessibilityIsAttributeSettable:(NSString*)attr
+{
+	BOOL ret;
+	if ([attr isEqualToString:NSAccessibilityCloseButtonAttribute] ||
+		[attr isEqualToString:NSAccessibilityMinimizeButtonAttribute] ||
+		[attr isEqualToString:NSAccessibilityZoomButtonAttribute] ||
+		[attr isEqualToString:NSAccessibilityDescriptionAttribute] ||
+		[attr isEqualToString:NSAccessibilitySubroleAttribute]) {
+		// set unsettable
+		ret = NO;
+	} else if (([attr isEqualToString:NSAccessibilityPositionAttribute] || [attr isEqualToString:NSAccessibilitySizeAttribute] || [attr isEqualToString:kMPXAccessibilityWindowFrameAttribute]) &&
+			   [[self contentView] respondsToSelector:@selector(accessibilitySetValue:forAttribute:)]) {
+		// settable
+		ret = YES;
+	} else {
+		ret = [super accessibilityIsAttributeSettable:attr];
+	}
+	return ret;
+}
+
+-(void)accessibilitySetValue:(id)value forAttribute:(NSString *)attr
+{
+	if (([attr isEqualToString:NSAccessibilityPositionAttribute] || [attr isEqualToString:NSAccessibilitySizeAttribute] || [attr isEqualToString:kMPXAccessibilityWindowFrameAttribute]) &&
+		[[self contentView] respondsToSelector:@selector(accessibilitySetValue:forAttribute:)]) {
+		[[self contentView] accessibilitySetValue:value forAttribute:attr];
+	} else {
+		[super accessibilitySetValue:value forAttribute:attr];
+	}
+}
+
+-(BOOL) accessibilityIsIgnored {return NO;}
 @end
