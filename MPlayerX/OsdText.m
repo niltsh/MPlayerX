@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#import <QuartzCore/QuartzCore.h>
 #import "UserDefaults.h"
 #import "OsdText.h"
 
@@ -103,6 +104,11 @@
 	[super dealloc];
 }
 
+- (id)animationForKey:(NSString *)key
+{
+	return nil;
+}
+
 -(void) setAutoHideTimeInterval:(NSTimeInterval)ti
 {
 	if (autoHideTimer) {
@@ -126,7 +132,7 @@
 -(void) tryToHide
 {
 	if (shouldHide) {
-		[self.animator setAlphaValue:0];
+		[self setAlphaValue:0];
 	} else {
 		shouldHide = YES;
 	}
@@ -154,9 +160,12 @@
 									  frontColor, NSForegroundColorAttributeName,
 									  shadow, NSShadowAttributeName, nil];
 			NSAttributedString *str = [[NSAttributedString alloc] initWithString:aString attributes:attrDict];
-			[self setObjectValue:str];
 			
+			[CATransaction begin];
+			[CATransaction setDisableActions:YES];
+			[self setObjectValue:str];
 			[self setAlphaValue:1];
+			[CATransaction commit];
 			
 			[str release];
 			[attrDict release];			
