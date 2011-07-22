@@ -112,24 +112,26 @@ static OSStatus GetAudioPropertyString(AudioObjectID id, AudioObjectPropertySele
 static int AudioStreamSupportsDigital( AudioStreamID i_stream_id )
 {
     UInt32 i_param_size;
-    AudioStreamBasicDescription *p_format_list = NULL;
+    AudioStreamRangedDescription *p_format_list = NULL;
     int i, i_formats, b_return = NO;
 	
     /* Retrieve all the stream formats supported by each output stream. */
-    i_param_size = GetAudioPropertyArray(i_stream_id, kAudioStreamPropertyPhysicalFormats, kAudioObjectPropertyScopeGlobal, (void **)&p_format_list);
+    i_param_size = GetAudioPropertyArray(i_stream_id, kAudioStreamPropertyAvailablePhysicalFormats, kAudioObjectPropertyScopeGlobal, (void **)&p_format_list);
 	
     if (!i_param_size) {
 		MPLog(@"Could not get number of stream formats.\n");
         return NO;
     }
 	
-    i_formats = i_param_size / sizeof(AudioStreamBasicDescription);
+    i_formats = i_param_size / sizeof(AudioStreamRangedDescription);
 	
     for (i = 0; i < i_formats; ++i) {
-        print_format("Supported format:", &p_format_list[i]);
+        print_format("Supported format:", &(p_format_list[i].mFormat));
 		
-        if ((p_format_list[i].mFormatID == 'IAC3') || (p_format_list[i].mFormatID == 'iac3') ||
-			(p_format_list[i].mFormatID == kAudioFormat60958AC3) || (p_format_list[i].mFormatID == kAudioFormatAC3)) {
+        if ((p_format_list[i].mFormat.mFormatID == 'IAC3') ||
+			(p_format_list[i].mFormat.mFormatID == 'iac3') ||
+			(p_format_list[i].mFormat.mFormatID == kAudioFormat60958AC3) ||
+			(p_format_list[i].mFormat.mFormatID == kAudioFormatAC3)) {
             b_return = YES;
 			break;
 		}
