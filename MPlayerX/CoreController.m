@@ -381,6 +381,15 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 			}
 		}
 	}
+	
+	// 寻找edl文件
+	NSURL* edlUrl = [NSURL fileURLWithPath:[[moviePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"edl"]];
+	NSDictionary* res = [edlUrl resourceValuesForKeys:[NSArray arrayWithObject: NSURLNameKey] error:NULL];
+	if (res != nil) {
+		// if res is OK, but there is no valid NameKey
+		// will set edlPath to nil, that is safe
+		[pm setEdlPath:[[moviePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:[res objectForKey: NSURLNameKey]]];
+	}
 
 	// 只重置与播放有关的
 	[movieInfo.playingInfo resetWithParameterManager:pm];

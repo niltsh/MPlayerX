@@ -109,6 +109,7 @@ NSString * const kPMParDVDProto				= @"dvd://";
 NSString * const kPMParDVDDevice			= @"-dvd-device";
 
 NSString * const kPMParNoDispCacheLog		= @"-nodispclog";
+NSString * const kPMParEdl					= @"-edl";
 
 #define kSubScaleNoAss			(8.0)
 
@@ -151,6 +152,7 @@ NSString * const kPMParNoDispCacheLog		= @"-nodispclog";
 @synthesize playDisk;
 @synthesize assSubMarginV;
 @synthesize displayCacheLog;
+@synthesize edlPath;
 
 #pragma mark Init/Dealloc
 -(id) init
@@ -208,6 +210,7 @@ NSString * const kPMParNoDispCacheLog		= @"-nodispclog";
 		noDispSub = NO;
 		playDisk = kPMPlayDiskNone;
 		displayCacheLog = YES;
+		edlPath = nil;
 	}
 	return self;
 }
@@ -225,6 +228,7 @@ NSString * const kPMParNoDispCacheLog		= @"-nodispclog";
 	[vobSub release];
 	[extraOptions release];
 	[equalizer release];
+	[edlPath release];
 	
 	[super dealloc];
 }
@@ -243,6 +247,7 @@ NSString * const kPMParNoDispCacheLog		= @"-nodispclog";
 {
 	SAFERELEASE(vobSub);
 	SAFERELEASE(textSubs);
+	SAFERELEASE(edlPath);
 }
 
 -(NSArray *) arrayOfParametersWithName:(NSString*) name
@@ -539,6 +544,11 @@ NSString * const kPMParNoDispCacheLog		= @"-nodispclog";
 	if (!displayCacheLog) {
 		[paramArray addObject:kPMParNoDispCacheLog];
  	}
+	
+	if (edlPath) {
+		[paramArray addObject:kPMParEdl];
+		[paramArray addObject:edlPath];
+	}
 	
 	if (extraOptions) {
 		NSArray *extrasArray = [extraOptions componentsSeparatedByString:@" "];
