@@ -1244,7 +1244,7 @@
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMinSize">{480, 360}</string>
 				<object class="NSView" key="NSWindowView" id="439893737">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1784,16 +1784,7 @@
 							<string key="NSFrame">{{24, 13}, {432, 60}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSNextKeyView" ref="2615583"/>
-							<bool key="NSViewIsLayerTreeHost">YES</bool>
 							<double key="NSViewAlphaValue">0.25323943661971821</double>
-							<object class="NSShadow" key="NSViewShadow">
-								<double key="NSShadowBlurRadius">6</double>
-								<object class="NSColor" key="NSShadowColor" id="928462828">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC4yNQA</bytes>
-									<reference key="NSCustomColorSpace" ref="865303251"/>
-								</object>
-							</object>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSClassName">ControlUIView</string>
 						</object>
@@ -1802,17 +1793,17 @@
 							<int key="NSvFlags">289</int>
 							<string key="NSFrame">{{466, 2}, {12, 12}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSNextKeyView"/>
 							<bool key="NSViewIsLayerTreeHost">YES</bool>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSClassName">ResizeIndicator</string>
 						</object>
 						<object class="NSTextField" id="171470766">
 							<reference key="NSNextResponder" ref="439893737"/>
-							<int key="NSvFlags">274</int>
-							<string key="NSFrame">{{17, 92}, {446, 243}}</string>
+							<int key="NSvFlags">266</int>
+							<string key="NSFrame">{{17, 223}, {446, 112}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSNextKeyView" ref="85098728"/>
-							<bool key="NSViewIsLayerTreeHost">YES</bool>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="838931917">
@@ -1845,6 +1836,7 @@
 						</object>
 					</object>
 					<string key="NSFrame">{{7, 11}, {480, 360}}</string>
+					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="417279129"/>
 					<bool key="NSViewIsLayerTreeHost">YES</bool>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
@@ -5515,7 +5507,11 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<real value="6"/>
-					<reference ref="928462828"/>
+					<object class="NSColor">
+						<int key="NSColorSpace">3</int>
+						<bytes key="NSWhite">MC4yNQA</bytes>
+						<reference key="NSCustomColorSpace" ref="865303251"/>
+					</object>
 					<real value="0.0"/>
 					<real value="0.0"/>
 					<object class="NSMutableDictionary">
