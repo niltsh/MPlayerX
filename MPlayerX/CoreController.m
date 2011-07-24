@@ -859,6 +859,8 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 						[item setEnd:[[nameTime objectAtIndex:2] integerValue]];
 						// MPLog(@"%@, %d, %d", [item name], [item start], [item end]);
 						[movieInfo.chapterInfo addObject:item];	
+                        
+                        [item release];
 					}
 					[movieInfo didChangeValueForKey:kMovieInfoKVOChapterInfo];
 					break;
