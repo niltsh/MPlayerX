@@ -810,6 +810,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0410;
 				ORGANIZATIONNAME = MPlayerX;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MPlayerX" */;
@@ -1116,7 +1117,6 @@
 		869B71D013A0E3FA00B9BA76 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PRODUCT_NAME = "Update Versoin in info.plist";
 			};
 			name = Release;
@@ -1164,7 +1164,6 @@
 		86FDD36E1314E4A400A79853 /* Deploy */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PRODUCT_NAME = "Update Versoin in info.plist";
 			};
 			name = Deploy;
@@ -1187,6 +1186,7 @@
 				INSTALL_PATH = /Applications;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = MPlayerX;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Deploy;
 		};
@@ -1201,7 +1201,6 @@
 					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Versions/A/Frameworks\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MPlayerX_Prefix.pch;
