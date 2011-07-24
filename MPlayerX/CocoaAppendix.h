@@ -20,12 +20,18 @@
 
 #import <Cocoa/Cocoa.h>
 
+#define kMPXSysVersionSnowLeopard	(0x1060)
+#define kMPXSysVersionLion			(0x1070)
+
+
 extern NSString * const kMPCStringMPlayerX;
 
 #define SAFERELEASE(x)		{if(x) {[x release];x = nil;}}
 
 void MPLog(NSString *format, ...);
 void MPSetLogEnable(BOOL en);
+
+SInt32 MPXGetSysVersion();
 
 @interface NSMenu (CharsetListAppend)
 -(void) appendCharsetList;

@@ -58,17 +58,33 @@ static NSRect trackRect;
 		tbCornerRight	= [[NSImage imageNamed:@"titlebar-corner-right.png"] retain];
 		tbMiddle		= [[NSImage imageNamed:@"titlebar-middle.png"] retain];
 
-		imgCloseActive	 = [[NSImage imageNamed:@"close-active.tiff"] retain];
-		imgCloseInactive = [[NSImage imageNamed:@"close-inactive-disabled.tiff"] retain];
-		imgCloseRollover = [[NSImage imageNamed:@"close-rollover.tiff"] retain];
-		
-		imgMiniActive	 = [[NSImage imageNamed:@"minimize-active.tiff"] retain];
-		imgMiniInactive	 = [[NSImage imageNamed:@"minimize-inactive-disabled.tiff"] retain];
-		imgMiniRollover	 = [[NSImage imageNamed:@"minimize-rollover.tiff"] retain];
-		
-		imgZoomActive	 = [[NSImage imageNamed:@"zoom-active.tiff"] retain];
-		imgZoomInactive	 = [[NSImage imageNamed:@"zoom-inactive-disabled.tiff"] retain];
-		imgZoomRollover	 = [[NSImage imageNamed:@"zoom-rollover.tiff"] retain];
+		if (MPXGetSysVersion() <= kMPXSysVersionSnowLeopard) {
+			// in snow leopard
+			imgCloseActive	 = [[NSImage imageNamed:@"close-active.tiff"] retain];
+			imgCloseInactive = [[NSImage imageNamed:@"close-inactive-disabled.tiff"] retain];
+			imgCloseRollover = [[NSImage imageNamed:@"close-rollover.tiff"] retain];
+			
+			imgMiniActive	 = [[NSImage imageNamed:@"minimize-active.tiff"] retain];
+			imgMiniInactive	 = [[NSImage imageNamed:@"minimize-inactive-disabled.tiff"] retain];
+			imgMiniRollover	 = [[NSImage imageNamed:@"minimize-rollover.tiff"] retain];
+			
+			imgZoomActive	 = [[NSImage imageNamed:@"zoom-active.tiff"] retain];
+			imgZoomInactive	 = [[NSImage imageNamed:@"zoom-inactive-disabled.tiff"] retain];
+			imgZoomRollover	 = [[NSImage imageNamed:@"zoom-rollover.tiff"] retain];			
+		} else {
+			// in snow leopard
+			imgCloseActive	 = [[NSImage imageNamed:@"close-active-lion.png"] retain];
+			imgCloseInactive = [[NSImage imageNamed:@"close-inactive-disabled-lion.png"] retain];
+			imgCloseRollover = [[NSImage imageNamed:@"close-rollover-lion.png"] retain];
+			
+			imgMiniActive	 = [[NSImage imageNamed:@"minimize-active-lion.png"] retain];
+			imgMiniInactive	 = [[NSImage imageNamed:@"minimize-inactive-disabled-lion.png"] retain];
+			imgMiniRollover	 = [[NSImage imageNamed:@"minimize-rollover-lion.png"] retain];
+			
+			imgZoomActive	 = [[NSImage imageNamed:@"zoom-active-lion.png"] retain];
+			imgZoomInactive	 = [[NSImage imageNamed:@"zoom-inactive-disabled-lion.png"] retain];
+			imgZoomRollover	 = [[NSImage imageNamed:@"zoom-rollover-lion.png"] retain];
+		}
 
 		closeButton = [[MPXWindowButton alloc] initWithFrame:NSMakeRect( 4, 0, 22, 22) type:kMPXWindowCloseButtonType];
 		miniButton  = [[MPXWindowButton alloc] initWithFrame:NSMakeRect(25, 0, 22, 22) type:kMPXWindowMinimizeButtonType];

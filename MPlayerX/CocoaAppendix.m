@@ -21,9 +21,12 @@
 #import "CocoaAppendix.h"
 #import "LocalizedStrings.h"
 
+#define kMPXSysVersionInvalid		(0x0000)
+
 NSString * const kMPCStringMPlayerX						= @"MPlayerX";
 
 static BOOL logEnable = NO;
+static SInt32 ver = kMPXSysVersionInvalid;
 
 void MPLog(NSString *format, ...)
 {
@@ -40,6 +43,14 @@ void MPLog(NSString *format, ...)
 void MPSetLogEnable(BOOL en)
 {
 	logEnable = en;
+}
+
+SInt32 MPXGetSysVersion()
+{
+	if (ver == kMPXSysVersionInvalid) {
+		Gestalt(gestaltSystemVersion, &ver);
+	}
+	return ver;
 }
 
 @implementation NSColor (MPXAdditional)
