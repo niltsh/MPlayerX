@@ -520,6 +520,13 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	float x, y;
 	x = [theEvent deltaX];
 	y = [theEvent deltaY];
+    
+    if ([theEvent respondsToSelector:@selector(isDirectionInvertedFromDevice)]) {
+        MPLog(@"scrolling in Lion");
+		if ([theEvent isDirectionInvertedFromDevice]) {
+			y = -y;
+		}
+    }
 	
 	switch ([theEvent modifierFlags] & (NSShiftKeyMask|NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask)) {
 		case kSCMScaleFrameKeyEquivalentModifierFlagMask:
