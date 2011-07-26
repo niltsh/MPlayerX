@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10J869</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1306</string>
-		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<string key="IBDocument.SystemVersion">11A511</string>
+		<string key="IBDocument.InterfaceBuilderVersion">1617</string>
+		<string key="IBDocument.AppKitVersion">1138</string>
+		<string key="IBDocument.HIToolboxVersion">566.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">1306</string>
+			<string key="NS.object.0">1617</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSTextField</string>
@@ -44,6 +44,7 @@
 				<string key="NSWindowTitle">Video Tuner</string>
 				<string key="NSWindowClass">NSPanel</string>
 				<nil key="NSViewClass"/>
+				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="1006">
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
@@ -742,7 +743,6 @@
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">12</int>
 							<string key="NSFrame">{{20, 111}, {368, 5}}</string>
-							<string key="NSBounds">{{208, 0}, {368, 5}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSNextKeyView" ref="71697007"/>
 							<bool key="NSViewCanDrawConcurrently">YES</bool>
@@ -797,13 +797,14 @@
 							</object>
 						</object>
 					</array>
-					<string key="NSFrame">{{7, 11}, {408, 284}}</string>
+					<string key="NSFrameSize">{408, 284}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="4890324"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
-				<string key="NSMaxSize">{1e+13, 1e+13}</string>
+				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">VideoTuner</string>
+				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -1625,12 +1626,12 @@
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
-				<string key="1.IBEditorWindowLastContentRect">{{629, 720}, {408, 284}}</string>
+				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="-3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1.IBWindowTemplateEditedContentRect">{{629, 720}, {408, 284}}</string>
 				<boolean value="NO" key="1.NSWindowTemplate.visibleAtLaunch"/>
-				<string key="1.WindowOrigin">{196, 240}</string>
-				<string key="1.editorWindowContentRectSynchronizationRect">{{202, 428}, {480, 270}}</string>
 				<string key="129.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="130.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="131.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1784,12 +1785,14 @@
 						<string key="changeSubPosBy:">id</string>
 						<string key="changeSubScale:">id</string>
 						<string key="changeVolumeBy:">id</string>
+						<string key="mapAudioChannelsTo:">id</string>
 						<string key="moveFrameToCenter:">id</string>
 						<string key="resetAspectRatio:">id</string>
 						<string key="resetFrameScaleRatio:">id</string>
 						<string key="seekTo:">id</string>
 						<string key="setAspectRatio:">id</string>
 						<string key="setAudioWithID:">id</string>
+						<string key="setChapterWithTime:">id</string>
 						<string key="setSubWithID:">id</string>
 						<string key="setVideoWithID:">id</string>
 						<string key="setVolume:">id</string>
@@ -1839,6 +1842,10 @@
 							<string key="name">changeVolumeBy:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="mapAudioChannelsTo:">
+							<string key="name">mapAudioChannelsTo:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="moveFrameToCenter:">
 							<string key="name">moveFrameToCenter:</string>
 							<string key="candidateClassName">id</string>
@@ -1861,6 +1868,10 @@
 						</object>
 						<object class="IBActionInfo" key="setAudioWithID:">
 							<string key="name">setAudioWithID:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setChapterWithTime:">
+							<string key="name">setChapterWithTime:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="setSubWithID:">
@@ -1947,9 +1958,11 @@
 						<string key="fillScreenButton">NSButton</string>
 						<string key="fullScreenButton">NSButton</string>
 						<string key="hintTime">NSTextField</string>
+						<string key="menuAudioChannels">NSMenuItem</string>
 						<string key="menuAudioDelayDec">NSMenuItem</string>
 						<string key="menuAudioDelayInc">NSMenuItem</string>
 						<string key="menuAudioDelayReset">NSMenuItem</string>
+						<string key="menuChapterList">NSMenuItem</string>
 						<string key="menuEnlargeFrame">NSMenuItem</string>
 						<string key="menuEnlargeFrame2">NSMenuItem</string>
 						<string key="menuFlip">NSMenuItem</string>
@@ -2027,6 +2040,10 @@
 							<string key="name">hintTime</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="menuAudioChannels">
+							<string key="name">menuAudioChannels</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="menuAudioDelayDec">
 							<string key="name">menuAudioDelayDec</string>
 							<string key="candidateClassName">NSMenuItem</string>
@@ -2037,6 +2054,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="menuAudioDelayReset">
 							<string key="name">menuAudioDelayReset</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menuChapterList">
+							<string key="name">menuChapterList</string>
 							<string key="candidateClassName">NSMenuItem</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="menuEnlargeFrame">
