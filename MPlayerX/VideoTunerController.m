@@ -242,6 +242,21 @@ NSString * const kCILayerHueAngleEnabledKeyPath		= @"filters.hueFilter.enabled";
 		///////////////////////////// 加载bundle /////////////////////////////
 		[NSBundle loadNibNamed:@"VideoTuner" owner:self];
 		
+		[brInc setBordered:NO];
+		[brDec setBordered:NO];
+		[satInc setBordered:NO];
+		[satDec setBordered:NO];
+		[conInc setBordered:NO];
+		[conDec setBordered:NO];
+		[nrInc setBordered:NO];
+		[nrDec setBordered:NO];
+		[shpInc setBordered:NO];
+		[shpDec setBordered:NO];
+		[gmInc setBordered:NO];
+		[gmDec setBordered:NO];
+		[hueInc setBordered:NO];
+		[hueDec setBordered:NO];
+		
 		///////////////////////////// 建立控件之间的连接 /////////////////////////////
 		[[sliderBrightness cell] setRepresentedObject:kCILayerBrightnessKeyPath];
 		[[sliderSaturation cell] setRepresentedObject:kCILayerSaturationKeyPath];

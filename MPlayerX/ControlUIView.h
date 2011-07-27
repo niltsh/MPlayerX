@@ -62,6 +62,9 @@
 	IBOutlet NSSlider *volumeSlider;
 	IBOutlet NSTextField *timeText;
 	IBOutlet NSTextField *timeTextAlt;
+	IBOutlet NSButton *nextEPButton;
+	IBOutlet NSButton *prevEPButton;
+	IBOutlet NSButton *timeDispSwitch;
 	
 	IBOutlet NSSlider *timeSlider;
 	IBOutlet NSTextField *hintTime;

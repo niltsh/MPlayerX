@@ -347,7 +347,19 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuToggleAuxiliaryCtrls setTag:NO];
 	[menuToggleAuxiliaryCtrls setTitle:kMPXStringMenuShowAuxCtrls];
 	[menuToggleAuxiliaryCtrls setEnabled:NO];
-
+	
+	//////ibtool bug fix, set noborder////////
+	[volumeButton setBordered:NO];
+	[nextEPButton setBordered:NO];
+	[prevEPButton setBordered:NO];
+	[playPauseButton setBordered:NO];
+	[fillScreenButton setBordered:NO];
+	[fullScreenButton setBordered:NO];
+	[toggleAcceButton setBordered:NO];
+	[timeText setBordered:NO];
+	[timeTextAlt setBordered:NO];
+	[timeDispSwitch setBordered:NO];
+	
 	// set OSD active status
 	[osd setActive:NO];
 	

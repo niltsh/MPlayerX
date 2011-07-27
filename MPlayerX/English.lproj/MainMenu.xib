@@ -1797,6 +1797,7 @@
 							<int key="NSvFlags">289</int>
 							<string key="NSFrame">{{466, 2}, {12, 12}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSNextKeyView"/>
 							<bool key="NSViewIsLayerTreeHost">YES</bool>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSClassName">ResizeIndicator</string>
@@ -1804,7 +1805,7 @@
 						<object class="NSTextField" id="171470766">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">266</int>
-							<string key="NSFrame">{{17, 223}, {446, 112}}</string>
+							<string key="NSFrame">{{17, 231}, {446, 104}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSNextKeyView" ref="85098728"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
@@ -3670,6 +3671,30 @@
 						<reference key="destination" ref="496418012"/>
 					</object>
 					<int key="connectionID">1142</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">prevEPButton</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="658583842"/>
+					</object>
+					<int key="connectionID">1146</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextEPButton</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="723958092"/>
+					</object>
+					<int key="connectionID">1147</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">timeDispSwitch</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="1044331986"/>
+					</object>
+					<int key="connectionID">1148</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -5649,7 +5674,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1145</int>
+			<int key="maxID">1148</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6175,12 +6200,15 @@
 							<string>menuWndFitToScrn</string>
 							<string>menuZoomToDoubleSize</string>
 							<string>menuZoomToOriginSize</string>
+							<string>nextEPButton</string>
 							<string>osd</string>
 							<string>playPauseButton</string>
 							<string>playerController</string>
+							<string>prevEPButton</string>
 							<string>rzIndicator</string>
 							<string>speedText</string>
 							<string>subDelayText</string>
+							<string>timeDispSwitch</string>
 							<string>timeSlider</string>
 							<string>timeText</string>
 							<string>timeTextAlt</string>
@@ -6240,12 +6268,15 @@
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
+							<string>NSButton</string>
 							<string>OsdText</string>
 							<string>NSButton</string>
 							<string>PlayerController</string>
+							<string>NSButton</string>
 							<string>ResizeIndicator</string>
 							<string>ArrowTextField</string>
 							<string>ArrowTextField</string>
+							<string>NSButton</string>
 							<string>NSSlider</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
@@ -6308,12 +6339,15 @@
 							<string>menuWndFitToScrn</string>
 							<string>menuZoomToDoubleSize</string>
 							<string>menuZoomToOriginSize</string>
+							<string>nextEPButton</string>
 							<string>osd</string>
 							<string>playPauseButton</string>
 							<string>playerController</string>
+							<string>prevEPButton</string>
 							<string>rzIndicator</string>
 							<string>speedText</string>
 							<string>subDelayText</string>
+							<string>timeDispSwitch</string>
 							<string>timeSlider</string>
 							<string>timeText</string>
 							<string>timeTextAlt</string>
@@ -6521,6 +6555,10 @@
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">nextEPButton</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">osd</string>
 								<string key="candidateClassName">OsdText</string>
 							</object>
@@ -6533,6 +6571,10 @@
 								<string key="candidateClassName">PlayerController</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">prevEPButton</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">rzIndicator</string>
 								<string key="candidateClassName">ResizeIndicator</string>
 							</object>
@@ -6543,6 +6585,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">subDelayText</string>
 								<string key="candidateClassName">ArrowTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">timeDispSwitch</string>
+								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">timeSlider</string>
