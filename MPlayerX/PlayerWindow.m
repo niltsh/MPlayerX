@@ -58,7 +58,6 @@ NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 -(BOOL) canBecomeKeyWindow { return YES;}
 -(BOOL) canBecomeMainWindow { return YES;}
 -(BOOL) acceptsFirstResponder { return YES; }
--(NSTimeInterval) animationResizeTime:(NSRect)newWindowFrame { return 0.1; }
 
 -(void) setTitle:(NSString *)aString
 {
