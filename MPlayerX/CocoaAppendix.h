@@ -20,7 +20,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-#define kMPXSysVersionSnowLeopard	(0x1060)
 #define kMPXSysVersionLion			(0x1070)
 
 

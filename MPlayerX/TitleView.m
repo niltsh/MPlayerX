@@ -58,7 +58,7 @@ static NSRect trackRect;
 		tbCornerRight	= [[NSImage imageNamed:@"titlebar-corner-right.png"] retain];
 		tbMiddle		= [[NSImage imageNamed:@"titlebar-middle.png"] retain];
 
-		if (MPXGetSysVersion() <= kMPXSysVersionSnowLeopard) {
+		if (MPXGetSysVersion() < kMPXSysVersionLion) {
 			// in snow leopard
 			imgCloseActive	 = [[NSImage imageNamed:@"close-active.tiff"] retain];
 			imgCloseInactive = [[NSImage imageNamed:@"close-inactive-disabled.tiff"] retain];
