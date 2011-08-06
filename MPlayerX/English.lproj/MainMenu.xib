@@ -1797,7 +1797,6 @@
 							<int key="NSvFlags">289</int>
 							<string key="NSFrame">{{466, 2}, {12, 12}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSViewIsLayerTreeHost">YES</bool>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSClassName">ResizeIndicator</string>
@@ -2038,7 +2037,7 @@
 						<object class="NSTextField" id="968896216">
 							<reference key="NSNextResponder" ref="77567990"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{18, 20}, {254, 14}}</string>
+							<string key="NSFrame">{{17, 23}, {254, 14}}</string>
 							<reference key="NSSuperview" ref="77567990"/>
 							<reference key="NSNextKeyView" ref="505954479"/>
 							<bool key="NSEnabled">YES</bool>

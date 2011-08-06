@@ -1238,7 +1238,7 @@
 									<object class="NSSegmentedControl" id="817081484">
 										<reference key="NSNextResponder" ref="289672069"/>
 										<int key="NSvFlags">268</int>
-										<string key="NSFrame">{{186, 45}, {171, 19}}</string>
+										<string key="NSFrame">{{186, 44}, {171, 19}}</string>
 										<reference key="NSSuperview" ref="289672069"/>
 										<reference key="NSNextKeyView" ref="529795975"/>
 										<bool key="NSEnabled">YES</bool>
@@ -1305,7 +1305,7 @@
 									<object class="NSSegmentedControl" id="199157407">
 										<reference key="NSNextResponder" ref="289672069"/>
 										<int key="NSvFlags">268</int>
-										<string key="NSFrame">{{186, 13}, {147, 19}}</string>
+										<string key="NSFrame">{{186, 12}, {147, 19}}</string>
 										<reference key="NSSuperview" ref="289672069"/>
 										<reference key="NSNextKeyView" ref="495317593"/>
 										<bool key="NSEnabled">YES</bool>
@@ -2461,7 +2461,7 @@ IHBsYXliYWNrLg</string>
 									<object class="NSButton" id="666863899">
 										<reference key="NSNextResponder" ref="816859717"/>
 										<int key="NSvFlags">268</int>
-										<string key="NSFrame">{{12, 151}, {492, 18}}</string>
+										<string key="NSFrame">{{12, 145}, {492, 18}}</string>
 										<reference key="NSSuperview" ref="816859717"/>
 										<reference key="NSNextKeyView" ref="310716074"/>
 										<bool key="NSEnabled">YES</bool>
