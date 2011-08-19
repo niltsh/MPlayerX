@@ -130,6 +130,20 @@
 			<key>NSPersistentStoreTypeKey</key>
 			<string>XML</string>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>dvdmedia</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_video.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>DVD Media</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<true/>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
