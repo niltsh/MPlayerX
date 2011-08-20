@@ -30,6 +30,9 @@ NSString * const kStringURLSchemaHttps	= @"https";
 NSString * const kStringURLSchemaFtp	= @"ftp";
 NSString * const kStringURLSchemaMms	= @"mms";
 NSString * const kStringURLSchemaRtsp	= @"rtsp";
+NSString * const kStringURLSchemaRtp	= @"rtp";
+NSString * const kStringURLSchemaUdp	= @"udp";
+
 
 @implementation OpenURLController
 
@@ -109,7 +112,8 @@ NSString * const kStringURLSchemaRtsp	= @"rtsp";
 	if (scheme && 
 		([scheme isEqualToString:kStringURLSchemaHttp] || [scheme isEqualToString:kStringURLSchemaFtp] || 
 		 [scheme isEqualToString:kStringURLSchemaRtsp] || [scheme isEqualToString:kStringURLSchemaMms] ||
-		 [scheme isEqualToString:kStringURLSchemaHttps])) {
+		 [scheme isEqualToString:kStringURLSchemaHttps]|| [scheme isEqualToString:kStringURLSchemaRtp] ||
+		 [scheme isEqualToString:kStringURLSchemaUdp])) {
 		// 先修正URL
 		[urlBox setStringValue:[[url standardizedURL] absoluteString]];
 		// 退出Modal模式
