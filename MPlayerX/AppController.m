@@ -189,7 +189,16 @@ static BOOL init_ed = NO;
 	[openPanel setTitle:kMPXStringOpenMediaFiles];
 	
 	if ([openPanel runModal] == NSFileHandlingPanelOKButton) {
-		[playerController loadFiles:[openPanel URLs] fromLocal:YES];
+		// 这里也可能是打开dvdmedia这样的文件夹，因此将打开文件动作放到application的delegate方法中打开文件。
+		NSString *fileUrl = [[[openPanel URLs] objectAtIndex:0] path];
+		
+		if ([[[fileUrl pathExtension] lowercaseString] isEqualToString:@"dvdmedia"]) {
+			[playerController setPlayDisk:kPMPlayDiskDVD];
+			[playerController loadFiles:[openPanel URLs] fromLocal:YES];
+			[playerController setPlayDisk:kPMPlayDiskNone];
+		} else {
+			[playerController loadFiles:[openPanel URLs] fromLocal:YES];
+		}
 	}
 }
 
