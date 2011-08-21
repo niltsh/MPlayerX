@@ -182,6 +182,9 @@
 
 -(void) reshape
 {
+	[CATransaction begin];
+	[CATransaction setDisableActions:YES];
+
 	if (flagFillScrnChanged || flagAspectRatioChanged || flagScaleChanged || refitBounds) {
 		MPLog(@"as fil changed");
 		CGRect rc = self.superlayer.bounds;
@@ -198,10 +201,7 @@
 			rc.size.height *= renderRatio.size.height;
 		}
 		
-		[CATransaction begin];
-		[CATransaction setDisableActions:YES];
 		self.bounds = rc;
-		[CATransaction commit];	
 		
 		flagAspectRatioChanged = NO;
 		flagFillScrnChanged = NO;
@@ -219,13 +219,12 @@
 			pt.x += rc.size.width  * renderRatio.origin.x;
 			pt.y += rc.size.height * renderRatio.origin.y;
 		}
-		[CATransaction begin];
-		[CATransaction setDisableActions:YES];
+
 		self.position = pt;
-		[CATransaction commit];	
 		
 		flagPositionOffsetChanged = NO;
 	}	
+	[CATransaction commit];	
 }
 
 /**
