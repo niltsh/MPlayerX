@@ -58,6 +58,7 @@
 @property (readwrite, assign) BOOL flip;
 @property (readwrite, assign, setter = forceAdjustToFitBounds:) BOOL refitBounds;
 
+/** 得到显示尺寸，当SAR!=1的时候，该尺寸不等于render size */
 -(NSSize) displaySize;
 -(CGFloat) aspectRatio;
 -(CGFloat) originalAspectRatio;

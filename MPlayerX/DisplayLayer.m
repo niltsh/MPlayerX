@@ -106,7 +106,18 @@
 
 -(NSSize) displaySize
 {
-	return NSMakeSize(fmt.width, fmt.height);
+	NSSize sz;
+	
+	// 如果SAR != 1，那么得到扩大的显示尺寸
+	if (fmt.width <= fmt.height * fmt.aspect) {
+		sz.height = fmt.height;
+		sz.width  = fmt.height * fmt.aspect;
+	} else {
+		sz.width  = fmt.width;
+		sz.height = fmt.width / fmt.aspect;
+	}
+
+	return sz;
 }
 
 -(CGFloat) aspectRatio
