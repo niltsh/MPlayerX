@@ -334,6 +334,11 @@ section p {
 	margin-left: 36px;
 }
 
+#gad2 {
+	display: block;
+	margin-left: 16px;
+}
+
 footer {
 	font-size: 0.8em;
 	clear: both;
