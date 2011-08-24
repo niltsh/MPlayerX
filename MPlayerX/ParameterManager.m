@@ -101,8 +101,8 @@ NSString * const kPMSubParPPFilter			= @"pp=";
 
 NSString * const kPMSlash					= @"/";
 
-NSString * const kPMValAssForceStylePrefixMarginVOutline	= @"BorderStyle=1,MarginV=%d,Outline=%d";
-NSString * const kPMValFmtAssSubAlginment	= @",Alignment=%d";
+NSString * const kPMValAssForceStylePrefixMarginVOutline	= @"Default.BorderStyle=1,Default.MarginV=%d,Default.Outline=%d";
+NSString * const kPMValFmtAssSubAlginment	= @",Default.Alignment=%d";
 
 NSString * const kPMParSubID				= @"-subid";
 NSString * const kPMParDVDProto				= @"dvd://";
