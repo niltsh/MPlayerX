@@ -47,6 +47,8 @@ static NSRect trackRect;
 	self = [super initWithFrame:frame];
 	
     if (self) {
+		[[NSUserDefaults standardUserDefaults] addSuiteNamed:NSGlobalDomain];
+
 		title = nil;
 		titleAttr = [[NSDictionary alloc]
 					 initWithObjectsAndKeys:
@@ -159,7 +161,9 @@ static NSRect trackRect;
 -(void) mouseUp:(NSEvent *)theEvent
 {
 	if ([theEvent clickCount] == 2) {
-		[[self window] performMiniaturize:self];
+		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AppleMiniaturizeOnDoubleClick"]) {
+			[[self window] performMiniaturize:self];
+		}
 	}
 }
 
