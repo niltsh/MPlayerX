@@ -497,7 +497,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			// 如果是全屏模式也要隐藏鼠标
 			if ([dispView isInFullScreenMode]) {
 				// 这里的[self window]不是成员的那个window，而是全屏后self的新window
-				if ([[self window] isKeyWindow]) {
+				if ([[self window] isKeyWindow] && NSPointInRect([NSEvent mouseLocation], [[self window] frame])) {
 					// 如果不是key window的话，就不隐藏鼠标
 					CGDisplayHideCursor(dispView.fullScrnDevID);
 				}
