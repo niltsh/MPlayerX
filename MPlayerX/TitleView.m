@@ -74,18 +74,33 @@ static NSRect trackRect;
 			imgZoomInactive	 = [[NSImage imageNamed:@"zoom-inactive-disabled.tiff"] retain];
 			imgZoomRollover	 = [[NSImage imageNamed:@"zoom-rollover.tiff"] retain];			
 		} else {
-			// in snow leopard
-			imgCloseActive	 = [[NSImage imageNamed:@"close-active-lion.png"] retain];
-			imgCloseInactive = [[NSImage imageNamed:@"close-inactive-disabled-lion.png"] retain];
-			imgCloseRollover = [[NSImage imageNamed:@"close-rollover-lion.png"] retain];
-			
-			imgMiniActive	 = [[NSImage imageNamed:@"minimize-active-lion.png"] retain];
-			imgMiniInactive	 = [[NSImage imageNamed:@"minimize-inactive-disabled-lion.png"] retain];
-			imgMiniRollover	 = [[NSImage imageNamed:@"minimize-rollover-lion.png"] retain];
-			
-			imgZoomActive	 = [[NSImage imageNamed:@"zoom-active-lion.png"] retain];
-			imgZoomInactive	 = [[NSImage imageNamed:@"zoom-inactive-disabled-lion.png"] retain];
-			imgZoomRollover	 = [[NSImage imageNamed:@"zoom-rollover-lion.png"] retain];
+			// in lion
+			if ([[NSUserDefaults standardUserDefaults] integerForKey:@"AppleAquaColorVariant"] == 6) {
+				// graphite theme
+				imgCloseActive   = [[NSImage imageNamed:@"close-active-graphite-lion.png"] retain];
+				imgCloseInactive = [[NSImage imageNamed:@"close-inactive-disabled-graphite-lion.png"] retain];
+				imgCloseRollover = [[NSImage imageNamed:@"close-rollover-graphite-lion.png"] retain];
+				
+				imgMiniActive	= [[NSImage imageNamed:@"minimize-active-graphite-lion.png"] retain];
+				imgMiniInactive = [[NSImage imageNamed:@"minimize-inactive-disabled-graphite-lion.png"] retain];
+				imgMiniRollover = [[NSImage imageNamed:@"minimize-rollover-graphite-lion.png"] retain];
+				
+				imgZoomActive	= [[NSImage imageNamed:@"zoom-active-graphite-lion.png"] retain];
+				imgZoomInactive = [[NSImage imageNamed:@"zoom-inactive-disabled-graphite-lion.png"] retain];
+				imgZoomRollover = [[NSImage imageNamed:@"zoom-rollover-graphite-lion.png"] retain];
+			} else {
+				imgCloseActive	 = [[NSImage imageNamed:@"close-active-lion.png"] retain];
+				imgCloseInactive = [[NSImage imageNamed:@"close-inactive-disabled-lion.png"] retain];
+				imgCloseRollover = [[NSImage imageNamed:@"close-rollover-lion.png"] retain];
+				
+				imgMiniActive	 = [[NSImage imageNamed:@"minimize-active-lion.png"] retain];
+				imgMiniInactive	 = [[NSImage imageNamed:@"minimize-inactive-disabled-lion.png"] retain];
+				imgMiniRollover	 = [[NSImage imageNamed:@"minimize-rollover-lion.png"] retain];
+				
+				imgZoomActive	 = [[NSImage imageNamed:@"zoom-active-lion.png"] retain];
+				imgZoomInactive	 = [[NSImage imageNamed:@"zoom-inactive-disabled-lion.png"] retain];
+				imgZoomRollover	 = [[NSImage imageNamed:@"zoom-rollover-lion.png"] retain];
+			}
 		}
 
 		closeButton = [[MPXWindowButton alloc] initWithFrame:NSMakeRect( 4, 0, 22, 22) type:kMPXWindowCloseButtonType];
