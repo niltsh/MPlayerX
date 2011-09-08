@@ -132,6 +132,7 @@ enum {
 					   [NSNumber numberWithUnsignedInt:kPMAssSubMarginVDefault], kUDKeyAssSubMarginV,
 					   boolNo, kUDKeyNoDispSub,
 					   boolNo, kUDKeyAutoDetectSPDIF,
+					   boolYes, kUDKeyEnableOpenRecentMenu,
 					   nil]];	
 }
 
@@ -524,7 +525,9 @@ static BOOL isNetworkPath(const char *path)
 		[mplayer.pm setRtspOverHttp:NO];
 		
 		// 将文件加入Recent Menu里，只能加入本地文件
-		[[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:url];
+		if ([ud boolForKey:kUDKeyEnableOpenRecentMenu]) {
+			[[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:url];
+		}
 	} else {
 		// network stream
 		path = [url absoluteString];

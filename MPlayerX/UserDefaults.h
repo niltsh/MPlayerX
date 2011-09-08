@@ -98,6 +98,7 @@ extern NSString * const kUDKeyEnableMediaKeyTap;
 extern NSString * const kUDKeyResizeControlBar;
 extern NSString * const kUDKeyInitialFrameSizeRatio;
 extern NSString * const kUDKeyDisableLastStopBookmark;
+extern NSString * const kUDKeyEnableOpenRecentMenu;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;
