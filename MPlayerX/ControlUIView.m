@@ -142,11 +142,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[self refreshBackgroundAlpha];
 	// 自动隐藏设定
 	[self refreshAutoHideTimer];
-	
+
 	if ([ud boolForKey:kUDKeyResizeControlBar]) {
-		[self setAutoresizingMask:NSViewWidthSizable|NSViewMinXMargin|NSViewMaxXMargin]; 
+		[self setAutoresizingMask:NSViewWidthSizable|NSViewMinXMargin|NSViewMaxXMargin|NSViewMinYMargin|NSViewMaxYMargin]; 
 	} else {
-		[self setAutoresizingMask:NSViewNotSizable|NSViewMinXMargin|NSViewMaxXMargin];	 
+		[self setAutoresizingMask:NSViewNotSizable|NSViewMinXMargin|NSViewMaxXMargin|NSViewMinYMargin|NSViewMaxYMargin];	 
 	}
 	
 	////////////////////////////////////////set KeyEquivalents////////////////////////////////////////
