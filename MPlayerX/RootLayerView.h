@@ -39,6 +39,7 @@
 	BOOL displaying;
 	NSMutableDictionary *fullScreenOptions;
 	CGDirectDisplayID fullScrnDevID;
+	NSInteger fullScreenStatus;
 	
 	BOOL lockAspectRatio;
 	CGFloat frameAspectRatio;

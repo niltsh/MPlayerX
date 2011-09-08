@@ -20,6 +20,7 @@
 
 #import "PlayerWindow.h"
 #import "TitleView.h"
+#import "CocoaAppendix.h"
 
 NSString * const kMPXAccessibilityPlayerWindowDesc		= @"PlayerWindow";
 NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
@@ -44,7 +45,13 @@ NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 -(void) awakeFromNib
 {
 	[self setHasShadow:YES];
-	[self setCollectionBehavior:NSWindowCollectionBehaviorManaged];
+	if (MPXGetSysVersion() < kMPXSysVersionLion) {
+		// 如果不是Lion
+		[self setCollectionBehavior:NSWindowCollectionBehaviorManaged];
+	} else {
+		// 如果是Lion以上
+		[self setCollectionBehavior:NSWindowCollectionBehaviorManaged | NSWindowCollectionBehaviorFullScreenPrimary];
+	}
 
 	[self setContentMinSize:NSMakeSize(480, 360)];
 	
