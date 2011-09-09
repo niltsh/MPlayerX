@@ -142,7 +142,7 @@ static BOOL init_ed = NO;
 -(id) copyWithZone:(NSZone*)zone { return self; }
 -(id) retain { return self; }
 -(NSUInteger) retainCount { return NSUIntegerMax; }
--(void) release { }
+-(oneway void) release { }
 -(id) autorelease { return self; }
 
 -(void) dealloc

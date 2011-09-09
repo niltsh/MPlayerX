@@ -47,6 +47,7 @@
 	NSString *subCP;
 	unsigned int subBorderWidth;
 	float startTime;
+    NSString *audioFile;
 	float volume;
 	float subPos;
 	float subScale;
@@ -80,6 +81,7 @@
 @property (assign, readwrite) BOOL prefer64bMPlayer;
 @property (assign, readwrite) BOOL guessSubCP;
 @property (assign, readwrite) float startTime;
+@property (retain, readwrite) NSString *audioFile;
 @property (assign, readwrite) float volume;
 @property (assign, readwrite) float subPos;
 @property (assign, readwrite) unsigned int subAlign;

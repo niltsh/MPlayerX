@@ -61,6 +61,7 @@ NSString * const kPMParEmbeddedFonts		= @"-embeddedfonts";
 NSString * const kPMParNoEmbeddedFonts		= @"-noembeddedfonts";
 NSString * const kPMParLavdopts				= @"-lavdopts";
 NSString * const kPMFMTThreads				= @"threads=%d";
+NSString * const kPMParAudioFile			= @"-audiofile";
 NSString * const kPMParAss					= @"-ass";
 NSString * const kPMParAssColor				= @"-ass-color";
 NSString * const kPMParAssFontScale			= @"-ass-font-scale";
@@ -118,6 +119,7 @@ NSString * const kPMParDVDDevice			= @"-dvd-device";
 @synthesize prefer64bMPlayer;
 @synthesize guessSubCP;
 @synthesize startTime;
+@synthesize audioFile;
 @synthesize volume;
 @synthesize subPos;
 @synthesize subAlign;
@@ -173,6 +175,7 @@ NSString * const kPMParDVDDevice			= @"-dvd-device";
 		prefer64bMPlayer = YES;
 		guessSubCP = YES;
 		startTime = -1;
+        audioFile = nil;
 		volume = 100;
 		subPos = 100;
 		subAlign = kPMSubAlignDefault;
@@ -220,6 +223,7 @@ NSString * const kPMParDVDDevice			= @"-dvd-device";
 	[textSubs release];
 	[vobSub release];
 	[extraOptions release];
+    [audioFile release];
 	[equalizer release];
 	
 	[super dealloc];
@@ -255,6 +259,11 @@ NSString * const kPMParDVDDevice			= @"-dvd-device";
 	if (demuxer) {
 		[paramArray addObject:kPMParDemuxer];
 		[paramArray addObject:demuxer];
+	}
+    
+    if (audioFile) {
+		[paramArray addObject:kPMParAudioFile];
+		[paramArray addObject:audioFile];
 	}
 	
 	[paramArray addObject:kPMParMsgLevel];

@@ -1434,7 +1434,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 
 - (NSRect)windowWillUseStandardFrame:(NSWindow *)window defaultFrame:(NSRect)newFrame
 {
-	if ((window == playerWindow)) {		
+	if (window == playerWindow) {		
 		newFrame = [self calculateFrameFrom:[[window screen] visibleFrame]
 									  toFit:[dispLayer aspectRatio]
 									   mode:kCalFrameSizeDiag | kCalFrameFixPosCenter];

@@ -78,6 +78,7 @@ enum {
 @interface PlayerController (PlayerControllerInternal)
 -(BOOL) shouldRun64bitMPlayer;
 -(void) playMedia:(NSURL*)url;
+-(void) playMedia:(NSURL*)url withAudio: (NSURL*)audioUrl;
 -(NSURL*) findFirstMediaFileFromSubFile:(NSString*)path;
 -(void) enablePowerSave:(BOOL)en;
 @end
@@ -359,8 +360,10 @@ enum {
 						} else {
 							// 如果文件存在
 							NSString *ext = [[path pathExtension] lowercaseString];
-							
-							if ([[[AppController sharedAppController] playableFormats] containsObject:ext]) {
+							if ([[[AppController sharedAppController] supportAudioFormats] containsObject:ext]) {
+                                [self playMedia:lastPlayedPath withAudio:file];
+                                break;
+							} else if ([[[AppController sharedAppController] playableFormats] containsObject:ext]) {
 								// 如果是支持的格式
 								[self playMedia:file];
 								break;
@@ -436,10 +439,11 @@ static BOOL isNetworkPath(const char *path)
 	return ret;
 }
 
--(void) playMedia:(NSURL*)url
+-(void) playMedia:(NSURL*)url withAudio: (NSURL*)audioUrl
 {
 	// 内部函数，没有那么必要判断url的有效性
 	NSString *path;	
+    NSString *audioPath;
 	NSNumber *stime;
 	
 	// 设定字幕大小
@@ -526,6 +530,13 @@ static BOOL isNetworkPath(const char *path)
 			path = [kMPCFFMpegProtoHead stringByAppendingString:path];
 		}
 	}
+    
+    if (audioUrl){
+        if ([audioUrl isFileURL]){
+            audioPath = [audioUrl path];
+            mplayer.pm.audioFile = audioPath;
+        }
+    }
 
 	////////////////////////////////////////////////////////////////////
 	// HACK!!! always try to use ffmpeg as the demuxer
@@ -557,6 +568,12 @@ static BOOL isNetworkPath(const char *path)
 	// 自动复位
 	[self setPlayDisk:kPMPlayDiskNone];
 	////////////////////////////////////////////////////////////////////
+}
+
+
+-(void) playMedia:(NSURL*)url
+{
+    [self playMedia: url withAudio: nil];
 }
 
 -(NSURL*) findFirstMediaFileFromSubFile:(NSString*)path
