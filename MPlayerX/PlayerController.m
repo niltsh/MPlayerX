@@ -875,6 +875,11 @@ static BOOL isNetworkPath(const char *path)
 		[mplayer mapAudioChannelsTo:mode];
 	}
 }
+
+-(void) setExternalAudioFilePath:(NSString*)path
+{
+	[mplayer.pm setAudioFilePath:path];
+}
 //////////////////////////////////////private methods////////////////////////////////////////////////////
 -(BOOL) shouldRun64bitMPlayer
 {

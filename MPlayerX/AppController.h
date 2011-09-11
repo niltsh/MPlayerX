@@ -39,6 +39,8 @@
 	IBOutlet PlayerController *playerController;
 	IBOutlet OpenURLController *openUrlController;
 	IBOutlet RootLayerView *dispView;
+	IBOutlet NSView *openPanelAccView;
+	IBOutlet NSTextField *externalAudioFilePath;
 }
 
 @property (readonly) NSMutableDictionary *bookmarks;
@@ -56,5 +58,6 @@
 -(IBAction) moveToTrash:(id) sender;
 -(IBAction) donate:(id)sender;
 -(IBAction) gotoFeedbackPage:(id)sender;
+-(IBAction) openExternalAudioFile:(id)sender;
 
 @end

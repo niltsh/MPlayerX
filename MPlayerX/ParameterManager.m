@@ -110,6 +110,7 @@ NSString * const kPMParDVDDevice			= @"-dvd-device";
 
 NSString * const kPMParNoDispCacheLog		= @"-nodispclog";
 NSString * const kPMParEdl					= @"-edl";
+NSString * const kPMParAudioFile			= @"-audiofile";
 
 #define kSubScaleNoAss			(8.0)
 
@@ -153,6 +154,7 @@ NSString * const kPMParEdl					= @"-edl";
 @synthesize assSubMarginV;
 @synthesize displayCacheLog;
 @synthesize edlPath;
+@synthesize audioFilePath;
 
 #pragma mark Init/Dealloc
 -(id) init
@@ -211,6 +213,7 @@ NSString * const kPMParEdl					= @"-edl";
 		playDisk = kPMPlayDiskNone;
 		displayCacheLog = YES;
 		edlPath = nil;
+		audioFilePath = nil;
 	}
 	return self;
 }
@@ -229,6 +232,7 @@ NSString * const kPMParEdl					= @"-edl";
 	[extraOptions release];
 	[equalizer release];
 	[edlPath release];
+	[audioFilePath release];
 	
 	[super dealloc];
 }
@@ -248,6 +252,7 @@ NSString * const kPMParEdl					= @"-edl";
 	SAFERELEASE(vobSub);
 	SAFERELEASE(textSubs);
 	SAFERELEASE(edlPath);
+	SAFERELEASE(audioFilePath);
 }
 
 -(NSArray *) arrayOfParametersWithName:(NSString*) name
@@ -548,6 +553,11 @@ NSString * const kPMParEdl					= @"-edl";
 	if (edlPath) {
 		[paramArray addObject:kPMParEdl];
 		[paramArray addObject:edlPath];
+	}
+	
+	if (audioFilePath) {
+		[paramArray addObject:kPMParAudioFile];
+		[paramArray addObject:audioFilePath];
 	}
 	
 	if (extraOptions) {

@@ -58,6 +58,7 @@
 NSString * const kMPCFMTBookmarkPath	= @"bookmarks.plist";
 NSString * const kMPXFeedbackURL		= @"http://mplayerx.org/#contact";
 NSString * const kMPXWikiURL			= @"https://github.com/niltsh/MPlayerX/wiki";
+NSString * const kMPXEAFPlaceHolder		= @"";
 
 static AppController *sharedInstance = nil;
 static BOOL init_ed = NO;
@@ -167,6 +168,8 @@ static BOOL init_ed = NO;
 		// disable bookmark completely
 		[bookmarks removeAllObjects];
 	}
+	
+	[externalAudioFilePath setStringValue:kMPXEAFPlaceHolder];
 }
 
 -(BOOL) validateMenuItem:(NSMenuItem *)menuItem
@@ -187,8 +190,15 @@ static BOOL init_ed = NO;
 	[openPanel setAllowsMultipleSelection:NO];
 	[openPanel setCanCreateDirectories:NO];
 	[openPanel setTitle:kMPXStringOpenMediaFiles];
+	[openPanel setAccessoryView:openPanelAccView];
 	
 	if ([openPanel runModal] == NSFileHandlingPanelOKButton) {
+		
+		BOOL isDir = YES;
+		if ([[NSFileManager defaultManager] fileExistsAtPath:[externalAudioFilePath stringValue] isDirectory:&isDir] &&
+			(!isDir)) {
+			[playerController setExternalAudioFilePath:[externalAudioFilePath stringValue]];
+		}
 		// 这里也可能是打开dvdmedia这样的文件夹，因此将打开文件动作放到application的delegate方法中打开文件。
 		NSString *fileUrl = [[[openPanel URLs] objectAtIndex:0] path];
 		
@@ -199,7 +209,26 @@ static BOOL init_ed = NO;
 		} else {
 			[playerController loadFiles:[openPanel URLs] fromLocal:YES];
 		}
+		// 如果选定了audiofile，就清除
+		[externalAudioFilePath setStringValue:kMPXEAFPlaceHolder];
 	}
+}
+
+-(IBAction) openExternalAudioFile:(id)sender
+{
+	NSOpenPanel *openEAF = [NSOpenPanel openPanel];
+	[openEAF setCanChooseFiles:YES];
+	[openEAF setCanChooseDirectories:NO];
+	[openEAF setResolvesAliases:NO];
+	[openEAF setAllowsMultipleSelection:NO];
+	[openEAF setCanCreateDirectories:NO];
+	[openEAF setTitle:kMPXStringOpenMediaFiles];
+	
+	[openEAF beginSheetModalForWindow:[sender window] completionHandler:^(NSInteger result) {
+		if (result == NSFileHandlingPanelOKButton) {
+			[externalAudioFilePath setStringValue:[[[openEAF URLs] objectAtIndex:0] path]];
+		}
+	}];
 }
 
 -(IBAction) openVIDEOTS:(id) sender

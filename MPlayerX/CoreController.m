@@ -239,7 +239,9 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 	// !!! 但是要注意，如果是在播放过程中直接调用playMedia函数进行下一个播放的时候
 	// !!! 由于playMedia函数会先停止播放，这样会导致sub被清空，在手动选择sub的情况下这里会出现无法手动加载的情况
 	// !!! 解决方法是，在CoreController正确先调用performStop在playMedia
-	[pm reset];
+	// 还是不应该在这里进行重置，这样在播放过程当中的设定都会被重置
+	// 应该在播放开始之后就重置
+	// [pm reset];
 	
 	// 只重置与播放无关的东西
 	[movieInfo resetWithParameterManager:nil];
@@ -414,6 +416,8 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 		[rl addTimer:pollingTimer forMode:NSDefaultRunLoopMode];
 		[rl addTimer:pollingTimer forMode:NSModalPanelRunLoopMode];
 		[rl addTimer:pollingTimer forMode:NSEventTrackingRunLoopMode];
+		
+		[pm reset];
 	} else {
 		// 如果没有成功打开媒体文件
 		[pm reset];
