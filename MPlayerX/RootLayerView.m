@@ -136,6 +136,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 					   boolNo, kUDKeyCloseWndOnEsc,
 					   boolYes, kUDKeyDontResizeWhenContinuousPlay,
 					   [NSNumber numberWithFloat:1.0], kUDKeyInitialFrameSizeRatio,
+					   boolNo, kUDKeyOldFullScreenMethod,
 					   nil]];
 }
 
@@ -1064,7 +1065,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	
 	if (fullScreenStatus == kFullScreenStatusNone) {
 		// 非全屏状态的话，就根据现在的状况来判断
-		oldWay = ((MPXGetSysVersion() < kMPXSysVersionLion) || ([[NSScreen screens] count] > 1));
+		oldWay = ((MPXGetSysVersion() < kMPXSysVersionLion) ||
+				  ([[NSScreen screens] count] > 1) ||
+				  ([ud boolForKey:kUDKeyOldFullScreenMethod]));
 	} else {
 		// 现在是全屏状态，要推出全屏
 		// 因此要和进入全屏时的状态保持一致

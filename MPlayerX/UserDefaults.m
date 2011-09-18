@@ -103,6 +103,7 @@ NSString * const kUDKeyResizeControlBar						= @"ResizeControlBar";
 NSString * const kUDKeyInitialFrameSizeRatio				= @"InitialFrameSizeRatio";
 NSString * const kUDKeyDisableLastStopBookmark				= @"DisableLastStopBookmark";
 NSString * const kUDKeyEnableOpenRecentMenu					= @"EnableOpenRecentMenu";
+NSString * const kUDKeyOldFullScreenMethod					= @"OldFullScreenMethod";
 
 NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";
