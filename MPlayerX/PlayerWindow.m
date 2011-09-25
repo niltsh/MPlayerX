@@ -21,6 +21,7 @@
 #import "PlayerWindow.h"
 #import "TitleView.h"
 #import "CocoaAppendix.h"
+#import "KeyCode.h"
 
 NSString * const kMPXAccessibilityPlayerWindowDesc		= @"PlayerWindow";
 NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
@@ -106,6 +107,19 @@ NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 -(void) performClose:(id)sender
 {
 	[self close];
+}
+
+// 当全屏时，鼠标点击屏幕右上角的图标返回全屏的时候
+// 会直接激发window的toggleFullScreen函数，这样时不OK的
+-(void) toggleFullScreenReal:(id)sender
+{
+	[super toggleFullScreen:sender];
+}
+
+-(void) toggleFullScreen:(id)sender
+{
+	[self postEvent:[NSEvent makeKeyDownEvent:kSCMFullScrnKeyEquivalent modifierFlags:kSCMFullscreenKeyEquivalentModifierFlagMask]
+			atStart:YES];
 }
 
 #pragma mark Accessibility

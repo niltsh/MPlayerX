@@ -21,7 +21,7 @@
 #import <Cocoa/Cocoa.h>
 #import "coredef.h"
 
-@class ControlUIView, PlayerController, ShortCutManager, DisplayLayer, OsdText, VideoTunerController, TitleView;
+@class ControlUIView, PlayerController, ShortCutManager, DisplayLayer, OsdText, VideoTunerController, TitleView, PlayerWindow;
 
 @interface RootLayerView : NSView <CoreDisplayDelegate>
 {
@@ -58,7 +58,7 @@
 	float fourFingersPinchDistance;
 	
 	// 在切换全屏的时候，view的window会发生变化，因此这里用一个成员变量锁定window
-	IBOutlet NSWindow *playerWindow;
+	IBOutlet PlayerWindow *playerWindow;
 	IBOutlet ControlUIView *controlUI;
 	IBOutlet PlayerController *playerController;
 	IBOutlet ShortCutManager *shortCutManager;

@@ -29,4 +29,6 @@ extern NSString * const kMPXAccessibilityWindowFrameAttribute;
 	IBOutlet TitleView *titlebar;
 }
 
+-(void) toggleFullScreenReal:(id)sender;
+
 @end

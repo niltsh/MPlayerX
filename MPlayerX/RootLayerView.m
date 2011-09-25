@@ -1235,54 +1235,13 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 				rcBeforeFullScrn = [self calculateFrameFrom:rcBeforeFullScrn
 													  toFit:[dispLayer aspectRatio]
 													   mode:kCalFrameSizeDiag | kCalFrameFixPosCenter];
-				
-				[dispLayer forceAdjustToFitBounds:YES];
-				if (displaying) {
-					// 退出全屏
-					[[self window] toggleFullScreen:self];
-					// 取消全屏时的各种设置
-					[dispLayer enablePositionOffset:NO];
-					[dispLayer enableScale:NO];
-					// 如果选定了CloseWindowWhenStopped的话
-					// 播放完毕退出全屏会在这里显示窗口，然后退出到ControlUIView里面在关闭窗口
-					// 出现窗口闪动，因此只有当在diplaying的时候才主动显示窗口
-					// [[self window] makeKeyAndOrderFront:self];
-				} else {
-					// 如果不是displaying，那么根本不会显示window
-					// 退出全屏
-					[[self window] toggleFullScreen:self];
-					[dispLayer enablePositionOffset:NO];
-					[dispLayer enableScale:NO];
-				}
-				
-				// 如果没有displaying，那么就不需要动画了
-				// [playerWindow setFrame:rcBeforeFullScrn display:YES animate:displaying];
-				[dispLayer display];
-				[dispLayer forceAdjustToFitBounds:NO];
-				
-				// 当进入全屏的时候，回强制锁定ar
-				// 当出了全屏，更新了window的size之后，在这里需要再一次设定window的ar
-				[[self window] setContentAspectRatio:[[self window] contentRectForFrameRect:rcBeforeFullScrn].size];
+				// Lion风格的全屏不会隐藏playerWindow
+				// 需要在delegate函数里面隐藏或者显示窗口
+				[playerWindow toggleFullScreenReal:self];
 			} else {
-				[[self window] toggleFullScreen:self];
-				
-				// 推出全屏，重新根据现在的尺寸比例渲染图像
-				[dispLayer enablePositionOffset:NO];
-				[dispLayer enableScale:NO];
-				[dispLayer display];
-				
-				if (displaying) {
-					// 如果选定了CloseWindowWhenStopped的话
-					// 播放完毕退出全屏会在这里显示窗口，然后退出到ControlUIView里面在关闭窗口
-					// 出现窗口闪动，因此只有当在diplaying的时候才主动显示窗口
-					// [[self window] makeKeyAndOrderFront:self];
-				}
+				[playerWindow toggleFullScreenReal:self];
 			}
-			[[self window] makeFirstResponder:self];
-			
-			// 必须要在退出全屏之后才能设定window level
-			[self setPlayerWindowLevel];
-			
+
 			fullScreenStatus = kFullScreenStatusNone;
 		} else if (displaying) {
 			// 进入全屏
@@ -1293,20 +1252,8 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			// 先记下全屏前窗口的方位
 			rcBeforeFullScrn = [playerWindow frame];
 			
-			[dispLayer forceAdjustToFitBounds:YES];
-			[[self window] toggleFullScreen:self];
-			[dispLayer enablePositionOffset:YES];
-			[dispLayer enableScale:YES];
-			// 暂停的时候能够正确显示
-			[dispLayer display];
-			[dispLayer forceAdjustToFitBounds:NO];
+			[playerWindow toggleFullScreenReal:self];
 			
-			fullScrnDevID = [[[[[self window] screen] deviceDescription] objectForKey:@"NSScreenNumber"] unsignedIntValue];
-			
-			NSSize sz = [self bounds].size;
-			
-			[controlUI setFillScreenMode:(((sz.height * [dispLayer aspectRatio]) >= sz.width)?kFillScreenButtonImageUBKey:kFillScreenButtonImageLRKey)
-								   state:([dispLayer fillScreen])?NSOnState:NSOffState];
 			fullScreenStatus = kFullScreenStatusLion;
 		} else {
 			[dispLayer display];
@@ -1317,12 +1264,29 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	return YES;
 }
 
+-(void) windowDidEnterFullScreen:(NSNotification *)notification
+{	
+	[[self window] makeFirstResponder:self];
+
+	NSSize sz = [self bounds].size;
+	
+	[controlUI setFillScreenMode:(((sz.height * [dispLayer aspectRatio]) >= sz.width)?kFillScreenButtonImageUBKey:kFillScreenButtonImageLRKey)
+						   state:([dispLayer fillScreen])?NSOnState:NSOffState];
+}
+
 -(void) windowDidExitFullScreen:(NSNotification *)notification
 {
-	[dispLayer forceAdjustToFitBounds:YES];
-	[playerWindow setFrame:rcBeforeFullScrn display:YES animate:displaying];
-	[dispLayer display];
-	[dispLayer forceAdjustToFitBounds:NO];
+	if (!displaying && [ud boolForKey:kUDKeyCloseWindowWhenStopped]) {
+		[[self window] orderOut:self];
+	}
+	// 当进入全屏的时候，回强制锁定ar
+	// 当出了全屏，更新了window的size之后，在这里需要再一次设定window的ar
+	[[self window] setContentAspectRatio:[[self window] contentRectForFrameRect:rcBeforeFullScrn].size];
+
+	[[self window] makeFirstResponder:self];
+	
+	// 必须要在退出全屏之后才能设定window level
+	[self setPlayerWindowLevel];
 }
 
 -(NSSize) window:(NSWindow*)window willUseFullScreenContentSize:(NSSize)proposedSize
@@ -1342,6 +1306,68 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			   NSApplicationPresentationAutoHideDock |
 			   NSApplicationPresentationAutoHideMenuBar;
 	}
+}
+
+-(NSArray*) customWindowsToEnterFullScreenForWindow:(NSWindow *)window
+{
+	if (window == playerWindow) {
+		return [NSArray arrayWithObject:window];
+	}
+	return nil;
+}
+
+- (NSArray*) customWindowsToExitFullScreenForWindow:(NSWindow*)window
+{
+	if (window == playerWindow) {
+		return [NSArray arrayWithObject:window];
+	}
+	return nil;	
+}
+
+-(void) window:(NSWindow*)window startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration
+{
+	[self invalidateRestorableState];
+    
+	[window setStyleMask:([window styleMask] | NSFullScreenWindowMask)];
+
+    NSScreen *screen = [window screen];
+    NSRect screenFrame = [screen frame];    
+    NSRect proposedFrame = screenFrame;
+	
+    proposedFrame.size = [self window:window willUseFullScreenContentSize:proposedFrame.size];
+    
+    proposedFrame.origin.x += floor(0.5 * (NSWidth(screenFrame) - NSWidth(proposedFrame)));
+    proposedFrame.origin.y += floor(0.5 * (NSHeight(screenFrame) - NSHeight(proposedFrame)));
+    
+	[dispLayer forceAdjustToFitBounds:YES];
+	[dispLayer enablePositionOffset:YES];
+	[dispLayer enableScale:YES];
+
+	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+		[context setDuration:0.5 * duration];
+		[[window animator] setFrame:proposedFrame display:YES];		
+	} completionHandler:^(void) {
+		[dispLayer display];
+		[dispLayer forceAdjustToFitBounds:NO];
+	}];
+}
+
+-(void) window:(NSWindow*)window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration
+{
+	[window setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
+
+	[dispLayer forceAdjustToFitBounds:YES];
+	[dispLayer enablePositionOffset:NO];
+	[dispLayer enableScale:NO];
+
+	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+		[context setDuration:0.5 * duration];
+		[[window animator] setFrame:rcBeforeFullScrn display:YES animate:displaying];
+	} completionHandler:^(void) {
+		// 暂停的时候能够正确显示
+		[dispLayer display];
+		[dispLayer forceAdjustToFitBounds:NO];
+	}];
 }
 
 -(BOOL) toggleFillScreen
