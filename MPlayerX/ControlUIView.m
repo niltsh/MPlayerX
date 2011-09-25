@@ -496,7 +496,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 				// 这里的[self window]不是成员的那个window，而是全屏后self的新window
 				if ([[self window] isKeyWindow] && NSPointInRect([NSEvent mouseLocation], [[self window] frame])) {
 					// 如果不是key window的话，就不隐藏鼠标
-					CGDisplayHideCursor(dispView.fullScrnDevID);
+					[NSCursor hide];
 				}
 			} else {
 				// 不是全屏的话，隐藏resizeindicator
@@ -527,7 +527,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 
 	if ([dispView isInFullScreenMode]) {
 		// 全屏模式还要显示鼠标
-		CGDisplayShowCursor(dispView.fullScrnDevID);
+		[NSCursor unhide];
 	} else {
 		// 不是全屏模式的话，要显示resizeindicator
 		// 全屏的时候不管
@@ -676,7 +676,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			
 			// 如果自己已经被hide了，那么就把鼠标也hide
 			if ([self alphaValue] < (CONTROLALPHA-0.05)) {
-				CGDisplayHideCursor(dispView.fullScrnDevID);
+				[NSCursor hide];
 			}
 			
 			// 进入全屏，强制隐藏resizeindicator
@@ -763,7 +763,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			}
 		} else {
 			// 退出全屏
-			CGDisplayShowCursor(dispView.fullScrnDevID);
+			[NSCursor unhide];
 
 			[fullScreenButton setState:NSOffState];
 			[menuToggleFullScreen setTitle:kMPXStringMenuEnterFullscrn];

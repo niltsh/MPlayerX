@@ -38,7 +38,6 @@
 	
 	BOOL displaying;
 	NSMutableDictionary *fullScreenOptions;
-	CGDirectDisplayID fullScrnDevID;
 	NSInteger fullScreenStatus;
 	
 	BOOL lockAspectRatio;
@@ -67,7 +66,6 @@
 	IBOutlet TitleView *titlebar;
 }
 
-@property (readonly) CGDirectDisplayID fullScrnDevID;
 @property (assign, readwrite, nonatomic) BOOL lockAspectRatio;
 
 -(void) resetAspectRatio;

@@ -112,7 +112,6 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 
 @implementation RootLayerView
 
-@synthesize fullScrnDevID;
 @synthesize lockAspectRatio;
 
 #pragma mark Init/Dealloc
@@ -265,10 +264,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	
 	// 通知dispView接受mplayer的渲染通知
 	[playerController setDisplayDelegateForMPlayer:self];
-	
-	// 默认的全屏的DisplayID
-	fullScrnDevID = [[[[playerWindow screen] deviceDescription] objectForKey:@"NSScreenNumber"] unsignedIntValue];
-	
+
 	// 设定可以接受Drag Files
 	[self registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType,nil]];
 
@@ -1215,8 +1211,6 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			[playerWindow orderOut:self];
 			
 			[[self window] setCollectionBehavior:NSWindowCollectionBehaviorManaged];
-			
-			fullScrnDevID = [[[chosenScreen deviceDescription] objectForKey:@"NSScreenNumber"] unsignedIntValue];
 			
 			// 得到screen的分辨率，并和播放中的图像进行比较
 			// 知道是横图还是竖图
