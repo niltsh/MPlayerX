@@ -67,7 +67,6 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 -(void) playBackStopped:(NSNotification*)notif;
 -(void) playBackWillStop:(NSNotification*)notif;
 -(void) playInfoUpdated:(NSNotification*)notif;
--(void) playBackFinalized:(NSNotification*)notif;
 
 -(void) gotCurentTime:(NSNumber*) timePos;
 -(void) gotSpeed:(NSNumber*) speed;
@@ -375,8 +374,6 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 						name:kMPCPlayWillStopNotification object:playerController];
 	[notifCenter addObserver:self selector:@selector(playBackStopped:)
 						name:kMPCPlayStoppedNotification object:playerController];
-	[notifCenter addObserver:self selector:@selector(playBackFinalized:)
-						name:kMPCPlayFinalizedNotification object:playerController];
 
 	[notifCenter addObserver:self selector:@selector(playInfoUpdated:)
 						name:kMPCPlayInfoUpdatedNotification object:playerController];
@@ -1366,25 +1363,6 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuSubDelayDec setEnabled:NO];
 	
 	[menuAudioChannels setEnabled:NO];
-}
-
--(void) playBackFinalized:(NSNotification*)notif
-{
-	// 如果不继续播放，或者没有下一个播放文件，那么退出全屏
-	// 这个时候的显示状态displaying是NO
-	// 因此，如果是全屏的话，会退出全屏，如果不是全屏的话，也不会进入全屏
-	[self toggleFullScreen:nil];
-	// 并且重置 fillScreen状态
-	[self toggleFillScreen:nil];
-	
-	if ([ud boolForKey:kUDKeyCloseWindowWhenStopped]) {
-		// 这里不能用close方法，因为如果用close的话会激发wiindowWillClose方法
-		[[dispView window] orderOut:self];
-	} else {
-		// 这个时候，如果是从全屏退出来的，那么就不会显示窗口
-		// 需要强制显示窗口
-		[[dispView window] makeKeyAndOrderFront:nil];
-	}
 }
 
 -(void) playInfoUpdated:(NSNotification*)notif

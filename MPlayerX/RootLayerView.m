@@ -311,6 +311,30 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 -(void) playeBackFinalized:(NSNotification*)notif
 {
 	playbackFinalized = YES;
+	
+	NSInteger fsStatus = fullScreenStatus;
+	
+	// 如果不继续播放，或者没有下一个播放文件，那么退出全屏
+	// 这个时候的显示状态displaying是NO
+	// 因此，如果是全屏的话，会退出全屏，如果不是全屏的话，也不会进入全屏
+	[controlUI toggleFullScreen:nil];
+	// 并且重置 fillScreen状态
+	[controlUI toggleFillScreen:nil];
+	
+	if ([ud boolForKey:kUDKeyCloseWindowWhenStopped]) {
+		// 这里不能用close方法，因为如果用close的话会激发wiindowWillClose方法
+		if (fsStatus != kFullScreenStatusLion) {
+			// 如果退出全屏的时候用的是Lion风格的模式
+			// 那么现在不能orderOut，因为Lion风格的全屏是异步的，所以这个时候实际上还没有实际退出全屏
+			// 而实际隐藏窗口的事情会放在delegate函数里面
+			[[self window] orderOut:nil];			
+		}
+	} else {
+		// 这个时候，如果是从全屏退出来的，那么就不会显示窗口
+		// 需要强制显示窗口
+		[[self window] makeKeyAndOrderFront:nil];
+	}
+
 	// 全部的播放完成，这个时候resetAspectRatio
 	[self setExternalAspectRatio:kDisplayAscpectRatioInvalid];
 	
