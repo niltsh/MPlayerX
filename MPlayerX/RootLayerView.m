@@ -1493,6 +1493,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			[playerWindow setContentAspectRatio:[self bounds].size];
 			
 			if ([ud boolForKey:kUDKeyStartByFullScreen]) {
+				// 如果是用Lion风格的全屏模式的话，因为没有任何一个地方显示窗口，会出现bug
+				// 如果是用SL  风格的全屏模式的话，即使这里显示了窗口，在fullscreen的时候会再次隐藏掉，不会漏出来
+				[playerWindow makeKeyAndOrderFront:self];
 				[controlUI toggleFullScreen:nil];
 			} else {
 				if (![NSApp isHidden]) {
