@@ -136,6 +136,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 					   boolYes, kUDKeyDontResizeWhenContinuousPlay,
 					   [NSNumber numberWithFloat:1.0], kUDKeyInitialFrameSizeRatio,
 					   boolNo, kUDKeyOldFullScreenMethod,
+					   boolNo, kUDKeyAlwaysUseSecondaryScreen,
 					   nil]];
 }
 
@@ -842,12 +843,29 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	[dispLayer display];
 }
 
+-(NSScreen*) findScreenFor:(NSRect)frame
+{
+	float areaMax = -1;
+	NSArray *scrnList = [NSScreen screens];
+	NSRect inter;
+	NSScreen *ret = nil;
+	
+	for (NSScreen *scrn in scrnList) {
+		inter = NSIntersectionRect([scrn frame], frame);
+		if ((inter.size.width * inter.size.height) > areaMax) {
+			ret = scrn;
+			areaMax = inter.size.width * inter.size.height;
+		}
+	}
+	return ret;
+}
+
 -(NSRect) calculateFrameFrom:(NSRect)orgFrame toFit:(CGFloat)ar mode:(NSUInteger)modeMask
 {
 	NSRect contentRect = [playerWindow contentRectForFrameRect:orgFrame];
 	NSSize contentMinSize = [playerWindow contentMinSize];
 
-	NSRect screenRc = [[playerWindow screen] visibleFrame];
+	NSRect screenRc = [[self findScreenFor:orgFrame] visibleFrame];
 	NSSize screenContentSize = [playerWindow contentRectForFrameRect:screenRc].size;
 
 	if ((orgFrame.size.width <= 0) || (orgFrame.size.height <= 0)) {
@@ -1104,10 +1122,11 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			if (shouldResize) {
 				shouldResize = NO;
 				// 得到目标frame
+				/*
 				rcBeforeFullScrn = [self calculateFrameFrom:rcBeforeFullScrn
 													  toFit:[dispLayer aspectRatio]
 													   mode:kCalFrameSizeDiag | kCalFrameFixPosCenter];
-				
+				*/
 				[dispLayer forceAdjustToFitBounds:YES];
 				if (displaying) {
 					// 先将playerWindow放到全屏窗口的背后
@@ -1167,12 +1186,21 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			[self setLockAspectRatio:YES];
 			
 			BOOL keepOtherSrn = [ud boolForKey:kUDKeyFullScreenKeepOther];
-			// 得到window目前所在的screen
-			NSScreen *chosenScreen = [playerWindow screen];
+			
+			NSScreen *chosenScreen;
+			NSArray *scrnList = [NSScreen screens];
+			if (([scrnList count] > 1) && [ud boolForKey:kUDKeyAlwaysUseSecondaryScreen]) {
+				// 如果有多个screen，并且选中了始终使用secondary screen
+				chosenScreen = [scrnList objectAtIndex:1];
+			} else {
+				// 得到window目前所在的screen
+				chosenScreen = [playerWindow screen];
+			}
+			
 			// Presentation Options
 			NSApplicationPresentationOptions opts;
 			
-			if (chosenScreen == [[NSScreen screens] objectAtIndex:0] || (!keepOtherSrn)) {
+			if (chosenScreen == [scrnList objectAtIndex:0] || (!keepOtherSrn)) {
 				// if the main screen
 				// there is no reason to always hide Dock, when MPX displayed in the secondary screen
 				// so only do it in main screen
@@ -1232,9 +1260,11 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			if (shouldResize) {
 				shouldResize = NO;
 				// 得到目标frame
+				/*
 				rcBeforeFullScrn = [self calculateFrameFrom:rcBeforeFullScrn
 													  toFit:[dispLayer aspectRatio]
 													   mode:kCalFrameSizeDiag | kCalFrameFixPosCenter];
+				*/
 				// Lion风格的全屏不会隐藏playerWindow
 				// 需要在delegate函数里面隐藏或者显示窗口
 				[playerWindow toggleFullScreenReal:self];
