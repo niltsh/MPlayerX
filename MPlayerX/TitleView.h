@@ -42,11 +42,16 @@
 	NSImage *imgZoomActive;
 	NSImage *imgZoomInactive;
 	NSImage *imgZoomRollover;
+	
+	NSButton *fsButton;
+	NSImage *imgFSActive;
+	NSImage *imgFSRollver;
 
 	NSString *title;
 	NSDictionary *titleAttr;
 	
 	BOOL mouseEntered;
+	BOOL fsBtnEntered;
 }
 
 @property(retain, readwrite) NSString *title;

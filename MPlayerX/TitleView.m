@@ -72,7 +72,11 @@ static NSRect trackRect;
 			
 			imgZoomActive	 = [[NSImage imageNamed:@"zoom-active.tiff"] retain];
 			imgZoomInactive	 = [[NSImage imageNamed:@"zoom-inactive-disabled.tiff"] retain];
-			imgZoomRollover	 = [[NSImage imageNamed:@"zoom-rollover.tiff"] retain];			
+			imgZoomRollover	 = [[NSImage imageNamed:@"zoom-rollover.tiff"] retain];	
+			
+			fsButton = nil;
+			imgFSActive = nil;
+			imgFSRollver = nil;
 		} else {
 			// in lion
 			if ([[NSUserDefaults standardUserDefaults] integerForKey:@"AppleAquaColorVariant"] == 6) {
@@ -101,6 +105,13 @@ static NSRect trackRect;
 				imgZoomInactive	 = [[NSImage imageNamed:@"zoom-inactive-disabled-lion.png"] retain];
 				imgZoomRollover	 = [[NSImage imageNamed:@"zoom-rollover-lion.png"] retain];
 			}
+			// read the image
+			imgFSActive = [[NSImage imageNamed:@"fullscreen-active-lion"] retain];
+			imgFSRollver = [[NSImage imageNamed:@"fullscreen-rollover-lion"] retain];
+			// 
+			fsButton = [[MPXWindowButton alloc] initWithFrame:NSMakeRect(4, 0, 22, 22) type:kMPXWindowFullscreenButtonType];
+			[fsButton setImage:imgFSActive];
+			[fsButton setAutoresizingMask:NSViewMinXMargin|NSViewMaxYMargin];
 		}
 
 		closeButton = [[MPXWindowButton alloc] initWithFrame:NSMakeRect( 4, 0, 22, 22) type:kMPXWindowCloseButtonType];
@@ -112,6 +123,7 @@ static NSRect trackRect;
 		[zoomButton setImage:imgZoomActive];
 		
 		mouseEntered = NO;
+		fsBtnEntered = NO;
 	}
     return self;
 }
@@ -143,6 +155,10 @@ static NSRect trackRect;
 	[imgZoomInactive release];
 	[imgZoomRollover release];
 
+	[fsButton release];
+	[imgFSActive release];
+	[imgFSRollver release];
+
 	[super dealloc];
 }
 
@@ -159,6 +175,16 @@ static NSRect trackRect;
 	[closeButton setAction:@selector(performClose:)];
 	[miniButton setAction:@selector(performMiniaturize:)];
 	[zoomButton setAction:@selector(performZoom:)];
+	
+	if (fsButton) {
+		[self addSubview:fsButton];
+		[fsButton setTarget:[self window]];
+		[fsButton setAction:@selector(toggleFullScreen:)];
+		
+		NSRect rc = [fsButton bounds];
+		rc.origin.x = [self bounds].size.width - 22;
+		[fsButton setFrame:rc];
+	}
 
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(windowDidBecomKey:)
@@ -184,7 +210,9 @@ static NSRect trackRect;
 
 -(void) mouseMoved:(NSEvent *)theEvent
 {
-	BOOL mouseIn = NSPointInRect([self convertPoint:[theEvent locationInWindow] fromView:nil], trackRect);
+	NSPoint pt = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+	
+	BOOL mouseIn = NSPointInRect(pt, trackRect);
 	
 	if (mouseIn != mouseEntered) {
 		// 状态发生变化
@@ -205,6 +233,18 @@ static NSRect trackRect;
 				[closeButton setImage:imgCloseInactive];
 				[miniButton setImage:imgMiniInactive];
 				[zoomButton setImage:imgZoomInactive];				
+			}
+		}
+	}
+	
+	if (fsButton) {
+		mouseIn = NSPointInRect(pt, fsButton.frame);
+		if (mouseIn != fsBtnEntered) {
+			fsBtnEntered = mouseIn;
+			if (fsBtnEntered) {
+				[fsButton setImage:imgFSRollver];
+			} else {
+				[fsButton setImage:imgFSActive];
 			}
 		}
 	}

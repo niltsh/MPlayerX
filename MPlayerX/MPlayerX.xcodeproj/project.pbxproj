@@ -151,6 +151,8 @@
 		86E7A89E1155C1740014155D /* CharsetQueryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E7A89D1155C1740014155D /* CharsetQueryController.m */; };
 		86E7A8F11155E8980014155D /* CocoaAppendix.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E7A8F01155E8980014155D /* CocoaAppendix.m */; };
 		86E7A8FF1155EBCD0014155D /* SubEncoding.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86E7A8FE1155EBCD0014155D /* SubEncoding.xib */; };
+		86E7CEC5143C876500EF8CDD /* fullscreen-active-lion.png in Resources */ = {isa = PBXBuildFile; fileRef = 86E7CEC3143C876500EF8CDD /* fullscreen-active-lion.png */; };
+		86E7CEC6143C876500EF8CDD /* fullscreen-rollover-lion.png in Resources */ = {isa = PBXBuildFile; fileRef = 86E7CEC4143C876500EF8CDD /* fullscreen-rollover-lion.png */; };
 		86EA467B13BF23E300B1F588 /* ChapterItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EA467A13BF23E300B1F588 /* ChapterItem.m */; };
 		86F4DADB10BC329F007AE56A /* ControlUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F4DADA10BC329F007AE56A /* ControlUIView.m */; };
 		86F4DD8110BD6ECA007AE56A /* pause.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 86F4DD7F10BD6ECA007AE56A /* pause.pdf */; };
@@ -393,6 +395,8 @@
 		86E7A8EF1155E8980014155D /* CocoaAppendix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CocoaAppendix.h; sourceTree = "<group>"; };
 		86E7A8F01155E8980014155D /* CocoaAppendix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CocoaAppendix.m; sourceTree = "<group>"; };
 		86E7A8FC1155EBC60014155D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SubEncoding.xib; sourceTree = "<group>"; };
+		86E7CEC3143C876500EF8CDD /* fullscreen-active-lion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fullscreen-active-lion.png"; sourceTree = "<group>"; };
+		86E7CEC4143C876500EF8CDD /* fullscreen-rollover-lion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fullscreen-rollover-lion.png"; sourceTree = "<group>"; };
 		86EA467913BF23E300B1F588 /* ChapterItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChapterItem.h; sourceTree = "<group>"; };
 		86EA467A13BF23E300B1F588 /* ChapterItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChapterItem.m; sourceTree = "<group>"; };
 		86F4DAD910BC329F007AE56A /* ControlUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ControlUIView.h; sourceTree = "<group>"; };
@@ -619,6 +623,8 @@
 		8638EE9113DC25D10088A0FF /* Lion */ = {
 			isa = PBXGroup;
 			children = (
+				86E7CEC3143C876500EF8CDD /* fullscreen-active-lion.png */,
+				86E7CEC4143C876500EF8CDD /* fullscreen-rollover-lion.png */,
 				8670CC161418E32B009EDB63 /* close-active-graphite-lion.png */,
 				8670CC171418E32B009EDB63 /* close-inactive-disabled-graphite-lion.png */,
 				8670CC181418E32B009EDB63 /* close-rollover-graphite-lion.png */,
@@ -987,6 +993,8 @@
 				8670CC261418E32B009EDB63 /* zoom-inactive-disabled-graphite-lion.png in Resources */,
 				8670CC271418E32B009EDB63 /* zoom-rollover-graphite-lion.png in Resources */,
 				8670CC2A1418E3F0009EDB63 /* minimize-inactive-disabled-graphite-lion.png in Resources */,
+				86E7CEC5143C876500EF8CDD /* fullscreen-active-lion.png in Resources */,
+				86E7CEC6143C876500EF8CDD /* fullscreen-rollover-lion.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

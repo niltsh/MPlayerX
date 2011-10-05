@@ -23,7 +23,8 @@
 typedef enum {
 	kMPXWindowCloseButtonType = 1,
 	kMPXWindowMinimizeButtonType = 2,
-	kMPXWindowZoomButtonType = 3
+	kMPXWindowZoomButtonType = 3,
+	kMPXWindowFullscreenButtonType = 4
 }MPXWindowButtonType;
 
 @interface MPXWindowButton : NSButton
