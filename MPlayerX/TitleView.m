@@ -62,17 +62,31 @@ static NSRect trackRect;
 
 		if (MPXGetSysVersion() < kMPXSysVersionLion) {
 			// in snow leopard
-			imgCloseActive	 = [[NSImage imageNamed:@"close-active.tiff"] retain];
-			imgCloseInactive = [[NSImage imageNamed:@"close-inactive-disabled.tiff"] retain];
-			imgCloseRollover = [[NSImage imageNamed:@"close-rollover.tiff"] retain];
-			
-			imgMiniActive	 = [[NSImage imageNamed:@"minimize-active.tiff"] retain];
-			imgMiniInactive	 = [[NSImage imageNamed:@"minimize-inactive-disabled.tiff"] retain];
-			imgMiniRollover	 = [[NSImage imageNamed:@"minimize-rollover.tiff"] retain];
-			
-			imgZoomActive	 = [[NSImage imageNamed:@"zoom-active.tiff"] retain];
-			imgZoomInactive	 = [[NSImage imageNamed:@"zoom-inactive-disabled.tiff"] retain];
-			imgZoomRollover	 = [[NSImage imageNamed:@"zoom-rollover.tiff"] retain];	
+			if ([[NSUserDefaults standardUserDefaults] integerForKey:@"AppleAquaColorVariant"] == 6) {
+				imgCloseActive	 = [[NSImage imageNamed:@"close-active-graphite.tiff"] retain];
+				imgCloseInactive = [[NSImage imageNamed:@"close-inactive-disabled-graphite.tiff"] retain];
+				imgCloseRollover = [[NSImage imageNamed:@"close-rollover-graphite.tiff"] retain];
+				
+				imgMiniActive	 = [[NSImage imageNamed:@"minimize-active-graphite.tiff"] retain];
+				imgMiniInactive	 = [[NSImage imageNamed:@"minimize-inactive-disabled-graphite.tiff"] retain];
+				imgMiniRollover	 = [[NSImage imageNamed:@"minimize-rollover-graphite.tiff"] retain];
+				
+				imgZoomActive	 = [[NSImage imageNamed:@"zoom-active-graphite.tiff"] retain];
+				imgZoomInactive	 = [[NSImage imageNamed:@"zoom-inactive-disabled-graphite.tiff"] retain];
+				imgZoomRollover	 = [[NSImage imageNamed:@"zoom-rollover-graphite.tiff"] retain];	
+			} else {
+				imgCloseActive	 = [[NSImage imageNamed:@"close-active.tiff"] retain];
+				imgCloseInactive = [[NSImage imageNamed:@"close-inactive-disabled.tiff"] retain];
+				imgCloseRollover = [[NSImage imageNamed:@"close-rollover.tiff"] retain];
+				
+				imgMiniActive	 = [[NSImage imageNamed:@"minimize-active.tiff"] retain];
+				imgMiniInactive	 = [[NSImage imageNamed:@"minimize-inactive-disabled.tiff"] retain];
+				imgMiniRollover	 = [[NSImage imageNamed:@"minimize-rollover.tiff"] retain];
+				
+				imgZoomActive	 = [[NSImage imageNamed:@"zoom-active.tiff"] retain];
+				imgZoomInactive	 = [[NSImage imageNamed:@"zoom-inactive-disabled.tiff"] retain];
+				imgZoomRollover	 = [[NSImage imageNamed:@"zoom-rollover.tiff"] retain];	
+			}
 			
 			fsButton = nil;
 			imgFSActive = nil;
