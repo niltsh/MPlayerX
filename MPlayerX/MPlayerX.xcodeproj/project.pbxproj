@@ -895,6 +895,7 @@
 				86086A7410BAD11C00459392 /* Copy Binaries */,
 				86CAF21E10BA438D00848B8E /* Copy Frameworks */,
 				86FD7D9811CE4961001726FD /* Localizations */,
+				86549262146E39F20068496A /* Code Sign */,
 			);
 			buildRules = (
 			);
@@ -1063,6 +1064,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# shell script goes here\n\nexport PATH=${PATH}:/usr/local/bin:/usr/local/git/bin:/sw/bin\n\nruby updateInfoPlist.rb MPlayerX-Info.plist\ntouch -amfc MPlayerX-Info.plist\n\nexit 0";
+		};
+		86549262146E39F20068496A /* Code Sign */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Code Sign";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  echo \"in Release\"\n                \nelif [ \"${CONFIGURATION}\" = \"Deploy\" ]; then\n  echo \"in Deploy\"\n# Sign the framework\n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UniversalDetector.framework/Versions/A\"\n/usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UniversalDetector.framework/Versions/A\n\n# Sign 64bit binaries\n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/mplayer\"\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/mplayer\n\n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfontconfig.1.dylib\"\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfontconfig.1.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfreetype.6.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfribidi.0.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libspeex.1.5.0.dylib\n# Sign 64bit binaries\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/mplayer\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libfontconfig.1.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libfreetype.6.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libfribidi.0.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libspeex.1.5.0.dylib\n  \nelse\n  echo \"in Debug\"\nfi\n";
 		};
 		86FD7D9811CE4961001726FD /* Localizations */ = {
 			isa = PBXShellScriptBuildPhase;
