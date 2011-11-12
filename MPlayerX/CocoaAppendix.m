@@ -668,15 +668,16 @@ SInt32 MPXGetSysVersion()
 @end
 
 @implementation NSFileManager (MPXAdditional)
-+(NSString*) applicationSupportPathWithSuffix:(NSString*)suffix
++(NSString*) UserPath:(NSSearchPathDirectory)dir WithSuffix:(NSString*)suffix
 {
 	return [[[[NSFileManager defaultManager]
-			   URLForDirectory:NSApplicationSupportDirectory
-					  inDomain:NSUserDomainMask
-			 appropriateForURL:NULL
-					    create:YES
-						 error:NULL] path] stringByAppendingPathComponent:suffix];
+			  URLForDirectory:dir
+			  inDomain:NSUserDomainMask
+			  appropriateForURL:NULL
+			  create:YES
+			  error:NULL] path] stringByAppendingPathComponent:suffix];
 }
+
 @end
 
 @implementation NSObject (MPXAdditional)

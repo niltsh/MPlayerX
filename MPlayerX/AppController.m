@@ -28,7 +28,7 @@
 #import "SPMediaKeyTap.h"
 #import "AODetector.h"
 
-#define kSnapshotSaveDefaultPath	(@"~/Desktop")
+#define kSnapshotSaveDefaultPath	(@"~/Pictures")
 
 /**
  * This is a sample of how to create a singleton object,
@@ -125,7 +125,7 @@ static BOOL init_ed = NO;
 		
 		/////////////////////////setup bookmarks////////////////////
 		// 得到书签的文件名
-		NSString *lastStoppedTimePath = [[NSFileManager applicationSupportPathWithSuffix:kMPCStringMPlayerX] stringByAppendingPathComponent:kMPCFMTBookmarkPath];
+		NSString *lastStoppedTimePath = [[NSFileManager UserPath:NSApplicationSupportDirectory WithSuffix:kMPCStringMPlayerX] stringByAppendingPathComponent:kMPCFMTBookmarkPath];
 
 		// 得到记录播放时间的dict
 		bookmarks = [[NSMutableDictionary alloc] initWithContentsOfFile:lastStoppedTimePath];
@@ -261,32 +261,48 @@ static BOOL init_ed = NO;
 	
 	if (snapshot != nil) {
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		// 得到图像的Rep
-		NSBitmapImageRep *imRep = [[NSBitmapImageRep alloc] initWithCIImage:snapshot];
-		// 设定这个Rep的存储方式
-		NSData *imData = [NSBitmapImageRep representationOfImageRepsInArray:[NSArray arrayWithObject:imRep]
-																  usingType:NSPNGFileType
-																 properties:nil];
 		// 得到存储文件夹
 		NSString *savePath = [ud stringForKey:kUDKeySnapshotSavePath];
 		
 		// 如果是默认路径，那么就更换为绝对地址
 		if ([savePath isEqualToString:kSnapshotSaveDefaultPath]) {
-			savePath = [savePath stringByExpandingTildeInPath];
+			savePath = [NSFileManager UserPath:NSPicturesDirectory WithSuffix:kMPCStringMPlayerX];
 		}
-		NSString *mediaPath = ([playerController.lastPlayedPath isFileURL])?([playerController.lastPlayedPath path]):([playerController.lastPlayedPath absoluteString]);
-		NSString *dateTime = [NSDateFormatter localizedStringFromDate:[NSDate date]
-															dateStyle:NSDateFormatterMediumStyle
-															timeStyle:NSDateFormatterMediumStyle];
-		dateTime = [dateTime stringByReplacingOccurrencesOfString:@":" withString:@"."];
-		dateTime = [dateTime stringByReplacingOccurrencesOfString:@"/" withString:@"."];
 		
-		// 创建文件名
-		// 修改文件名中的：，因为：无法作为文件名存储
-		savePath = [NSString stringWithFormat:@"%@/%@_%@.png", savePath, [[mediaPath lastPathComponent] stringByDeletingPathExtension],dateTime];							   
-		// 写文件
-		[imData writeToFile:savePath atomically:YES];
-		[imRep release];
+		NSFileManager *fm = [NSFileManager defaultManager];
+		BOOL isDir = NO;
+		if ([fm fileExistsAtPath:savePath isDirectory:&isDir] && (!isDir)) {
+			// 如果存在但不是文件夹的话
+			[fm removeItemAtPath:savePath error:NULL];
+		}
+		if (!isDir) {
+			// 如果原来不存在这个文件夹或者存在的是文件的话，都需要重建文件夹
+			if (![fm createDirectoryAtPath:savePath withIntermediateDirectories:YES attributes:nil error:NULL]) {
+				savePath = nil;
+			}
+		}
+
+		if (savePath) {
+			NSString *mediaPath = ([playerController.lastPlayedPath isFileURL])?([playerController.lastPlayedPath path]):([playerController.lastPlayedPath absoluteString]);
+			NSString *dateTime = [NSDateFormatter localizedStringFromDate:[NSDate date]
+																dateStyle:NSDateFormatterMediumStyle
+																timeStyle:NSDateFormatterMediumStyle];
+			dateTime = [dateTime stringByReplacingOccurrencesOfString:@":" withString:@"."];
+			dateTime = [dateTime stringByReplacingOccurrencesOfString:@"/" withString:@"."];
+			
+			// 创建文件名
+			// 修改文件名中的：，因为：无法作为文件名存储
+			savePath = [NSString stringWithFormat:@"%@/%@_%@.png", savePath, [[mediaPath lastPathComponent] stringByDeletingPathExtension],dateTime];							   
+			// 得到图像的Rep
+			NSBitmapImageRep *imRep = [[NSBitmapImageRep alloc] initWithCIImage:snapshot];
+			// 设定这个Rep的存储方式
+			NSData *imData = [NSBitmapImageRep representationOfImageRepsInArray:[NSArray arrayWithObject:imRep]
+																	  usingType:NSPNGFileType
+																	 properties:nil];
+			// 写文件
+			[imData writeToFile:savePath atomically:YES];
+			[imRep release];			
+		}
 		[pool drain];
 	}
 }
@@ -410,7 +426,7 @@ static BOOL init_ed = NO;
 
 	[openUrlController syncToBookmark:bookmarks];
 	
-	[bookmarks writeToFile:[[NSFileManager applicationSupportPathWithSuffix:kMPCStringMPlayerX] stringByAppendingPathComponent:kMPCFMTBookmarkPath]
+	[bookmarks writeToFile:[[NSFileManager UserPath:NSApplicationSupportDirectory WithSuffix:kMPCStringMPlayerX] stringByAppendingPathComponent:kMPCFMTBookmarkPath]
 				atomically:YES];
 	
 	// 先不起用监听功能

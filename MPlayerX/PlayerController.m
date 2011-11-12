@@ -152,7 +152,7 @@ enum {
 		/////////////////////////setup subconverter////////////////////
 		NSFileManager *fm = [NSFileManager defaultManager];
 		BOOL isDir = NO;
-		NSString *workDir = [NSFileManager applicationSupportPathWithSuffix:kMPCStringMPlayerX];
+		NSString *workDir = [NSFileManager UserPath:NSApplicationSupportDirectory WithSuffix:kMPCStringMPlayerX];
 		
 		if ([fm fileExistsAtPath:workDir isDirectory:&isDir] && (!isDir)) {
 			// 如果存在但不是文件夹的话

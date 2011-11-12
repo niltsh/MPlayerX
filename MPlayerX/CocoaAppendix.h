@@ -54,7 +54,7 @@ SInt32 MPXGetSysVersion();
 @end
 
 @interface NSFileManager (MPXAdditional)
-+(NSString*) applicationSupportPathWithSuffix:(NSString*)suffix;
++(NSString*) UserPath:(NSSearchPathDirectory)dir WithSuffix:(NSString*)suffix;
 @end
 
 @interface NSObject (MPXAdditional)
