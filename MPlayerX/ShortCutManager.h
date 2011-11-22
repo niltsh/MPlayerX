@@ -34,9 +34,11 @@
 	NSUInteger repeatCounter;
 	float arKeyRepTime;
 
-	float seekStepTimeLR;
-	float seekStepTimeUB;
-
+	float seekStepTimeL;
+	float seekStepTimeR;
+	float seekStepTimeU;
+	float seekStepTimeB;
+    
 	IBOutlet PlayerController *playerController;
 	IBOutlet ControlUIView *controlUI;
 	IBOutlet RootLayerView *dispView;

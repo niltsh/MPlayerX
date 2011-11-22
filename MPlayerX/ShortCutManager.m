@@ -41,8 +41,10 @@
 	[[NSUserDefaults standardUserDefaults] 
 	 registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 					   [NSNumber numberWithFloat:0.1], kUDKeySpeedStep,
-					   [NSNumber numberWithFloat:10], kUDKeySeekStepLR,
-					   [NSNumber numberWithFloat:60], kUDKeySeekStepUB,
+					   [NSNumber numberWithFloat:-10], kUDKeySeekStepL,
+					   [NSNumber numberWithFloat:10], kUDKeySeekStepR,
+					   [NSNumber numberWithFloat:60], kUDKeySeekStepU,
+					   [NSNumber numberWithFloat:-60], kUDKeySeekStepB,
 					   [NSNumber numberWithFloat:0.1], kUDKeySubDelayStepTime,
 					   [NSNumber numberWithFloat:0.1], kUDKeyAudioDelayStepTime,
 					   [NSNumber numberWithFloat:0.3], kUDKeyARKeyRepeatTimeInterval,
@@ -58,8 +60,10 @@
 	if (self) {
 		ud = [NSUserDefaults standardUserDefaults];
 
-		seekStepTimeLR = [ud floatForKey:kUDKeySeekStepLR];
-		seekStepTimeUB = [ud floatForKey:kUDKeySeekStepUB];
+		seekStepTimeL = [ud floatForKey:kUDKeySeekStepL];
+		seekStepTimeR = [ud floatForKey:kUDKeySeekStepR];
+		seekStepTimeU = [ud floatForKey:kUDKeySeekStepU];
+		seekStepTimeB = [ud floatForKey:kUDKeySeekStepB];
 
 		arKeyRepTime = [ud floatForKey:kUDKeyARKeyRepeatTimeInterval];
 
@@ -197,17 +201,17 @@
 						if ([playerController playerState] == kMPCPausedState) {
 							[playerController frameStep];
 						} else {
-							[controlUI changeTimeBy:seekStepTimeLR];
+							[controlUI changeTimeBy:seekStepTimeR];
 						}
 						break;
 					case NSLeftArrowFunctionKey:
-						[controlUI changeTimeBy:-seekStepTimeLR];
+						[controlUI changeTimeBy:seekStepTimeL];
 						break;
 					case NSUpArrowFunctionKey:
-						[controlUI changeTimeBy:seekStepTimeUB];
+						[controlUI changeTimeBy:seekStepTimeU];
 						break;
 					case NSDownArrowFunctionKey:
-						[controlUI changeTimeBy:-seekStepTimeUB];
+						[controlUI changeTimeBy:seekStepTimeB];
 						break;
 					default:
 						ret = NO;
