@@ -654,9 +654,10 @@ static BOOL isNetworkPath(const char *path)
     // temp hack for 1.0.10
     // the threads larger than 4 will bring out-of-sync
     // so limit it here to 4 and do not influence UI and Preference.
-    if (threadNum > 4) {
-        threadNum = 4;
-    }
+    // Seams the latest build of mplayer fix this issue(2011/12/5)
+    // if (threadNum > 4) {
+    //     threadNum = 4;
+    // }
 	[mplayer.pm setThreads: threadNum];
 	
 	[mplayer setMpPathPair: [NSDictionary dictionaryWithObjectsAndKeys: 
