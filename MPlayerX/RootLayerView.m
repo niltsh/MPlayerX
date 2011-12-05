@@ -1295,7 +1295,10 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 }
 
 -(void) windowDidEnterFullScreen:(NSNotification *)notification
-{	
+{
+    // It seams the fullscreen window is another window, so I have to set accept mouseMovedEvents
+    // otherwise, View could not receive the events
+    [[self window] setAcceptsMouseMovedEvents:YES];
 	[[self window] makeFirstResponder:self];
 
 	NSSize sz = [self bounds].size;
