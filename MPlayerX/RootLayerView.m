@@ -137,6 +137,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 					   [NSNumber numberWithFloat:1.0], kUDKeyInitialFrameSizeRatio,
 					   boolNo, kUDKeyOldFullScreenMethod,
 					   boolNo, kUDKeyAlwaysUseSecondaryScreen,
+                       boolNo, kUDKeyClickTogPlayPause,
 					   nil]];
 }
 
@@ -381,7 +382,10 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 }
 
 #pragma mark keyboard/mouse
--(BOOL) acceptsFirstMouse:(NSEvent *)event { return YES; }
+-(BOOL) acceptsFirstMouse:(NSEvent *)event {
+    return (![ud boolForKey:kUDKeyClickTogPlayPause]);
+}
+
 -(BOOL) acceptsFirstResponder { return YES; }
 
 -(void) mouseMoved:(NSEvent *)theEvent
@@ -504,12 +508,23 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	if ([theEvent clickCount] == 2) {
 		switch ([theEvent modifierFlags] & (NSShiftKeyMask| NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask)) {
 			case 0:
+                if ([ud boolForKey:kUDKeyClickTogPlayPause] && displaying) {
+                    // if the Click to Play/Pause is enabled, here means it has toggled once
+                    // since Mac treat the first click of double-click exactly the same as a single-click
+                    // so I have to toggle once again
+                    [controlUI togglePlayPause:self];
+                }
 				[controlUI toggleFullScreen:nil];
 				break;
 			default:
 				break;
 		}
-	}
+	} else if ([theEvent clickCount] == 1) {
+        if ([ud boolForKey:kUDKeyClickTogPlayPause] && displaying) {
+            // if enable it and is displaying
+            [controlUI togglePlayPause:self];
+        }
+    }
 	// do not use the playerWindow, since when fullscreen the window holds self is not playerWindow
 	// 当鼠标抬起的时候，自动将FR放到rootLayerView上，这样可以让接受键盘鼠标事件
 	[[self window] makeFirstResponder:self];
