@@ -120,6 +120,7 @@
 	IBOutlet NSMenuItem *menuSubDelayDec;
 	IBOutlet NSMenuItem *menuSubDelayReset;
 	
+    IBOutlet NSMenuItem *menuZoomToHalfSize;
 	IBOutlet NSMenuItem *menuZoomToOriginSize;
 	IBOutlet NSMenuItem *menuZoomToDoubleSize;
 	IBOutlet NSMenuItem *menuWndFitToScrn;

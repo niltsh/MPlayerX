@@ -69,6 +69,7 @@ NSString * const kSCMScaleFrameSmaller2KeyEquivalent	= @"-";
 NSString * const kSCMMirrorKeyEquivalent				= @"m";
 NSString * const kSCMFlipKeyEquivalent					= @"f";
 
+NSString * const kSCMWindowZoomHalfSizeKeyEquivalent    = @"`";
 NSString * const kSCMWindowZoomToOrgSizeKeyEquivalent	= @"1";
 NSString * const kSCMWindowZoomDblSizeKeyEquivalent		= @"2";
 NSString * const kSCMWindowFitToScreenKeyEquivalent		= @"3";
