@@ -50,6 +50,7 @@
 					   [NSNumber numberWithFloat:0.3], kUDKeyARKeyRepeatTimeInterval,
 					   [NSNumber numberWithFloat:1.0], kUDKeyARKeyRepeatTimeIntervalLong,
 					   [NSNumber numberWithBool:YES], kUDKeySupportAppleRemote,
+                       [NSNumber numberWithBool:NO], kUDKeyARUseSysVol,
 					   nil]];
 }
 
@@ -240,16 +241,40 @@
 		switch(event) {
 			case kRemoteButtonPlus_Hold:
 			case kRemoteButtonPlus:
-				keyEqTemp = kSCMVolumeUpKeyEquivalent;
-				target = mainMenu;
-				action = @selector(performKeyEquivalent:);
+            {
+                if ([ud boolForKey:kUDKeyARUseSysVol]) {
+                    NSDictionary *err;
+                    NSAppleScript *volUpScpt = [[NSAppleScript alloc] initWithSource:@"set curVolSet to get volume settings \r\n \
+                                                                                       set curVol to output volume of curVolSet \r\n \
+                                                                                       set curVol to curVol + 5 \r\n \
+                                                                                       if curVol > 100 then set curVol to 100 \r\n \
+                                                                                       set volume output volume curVol"];
+                    [volUpScpt executeAndReturnError:&err];
+                } else {
+                    keyEqTemp = kSCMVolumeUpKeyEquivalent;
+                    target = mainMenu;
+                    action = @selector(performKeyEquivalent:);
+                }
+            }
 				break;
-				
+                
 			case kRemoteButtonMinus_Hold:
 			case kRemoteButtonMinus:
-				keyEqTemp = kSCMVolumeDownKeyEquivalent;
-				target = mainMenu;
-				action = @selector(performKeyEquivalent:);
+            {
+                if ([ud boolForKey:kUDKeyARUseSysVol]) {
+                    NSDictionary *err;
+                    NSAppleScript *volUpScpt = [[NSAppleScript alloc] initWithSource:@"set curVolSet to get volume settings \r\n \
+                                                                                       set curVol to output volume of curVolSet \r\n \
+                                                                                       set curVol to curVol - 5 \r\n \
+                                                                                       if curVol < 0 then set curVol to 0 \r\n \
+                                                                                       set volume output volume curVol"];
+                    [volUpScpt executeAndReturnError:&err];
+                } else {
+                    keyEqTemp = kSCMVolumeDownKeyEquivalent;
+                    target = mainMenu;
+                    action = @selector(performKeyEquivalent:);
+                }
+            }
 				break;			
 						
 			case kRemoteButtonMenu:

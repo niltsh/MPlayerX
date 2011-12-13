@@ -104,6 +104,7 @@ extern NSString * const kUDKeyEnableOpenRecentMenu;
 extern NSString * const kUDKeyOldFullScreenMethod;
 extern NSString * const kUDKeyAlwaysUseSecondaryScreen;
 extern NSString * const kUDKeyClickTogPlayPause;
+extern NSString * const kUDKeyARUseSysVol;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;
