@@ -51,6 +51,7 @@
 					   [NSNumber numberWithFloat:1.0], kUDKeyARKeyRepeatTimeIntervalLong,
 					   [NSNumber numberWithBool:YES], kUDKeySupportAppleRemote,
                        [NSNumber numberWithBool:NO], kUDKeyARUseSysVol,
+                       [NSNumber numberWithBool:NO], kUDKeyARMenuKeyTogTimeDisp,
 					   nil]];
 }
 
@@ -278,9 +279,16 @@
 				break;			
 						
 			case kRemoteButtonMenu:
-				keyEqTemp = kSCMFullScrnKeyEquivalent;
-				target = mainMenu;
-				action = @selector(performKeyEquivalent:);
+            {
+                if ([ud boolForKey:kUDKeyARMenuKeyTogTimeDisp]) {
+                    [ud setBool:![ud boolForKey:kUDKeyTimeTextAltTotal] forKey:kUDKeyTimeTextAltTotal];
+                    [controlUI showUp];
+                } else {
+                    keyEqTemp = kSCMFullScrnKeyEquivalent;
+                    target = mainMenu;
+                    action = @selector(performKeyEquivalent:);
+                }
+            }
 				break;			
 			
 			case kRemoteButtonMenu_Hold:
