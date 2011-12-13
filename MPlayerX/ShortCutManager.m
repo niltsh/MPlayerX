@@ -270,7 +270,7 @@
 				action = @selector(performKeyEquivalent:);
 				break;			
 			case kRemoteButtonPlay_Hold:
-				{
+            {
 				NSAppleScript *sleepScript = [[NSAppleScript alloc] initWithSource:@"do shell script \"pmset sleepnow\""];
 				NSDictionary *err;
 				
@@ -280,7 +280,7 @@
 				}
 				[sleepScript executeAndReturnError:&err];
 				[sleepScript release];
-				}
+            }
 				break;
 			case kRemoteButtonRight_Hold:
 				repeatEntered = YES;
