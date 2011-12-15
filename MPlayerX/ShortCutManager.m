@@ -251,6 +251,7 @@
                                                                                        if curVol > 100 then set curVol to 100 \r\n \
                                                                                        set volume output volume curVol"];
                     [volUpScpt executeAndReturnError:&err];
+                    [volUpScpt release];
                 } else {
                     keyEqTemp = kSCMVolumeUpKeyEquivalent;
                     target = mainMenu;
@@ -264,12 +265,13 @@
             {
                 if ([ud boolForKey:kUDKeyARUseSysVol]) {
                     NSDictionary *err;
-                    NSAppleScript *volUpScpt = [[NSAppleScript alloc] initWithSource:@"set curVolSet to get volume settings \r\n \
-                                                                                       set curVol to output volume of curVolSet \r\n \
-                                                                                       set curVol to curVol - 5 \r\n \
-                                                                                       if curVol < 0 then set curVol to 0 \r\n \
-                                                                                       set volume output volume curVol"];
-                    [volUpScpt executeAndReturnError:&err];
+                    NSAppleScript *volDownScpt = [[NSAppleScript alloc] initWithSource:@"set curVolSet to get volume settings \r\n \
+                                                                                         set curVol to output volume of curVolSet \r\n \
+                                                                                         set curVol to curVol - 5 \r\n \
+                                                                                         if curVol < 0 then set curVol to 0 \r\n \
+                                                                                         set volume output volume curVol"];
+                    [volDownScpt executeAndReturnError:&err];
+                    [volDownScpt release];
                 } else {
                     keyEqTemp = kSCMVolumeDownKeyEquivalent;
                     target = mainMenu;
