@@ -571,7 +571,6 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	y = [theEvent deltaY];
     
     if ([theEvent respondsToSelector:@selector(isDirectionInvertedFromDevice)]) {
-        MPLog(@"scrolling in Lion");
 		if ([theEvent isDirectionInvertedFromDevice]) {
 			x = -x;
 			y = -y;
