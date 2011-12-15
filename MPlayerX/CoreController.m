@@ -625,6 +625,37 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 	}
 }
 
+-(BOOL) mergeSubtitleToCurrentSub:(NSString*)path
+{
+    BOOL ret = NO;
+    
+    if (path) {
+        if ([[movieInfo subInfo] count]) {
+            // if the playback is reset, id will be nil
+            // if id < 0, means sub is disabled now
+            NSNumber *curSubID = [[movieInfo playingInfo] currentSubID];
+            NSInteger curSubIDNum;
+            if (curSubID) {
+                curSubIDNum = [curSubID integerValue];
+                
+                if (curSubIDNum >= 0) {
+                    NSString *currentSubName = [[movieInfo subInfo] objectAtIndex:curSubIDNum];
+                    MPLog(@"CurrentSubName:%@", currentSubName);
+                    
+                    path = [subConv mergeSubtitle:path to:currentSubName];
+                }
+            }
+        }
+        // if count is 0, means there is still no sub loaded,
+        // so just load the sub
+        if (path) {
+            [self loadSubFile:path];
+            ret = YES;
+        }
+    }
+    return ret;
+}
+
 -(void) setLetterBox:(BOOL) renderSubInLB top:(float) topRatio bottom:(float)bottomRatio
 {
 	[playerCore sendStringCommand:[NSString stringWithFormat:@"%@ %@ %f %f %d\n", 

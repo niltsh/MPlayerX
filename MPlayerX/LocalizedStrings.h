@@ -82,6 +82,8 @@
 #define kMPXStringCantFindPrevEpisode			(NSLocalizedString(@"Can't find previous episode.\nPerhaps this is already the first episode.", @"Playlist warning"))
 #define kMPXStringNextPrevOnlySupportLocalMedia	(NSLocalizedString(@"Next/Previous is only supported on local media", @"Playlist warning"))
 
+#define kMPXStringMergeSubtitleFailed           (NSLocalizedString(@"Could not merge (%@) to the current subtitle.\r\nPlease merge to an EXTERNAL text subtitle with the SAME format.", @"merge subtitle warning"))
+
 #define kMPXStringTextSubEncAskMe	(NSLocalizedString(@"Ask me", @"preference"))
 
 #define kMPXStringEncUTF8			(NSLocalizedString(@"Unicode (UTF-8)", @"Text Enc"))

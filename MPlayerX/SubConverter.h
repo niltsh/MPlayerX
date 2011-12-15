@@ -45,4 +45,5 @@
 
 -(NSString*) getCPOfTextSubtitle:(NSString*)path;
 
+-(NSString*) mergeSubtitle:(NSString*)fullPath to:(NSString*)subName;
 @end

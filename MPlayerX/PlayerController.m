@@ -374,7 +374,11 @@ enum {
 								// 如果是字幕文件
 								if (PlayerCouldAcceptCommand) {
 									// 如果是在播放状态，就加载字幕
-									[self loadSubFile:path];
+                                    if (([NSEvent modifierFlags] & NSCommandKeyMask) == NSCommandKeyMask) {
+                                        [self mergeSubtitleToCurrentSub:path];
+                                    } else {
+                                        [self loadSubFile:path];
+                                    }
 								} else {
 									// 如果是在停止状态，那么应该是想打开媒体文件先
 									// 需要根据字幕文件名去寻找影片文件
@@ -859,6 +863,15 @@ static BOOL isNetworkPath(const char *path)
 -(void) loadSubFile:(NSString*)subPath
 {
 	[mplayer loadSubFile:subPath];
+}
+
+-(void) mergeSubtitleToCurrentSub:(NSString*)path
+{
+    if (PlayerCouldAcceptCommand) {
+        if (![mplayer mergeSubtitleToCurrentSub:path]) {
+            [self showAlertPanelModal:[NSString stringWithFormat:kMPXStringMergeSubtitleFailed, [path lastPathComponent]]];
+        }
+    }
 }
 
 -(void) setLetterBox:(BOOL) renderSubInLB top:(float) topRatio bottom:(float)bottomRatio

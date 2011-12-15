@@ -119,4 +119,6 @@
 
 -(void) mapAudioChannelsTo:(NSInteger)mode;
 
+-(BOOL) mergeSubtitleToCurrentSub:(NSString*)path;
+
 @end
