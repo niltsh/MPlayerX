@@ -98,42 +98,44 @@ static BOOL init_ed = NO;
 {
 	if (init_ed == NO) {
 		init_ed = YES;
-
-		ud = [NSUserDefaults standardUserDefaults];
-		notifCenter = [NSNotificationCenter defaultCenter];
-
-		NSBundle *mainBundle = [NSBundle mainBundle];
-		// 建立支持格式的Set
-		for( NSDictionary *dict in [mainBundle objectForInfoDictionaryKey:@"CFBundleDocumentTypes"]) {
-			
-			NSString *obj = [dict objectForKey:@"CFBundleTypeName"];
-			// 对不同种类的格式
-			if ([obj isEqualToString:@"Audio Media"]) {
-				// 如果是音频文件
-				supportAudioFormats = [[NSSet alloc] initWithArray:[dict objectForKey:@"CFBundleTypeExtensions"]];
-				
-			} else if ([obj isEqualToString:@"Video Media"]) {
-				// 如果是视频文件
-				supportVideoFormats = [[NSSet alloc] initWithArray:[dict objectForKey:@"CFBundleTypeExtensions"]];
-			} else if ([obj isEqualToString:@"Subtitle"]) {
-				// 如果是字幕文件
-				supportSubFormats = [[NSSet alloc] initWithArray:[dict objectForKey:@"CFBundleTypeExtensions"]];
-			}
-		}
-		
-		playableFormats = [[supportVideoFormats setByAddingObjectsFromSet:supportAudioFormats] retain];
-		
-		/////////////////////////setup bookmarks////////////////////
-		// 得到书签的文件名
-		NSString *lastStoppedTimePath = [[NSFileManager UserPath:NSApplicationSupportDirectory WithSuffix:kMPCStringMPlayerX] stringByAppendingPathComponent:kMPCFMTBookmarkPath];
-
-		// 得到记录播放时间的dict
-		bookmarks = [[NSMutableDictionary alloc] initWithContentsOfFile:lastStoppedTimePath];
-		if (!bookmarks) {
-			// 如果文件不存在或者格式非法
-			bookmarks = [[NSMutableDictionary alloc] initWithCapacity:10];
-		}
-		keyTap = nil;
+        
+        if (self = [super init]) {
+            ud = [NSUserDefaults standardUserDefaults];
+            notifCenter = [NSNotificationCenter defaultCenter];
+            
+            NSBundle *mainBundle = [NSBundle mainBundle];
+            // 建立支持格式的Set
+            for( NSDictionary *dict in [mainBundle objectForInfoDictionaryKey:@"CFBundleDocumentTypes"]) {
+                
+                NSString *obj = [dict objectForKey:@"CFBundleTypeName"];
+                // 对不同种类的格式
+                if ([obj isEqualToString:@"Audio Media"]) {
+                    // 如果是音频文件
+                    supportAudioFormats = [[NSSet alloc] initWithArray:[dict objectForKey:@"CFBundleTypeExtensions"]];
+                    
+                } else if ([obj isEqualToString:@"Video Media"]) {
+                    // 如果是视频文件
+                    supportVideoFormats = [[NSSet alloc] initWithArray:[dict objectForKey:@"CFBundleTypeExtensions"]];
+                } else if ([obj isEqualToString:@"Subtitle"]) {
+                    // 如果是字幕文件
+                    supportSubFormats = [[NSSet alloc] initWithArray:[dict objectForKey:@"CFBundleTypeExtensions"]];
+                }
+            }
+            
+            playableFormats = [[supportVideoFormats setByAddingObjectsFromSet:supportAudioFormats] retain];
+            
+            /////////////////////////setup bookmarks////////////////////
+            // 得到书签的文件名
+            NSString *lastStoppedTimePath = [[NSFileManager UserPath:NSApplicationSupportDirectory WithSuffix:kMPCStringMPlayerX] stringByAppendingPathComponent:kMPCFMTBookmarkPath];
+            
+            // 得到记录播放时间的dict
+            bookmarks = [[NSMutableDictionary alloc] initWithContentsOfFile:lastStoppedTimePath];
+            if (!bookmarks) {
+                // 如果文件不存在或者格式非法
+                bookmarks = [[NSMutableDictionary alloc] initWithCapacity:10];
+            }
+            keyTap = nil;
+        }
 	}
 	return self;
 }
