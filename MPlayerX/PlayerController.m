@@ -394,7 +394,7 @@ enum {
 									break;
 								}
 							} else {
-								if ([NSEvent modifierFlags] & NSControlKeyMask) {
+								if (([NSEvent modifierFlags] & NSControlKeyMask) == NSControlKeyMask) {
 									// open the file while control key pressing
 									// try to open the file 
 									[self playMedia:file];
