@@ -1615,13 +1615,31 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 - (NSDragOperation) draggingEntered:(id <NSDraggingInfo>)sender
 {
 	NSPasteboard *pboard = [sender draggingPasteboard];
-    NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
 	
-    if ( [[pboard types] containsObject:NSFilenamesPboardType] && (sourceDragMask & NSDragOperationCopy)) {
+    if ( [[pboard types] containsObject:NSFilenamesPboardType]) {
 		[[self layer] setBorderWidth:6.0];
-		return NSDragOperationCopy;
+        
+        if (([NSEvent modifierFlags] & NSCommandKeyMask) == NSCommandKeyMask) {
+            return NSDragOperationCopy;
+        } else {
+            return NSDragOperationMove;
+        }
     }
     return NSDragOperationNone;
+}
+
+-(NSDragOperation) draggingUpdated:(id<NSDraggingInfo>)sender
+{
+	NSPasteboard *pboard = [sender draggingPasteboard];
+	
+    if ( [[pboard types] containsObject:NSFilenamesPboardType]) {
+        if (([NSEvent modifierFlags] & NSCommandKeyMask) == NSCommandKeyMask) {
+            return NSDragOperationCopy;
+        } else {
+            return NSDragOperationMove;
+        }
+    }
+    return  NSDragOperationNone;
 }
 
 - (void)draggingExited:(id < NSDraggingInfo >)sender
@@ -1632,13 +1650,10 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
 {
 	NSPasteboard *pboard = [sender draggingPasteboard];
-    NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
 	
 	if ( [[pboard types] containsObject:NSFilenamesPboardType] ) {
-		if (sourceDragMask & NSDragOperationCopy) {
-			[[self layer] setBorderWidth:0.0];
-			[playerController loadFiles:[pboard propertyListForType:NSFilenamesPboardType] fromLocal:YES];
-		}
+        [[self layer] setBorderWidth:0.0];
+        [playerController loadFiles:[pboard propertyListForType:NSFilenamesPboardType] fromLocal:YES];
 	}
 	return YES;
 }
