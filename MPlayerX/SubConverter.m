@@ -281,8 +281,8 @@ NSString * const kWorkDirSubDir = @"Subs";
     NSString *ret = nil;
     NSString *subDir = [workDirectory stringByAppendingPathComponent:kWorkDirSubDir];
     NSFileManager *fm = [NSFileManager defaultManager];
-	BOOL isDir = YES;
-	NSString *originalPath = [subDir stringByAppendingPathComponent:subName];
+    BOOL isDir = YES;
+    NSString *originalPath = [subDir stringByAppendingPathComponent:subName];
     
 	if ([fm fileExistsAtPath:originalPath isDirectory:&isDir] && (!isDir)) {
         // file exists and not folder
