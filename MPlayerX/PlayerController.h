@@ -70,7 +70,7 @@ extern NSString * const kMPCPlayInfoUpdatedChangeDictKey;
 -(void) setPlayDisk:(NSInteger)pd;
 
 -(MovieInfo*) mediaInfo;
--(void) setMultiThreadMode:(BOOL) mt;
+-(void) setMultiThreadMode;
 
 -(void) loadFiles:(NSArray*)files fromLocal:(BOOL)local;
 -(void) stop;

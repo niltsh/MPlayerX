@@ -38,7 +38,6 @@ NSString * const kUDKeyStartByFullScreen					= @"StartByFullScreen";
 NSString * const kUDKeySubDelayStepTime						= @"SubDelayStepTime";
 NSString * const kUDKeyAudioDelayStepTime					= @"AudioDelayStepTime";
 NSString * const kUDKeyPrefer64bitMPlayer					= @"Prefer64bitMPlayer";
-NSString * const kUDKeyEnableMultiThread					= @"EnableMultiThread";
 NSString * const kUDKeySubScale								= @"SubScale";
 NSString * const kUDKeySubScaleStepValue					= @"SubScaleStepValue";
 NSString * const kUDKeySwitchTimeHintPressOnAbusolute		= @"TimeHintPrsOnAbs";

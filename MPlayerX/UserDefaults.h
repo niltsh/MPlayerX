@@ -34,7 +34,6 @@ extern NSString * const kUDKeyStartByFullScreen;
 extern NSString * const kUDKeySubDelayStepTime;
 extern NSString * const kUDKeyAudioDelayStepTime;
 extern NSString * const kUDKeyPrefer64bitMPlayer;
-extern NSString * const kUDKeyEnableMultiThread;
 extern NSString * const kUDKeySubScale;
 extern NSString * const kUDKeySubScaleStepValue;
 extern NSString * const kUDKeySwitchTimeHintPressOnAbusolute;

@@ -100,7 +100,6 @@ enum {
 					   boolYes, kUDKeyAutoPlayNext,
 					   kMPCDefaultSubFontPath, kUDKeySubFontPath,
 					   boolYes, kUDKeyPrefer64bitMPlayer,
-					   boolYes, kUDKeyEnableMultiThread,
 					   [NSNumber numberWithFloat:1.0], kUDKeySubScale,
 					   [NSNumber numberWithFloat:0.1], kUDKeySubScaleStepValue,
 					   [NSArchiver archivedDataWithRootObject:[NSColor colorWithCalibratedWhite:1.0 alpha:1.00]], kUDKeySubFontColor,
@@ -178,7 +177,7 @@ enum {
 		}
 
 		/////////////////////////setup CoreController////////////////////
-		[self setMultiThreadMode:[ud boolForKey:kUDKeyEnableMultiThread]];
+		[self setMultiThreadMode];
 
 		// 决定是否使用64bit的mplayer
 		[mplayer.pm setPrefer64bMPlayer:[self shouldRun64bitMPlayer]];
@@ -637,36 +636,16 @@ static BOOL isNetworkPath(const char *path)
 	return [mediaURL autorelease];
 }
 
--(void) setMultiThreadMode:(BOOL) mt
+-(void) setMultiThreadMode
 {
 	NSString *resPath = [[NSBundle mainBundle] resourcePath];
 	
-	NSString *mplayerName;
-	unsigned int threadNum;
-	
-	if (/*mt*/0) {
-		// 使用多线程
-		threadNum = MIN(kThreadsNumMax, MAX(1,[ud integerForKey:kUDKeyThreadNum]));
-		mplayerName = kMPCMplayerNameMT;
-	} else {
-		threadNum = MIN(kThreadsNumMax, MAX(1,[ud integerForKey:kUDKeyThreadNum]));
-		mplayerName = kMPCMplayerName;
-	}
-
-	[ud setInteger:threadNum forKey:kUDKeyThreadNum];
-	
-    // temp hack for 1.0.10
-    // the threads larger than 4 will bring out-of-sync
-    // so limit it here to 4 and do not influence UI and Preference.
-    // Seams the latest build of mplayer fix this issue(2011/12/5)
-    // if (threadNum > 4) {
-    //     threadNum = 4;
-    // }
-	[mplayer.pm setThreads: threadNum];
+	[mplayer.pm setThreads: MIN(kThreadsNumMax, MAX(1,[ud integerForKey:kUDKeyThreadNum]))];
+	[ud setInteger:[mplayer.pm threads] forKey:kUDKeyThreadNum];
 	
 	[mplayer setMpPathPair: [NSDictionary dictionaryWithObjectsAndKeys: 
-							 [resPath stringByAppendingPathComponent:[NSString stringWithFormat:kMPCFMTMplayerPathM32, mplayerName]], kI386Key,
-							 [resPath stringByAppendingPathComponent:[NSString stringWithFormat:kMPCFMTMplayerPathX64, mplayerName]], kX86_64Key,
+							 [resPath stringByAppendingPathComponent:[NSString stringWithFormat:kMPCFMTMplayerPathM32, kMPCMplayerName]], kI386Key,
+							 [resPath stringByAppendingPathComponent:[NSString stringWithFormat:kMPCFMTMplayerPathX64, kMPCMplayerName]], kX86_64Key,
 							 nil]];
 }
 

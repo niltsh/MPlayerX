@@ -208,7 +208,7 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 
 - (IBAction)multiThreadChanged:(id)sender
 {
-	[playerController setMultiThreadMode:[ud boolForKey:kUDKeyEnableMultiThread]];
+	[playerController setMultiThreadMode];
 }
 
 - (IBAction)onTopModeChanged:(id)sender
