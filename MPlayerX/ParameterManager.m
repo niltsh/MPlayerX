@@ -27,6 +27,8 @@ NSString * const kPMDefaultSubLang			= @"en,eng,ch,chs,cht,ja,jpn";
 
 NSString * const kPMParMsgLevel				= @"-msglevel";
 NSString * const kPMValMsgLevel				= @"all=-1:global=4:cplayer=4:identify=4";
+NSString * const kPMParNoConfig             = @"-noconfig";
+NSString * const kPMValAll                  = @"all";
 NSString * const kPMFMTInt					= @"%d";
 NSString * const kPMParSlave				= @"-slave";
 NSString * const kPMParFrameDrop			= @"-framedrop";
@@ -276,6 +278,9 @@ NSString * const kPMParAudioFile			= @"-audiofile";
 	
 	[paramArray addObject:kPMParMsgCharset];
 	[paramArray addObject:kPMValMsgCharset];
+    
+    [paramArray addObject:kPMParNoConfig];
+    [paramArray addObject:kPMValAll];
 
 	[paramArray addObject:kPMParSlave];
 	
