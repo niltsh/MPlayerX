@@ -327,7 +327,7 @@
 
 	CGLSetParameter(ctx, kCGLCPSwapInterval, &i);
 	
-	CGLEnable(ctx, kCGLCEMPEngine);
+	// CGLEnable(ctx, kCGLCEMPEngine);
 
 	SAFERELEASETEXTURECACHE(cache);
 	CVReturn error = CVOpenGLTextureCacheCreate(NULL, NULL, ctx, pf, NULL, &cache);
