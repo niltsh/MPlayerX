@@ -121,4 +121,6 @@
 
 -(BOOL) mergeSubtitleToCurrentSub:(NSString*)path;
 
+-(void) setABLoopFrom:(float)start to:(float)stop;
+
 @end

@@ -31,6 +31,7 @@ NSString * const kMPCSeekCmd			= @"seek";
 NSString * const kMPCAssMargin			= @"ass_margin";
 NSString * const kMPCAfAddCmd			= @"af_add";
 NSString * const kMPCAfDelCmd			= @"af_del";
+NSString * const kMPCABLoopCmd          = @"abloop";
 
 NSString * const kMPCGetPropertyPreFix	= @"get_property";
 NSString * const kMPCSetPropertyPreFix	= @"set_property";
