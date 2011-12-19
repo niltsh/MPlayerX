@@ -153,7 +153,7 @@
 			
 			float fontSize = MIN(fontSizeMax, MAX(fontSizeMin, (sz.height*fontSizeRatio) + fontSizeOffset));
 
-			NSFont *font = [NSFont systemFontOfSize:fontSize];
+			NSFont *font = [NSFont fontWithName:@"Helvetica" size:fontSize];
 			
 			NSDictionary *attrDict = [[NSDictionary alloc] initWithObjectsAndKeys:
 									  font, NSFontAttributeName,
