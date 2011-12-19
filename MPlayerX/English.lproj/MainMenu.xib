@@ -1821,7 +1821,7 @@
 								<int key="NSCellFlags2">1379962880</int>
 								<string key="NSContents">Label</string>
 								<object class="NSFont" key="NSSupport">
-									<string key="NSName">LucidaGrande</string>
+									<string key="NSName">Helvetica</string>
 									<double key="NSSize">13</double>
 									<int key="NSfFlags">16</int>
 								</object>
@@ -1869,7 +1869,7 @@
 				<string key="NSWindowContentMaxSize">{500, 94}</string>
 				<string key="NSWindowContentMinSize">{500, 94}</string>
 				<object class="NSView" key="NSWindowView" id="77567990">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2060,7 +2060,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{500, 94}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="532294819"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
@@ -6129,6 +6128,8 @@
 							<string>resetAspectRatio:</string>
 							<string>resetFrameScaleRatio:</string>
 							<string>seekTo:</string>
+							<string>setABLoopReturn:</string>
+							<string>setABLoopStart:</string>
 							<string>setAspectRatio:</string>
 							<string>setAudioWithID:</string>
 							<string>setChapterWithTime:</string>
@@ -6140,6 +6141,7 @@
 							<string>stepSubtitles:</string>
 							<string>stepVideos:</string>
 							<string>stepWindowSize:</string>
+							<string>stopABLoop:</string>
 							<string>toggleAccessaryControls:</string>
 							<string>toggleFillScreen:</string>
 							<string>toggleFlip:</string>
@@ -6154,6 +6156,9 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -6206,6 +6211,8 @@
 							<string>resetAspectRatio:</string>
 							<string>resetFrameScaleRatio:</string>
 							<string>seekTo:</string>
+							<string>setABLoopReturn:</string>
+							<string>setABLoopStart:</string>
 							<string>setAspectRatio:</string>
 							<string>setAudioWithID:</string>
 							<string>setChapterWithTime:</string>
@@ -6217,6 +6224,7 @@
 							<string>stepSubtitles:</string>
 							<string>stepVideos:</string>
 							<string>stepWindowSize:</string>
+							<string>stopABLoop:</string>
 							<string>toggleAccessaryControls:</string>
 							<string>toggleFillScreen:</string>
 							<string>toggleFlip:</string>
@@ -6280,6 +6288,14 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">setABLoopReturn:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">setABLoopStart:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">setAspectRatio:</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -6321,6 +6337,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">stepWindowSize:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">stopABLoop:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -6379,6 +6399,9 @@
 							<string>fillScreenButton</string>
 							<string>fullScreenButton</string>
 							<string>hintTime</string>
+							<string>menuABLPCancel</string>
+							<string>menuABLPSetReturn</string>
+							<string>menuABLPSetStart</string>
 							<string>menuAudioChannels</string>
 							<string>menuAudioDelayDec</string>
 							<string>menuAudioDelayInc</string>
@@ -6492,6 +6515,9 @@
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
 							<string>NSButton</string>
 							<string>OsdText</string>
 							<string>NSButton</string>
@@ -6520,6 +6546,9 @@
 							<string>fillScreenButton</string>
 							<string>fullScreenButton</string>
 							<string>hintTime</string>
+							<string>menuABLPCancel</string>
+							<string>menuABLPSetReturn</string>
+							<string>menuABLPSetStart</string>
 							<string>menuAudioChannels</string>
 							<string>menuAudioDelayDec</string>
 							<string>menuAudioDelayInc</string>
@@ -6606,6 +6635,18 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">hintTime</string>
 								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuABLPCancel</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuABLPSetReturn</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuABLPSetStart</string>
+								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">menuAudioChannels</string>
