@@ -112,4 +112,8 @@ extern NSString * const kMPCPlayInfoUpdatedChangeDictKey;
 -(void) setExternalAudioFilePath:(NSString*)path;
 
 -(void) mergeSubtitleToCurrentSub:(NSString*)path;
+
+-(void) startABLoopFrom:(float)start to:(float)stop;
+-(void) stopABLoop;
+
 @end

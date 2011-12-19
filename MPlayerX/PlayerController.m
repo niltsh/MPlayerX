@@ -879,6 +879,19 @@ static BOOL isNetworkPath(const char *path)
 {
 	[mplayer.pm setAudioFilePath:path];
 }
+
+-(void) startABLoopFrom:(float)start to:(float)stop
+{
+    if (PlayerCouldAcceptCommand) {
+        [mplayer setABLoopFrom:start to:stop];
+    }
+}
+
+-(void) stopABLoop
+{
+    [mplayer setABLoopFrom:-1.0 to:-1.0];
+}
+
 //////////////////////////////////////private methods////////////////////////////////////////////////////
 -(BOOL) shouldRun64bitMPlayer
 {

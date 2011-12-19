@@ -126,6 +126,10 @@
 	IBOutlet NSMenuItem *menuWndFitToScrn;
 	IBOutlet NSMenuItem *menuAudioChannels;
 	IBOutlet NSMenuItem *menuChapterList;
+
+    IBOutlet NSMenuItem *menuABLPSetStart;
+    IBOutlet NSMenuItem *menuABLPSetReturn;
+    IBOutlet NSMenuItem *menuABLPCancel;
 }
 
 ////////////////////////////////显示相关////////////////////////////////
@@ -199,4 +203,8 @@ extern NSString * const kFillScreenButtonImageUBKey;
 -(IBAction) toggleTimeAltDisplayMode:(id)sender;
 
 -(IBAction) mapAudioChannelsTo:(id)sender;
+
+-(IBAction) setABLoopStart:(id)sender;
+-(IBAction) setABLoopReturn:(id)sender;
+-(IBAction) stopABLoop:(id)sender;
 @end

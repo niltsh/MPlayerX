@@ -45,6 +45,8 @@
 
 #define ASPECTRATIOBASE			(900)
 
+#define ABLOOPTAGBASE           (1000)
+
 NSString * const kFillScreenButtonImageLRKey = @"LR";
 NSString * const kFillScreenButtonImageUBKey = @"UB";
 
@@ -244,6 +246,9 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuZoomToDoubleSize setKeyEquivalent:kSCMWindowZoomDblSizeKeyEquivalent];
 	[menuWndFitToScrn setKeyEquivalentModifierMask:kSCMWindowFitToScreenKeyEquivalentModifierFlagMask];
 	[menuWndFitToScrn setKeyEquivalent:kSCMWindowFitToScreenKeyEquivalent];
+    
+    [menuABLPSetStart setKeyEquivalent:kSCMABLoopSetStartKeyEquivalent];
+    [menuABLPSetReturn setKeyEquivalent:kSCMABLoopSetReturnKeyEquivalent];
 	
 	////////////////////////////////////////load Images////////////////////////////////////////
 	// 初始化音量大小图标
@@ -348,6 +353,9 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuToggleAuxiliaryCtrls setTag:NO];
 	[menuToggleAuxiliaryCtrls setTitle:kMPXStringMenuShowAuxCtrls];
 	[menuToggleAuxiliaryCtrls setEnabled:NO];
+    
+    [menuABLPSetStart setTag:-1 * ABLOOPTAGBASE];
+    [menuABLPSetReturn setTag:-1 * ABLOOPTAGBASE];
 	
 	//////ibtool bug fix, set noborder////////
 	[volumeButton setBordered:NO];
@@ -1223,6 +1231,37 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	}
 	[sender setState:NSOnState];
 }
+
+-(IBAction) setABLoopStart:(id)sender
+{
+    NSNumber *timeNow = [playerController mediaInfo].playingInfo.currentTime;
+    float timef = [timeNow floatValue];
+    
+    [menuABLPSetStart setTitle:[NSString stringWithFormat:kMPXStringABLPUpdateStart,
+                                                          [timeFormatter stringForObjectValue:timeNow]]];
+    [menuABLPSetStart setTag:timef * ABLOOPTAGBASE];
+    
+    [playerController startABLoopFrom:timef to:((float)[menuABLPSetReturn tag]) / ABLOOPTAGBASE];
+}
+
+-(IBAction) setABLoopReturn:(id)sender
+{
+    NSNumber *timeNow = [playerController mediaInfo].playingInfo.currentTime;
+    float timef = [timeNow floatValue];
+    
+    [menuABLPSetReturn setTitle:[NSString stringWithFormat:kMPXStringABLPUpdateReturn,
+                                                           [timeFormatter stringForObjectValue:timeNow]]];
+    [menuABLPSetReturn setTag:timef * ABLOOPTAGBASE];
+    [playerController startABLoopFrom:((float)[menuABLPSetStart tag]) / ABLOOPTAGBASE to:timef];
+}
+
+-(IBAction) stopABLoop:(id)sender
+{
+    [playerController stopABLoop];
+    [menuABLPSetStart setTitle:kMPXStringABLPSetStart];
+    [menuABLPSetReturn setTitle:kMPXStringABLPSetReturn];
+}
+
 ////////////////////////////////////////////////FullscreenThings//////////////////////////////////////////////////
 -(void) setFillScreenMode:(NSString*)modeKey state:(NSInteger) state
 {
@@ -1367,6 +1406,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuSubDelayDec setEnabled:NO];
 	
 	[menuAudioChannels setEnabled:NO];
+    
+    [menuABLPSetStart setTitle:kMPXStringABLPSetStart];
+    [menuABLPSetReturn setTitle:kMPXStringABLPSetReturn];
+    [menuABLPSetStart setTag:-1 * ABLOOPTAGBASE];
+    [menuABLPSetReturn setTag:-1 * ABLOOPTAGBASE];
 }
 
 -(void) playInfoUpdated:(NSNotification*)notif

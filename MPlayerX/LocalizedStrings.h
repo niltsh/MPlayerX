@@ -84,6 +84,11 @@
 
 #define kMPXStringMergeSubtitleFailed           (NSLocalizedString(@"Could not merge (%@) to the current subtitle.\r\nPlease merge to an EXTERNAL text subtitle with the SAME format.", @"merge subtitle warning"))
 
+#define kMPXStringABLPSetStart                  (NSLocalizedString(@"Set Start Point", @"abloop"))
+#define kMPXStringABLPUpdateStart               (NSLocalizedString(@"Update Start Point (%@)", @"abloop"))
+#define kMPXStringABLPSetReturn                 (NSLocalizedString(@"Set Return Point", @"abloop"))
+#define kMPXStringABLPUpdateReturn              (NSLocalizedString(@"Update Return Point (%@)", @"abloop"))
+
 #define kMPXStringTextSubEncAskMe	(NSLocalizedString(@"Ask me", @"preference"))
 
 #define kMPXStringEncUTF8			(NSLocalizedString(@"Unicode (UTF-8)", @"Text Enc"))

@@ -86,3 +86,6 @@ NSString * const kSCMSubDelayPlusKeyEquivalent			= @"]";
 NSString * const kSCMSubDelayMinusKeyEquivalent			= @"[";
 NSString * const kSCMSubDelayResetKeyEquivalent			= @"\\";
 
+NSString * const kSCMABLoopSetStartKeyEquivalent        = @"b";
+NSString * const kSCMABLoopSetReturnKeyEquivalent       = @"n";
+

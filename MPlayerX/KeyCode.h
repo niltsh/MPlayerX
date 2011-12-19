@@ -122,3 +122,5 @@ extern NSString * const kSCMWindowFitToScreenKeyEquivalent;
 
 #define kSCMRotateKeyEquivalentModifierFlagMask					(NSAlternateKeyMask)
 
+extern NSString * const kSCMABLoopSetStartKeyEquivalent;
+extern NSString * const kSCMABLoopSetReturnKeyEquivalent;
