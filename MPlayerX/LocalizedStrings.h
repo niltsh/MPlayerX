@@ -89,6 +89,8 @@
 #define kMPXStringABLPUpdateStart               (NSLocalizedString(@"Update Start Point (%@)", @"abloop"))
 #define kMPXStringABLPSetReturn                 (NSLocalizedString(@"Set Return Point", @"abloop"))
 #define kMPXStringABLPUpdateReturn              (NSLocalizedString(@"Update Return Point (%@)", @"abloop"))
+#define kMPXStringABLPPrefix                    (NSLocalizedString(@"A-B Loop", @"abloop"))
+#define kMPXStringABLPCancelled                 (NSLocalizedString(@"Cancelled", @"abloop"))
 
 #define kMPXStringTextSubEncAskMe	(NSLocalizedString(@"Ask me", @"preference"))
 

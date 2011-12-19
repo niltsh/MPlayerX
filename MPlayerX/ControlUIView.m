@@ -1234,32 +1234,55 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 
 -(IBAction) setABLoopStart:(id)sender
 {
-    NSNumber *timeNow = [playerController mediaInfo].playingInfo.currentTime;
-    float timef = [timeNow floatValue];
+    float timeStart = [[playerController mediaInfo].playingInfo.currentTime floatValue];
+    float timeEnd = ((float)[menuABLPSetReturn tag]) / ABLOOPTAGBASE;
     
     [menuABLPSetStart setTitle:[NSString stringWithFormat:kMPXStringABLPUpdateStart,
-                                                          [timeFormatter stringForObjectValue:timeNow]]];
-    [menuABLPSetStart setTag:timef * ABLOOPTAGBASE];
+                                                          [TimeFormatter stringForIntegerValue:(NSInteger)timeStart]]];
+    [menuABLPSetStart setTag:timeStart * ABLOOPTAGBASE];
     
-    [playerController startABLoopFrom:timef to:((float)[menuABLPSetReturn tag]) / ABLOOPTAGBASE];
+    [playerController startABLoopFrom:timeStart to:timeEnd];
+    
+    [osd setStringValue:[NSString stringWithFormat:@"%@: %@ ~ %@", 
+                                                   kMPXStringABLPPrefix,
+                                                   (timeStart >=0)?([TimeFormatter stringForIntegerValue:(NSInteger)timeStart]):(@""),
+                                                   (timeEnd   >=0)?([TimeFormatter stringForIntegerValue:(NSInteger)timeEnd])  :(@"")]
+                  owner:kOSDOwnerOther
+            updateTimer:YES];
 }
 
 -(IBAction) setABLoopReturn:(id)sender
 {
-    NSNumber *timeNow = [playerController mediaInfo].playingInfo.currentTime;
-    float timef = [timeNow floatValue];
+    float timeEnd = [[playerController mediaInfo].playingInfo.currentTime floatValue];
+    float timeStart = ((float)[menuABLPSetStart tag]) / ABLOOPTAGBASE;
     
     [menuABLPSetReturn setTitle:[NSString stringWithFormat:kMPXStringABLPUpdateReturn,
-                                                           [timeFormatter stringForObjectValue:timeNow]]];
-    [menuABLPSetReturn setTag:timef * ABLOOPTAGBASE];
-    [playerController startABLoopFrom:((float)[menuABLPSetStart tag]) / ABLOOPTAGBASE to:timef];
+                                                           [TimeFormatter stringForIntegerValue:(NSInteger)timeEnd]]];
+    [menuABLPSetReturn setTag:timeEnd * ABLOOPTAGBASE];
+
+    [playerController startABLoopFrom:timeStart to:timeEnd];
+    
+    [osd setStringValue:[NSString stringWithFormat:@"%@: %@ ~ %@", 
+                                                   kMPXStringABLPPrefix,
+                                                   (timeStart >=0)?([TimeFormatter stringForIntegerValue:(NSInteger)timeStart]):(@""),
+                                                   (timeEnd   >=0)?([TimeFormatter stringForIntegerValue:(NSInteger)timeEnd])  :(@"")]
+                  owner:kOSDOwnerOther
+            updateTimer:YES];    
 }
 
 -(IBAction) stopABLoop:(id)sender
 {
     [playerController stopABLoop];
+
+    [menuABLPSetStart setTag:-1 * ABLOOPTAGBASE];
+    [menuABLPSetReturn setTag:-1 * ABLOOPTAGBASE];
+
     [menuABLPSetStart setTitle:kMPXStringABLPSetStart];
     [menuABLPSetReturn setTitle:kMPXStringABLPSetReturn];
+    
+    [osd setStringValue:[NSString stringWithFormat:@"%@: %@", kMPXStringABLPPrefix, kMPXStringABLPCancelled]
+                  owner:kOSDOwnerOther
+            updateTimer:YES];    
 }
 
 ////////////////////////////////////////////////FullscreenThings//////////////////////////////////////////////////
