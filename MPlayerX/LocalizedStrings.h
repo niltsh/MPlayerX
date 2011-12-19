@@ -83,6 +83,7 @@
 #define kMPXStringNextPrevOnlySupportLocalMedia	(NSLocalizedString(@"Next/Previous is only supported on local media", @"Playlist warning"))
 
 #define kMPXStringMergeSubtitleFailed           (NSLocalizedString(@"Could not merge (%@) to the current subtitle.\r\nPlease merge to an EXTERNAL text subtitle with the SAME format.", @"merge subtitle warning"))
+#define kMPXStringDragSubOSDHint                (NSLocalizedString(@"⌘ + Drag to merge the subtitle to the current one.", @"drag subtitle osd hint"))
 
 #define kMPXStringABLPSetStart                  (NSLocalizedString(@"Set Start Point", @"abloop"))
 #define kMPXStringABLPUpdateStart               (NSLocalizedString(@"Update Start Point (%@)", @"abloop"))

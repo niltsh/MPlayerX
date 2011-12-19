@@ -31,6 +31,7 @@
 #import "TitleView.h"
 #import "CocoaAppendix.h"
 #import "PlayerWindow.h"
+#import "LocalizedStrings.h"
 
 #define kOnTopModeNormal		(0)
 #define kOnTopModeAlways		(1)
@@ -1621,6 +1622,10 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
         if (([NSEvent modifierFlags] & NSCommandKeyMask) == NSCommandKeyMask) {
             return NSDragOperationCopy;
         } else {
+            BOOL actOld = [osd isActive];
+            [osd setActive:YES];
+            [osd setStringValue:kMPXStringDragSubOSDHint owner:kOSDOwnerOther updateTimer:YES];
+            [osd setActive:actOld];
             return NSDragOperationMove;
         }
     }

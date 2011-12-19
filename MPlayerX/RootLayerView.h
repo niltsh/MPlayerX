@@ -21,7 +21,7 @@
 #import <Cocoa/Cocoa.h>
 #import "coredef.h"
 
-@class ControlUIView, PlayerController, ShortCutManager, DisplayLayer, OsdText, VideoTunerController, TitleView, PlayerWindow;
+@class ControlUIView, PlayerController, ShortCutManager, DisplayLayer, OsdText, VideoTunerController, TitleView, PlayerWindow, OsdText;
 
 @interface RootLayerView : NSView <CoreDisplayDelegate>
 {
@@ -64,6 +64,7 @@
 	IBOutlet ShortCutManager *shortCutManager;
 	IBOutlet VideoTunerController *VTController;
 	IBOutlet TitleView *titlebar;
+    IBOutlet OsdText *osd;
 }
 
 @property (assign, readwrite, nonatomic) BOOL lockAspectRatio;
