@@ -1091,7 +1091,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nexport MPXVER=$(ruby getAppVersion.rb ${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME})\n\ncd ../localization/${MPXVER}\n\necho ${MPXVER}\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  echo \"in Release\"\n  make clean\n  make\n  cp -R ./results/* ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n\nelif [ \"${CONFIGURATION}\" = \"Deploy\" ]; then\n  echo \"in Deploy\"\n  \n  make clean\n  make\n  cp -R ./results/* ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n\nelse\n  echo \"in Debug\"\nfi";
+			shellScript = "#!/bin/sh\n\nexport MPXVER=$(ruby getAppVersion.rb ${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME})\n\necho ${MPXVER}\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  echo \"in Release\"\n  cd ../localization/${MPXVER}\n  make clean\n  make\n  cp -R ./results/* ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n\nelif [ \"${CONFIGURATION}\" = \"Deploy\" ]; then\n  echo \"in Deploy\"\n  cd ../localization/${MPXVER}\n  make clean\n  make\n  cp -R ./results/* ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n\nelse\n  echo \"in Debug\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
