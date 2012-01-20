@@ -196,6 +196,16 @@
 						break;
 				}
 				break;
+            case NSCommandKeyMask | NSControlKeyMask:
+                switch (key)
+                {
+                    case 'f':
+                        [mainMenu performKeyEquivalent:[NSEvent makeKeyDownEvent:kSCMFullScrnKeyEquivalent modifierFlags:0]];
+                        break;
+                        
+                    default:
+                        break;
+                }
 			case 0:				// 什么功能键也没有按
 				switch (key)
 				{
