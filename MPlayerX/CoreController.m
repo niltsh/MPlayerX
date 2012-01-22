@@ -405,6 +405,11 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 			[delegate playbackOpened:self];
 		}
 		
+        // if the start pos is not 0, update the currentTime
+        if (pm.startTime > 0) {
+            [movieInfo.playingInfo setCurrentTime:[NSNumber numberWithFloat:pm.startTime]];
+        }
+        
 		// 这里需要打开Timer去Polling播放时间，然后定期发送现在的播放时间
 		pollingTimer = [[NSTimer timerWithTimeInterval:kPollingTimeForTimePos
 											    target:self
