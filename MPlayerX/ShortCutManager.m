@@ -202,10 +202,11 @@
                     case 'f':
                         [mainMenu performKeyEquivalent:[NSEvent makeKeyDownEvent:kSCMFullScrnKeyEquivalent modifierFlags:0]];
                         break;
-                        
                     default:
+                        ret = NO;
                         break;
                 }
+                break;
 			case 0:				// 什么功能键也没有按
 				switch (key)
 				{
