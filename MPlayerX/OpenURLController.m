@@ -105,7 +105,7 @@ NSString * const kStringURLSchemaUdp	= @"udp";
 
 -(IBAction) confirmed:(id) sender
 {
-	NSURL *url = [NSURL URLWithString:[urlBox stringValue]];
+	NSURL *url = [NSURL URLWithString:[[urlBox stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 
 	NSString *scheme = [[url scheme] lowercaseString];
 	
