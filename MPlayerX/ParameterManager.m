@@ -114,6 +114,8 @@ NSString * const kPMParNoDispCacheLog		= @"-nodispclog";
 NSString * const kPMParEdl					= @"-edl";
 NSString * const kPMParAudioFile			= @"-audiofile";
 
+NSString * const kPMParNoFlipHebrew         = @"-noflip-hebrew";
+
 #define kSubScaleNoAss			(8.0)
 
 #define kPMSubBorderWidthMax	(4)
@@ -292,6 +294,7 @@ NSString * const kPMParAudioFile			= @"-audiofile";
 		[paramArray addObject:kPMParForceIdx];
 	}
 
+    [paramArray addObject:kPMParNoFlipHebrew];
 	[paramArray addObject:kPMParNoDouble];
 	
 	if (cache > 0) {
