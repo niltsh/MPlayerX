@@ -137,7 +137,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 					   boolYes, kUDKeyDontResizeWhenContinuousPlay,
 					   [NSNumber numberWithFloat:1.0], kUDKeyInitialFrameSizeRatio,
 					   boolNo, kUDKeyOldFullScreenMethod,
-					   boolYes, kUDKeyAlwaysUseSecondaryScreen,
+					   boolNo, kUDKeyAlwaysUseSecondaryScreen,
                        boolNo, kUDKeyClickTogPlayPause,
 					   nil]];
 }
