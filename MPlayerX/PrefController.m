@@ -180,7 +180,7 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 -(void) dealloc
 {
 	[prefViews release];
-	[super release];
+	[super dealloc];
 }
 
 -(IBAction) switchViews:(id)sender
