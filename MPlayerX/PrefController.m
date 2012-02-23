@@ -267,6 +267,13 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 	
 	[ud setObject:subFontPath forKey:kUDKeySubFontPath];
 }
+
+-(IBAction) recentMenuSettingChanged:(id)sender
+{
+    if (![ud boolForKey:kUDKeyEnableOpenRecentMenu]) {
+        [[NSDocumentController sharedDocumentController] clearRecentDocuments:nil];
+    }
+}
 /////////////////////////////Toolbar Delegate/////////////////////
 /*
  * 如何添加新的Pref View

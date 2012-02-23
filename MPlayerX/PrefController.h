@@ -57,5 +57,6 @@
 -(IBAction) letterBoxModeChanged:(id)sender;
 -(IBAction) subEncodingSchemeChanged:(id)sender;
 -(IBAction) fontSelected:(id)sender;
+-(IBAction) recentMenuSettingChanged:(id)sender;
 
 @end
