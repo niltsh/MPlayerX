@@ -24,7 +24,6 @@
 #import "PlayerController.h"
 #import "ControlUIView.h"
 #import "RootLayerView.h"
-#import "AppleRemote.h"
 #import "CocoaAppendix.h"
 
 #define kSCMRepeatCounterThreshold	(6)
@@ -74,7 +73,9 @@
 		repeatCounter = 0;
 		
 		if ([ud boolForKey:kUDKeySupportAppleRemote]) {
-			appleRemoteControl = [[AppleRemote alloc] initWithDelegate:self];			
+			if ((appleRemoteControl = [[HIDRemote alloc] init]) != nil) {
+                [appleRemoteControl setDelegate:self];
+            }
 		} else {
 			appleRemoteControl = nil;
 		}
@@ -106,7 +107,13 @@
 -(void) dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[appleRemoteControl release];
+    if (appleRemoteControl) {
+        if ([appleRemoteControl isStarted]) {
+            [appleRemoteControl stopRemoteControl];
+        }
+        [appleRemoteControl setDelegate:nil];
+        [appleRemoteControl release];
+    }
 
 	[super dealloc];
 }
@@ -239,7 +246,10 @@
 	return ret;
 }
 
--(void) sendRemoteButtonEvent:(RemoteControlEventIdentifier)event pressedDown:(BOOL)pressedDown remoteControl:(RemoteControl*)remoteControl
+- (void)hidRemote:(HIDRemote *)theHidRemote
+  eventWithButton:(HIDRemoteButtonCode)buttonCode
+        isPressed:(BOOL)isPressed
+fromHardwareWithAttributes:(NSMutableDictionary *)attributes
 {
 	unichar key = 0;
 	NSString *keyEqTemp = nil;
@@ -247,12 +257,12 @@
 	SEL action = NULL;
 	NSUInteger modifierFlagMask = 0;
 	
-	if (pressedDown) {
+	if (isPressed) {
 		repeatCanceled = NO;
 		// 如果是按下键
-		switch(event) {
-			case kRemoteButtonPlus_Hold:
-			case kRemoteButtonPlus:
+		switch(buttonCode) {
+			case kHIDRemoteButtonCodeUpHold:
+			case kHIDRemoteButtonCodeUp:
             {
                 if ([ud boolForKey:kUDKeyARUseSysVol]) {
                     NSDictionary *err;
@@ -271,8 +281,8 @@
             }
 				break;
                 
-			case kRemoteButtonMinus_Hold:
-			case kRemoteButtonMinus:
+			case kHIDRemoteButtonCodeDownHold:
+			case kHIDRemoteButtonCodeDown:
             {
                 if ([ud boolForKey:kUDKeyARUseSysVol]) {
                     NSDictionary *err;
@@ -291,7 +301,7 @@
             }
 				break;			
 						
-			case kRemoteButtonMenu:
+			case kHIDRemoteButtonCodeMenu:
             {
                 if ([ud boolForKey:kUDKeyARMenuKeyTogTimeDisp]) {
                     [ud setBool:![ud boolForKey:kUDKeyTimeTextAltTotal] forKey:kUDKeyTimeTextAltTotal];
@@ -304,18 +314,29 @@
             }
 				break;			
 			
-			case kRemoteButtonMenu_Hold:
+			case kHIDRemoteButtonCodeMenuHold:
 				keyEqTemp = kSCMFillScrnKeyEquivalent;
 				target = mainMenu;
 				action = @selector(performKeyEquivalent:);
 				break;
 			
-			case kRemoteButtonPlay:
+			case kHIDRemoteButtonCodePlay:
+                // this is only for aluminium
 				keyEqTemp = kSCMPlayPauseKeyEquivalent;
 				target = controlUI;
 				action = @selector(performKeyEquivalent:);
 				break;			
-			case kRemoteButtonPlay_Hold:
+            case kHIDRemoteButtonCodeCenter:
+                // center key is play/pause for plastic
+                // but for aluminium, it is other key
+                if ([theHidRemote lastSeenModel] != kHIDRemoteModelAluminum) {
+                    keyEqTemp = kSCMPlayPauseKeyEquivalent;
+                    target = controlUI;
+                    action = @selector(performKeyEquivalent:);
+                }
+				break;			
+			// case kHIDRemoteButtonCodePlayHold:
+            case kHIDRemoteButtonCodeCenterHold:
             {
 				NSAppleScript *sleepScript = [[NSAppleScript alloc] initWithSource:@"do shell script \"pmset sleepnow\""];
 				NSDictionary *err;
@@ -328,20 +349,20 @@
 				[sleepScript release];
             }
 				break;
-			case kRemoteButtonRight_Hold:
+			case kHIDRemoteButtonCodeRightHold:
 				repeatEntered = YES;
 				repeatCounter = 0;
 				arKeyRepTime = [ud floatForKey:kUDKeyARKeyRepeatTimeInterval];
-			case kRemoteButtonRight:
+			case kHIDRemoteButtonCodeRight:
 				key = NSRightArrowFunctionKey;
 				target = self;
 				action = @selector(processKeyDown:);
 				break;
-			case kRemoteButtonLeft_Hold:
+			case kHIDRemoteButtonCodeLeftHold:
 				repeatEntered = YES;
 				repeatCounter = 0;
 				arKeyRepTime = [ud floatForKey:kUDKeyARKeyRepeatTimeInterval];
-			case kRemoteButtonLeft:
+			case kHIDRemoteButtonCodeLeft:
 				key = NSLeftArrowFunctionKey;
 				target = self;
 				action = @selector(processKeyDown:);
@@ -409,15 +430,15 @@
 
 -(void) applicationWillBecomeActive:(NSNotification*) notif
 {
-	if (appleRemoteControl) {
-		[appleRemoteControl startListening:self];
+	if (appleRemoteControl && (![appleRemoteControl isStarted])) {
+		[appleRemoteControl startRemoteControl:kHIDRemoteModeExclusiveAuto];
 	}
 }
 
 -(void) applicationWillResignActive:(NSNotification*) notif
 {
-	if (appleRemoteControl) {
-		[appleRemoteControl stopListening:self];
+	if (appleRemoteControl && [appleRemoteControl isStarted]) {
+		[appleRemoteControl stopRemoteControl];
 	}
 }
 

@@ -19,15 +19,15 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import "RemoteControl.h"
+#import "HIDRemote.h"
 
-@class PlayerController, ControlUIView, RootLayerView, AppleRemote;
+@class PlayerController, ControlUIView, RootLayerView;
 
-@interface ShortCutManager : NSObject
+@interface ShortCutManager : NSObject <HIDRemoteDelegate>
 {
 	NSUserDefaults *ud;
 	
-	AppleRemote *appleRemoteControl;
+	HIDRemote *appleRemoteControl;
 	
 	BOOL repeatEntered;
 	BOOL repeatCanceled;
@@ -47,6 +47,9 @@
 
 -(BOOL) processKeyDown:(NSEvent*) event;
 
--(void) sendRemoteButtonEvent:(RemoteControlEventIdentifier)event pressedDown:(BOOL)pressedDown remoteControl:(RemoteControl*)remoteControl;
+- (void)hidRemote:(HIDRemote *)hidRemote                        // The instance of HIDRemote sending this
+  eventWithButton:(HIDRemoteButtonCode)buttonCode               // Event for the button specified by code
+        isPressed:(BOOL)isPressed                               // The button was pressed (YES) / released (NO)
+fromHardwareWithAttributes:(NSMutableDictionary *)attributes;	// Information on the device this event comes from
 
 @end
