@@ -18,6 +18,18 @@
 			name = "Update Versoin in info.plist";
 			productName = "Update Versoin in info.plist";
 		};
+		86E1D04514FBA91000432C93 /* Generate strings file */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 86E1D04914FBA91000432C93 /* Build configuration list for PBXAggregateTarget "Generate strings file" */;
+			buildPhases = (
+				86E1D04B14FBA92400432C93 /* ShellScript */,
+			);
+			dependencies = (
+				86E1D04F14FBAC4100432C93 /* PBXTargetDependency */,
+			);
+			name = "Generate strings file";
+			productName = "Generate strings file";
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -180,6 +192,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 863CD3D312D9B98B00C8E321;
 			remoteInfo = "Update Versoin in info.plist";
+		};
+		86E1D04E14FBAC4100432C93 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D1107260486CEB800E47090;
+			remoteInfo = MPlayerX;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -916,6 +935,7 @@
 			targets = (
 				863CD3D312D9B98B00C8E321 /* Update Versoin in info.plist */,
 				8D1107260486CEB800E47090 /* MPlayerX */,
+				86E1D04514FBA91000432C93 /* Generate strings file */,
 			);
 		};
 /* End PBXProject section */
@@ -1061,6 +1081,19 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  echo \"in Release\"\n                \nelif [ \"${CONFIGURATION}\" = \"Deploy\" ]; then\n  echo \"in Deploy\"\n# Sign the framework\n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UniversalDetector.framework/Versions/A\"\n/usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UniversalDetector.framework/Versions/A\n\n# Sign 64bit binaries\n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/mplayer\"\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/mplayer\n\n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfontconfig.1.dylib\"\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfontconfig.1.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfreetype.6.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfribidi.0.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libspeex.1.5.0.dylib\n# Sign 64bit binaries\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/mplayer\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libfontconfig.1.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libfreetype.6.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libfribidi.0.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libspeex.1.5.0.dylib\n  \nelse\n  echo \"in Debug\"\nfi\n";
 		};
+		86E1D04B14FBA92400432C93 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nMPXVER=$(ruby getAppVersion.rb ${TARGET_BUILD_DIR}/MPlayerX.app)\n\necho ${MPXVER}\n\ncd ../localization/${MPXVER}/English.lproj\n\nmkdir -p stringsFiles\n\nibtool --generate-strings-file stringsFiles/MainMenu.strings MainMenu.xib\nibtool --generate-strings-file stringsFiles/Pref.strings Pref.xib\nibtool --generate-strings-file stringsFiles/VideoTuner.strings VideoTuner.xib\nibtool --generate-strings-file stringsFiles/SubEncoding.strings SubEncoding.xib\nibtool --generate-strings-file stringsFiles/Equalizer.strings Equalizer.xib\nibtool --generate-strings-file stringsFiles/Inspector.strings Inspector.xib\n\ncp Localizable.strings stringsFiles/\n";
+		};
 		86FD7D9811CE4961001726FD /* Localizations */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1143,6 +1176,11 @@
 			isa = PBXTargetDependency;
 			target = 863CD3D312D9B98B00C8E321 /* Update Versoin in info.plist */;
 			targetProxy = 863CD3D612D9B9A000C8E321 /* PBXContainerItemProxy */;
+		};
+		86E1D04F14FBAC4100432C93 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D1107260486CEB800E47090 /* MPlayerX */;
+			targetProxy = 86E1D04E14FBAC4100432C93 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1268,6 +1306,27 @@
 			};
 			name = Release;
 		};
+		86E1D04614FBA91000432C93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		86E1D04714FBA91000432C93 /* Deploy */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Deploy;
+		};
+		86E1D04814FBA91000432C93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		86FDD36D1314E4A400A79853 /* Deploy */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1373,6 +1432,15 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
+		};
+		86E1D04914FBA91000432C93 /* Build configuration list for PBXAggregateTarget "Generate strings file" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				86E1D04614FBA91000432C93 /* Debug */,
+				86E1D04714FBA91000432C93 /* Deploy */,
+				86E1D04814FBA91000432C93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "MPlayerX" */ = {
 			isa = XCConfigurationList;
