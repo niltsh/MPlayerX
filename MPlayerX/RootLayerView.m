@@ -1324,7 +1324,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 
 -(void) windowDidExitFullScreen:(NSNotification *)notification
 {
-	if (!displaying && [ud boolForKey:kUDKeyCloseWindowWhenStopped]) {
+	if ((!displaying) && [ud boolForKey:kUDKeyCloseWindowWhenStopped] && (playerController.playerState == kMPCStoppedState)) {
 		[[self window] orderOut:self];
 	}
 	// 当进入全屏的时候，回强制锁定ar
