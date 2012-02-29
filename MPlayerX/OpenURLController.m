@@ -57,6 +57,12 @@ NSString * const kStringURLSchemaUdp	= @"udp";
 	[urlBox addItemWithObjectValue:kMPXStringURLPanelClearMenu];
 }
 
+-(void) awakeFromNib
+{
+    // the panel should ontop of player window
+    [openURLPanel setLevel:NSTornOffMenuWindowLevel];
+}
+
 -(void) addUrl:(NSString*)urlString
 {
 	NSInteger idx = [urlBox indexOfItemWithObjectValue:urlString];
@@ -96,11 +102,8 @@ NSString * const kStringURLSchemaUdp	= @"udp";
 	} else {
 		[cmdOptionalText setStringValue:kMPXStringUseFFMpegHandleStream];
 	}
-
-	if ([NSApp runModalForWindow:openURLPanel] == NSFileHandlingPanelOKButton) {
-		// 现在mplayer的在线播放的功能不是很稳定，经常freeze，因此先禁用这个功能
-		[playerController loadFiles:[NSArray arrayWithObject:[urlBox stringValue]] fromLocal:NO];
-	}
+    // shoe the panel
+    [openURLPanel makeKeyAndOrderFront:self];
 }
 
 -(IBAction) confirmed:(id) sender
@@ -116,10 +119,10 @@ NSString * const kStringURLSchemaUdp	= @"udp";
 		 [scheme isEqualToString:kStringURLSchemaUdp])) {
 		// 先修正URL
 		[urlBox setStringValue:[[url standardizedURL] absoluteString]];
-		// 退出Modal模式
-		[NSApp stopModalWithCode:NSFileHandlingPanelOKButton];
 		// 隐藏窗口
 		[openURLPanel orderOut:self];
+        // try to play the file
+        [playerController loadFiles:[NSArray arrayWithObject:[urlBox stringValue]] fromLocal:NO];
 	} else {
 		NSBeginAlertSheet(kMPXStringError, kMPXStringOK, nil, nil, openURLPanel, nil, nil, nil, nil, kMPXStringURLNotSupported);
 	}
@@ -127,8 +130,6 @@ NSString * const kStringURLSchemaUdp	= @"udp";
 
 -(IBAction) canceled:(id) sender
 {
-	[NSApp abortModal];
 	[openURLPanel orderOut:self];
 }
-
 @end
