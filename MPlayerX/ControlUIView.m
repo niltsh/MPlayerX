@@ -1675,7 +1675,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	
 	if ([osd isActive] && (percent > 0.01)) {
 		if (![win isVisible]) {
-			[win makeKeyAndOrderFront:self];
+			[win orderFront:self];
 		}
 		
 		[osd setStringValue:[NSString stringWithFormat:kMPXStringOSDCachingPercent, percent*100]
