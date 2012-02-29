@@ -136,7 +136,7 @@ extern NSString * const kPMValDemuxFFMpeg;
 
 extern NSString * const kMPCPlayStoppedByForceKey;
 extern NSString * const kMPCPlayStoppedTimeKey;
-
+extern NSString * const kMPCPlayStoppedAbnormalKey;
 
 // KVO观测的属性的KeyPath
 extern NSString * const kKVOPropertyKeyPathCurrentTime;

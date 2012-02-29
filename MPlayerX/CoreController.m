@@ -37,8 +37,9 @@
 #define kMITypeVideoGotID	(8)
 #define KMITypeChapterInfo	(9)
 
-NSString * const kMPCPlayStoppedByForceKey		= @"kMPCPlayStoppedByForceKey";
-NSString * const kMPCPlayStoppedTimeKey			= @"kMPCPlayStoppedTimeKey";
+NSString * const kMPCPlayStoppedByForceKey		= @"PlayStoppedByForce";
+NSString * const kMPCPlayStoppedTimeKey			= @"PlayStoppedTime";
+NSString * const kMPCPlayStoppedAbnormalKey     = @"PlayStoppedAbnormal";
 
 NSString * const kCmdStringFMTFloat		= @"%@ %@ %f\n";
 NSString * const kCmdStringFMTInteger	= @"%@ %@ %d\n";
@@ -218,6 +219,8 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 	// if mplayer is crashed, it may not call stop to stop display
 	// and stop always happens before mplayer really exit
 	// so imageData is there means stop is forgotten
+    BOOL quitAbormal = !(byForce || (state & kMPCStateMask));
+    
 	if (imageData) {
 		[self performSelector:@selector(stop)
 					 onThread:renderThread
@@ -250,7 +253,9 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 		[delegate playbackStopped:self
 							 info:[NSDictionary dictionaryWithObjectsAndKeys:
 								   [NSNumber numberWithBool:byForce], kMPCPlayStoppedByForceKey,
-								   [movieInfo.playingInfo currentTime], kMPCPlayStoppedTimeKey, nil]];
+								   [movieInfo.playingInfo currentTime], kMPCPlayStoppedTimeKey, 
+                                   [NSNumber numberWithInt:quitAbormal], kMPCPlayStoppedAbnormalKey,
+                                   nil]];
 	}
 	MPLog(@"terminated:%d", byForce);
 }

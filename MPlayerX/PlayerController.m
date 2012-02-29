@@ -969,6 +969,10 @@ static BOOL isNetworkPath(const char *path)
 		}
 	}
 	
+    if ([[dict objectForKey:kMPCPlayStoppedAbnormalKey] boolValue]) {
+        [self showAlertPanelModal:kMPXStringQuitAbnormally];
+    }
+
 	if ([ud boolForKey:kUDKeyAutoPlayNext] && [lastPlayedPath isFileURL] && (!stoppedByForce)) {
 		//如果不是强制关闭的话
 		//如果不是本地文件，肯定返回nil
