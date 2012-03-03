@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">11C74</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
-		<string key="IBDocument.AppKitVersion">1138.23</string>
-		<string key="IBDocument.HIToolboxVersion">567.00</string>
+		<string key="IBDocument.SystemVersion">11D50</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2177</string>
+		<string key="IBDocument.AppKitVersion">1138.32</string>
+		<string key="IBDocument.HIToolboxVersion">568.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">1938</string>
+			<string key="NS.object.0">2177</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -19,6 +19,7 @@
 			<string>NSButtonCell</string>
 			<string>NSButton</string>
 			<string>NSComboBox</string>
+			<string>NSProgressIndicator</string>
 			<string>NSSlider</string>
 			<string>NSSliderCell</string>
 			<string>NSCustomObject</string>
@@ -2194,6 +2195,87 @@
 				<string key="NSReuseIdentifierKey">_NS:499</string>
 				<string key="NSClassName">NSView</string>
 			</object>
+			<object class="NSWindowTemplate" id="203626497">
+				<int key="NSWindowStyleMask">5</int>
+				<int key="NSWindowBacking">2</int>
+				<string key="NSWindowRect">{{196, 240}, {480, 120}}</string>
+				<int key="NSWTFlags">611845120</int>
+				<string key="NSWindowTitle">ParseURL</string>
+				<string key="NSWindowClass">NSWindow</string>
+				<nil key="NSViewClass"/>
+				<nil key="NSUserInterfaceItemIdentifier"/>
+				<object class="NSView" key="NSWindowView" id="90702681">
+					<reference key="NSNextResponder"/>
+					<int key="NSvFlags">256</int>
+					<object class="NSMutableArray" key="NSSubviews">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSTextField" id="33296084">
+							<reference key="NSNextResponder" ref="90702681"/>
+							<int key="NSvFlags">274</int>
+							<string key="NSFrame">{{57, 51}, {406, 49}}</string>
+							<reference key="NSSuperview" ref="90702681"/>
+							<reference key="NSNextKeyView" ref="1044683611"/>
+							<string key="NSReuseIdentifierKey">_NS:9</string>
+							<string key="NSAntiCompressionPriority">{250, 750}</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSTextFieldCell" key="NSCell" id="185338382">
+								<int key="NSCellFlags">67239424</int>
+								<int key="NSCellFlags2">272891904</int>
+								<string key="NSContents">Multiline Label</string>
+								<object class="NSFont" key="NSSupport">
+									<string key="NSName">LucidaGrande</string>
+									<double key="NSSize">13</double>
+									<int key="NSfFlags">16</int>
+								</object>
+								<string key="NSCellIdentifier">_NS:9</string>
+								<reference key="NSControlView" ref="33296084"/>
+								<reference key="NSBackgroundColor" ref="129299394"/>
+								<reference key="NSTextColor" ref="351612542"/>
+							</object>
+						</object>
+						<object class="NSProgressIndicator" id="346616591">
+							<reference key="NSNextResponder" ref="90702681"/>
+							<int key="NSvFlags">1284</int>
+							<object class="NSPSMatrix" key="NSDrawMatrix"/>
+							<string key="NSFrame">{{36, 84}, {16, 16}}</string>
+							<reference key="NSSuperview" ref="90702681"/>
+							<reference key="NSNextKeyView" ref="33296084"/>
+							<string key="NSReuseIdentifierKey">_NS:926</string>
+							<int key="NSpiFlags">20746</int>
+							<double key="NSMaxValue">100</double>
+						</object>
+						<object class="NSButton" id="1044683611">
+							<reference key="NSNextResponder" ref="90702681"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{384, 12}, {82, 32}}</string>
+							<reference key="NSSuperview" ref="90702681"/>
+							<string key="NSReuseIdentifierKey">_NS:9</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="255765163">
+								<int key="NSCellFlags">67239424</int>
+								<int key="NSCellFlags2">134217728</int>
+								<string key="NSContents">Cancel</string>
+								<reference key="NSSupport" ref="723267852"/>
+								<string key="NSCellIdentifier">_NS:9</string>
+								<reference key="NSControlView" ref="1044683611"/>
+								<int key="NSButtonFlags">-2038284033</int>
+								<int key="NSButtonFlags2">129</int>
+								<string key="NSAlternateContents"/>
+								<string type="base64-UTF8" key="NSKeyEquivalent">Gw</string>
+								<int key="NSPeriodicDelay">200</int>
+								<int key="NSPeriodicInterval">25</int>
+							</object>
+						</object>
+					</object>
+					<string key="NSFrameSize">{480, 120}</string>
+					<reference key="NSSuperview"/>
+					<reference key="NSNextKeyView" ref="346616591"/>
+					<string key="NSReuseIdentifierKey">_NS:20</string>
+				</object>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
+				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
+				<bool key="NSWindowIsRestorable">YES</bool>
+			</object>
 			<object class="NSCustomObject" id="594612133">
 				<string key="NSClassName">AppController</string>
 			</object>
@@ -2491,14 +2573,6 @@
 						<reference key="destination" ref="85098728"/>
 					</object>
 					<int key="connectionID">870</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">openUrlController</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="492182815"/>
-					</object>
-					<int key="connectionID">920</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -3683,6 +3757,46 @@
 						<reference key="destination" ref="968896216"/>
 					</object>
 					<int key="connectionID">941</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">urlParsingSheet</string>
+						<reference key="source" ref="492182815"/>
+						<reference key="destination" ref="203626497"/>
+					</object>
+					<int key="connectionID">1189</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">progIndicator</string>
+						<reference key="source" ref="492182815"/>
+						<reference key="destination" ref="346616591"/>
+					</object>
+					<int key="connectionID">1190</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">urlParseMessage</string>
+						<reference key="source" ref="492182815"/>
+						<reference key="destination" ref="33296084"/>
+					</object>
+					<int key="connectionID">1191</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">cancelParsing:</string>
+						<reference key="source" ref="492182815"/>
+						<reference key="destination" ref="1044683611"/>
+					</object>
+					<int key="connectionID">1194</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">cancelParseButton</string>
+						<reference key="source" ref="492182815"/>
+						<reference key="destination" ref="1044683611"/>
+					</object>
+					<int key="connectionID">1195</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -5420,6 +5534,59 @@
 						<reference key="object" ref="635205445"/>
 						<reference key="parent" ref="761763655"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1184</int>
+						<reference key="object" ref="203626497"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="90702681"/>
+						</object>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1185</int>
+						<reference key="object" ref="90702681"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="33296084"/>
+							<reference ref="1044683611"/>
+							<reference ref="346616591"/>
+						</object>
+						<reference key="parent" ref="203626497"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1186</int>
+						<reference key="object" ref="33296084"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="185338382"/>
+						</object>
+						<reference key="parent" ref="90702681"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1187</int>
+						<reference key="object" ref="185338382"/>
+						<reference key="parent" ref="33296084"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1188</int>
+						<reference key="object" ref="346616591"/>
+						<reference key="parent" ref="90702681"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1192</int>
+						<reference key="object" ref="1044683611"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="255765163"/>
+						</object>
+						<reference key="parent" ref="90702681"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1193</int>
+						<reference key="object" ref="255765163"/>
+						<reference key="parent" ref="1044683611"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -5511,6 +5678,14 @@
 					<string>1175.IBPluginDependency</string>
 					<string>1176.IBPluginDependency</string>
 					<string>1177.IBPluginDependency</string>
+					<string>1184.IBPluginDependency</string>
+					<string>1184.NSWindowTemplate.visibleAtLaunch</string>
+					<string>1185.IBPluginDependency</string>
+					<string>1186.IBPluginDependency</string>
+					<string>1187.IBPluginDependency</string>
+					<string>1188.IBPluginDependency</string>
+					<string>1192.IBPluginDependency</string>
+					<string>1193.IBPluginDependency</string>
 					<string>124.IBPluginDependency</string>
 					<string>125.IBPluginDependency</string>
 					<string>126.IBPluginDependency</string>
@@ -5678,7 +5853,7 @@
 					<string>996.IBPluginDependency</string>
 					<string>997.IBPluginDependency</string>
 				</object>
-				<object class="NSMutableArray" key="dict.values">
+				<object class="NSArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -5773,6 +5948,14 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<boolean value="NO"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6026,7 +6209,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1183</int>
+			<int key="maxID">1195</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6047,7 +6230,7 @@
 							<string>openVIDEOTS:</string>
 							<string>writeSnapshotToFile:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
@@ -6072,7 +6255,7 @@
 							<string>openVIDEOTS:</string>
 							<string>writeSnapshotToFile:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">donate:</string>
@@ -6118,7 +6301,7 @@
 							<string>openUrlController</string>
 							<string>playerController</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>RootLayerView</string>
 							<string>NSTextField</string>
@@ -6137,7 +6320,7 @@
 							<string>openUrlController</string>
 							<string>playerController</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">dispView</string>
@@ -6192,7 +6375,7 @@
 							<string>canceled:</string>
 							<string>confirmed:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
@@ -6205,7 +6388,7 @@
 							<string>canceled:</string>
 							<string>confirmed:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">canceled:</string>
@@ -6225,7 +6408,7 @@
 							<string>encodingWindow</string>
 							<string>outputText</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSPopUpButton</string>
 							<string>NSWindow</string>
@@ -6240,7 +6423,7 @@
 							<string>encodingWindow</string>
 							<string>outputText</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">charsetListPopup</string>
@@ -6306,7 +6489,7 @@
 							<string>toggleTimeAltDisplayMode:</string>
 							<string>zoomToSize:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
@@ -6389,7 +6572,7 @@
 							<string>toggleTimeAltDisplayMode:</string>
 							<string>zoomToSize:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">changeAudioBalanceBy:</string>
@@ -6615,7 +6798,7 @@
 							<string>volumeButton</string>
 							<string>volumeSlider</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSView</string>
 							<string>ArrowTextField</string>
@@ -6762,7 +6945,7 @@
 							<string>volumeButton</string>
 							<string>volumeSlider</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">accessaryContainer</string>
@@ -7058,7 +7241,7 @@
 							<string>setEqualizer:</string>
 							<string>showUI:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
@@ -7073,7 +7256,7 @@
 							<string>setEqualizer:</string>
 							<string>showUI:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">resetEqualizer:</string>
@@ -7107,7 +7290,7 @@
 							<string>sli60</string>
 							<string>sli8k</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSPanel</string>
 							<string>NSMenuItem</string>
@@ -7142,7 +7325,7 @@
 							<string>sli60</string>
 							<string>sli8k</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">EQPanel</string>
@@ -7230,7 +7413,7 @@
 							<string>sourceInfo</string>
 							<string>trackInfo</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
@@ -7255,7 +7438,7 @@
 							<string>sourceInfo</string>
 							<string>trackInfo</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">demuxerInfo</string>
@@ -7311,13 +7494,15 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>cancelParsing:</string>
 							<string>canceled:</string>
 							<string>confirmed:</string>
 							<string>openURL:</string>
 							<string>urlSelected:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -7328,13 +7513,18 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>cancelParsing:</string>
 							<string>canceled:</string>
 							<string>confirmed:</string>
 							<string>openURL:</string>
 							<string>urlSelected:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">cancelParsing:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 							<object class="IBActionInfo">
 								<string key="name">canceled:</string>
 								<string key="candidateClassName">id</string>
@@ -7357,30 +7547,46 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>cancelParseButton</string>
 							<string>cmdOptionalText</string>
 							<string>openURLPanel</string>
 							<string>playerController</string>
+							<string>progIndicator</string>
 							<string>urlBox</string>
+							<string>urlParseMessage</string>
+							<string>urlParsingSheet</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSButton</string>
 							<string>NSTextField</string>
 							<string>NSPanel</string>
 							<string>PlayerController</string>
+							<string>NSProgressIndicator</string>
 							<string>NSComboBox</string>
+							<string>NSTextField</string>
+							<string>NSWindow</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>cancelParseButton</string>
 							<string>cmdOptionalText</string>
 							<string>openURLPanel</string>
 							<string>playerController</string>
+							<string>progIndicator</string>
 							<string>urlBox</string>
+							<string>urlParseMessage</string>
+							<string>urlParsingSheet</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">cancelParseButton</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">cmdOptionalText</string>
 								<string key="candidateClassName">NSTextField</string>
@@ -7394,8 +7600,20 @@
 								<string key="candidateClassName">PlayerController</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">progIndicator</string>
+								<string key="candidateClassName">NSProgressIndicator</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">urlBox</string>
 								<string key="candidateClassName">NSComboBox</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">urlParseMessage</string>
+								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">urlParsingSheet</string>
+								<string key="candidateClassName">NSWindow</string>
 							</object>
 						</object>
 					</object>
@@ -7422,7 +7640,7 @@
 							<string>playNext:</string>
 							<string>playPrevious:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
@@ -7435,7 +7653,7 @@
 							<string>playNext:</string>
 							<string>playPrevious:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">playNext:</string>
@@ -7472,13 +7690,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>charsetController</string>
 							<string>controlUI</string>
-							<string>openUrlController</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>CharsetQueryController</string>
 							<string>ControlUIView</string>
-							<string>OpenURLController</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -7487,9 +7703,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>charsetController</string>
 							<string>controlUI</string>
-							<string>openUrlController</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">charsetController</string>
@@ -7498,10 +7713,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">controlUI</string>
 								<string key="candidateClassName">ControlUIView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">openUrlController</string>
-								<string key="candidateClassName">OpenURLController</string>
 							</object>
 						</object>
 					</object>
@@ -7543,12 +7754,14 @@
 							<string>multiThreadChanged:</string>
 							<string>onTopModeChanged:</string>
 							<string>osdSetChanged:</string>
+							<string>recentMenuSettingChanged:</string>
 							<string>showUI:</string>
 							<string>subEncodingSchemeChanged:</string>
 							<string>switchViews:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -7572,11 +7785,12 @@
 							<string>multiThreadChanged:</string>
 							<string>onTopModeChanged:</string>
 							<string>osdSetChanged:</string>
+							<string>recentMenuSettingChanged:</string>
 							<string>showUI:</string>
 							<string>subEncodingSchemeChanged:</string>
 							<string>switchViews:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">checkCacheFormat:</string>
@@ -7604,6 +7818,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">osdSetChanged:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">recentMenuSettingChanged:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -7638,7 +7856,7 @@
 							<string>viewSub</string>
 							<string>viewVideo</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSPopUpButton</string>
 							<string>ControlUIView</string>
@@ -7673,7 +7891,7 @@
 							<string>viewSub</string>
 							<string>viewVideo</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">charsetListPopup</string>
@@ -7757,7 +7975,7 @@
 							<string>shortCutManager</string>
 							<string>titlebar</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>VideoTunerController</string>
 							<string>ControlUIView</string>
@@ -7780,7 +7998,7 @@
 							<string>shortCutManager</string>
 							<string>titlebar</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">VTController</string>
@@ -7829,7 +8047,7 @@
 							<string>mainMenu</string>
 							<string>playerController</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>ControlUIView</string>
 							<string>RootLayerView</string>
@@ -7846,7 +8064,7 @@
 							<string>mainMenu</string>
 							<string>playerController</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">controlUI</string>
@@ -7898,7 +8116,7 @@
 							<string>showUI:</string>
 							<string>stepFilterParameters:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
@@ -7913,7 +8131,7 @@
 							<string>showUI:</string>
 							<string>stepFilterParameters:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">setFilterParameters:</string>
@@ -7958,7 +8176,7 @@
 							<string>sliderSaturation</string>
 							<string>sliderSharpness</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSWindow</string>
 							<string>NSButton</string>
@@ -8015,7 +8233,7 @@
 							<string>sliderSaturation</string>
 							<string>sliderSharpness</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">VTWin</string>
@@ -8149,10 +8367,10 @@
 				<string>unfold</string>
 				<string>vol_mid</string>
 			</object>
-			<object class="NSMutableArray" key="dict.values">
+			<object class="NSArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{9, 8}</string>
-				<string>{7, 2}</string>
+				<string>{11, 11}</string>
+				<string>{10, 3}</string>
 				<string>{48, 48}</string>
 				<string>{48, 48}</string>
 				<string>{48, 48}</string>

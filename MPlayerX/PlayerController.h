@@ -56,7 +56,6 @@ extern NSString * const kMPCPlayInfoUpdatedChangeDictKey;
 	IOPMAssertionID nonSleepHandler;
 
 	IBOutlet ControlUIView *controlUI;
-	IBOutlet OpenURLController *openUrlController;
 	IBOutlet CharsetQueryController *charsetController;
 }
 

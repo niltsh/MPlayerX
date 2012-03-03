@@ -25,7 +25,6 @@
 #import "PlayerController.h"
 #import "PlayListController.h"
 #import <sys/sysctl.h>
-#import "OpenURLController.h"
 #import "CharsetQueryController.h"
 #import "AppController.h"
 #import "CoreController.h"
@@ -539,9 +538,6 @@ static BOOL isNetworkPath(const char *path)
 		[mplayer.pm setPreferIPV6:[ud boolForKey:kUDKeyPreferIPV6]];
 		[mplayer.pm setRtspOverHttp:[ud boolForKey:kUDKeyRtspOverHttp]];
 		[mplayer.pm setDisplayCacheLog:YES];
-		
-		// 将URL加入OpenURLController
-		[openUrlController addUrl:path];
 
 		if ([ud boolForKey:kUDKeyFFMpegHandleStream] != ([NSEvent modifierFlags]==kSCMFFMpegHandleStreamShortCurKey)) {
 			path = [kMPCFFMpegProtoHead stringByAppendingString:path];

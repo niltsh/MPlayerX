@@ -19,6 +19,7 @@
  */
 
 #import "YTDL.h"
+#import "CocoaAppendix.h"
 
 @interface YTDL (Internal)
 -(void) getRealURLThread:(NSArray*)args;
@@ -161,7 +162,7 @@
                             waitUntilDone:YES
                                     modes:[NSArray arrayWithObjects:NSDefaultRunLoopMode, NSModalPanelRunLoopMode, NSEventTrackingRunLoopMode, nil]];
     } else {
-        NSLog(@"this operation is cancelled");
+        MPLog(@"this operation is cancelled");
     }
     
     [task release];
