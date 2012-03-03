@@ -105,6 +105,7 @@ extern NSString * const kUDKeyAlwaysUseSecondaryScreen;
 extern NSString * const kUDKeyClickTogPlayPause;
 extern NSString * const kUDKeyARUseSysVol;
 extern NSString * const kUDKeyARMenuKeyTogTimeDisp;
+extern NSString * const kUDKeyAnimateFullScreen;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;

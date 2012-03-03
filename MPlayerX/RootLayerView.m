@@ -139,6 +139,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 					   boolNo, kUDKeyOldFullScreenMethod,
 					   boolNo, kUDKeyAlwaysUseSecondaryScreen,
                        boolNo, kUDKeyClickTogPlayPause,
+                       boolYes, kUDKeyAnimateFullScreen,
 					   nil]];
 }
 
@@ -1164,7 +1165,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 				}
 				
 				// 如果没有displaying，那么就不需要动画了
-				[playerWindow setFrame:rcBeforeFullScrn display:YES animate:displaying];
+				[playerWindow setFrame:rcBeforeFullScrn display:YES animate:[ud boolForKey:kUDKeyAnimateFullScreen]?displaying:NO];
 				[dispLayer display];
 				[dispLayer forceAdjustToFitBounds:NO];
 				
@@ -1239,7 +1240,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			// 动画进入全屏
 			
 			[dispLayer forceAdjustToFitBounds:YES];
-			[playerWindow setFrame:[chosenScreen frame] display:YES animate:YES];
+			[playerWindow setFrame:[chosenScreen frame] display:YES animate:[ud boolForKey:kUDKeyAnimateFullScreen]];
 			[dispLayer display];
 			
 			// 进入全屏
@@ -1392,8 +1393,13 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	[dispLayer enableScale:YES];
 
 	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-		[context setDuration:0.5 * duration];
-		[[window animator] setFrame:proposedFrame display:YES];		
+        if ([ud boolForKey:kUDKeyAnimateFullScreen]) {
+            [context setDuration:duration];
+            [[window animator] setFrame:proposedFrame display:YES];		
+        } else {
+            [context setDuration:0];
+            [window setFrame:proposedFrame display:YES animate:NO];
+        }
 	} completionHandler:^(void) {
 		[dispLayer display];
 		[dispLayer forceAdjustToFitBounds:NO];
@@ -1409,8 +1415,13 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	[dispLayer enableScale:NO];
 
 	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-		[context setDuration:0.5 * duration];
-		[[window animator] setFrame:rcBeforeFullScrn display:YES animate:displaying];
+        if ([ud boolForKey:kUDKeyAnimateFullScreen]) {
+            [context setDuration:duration];
+            [[window animator] setFrame:rcBeforeFullScrn display:YES animate:displaying];
+        } else {
+            [context setDuration:0];
+            [window setFrame:rcBeforeFullScrn display:YES animate:NO];
+        }
 	} completionHandler:^(void) {
 		// 暂停的时候能够正确显示
 		[dispLayer display];
