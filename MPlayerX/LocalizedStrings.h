@@ -93,7 +93,7 @@
 #define kMPXStringABLPPrefix                    (NSLocalizedString(@"A-B Loop", @"abloop"))
 #define kMPXStringABLPCancelled                 (NSLocalizedString(@"Cancelled", @"abloop"))
 
-#define kMPXStringStartToParseURL               (NSLocalizedString(@"Start to parse the URL...", @"Open URL Panel"))
+#define kMPXStringStartToParseURL               (NSLocalizedString(@"Start parsing the URL...", @"Open URL Panel"))
 #define kMPXStringGotURL                        (NSLocalizedString(@"Got the media URL, start to play...", @"Open URL Panel"))
 #define kMPXStringParseURLErrorFmt              (NSLocalizedString(@"Can't parse the URL: %@", @""))
 
