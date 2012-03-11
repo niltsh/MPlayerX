@@ -1394,7 +1394,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 
 	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
         if ([ud boolForKey:kUDKeyAnimateFullScreen]) {
-            [context setDuration:duration];
+            [context setDuration:duration * 0.5];
             [[window animator] setFrame:proposedFrame display:YES];		
         } else {
             [context setDuration:0];
@@ -1416,7 +1416,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 
 	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
         if ([ud boolForKey:kUDKeyAnimateFullScreen]) {
-            [context setDuration:duration];
+            [context setDuration:duration * 0.5];
             [[window animator] setFrame:rcBeforeFullScrn display:YES animate:displaying];
         } else {
             [context setDuration:0];
