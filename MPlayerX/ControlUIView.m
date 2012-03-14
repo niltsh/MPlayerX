@@ -504,9 +504,9 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 		NSPoint pos = [[self window] convertScreenToBase:[NSEvent mouseLocation]];
 		
 		// 如果不在这个View的话，那么就隐藏自己
-		// if HideTitlebar is ON, ignore the titlebar area when hiding the cursor
+		// if HideTitlebar is ON or in fullscreen, ignore the titlebar area when hiding the cursor
 		if ((!NSPointInRect([self  convertPoint:pos fromView:nil], self.bounds)) && 
-			((!NSPointInRect([title convertPoint:pos fromView:nil], title.bounds)) || [ud boolForKey:kUDKeyHideTitlebar])) {
+			((!NSPointInRect([title convertPoint:pos fromView:nil], title.bounds)) || [ud boolForKey:kUDKeyHideTitlebar] || [dispView isInFullScreenMode])) {
 			[self.animator setAlphaValue:0];
 			
 			// 如果是全屏模式也要隐藏鼠标
