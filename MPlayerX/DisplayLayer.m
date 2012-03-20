@@ -271,8 +271,14 @@
 					[self stop];
 					MPLog(@"video buffer failed");
 					break;
-				}				
-			}
+				}
+                
+                // FIXME: here frame size is used to guess the color space of the image
+                CVBufferSetAttachment(bufRefs[bufTotal],
+                                      kCVImageBufferYCbCrMatrixKey,
+                                      ((fmt.width >= 1280) || (fmt.height > 576))?(kCVImageBufferYCbCrMatrix_ITU_R_709_2):(kCVImageBufferYCbCrMatrix_ITU_R_601_4),
+                                      kCVAttachmentMode_ShouldPropagate);
+            }
 		}
 		flagAspectRatioChanged = YES;
 	}
