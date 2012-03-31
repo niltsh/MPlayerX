@@ -216,11 +216,13 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 //////////////////////////////////////////////comunication with playerCore/////////////////////////////////////////////////////
 -(void) playerCore:(id)player hasTerminated:(BOOL) byForce
 {
+    // 如果是byForce为否，并且没有处于播放状态时，判断为异常退出
+    // 没有播放状态就正常退出，意味着在open状态时就退出了
+    BOOL quitAbormal = !(byForce || (state & kMPCStateMask));
+
 	// if mplayer is crashed, it may not call stop to stop display
 	// and stop always happens before mplayer really exit
 	// so imageData is there means stop is forgotten
-    BOOL quitAbormal = !(byForce || (state & kMPCStateMask));
-    
 	if (imageData) {
 		[self performSelector:@selector(stop)
 					 onThread:renderThread
