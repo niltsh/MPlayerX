@@ -130,6 +130,8 @@
     IBOutlet NSMenuItem *menuABLPSetStart;
     IBOutlet NSMenuItem *menuABLPSetReturn;
     IBOutlet NSMenuItem *menuABLPCancel;
+    
+    IBOutlet NSMenu *deintMenu;
 }
 
 ////////////////////////////////显示相关////////////////////////////////
@@ -207,4 +209,7 @@ extern NSString * const kFillScreenButtonImageUBKey;
 -(IBAction) setABLoopStart:(id)sender;
 -(IBAction) setABLoopReturn:(id)sender;
 -(IBAction) stopABLoop:(id)sender;
+
+-(IBAction) choseDeinterlaceMethod:(id)sender;
+
 @end

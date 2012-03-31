@@ -357,8 +357,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
     
     [menuABLPSetStart setTag:-1 * ABLOOPTAGBASE];
     [menuABLPSetReturn setTag:-1 * ABLOOPTAGBASE];
-	
-	//////ibtool bug fix, set noborder////////
+    
+    [ud addObserver:self forKeyPath:kUDKeyDeIntMethod
+            options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:NULL];
+
+    //////ibtool bug fix, set noborder////////
 	[volumeButton setBordered:NO];
 	[nextEPButton setBordered:NO];
 	[prevEPButton setBordered:NO];
@@ -399,6 +402,8 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 -(void) dealloc
 {
 	[notifCenter removeObserver:self];
+    
+    [ud removeObserver:self forKeyPath:kUDKeyDeIntMethod];
 	
 	if (autoHideTimer) {
 		[autoHideTimer invalidate];
@@ -426,6 +431,26 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[backGroundColor2 release];
 	
 	[super dealloc];
+}
+
+-(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (object == ud) {
+        if ([keyPath isEqualToString:kUDKeyDeIntMethod]) {
+            // turn off all item
+            for (NSMenuItem *item in [deintMenu itemArray]) {
+                if ([item state] == NSOnState) {
+                    [item setState:NSOffState];
+                    break;
+                }
+            }
+            
+            // choose the current item
+            [[deintMenu itemWithTag:[ud integerForKey:kUDKeyDeIntMethod]] setState:NSOnState];
+        }
+        return;
+    }
+    return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
 -(BOOL) acceptsFirstMouse:(NSEvent *)event { return YES; }
@@ -1291,6 +1316,12 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
     [osd setStringValue:[NSString stringWithFormat:@"%@: %@", kMPXStringABLPPrefix, kMPXStringABLPCancelled]
                   owner:kOSDOwnerOther
             updateTimer:YES];    
+}
+
+-(IBAction) choseDeinterlaceMethod:(id)sender
+{
+    // set userdefault
+    [ud setInteger:[sender tag] forKey:kUDKeyDeIntMethod];
 }
 
 ////////////////////////////////////////////////FullscreenThings//////////////////////////////////////////////////
