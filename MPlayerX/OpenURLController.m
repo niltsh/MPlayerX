@@ -23,6 +23,7 @@
 #import "OpenURLController.h"
 #import "PlayerController.h"
 #import "CocoaAppendix.h"
+#import "def.h"
 
 NSString * const kBookmarkURLKey	= @"Bookmark:URL";
 
@@ -139,7 +140,7 @@ NSString * const kStringURLSchemaUdp	= @"udp";
         
         if (([scheme isEqualToString:kStringURLSchemaHttp] || [scheme isEqualToString:kStringURLSchemaHttps]) &&
             [[url host] isEqualToString:@"www.youtube.com"]) {
-            MPLog(@"%@", [url host]);
+            MPLog(@"try to open: %@", [url host]);
             
             // prepare the UI
             [cancelParseButton setEnabled:YES];
@@ -154,7 +155,7 @@ NSString * const kStringURLSchemaUdp	= @"udp";
                   contextInfo:NULL];
             
             // try to get the real URL
-            [yt getRealURL:[urlBox stringValue]];
+            [yt getInfoFromURL:[urlBox stringValue] type:kYTDLInfoTypeURL];
         } else {
             // 隐藏窗口
             [openURLPanel orderOut:self];
@@ -196,34 +197,49 @@ NSString * const kStringURLSchemaUdp	= @"udp";
         // there is a url so try to play it
         [openURLPanel orderOut:self];
         [playerController loadFiles:[NSArray arrayWithObject:urlString] fromLocal:NO];
+        
         // add current URL to menu
         [self addCurrentURLToMenu];
+        
+        // try to get the media title
+        [yt getInfoFromURL:[urlBox stringValue] type:kYTDLInfoTypeTitle];
     } else {
         // there no url
     }
 }
 
--(void) ytdl:(id)obj gotRealURL:(NSString*)urlString
+-(void) ytdl:(id)obj gotInfo:(NSDictionary *)info
 {
-    [cancelParseButton setEnabled:NO];
-    [urlParseMessage setStringValue:kMPXStringGotURL];
-    
-    [self performSelector:@selector(processYTDLResult:) 
-               withObject:urlString
-               afterDelay:1.0
-                  inModes:[NSArray arrayWithObjects:NSDefaultRunLoopMode, NSModalPanelRunLoopMode, NSEventTrackingRunLoopMode, nil]];
+    if ([[info objectForKey:kYTDLInfoTypeKey] unsignedIntegerValue] == kYTDLInfoTypeURL) {
+        // got the url
+        [cancelParseButton setEnabled:NO];
+        
+        if ([[info objectForKey:kYTDLInfoIsErrorKey] boolValue]) {
+            // some error
+            [urlParseMessage setStringValue:[NSString stringWithFormat:kMPXStringParseURLErrorFmt, [info objectForKey:kYTDLInfoContentKey]]];
+            [progIndicator stopAnimation:self];
+            
+            [self performSelector:@selector(processYTDLResult:) 
+                       withObject:nil
+                       afterDelay:2.0
+                          inModes:[NSArray arrayWithObjects:NSDefaultRunLoopMode, NSModalPanelRunLoopMode, NSEventTrackingRunLoopMode, nil]];
+        } else {
+            // not error
+            [urlParseMessage setStringValue:kMPXStringGotURL];
+            
+            [self performSelector:@selector(processYTDLResult:) 
+                       withObject:[info objectForKey:kYTDLInfoContentKey]
+                       afterDelay:1.0
+                          inModes:[NSArray arrayWithObjects:NSDefaultRunLoopMode, NSModalPanelRunLoopMode, NSEventTrackingRunLoopMode, nil]];
+        }
+    } else if ([[info objectForKey:kYTDLInfoTypeKey] unsignedIntegerValue] == kYTDLInfoTypeTitle) {
+        if ([info objectForKey:kYTDLInfoContentKey]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kMPCRemoteMediaInfoNotification
+                                                                object:self
+                                                              userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                        [info objectForKey:kYTDLInfoContentKey], kMPCRemoteMediaInfoTitleKey,
+                                                                        nil]];
+        }
+    }
 }
-
--(void) ytdl:(id)obj gotError:(NSString*)errorString
-{
-    [cancelParseButton setEnabled:NO];
-    [urlParseMessage setStringValue:[NSString stringWithFormat:kMPXStringParseURLErrorFmt, errorString]];
-    [progIndicator stopAnimation:self];
-
-    [self performSelector:@selector(processYTDLResult:) 
-               withObject:nil
-               afterDelay:2.0
-                  inModes:[NSArray arrayWithObjects:NSDefaultRunLoopMode, NSModalPanelRunLoopMode, NSEventTrackingRunLoopMode, nil]];
-}
-
 @end

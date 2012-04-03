@@ -23,3 +23,6 @@ NSString * const kMPCDefaultSubFontPath	= @"wqy-microhei.ttc";
 NSString * const kMPXMediaKeyPlayPauseNotification		= @"MPXMediaKeyPlayPause";
 NSString * const kMPXMediaKeyForwardNotification		= @"MPXMediaKeyForward";
 NSString * const kMPXMediaKeyBackwardNotification		= @"MPXMediaKeyBackward";
+
+NSString * const kMPCRemoteMediaInfoNotification    = @"MPCRemoteMediaInfoNotification";
+NSString * const kMPCRemoteMediaInfoTitleKey        = @"MPCRemoteMediaInfoTitle";

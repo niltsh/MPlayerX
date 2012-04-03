@@ -20,13 +20,16 @@
 
 #import <Foundation/Foundation.h>
 
-// Currently, This class could not be reused
-// it should be released once it has got the URL/error
+#define kYTDLInfoTypeURL    (1)
+#define kYTDLInfoTypeTitle  (2)
+
+NSString * const kYTDLInfoContentKey;
+NSString * const kYTDLInfoTypeKey;
+NSString * const kYTDLInfoIsErrorKey;
 
 @protocol YTDLDelegate
 @required
--(void) ytdl:(id)obj gotRealURL:(NSString*)urlString;
--(void) ytdl:(id)obj gotError:(NSString*)errorString;
+-(void) ytdl:(id)obj gotInfo:(NSDictionary*)info;
 @end
 
 @interface YTDL : NSObject
@@ -37,11 +40,9 @@
     NSOperationQueue *queue;
     NSInvocationOperation *currentOperation;
 }
-
 @property (assign) id<YTDLDelegate> delegate;
 
 -(id) initWithBinPath:(NSString*)path;
--(void) getRealURL:(NSString*)urlString;
+-(void) getInfoFromURL:(NSString*)urlString type:(NSUInteger)type;
 -(void) cancel;
-
 @end

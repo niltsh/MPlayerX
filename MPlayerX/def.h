@@ -25,3 +25,6 @@ extern NSString * const kMPCDefaultSubFontPath;
 extern NSString * const kMPXMediaKeyPlayPauseNotification;
 extern NSString * const kMPXMediaKeyForwardNotification;
 extern NSString * const kMPXMediaKeyBackwardNotification;
+
+extern NSString * const kMPCRemoteMediaInfoNotification;
+extern NSString * const kMPCRemoteMediaInfoTitleKey;

@@ -21,8 +21,15 @@
 #import "YTDL.h"
 #import "CocoaAppendix.h"
 
+NSString * const kYTDLInfoContentKey    = @"YTDLInfoContent";
+NSString * const kYTDLInfoTypeKey       = @"YTDLInfoType";
+NSString * const kYTDLInfoIsErrorKey    = @"YTDLInfoIsError";
+
 @interface YTDL (Internal)
--(void) getRealURLThread:(NSArray*)args;
+-(void) getInfoThread:(NSArray*)args;
+-(NSDictionary*) makeInfoDict:(id)content type:(NSUInteger)type isError:(BOOL)err;
+-(void) sendDelegateMessage:(NSDictionary*)infoDict;
+-(NSString*) processHtmlEntities:(NSString*)str;
 @end
 
 @implementation YTDL
@@ -72,7 +79,16 @@
     }
 }
 
--(void) getRealURL:(NSString*)urlString
+-(NSDictionary*) makeInfoDict:(id)content type:(NSUInteger)type isError:(BOOL)err
+{
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+            content, kYTDLInfoContentKey,
+            [NSNumber numberWithUnsignedInteger:type], kYTDLInfoTypeKey,
+            [NSNumber numberWithBool:err], kYTDLInfoIsErrorKey,
+            nil];
+}
+
+-(void) getInfoFromURL:(NSString*)urlString type:(NSUInteger)type
 {
     if (delegate) {
         if (binPath) {
@@ -87,21 +103,28 @@
                 [self cancel];
                 
                 currentOperation = [[NSInvocationOperation alloc] initWithTarget:self
-                                                                        selector:@selector(getRealURLThread:)
-                                                                          object:urlString];
+                                                                        selector:@selector(getInfoThread:)
+                                                                          object:[NSArray arrayWithObjects:
+                                                                                  urlString,
+                                                                                  [NSNumber numberWithUnsignedInteger:type],
+                                                                                  nil]];
                 [queue addOperation:currentOperation];
             } else {
                 // file does not exist
-                [delegate ytdl:self gotError:@"Internal Error: Binary does not exist."];
+                [delegate ytdl:self gotInfo:[self makeInfoDict:@"Internal Error: Binary does not exist."
+                                                          type:type
+                                                       isError:YES]];
             }
         } else {
             // there is no path for the binary
-            [delegate ytdl:self gotError:@"Internal Error: No binary path."];
+            [delegate ytdl:self gotInfo:[self makeInfoDict:@"Internal Error: No binary path."
+                                                      type:type
+                                                   isError:YES]];
         }
     }
 }
 
--(void) getRealURLThread:(NSString*)urlStr
+-(void) getInfoThread:(NSArray*)args
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
@@ -110,10 +133,27 @@
     char *buf = NULL;
     NSString *retStr = nil;
     
+    NSString *urlStr = [args objectAtIndex:0];
+    NSUInteger type = [[args objectAtIndex:1] unsignedIntegerValue];
+    
     NSTask *task = [[NSTask alloc] init];
     
     [task setLaunchPath:binPath];
-    [task setArguments:[NSArray arrayWithObjects:@"-g", urlStr, nil]];
+    
+    if (type == kYTDLInfoTypeURL) {
+        [task setArguments:[NSArray arrayWithObjects:@"-g", urlStr, nil]];
+    } else if (type == kYTDLInfoTypeTitle) {
+        [task setArguments:[NSArray arrayWithObjects:@"-e", urlStr, nil]];
+    } else {
+        [self performSelectorOnMainThread:@selector(sendDelegateMessage:)
+                               withObject:[self makeInfoDict:@"Interal Error:Unacceptable Info Type"
+                                                        type:type
+                                                     isError:YES]
+                            waitUntilDone:YES
+                                    modes:[NSArray arrayWithObjects:NSDefaultRunLoopMode, NSModalPanelRunLoopMode, NSEventTrackingRunLoopMode, nil]];
+        goto ErrOut;
+    }
+    
     [task setStandardError:[NSPipe pipe]];
     [task setStandardOutput:[NSPipe pipe]];
     
@@ -152,31 +192,86 @@
     if (buf) {
         retStr = [NSString stringWithUTF8String:buf];
         free(buf);
+        
+        if (type == kYTDLInfoTypeTitle) {
+            // process the html entities here
+            retStr = [self processHtmlEntities:retStr];
+        }
     } else {
         retStr = [NSString stringWithString:@""];
     }
     
     if (currentOperation && (![currentOperation isCancelled])) {
         [self performSelectorOnMainThread:@selector(sendDelegateMessage:)
-                               withObject:[NSArray arrayWithObjects:retStr, [NSNumber numberWithBool:isError], nil]
+                               withObject:[self makeInfoDict:retStr
+                                                        type:type
+                                                     isError:isError]
                             waitUntilDone:YES
                                     modes:[NSArray arrayWithObjects:NSDefaultRunLoopMode, NSModalPanelRunLoopMode, NSEventTrackingRunLoopMode, nil]];
     } else {
         MPLog(@"this operation is cancelled");
     }
     
+ErrOut:
     [task release];
     [pool drain];
 }
 
--(void) sendDelegateMessage:(NSArray*)args
+-(NSString*) processHtmlEntities:(NSString*)str
+{
+    NSString *ret = nil;
+
+    if (str) {
+        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+        
+        NSArray *arr = [str componentsSeparatedByString:@"&#"];
+        
+        if ([arr count] == 1) {
+            ret = str;
+        } else {
+            BOOL firstMark = YES;
+            NSRange range;
+            range.location = ';';
+            range.length   = 1;
+            NSCharacterSet *cset = [NSCharacterSet characterSetWithRange:range];
+            
+            for (NSString* comp in arr) {
+                NSRange rng = [comp rangeOfCharacterFromSet:cset];
+                
+                if (!ret) {
+                    ret = @"";
+                }
+                if (rng.location == NSNotFound) {
+                    // did not find the ;
+                    if (firstMark) {
+                        continue;
+                        firstMark = NO;
+                    } else {
+                        ret = [ret stringByAppendingFormat:@"&#%@", comp];
+                    }
+                } else {
+                    // found ;
+                    firstMark = NO;
+                    NSString *digits = [comp substringToIndex:rng.location];
+                    NSString *tails  = [comp substringFromIndex:rng.location + rng.length];
+                    unichar encoded = [digits integerValue];
+                    
+                    ret = [ret stringByAppendingFormat:@"%@%@", 
+                           [NSString stringWithCharacters:&encoded length:1],
+                           tails];
+                }
+            }
+        }
+        [ret retain];
+        [pool drain];
+    }
+    return [ret autorelease];
+}
+
+-(void) sendDelegateMessage:(NSDictionary*)infoDict
 {
     if (delegate) {
-        if ([[args objectAtIndex:1] boolValue]) {
-            [delegate ytdl:self gotError:[args objectAtIndex:0]];
-        } else {
-            [delegate ytdl:self gotRealURL:[args objectAtIndex:0]];
-        }
+        [delegate ytdl:self gotInfo:infoDict];
     }
 }
 @end
