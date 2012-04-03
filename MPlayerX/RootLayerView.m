@@ -32,6 +32,7 @@
 #import "CocoaAppendix.h"
 #import "PlayerWindow.h"
 #import "LocalizedStrings.h"
+#import "def.h"
 
 #define kOnTopModeNormal		(0)
 #define kOnTopModeAlways		(1)
@@ -82,6 +83,7 @@
 -(void) applicationDidResignActive:(NSNotification*)notif;
 
 -(void) screenConfigurationChanged:(NSNotification*)notif;
+-(void) gotRemoteMediaInfo:(NSNotification*)notif;
 @end
 
 @interface RootLayerView (CoreDisplayDelegate)
@@ -290,6 +292,9 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	
 	[notifCenter addObserver:self selector:@selector(screenConfigurationChanged:)
 						name:NSApplicationDidChangeScreenParametersNotification object:NSApp];
+    
+    [notifCenter addObserver:self selector:@selector(gotRemoteMediaInfo:)
+                        name:kMPCRemoteMediaInfoNotification object:nil];
 }
 
 -(void) screenConfigurationChanged:(NSNotification *)notif
@@ -381,6 +386,11 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	} else {
 		[playerWindow setTitle:kMPCStringMPlayerX];
 	}
+}
+
+-(void) gotRemoteMediaInfo:(NSNotification*)notif
+{
+    [playerWindow setTitle:[[notif userInfo] objectForKey:kMPCRemoteMediaInfoTitleKey]];
 }
 
 #pragma mark keyboard/mouse
