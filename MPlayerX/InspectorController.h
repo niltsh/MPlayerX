@@ -24,6 +24,7 @@
 
 @interface InspectorController : NSObject {
 	BOOL nibLoaded;
+    id title;
 	
 	IBOutlet NSTextField *filename;
 	IBOutlet NSTextField *sourceInfo;
