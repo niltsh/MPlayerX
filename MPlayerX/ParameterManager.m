@@ -115,6 +115,7 @@ NSString * const kPMParEdl					= @"-edl";
 NSString * const kPMParAudioFile			= @"-audiofile";
 
 NSString * const kPMParNoFlipHebrew         = @"-noflip-hebrew";
+NSString * const kPMParFontFBList           = @"-font-fblist";
 
 #define kSubScaleNoAss			(8.0)
 
@@ -122,43 +123,14 @@ NSString * const kPMParNoFlipHebrew         = @"-noflip-hebrew";
 
 @implementation ParameterManager
 
-@synthesize subNameRule;
-@synthesize prefer64bMPlayer;
-@synthesize guessSubCP;
-@synthesize startTime;
-@synthesize volume;
-@synthesize subPos;
-@synthesize subAlign;
-@synthesize subScale;
-@synthesize subFont;
-@synthesize subCP;
-@synthesize threads;
-@synthesize textSubs;
-@synthesize vobSub;
-@synthesize forceIndex;
-@synthesize dtsPass;
-@synthesize ac3Pass;
-@synthesize useEmbeddedFonts;
-@synthesize cache;
-@synthesize preferIPV6;
-@synthesize letterBoxMode;
-@synthesize letterBoxHeight;
-@synthesize pauseAtStart;
-@synthesize overlapSub;
-@synthesize rtspOverHttp;
-@synthesize mixToStereo;
-@synthesize demuxer;
-@synthesize deinterlace;
-@synthesize imgEnhance;
-@synthesize extraOptions;
-@synthesize equalizer;
-@synthesize subBorderWidth;
-@synthesize noDispSub;
-@synthesize playDisk;
-@synthesize assSubMarginV;
-@synthesize displayCacheLog;
-@synthesize edlPath;
-@synthesize audioFilePath;
+@synthesize subNameRule, prefer64bMPlayer, guessSubCP, startTime, volume;
+@synthesize subPos, subAlign, subScale, subFont, subCP;
+@synthesize threads, textSubs, vobSub, forceIndex, dtsPass, ac3Pass;
+@synthesize useEmbeddedFonts, cache, preferIPV6, letterBoxMode, letterBoxHeight;
+@synthesize pauseAtStart, overlapSub, rtspOverHttp, mixToStereo;
+@synthesize demuxer, deinterlace, imgEnhance, extraOptions, equalizer;
+@synthesize subBorderWidth, noDispSub, playDisk, assSubMarginV, displayCacheLog;
+@synthesize edlPath, audioFilePath, fontFallbackList;
 
 #pragma mark Init/Dealloc
 -(id) init
@@ -218,6 +190,7 @@ NSString * const kPMParNoFlipHebrew         = @"-noflip-hebrew";
 		displayCacheLog = YES;
 		edlPath = nil;
 		audioFilePath = nil;
+        fontFallbackList = nil;
 	}
 	return self;
 }
@@ -237,6 +210,7 @@ NSString * const kPMParNoFlipHebrew         = @"-noflip-hebrew";
 	[equalizer release];
 	[edlPath release];
 	[audioFilePath release];
+    [fontFallbackList release];
 	
 	[super dealloc];
 }
@@ -567,6 +541,11 @@ NSString * const kPMParNoFlipHebrew         = @"-noflip-hebrew";
 		[paramArray addObject:kPMParAudioFile];
 		[paramArray addObject:audioFilePath];
 	}
+    
+    if (fontFallbackList) {
+        [paramArray addObject:kPMParFontFBList];
+        [paramArray addObject:[fontFallbackList componentsJoinedByString:kPMComma]];
+    }
 	
 	if (extraOptions) {
 		NSArray *extrasArray = [extraOptions componentsSeparatedByString:@" "];

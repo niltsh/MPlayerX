@@ -77,6 +77,7 @@
 	BOOL displayCacheLog;
 	NSString *edlPath;
 	NSString *audioFilePath;
+    NSArray *fontFallbackList;
 }
 
 @property (assign, readwrite) SUBFILE_NAMERULE subNameRule;
@@ -116,6 +117,7 @@
 @property (assign, readwrite) BOOL displayCacheLog;
 @property (retain, readwrite) NSString *edlPath;
 @property (retain, readwrite) NSString *audioFilePath;
+@property (retain, readwrite) NSArray *fontFallbackList;
 
 -(void) setSubFontColor:(NSColor*)col;
 -(void) setSubFontBorderColor:(NSColor*)col;

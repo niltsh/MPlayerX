@@ -131,7 +131,8 @@ enum {
 					   boolNo, kUDKeyNoDispSub,
 					   boolNo, kUDKeyAutoDetectSPDIF,
 					   boolYes, kUDKeyEnableOpenRecentMenu,
-					   nil]];	
+                       [NSArray arrayWithObjects:@"/Library/Fonts/Arial Unicode.ttf", nil], kUDKeyFontFallbackList,
+					   nil]];
 }
 
 #pragma mark Init/Dealloc
@@ -499,6 +500,7 @@ static BOOL isNetworkPath(const char *path)
 	}
 	
 	[mplayer.pm setNoDispSub:[ud boolForKey:kUDKeyNoDispSub]];
+    [mplayer.pm setFontFallbackList:[ud objectForKey:kUDKeyFontFallbackList]];
 
 	// 这里必须要retain，否则如果用lastPlayedPath作为参数传入的话会有问题
 	lastPlayedPathPre = [[url absoluteURL] retain];

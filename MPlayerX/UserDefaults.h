@@ -114,6 +114,7 @@ extern NSString * const kUDKeyResizeStep;
 extern NSString * const kUDKeyFrameScaleStep;
 extern NSString * const kUDKeyThreeFingersPinchThreshRatio;
 extern NSString * const kUDKeyFourFingersPinchThreshRatio;
+extern NSString * const kUDKeyFontFallbackList;
 
 // still not implemented
 extern NSString * const kUDKeyPinPMode;						// TODO
