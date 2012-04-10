@@ -190,6 +190,9 @@ enum {
 		autoPlayState = kMPCAutoPlayStateInvalid;
 		
 		nonSleepHandler = kIOPMNullAssertionID;
+        
+        mplayer.debug = [ud boolForKey:kUDKeyLogMode];
+        mplayer.pm.debug = [ud boolForKey:kUDKeyLogMode];
 	}
 	return self;
 }

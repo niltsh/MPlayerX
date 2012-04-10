@@ -23,6 +23,8 @@
 
 @interface ParameterManager : NSObject 
 {
+    BOOL debug;
+    
 	NSMutableArray *paramArray;
 	
 	SUBFILE_NAMERULE subNameRule;
@@ -118,6 +120,7 @@
 @property (retain, readwrite) NSString *edlPath;
 @property (retain, readwrite) NSString *audioFilePath;
 @property (retain, readwrite) NSArray *fontFallbackList;
+@property (assign, readwrite) BOOL debug;
 
 -(void) setSubFontColor:(NSColor*)col;
 -(void) setSubFontBorderColor:(NSColor*)col;

@@ -28,6 +28,8 @@
 
 @interface CoreController : NSObject <PlayerCoreDelegate, LogAnalyzerDelegate>
 {
+    BOOL debug;
+
 	// state
 	int state;
 
@@ -62,6 +64,7 @@
 @property (readonly)			LogAnalyzer *la;
 @property (assign, readwrite)	id<CoreDisplayDelegate> dispDelegate;
 @property (assign, readwrite)	id<CoreControllerDelegate> delegate;
+@property (assign, readwrite)   BOOL debug;
 
 -(void) setSubConverterDelegate:(id<SubConverterDelegate>)dlgt;
 

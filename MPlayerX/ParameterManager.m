@@ -27,6 +27,7 @@ NSString * const kPMDefaultSubLang			= @"en,eng,ch,chs,cht,ja,jpn";
 
 NSString * const kPMParMsgLevel				= @"-msglevel";
 NSString * const kPMValMsgLevel				= @"all=-1:global=4:cplayer=4:identify=4";
+NSString * const kPMValMsgLevelDebug		= @"all=4:global=4:cplayer=4:identify=4";
 NSString * const kPMParNoConfig             = @"-noconfig";
 NSString * const kPMValAll                  = @"all";
 NSString * const kPMFMTInt					= @"%d";
@@ -130,7 +131,7 @@ NSString * const kPMParFontFBList           = @"-font-fblist";
 @synthesize pauseAtStart, overlapSub, rtspOverHttp, mixToStereo;
 @synthesize demuxer, deinterlace, imgEnhance, extraOptions, equalizer;
 @synthesize subBorderWidth, noDispSub, playDisk, assSubMarginV, displayCacheLog;
-@synthesize edlPath, audioFilePath, fontFallbackList;
+@synthesize edlPath, audioFilePath, fontFallbackList, debug;
 
 #pragma mark Init/Dealloc
 -(id) init
@@ -138,6 +139,7 @@ NSString * const kPMParFontFBList           = @"-font-fblist";
 	self = [super init];
 	
 	if (self) {
+        debug = NO;
 		paramArray = nil;
 		frameDrop = NO;
 		osdLevel = 0;
@@ -250,7 +252,7 @@ NSString * const kPMParFontFBList           = @"-font-fblist";
 	}
 	
 	[paramArray addObject:kPMParMsgLevel];
-	[paramArray addObject:kPMValMsgLevel];
+	[paramArray addObject:(debug)?kPMValMsgLevelDebug:kPMValMsgLevel];
 	
 	[paramArray addObject:kPMParMsgCharset];
 	[paramArray addObject:kPMValMsgCharset];

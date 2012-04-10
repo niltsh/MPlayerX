@@ -82,13 +82,8 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 
 @implementation CoreController
 
-@synthesize state;
-@synthesize dispDelegate;
-@synthesize pm;
-@synthesize movieInfo;
-@synthesize mpPathPair;
-@synthesize la;
-@synthesize delegate;
+@synthesize state, dispDelegate, pm, movieInfo;
+@synthesize mpPathPair, la, delegate, debug;
 
 ///////////////////////////////////////////Init/Dealloc////////////////////////////////////////////////////////
 -(id) init
@@ -152,6 +147,8 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 		[renderThread start];
 		
 		pollingTimer = nil;
+        
+        debug = NO;
 	}
 	return self;
 }
@@ -265,14 +262,20 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 - (void) playerCore:(id)player outputAvailable:(NSData*)outData
 {
 	[la analyzeData:outData];
+    if (debug) {
+        NSString *log = [[NSString alloc] initWithData:outData encoding:NSUTF8StringEncoding];
+        MPLog(@"OUT:%@", log);
+        [log release];
+    }
 }
 
 - (void) playerCore:(id)player errorHappened:(NSData*) errData
 {
-	NSString *log = [[NSString alloc] initWithData:errData encoding:NSUTF8StringEncoding];
-	
-	MPLog(@"ERR:%@", log);
-	[log release];
+    if (debug) {
+        NSString *log = [[NSString alloc] initWithData:errData encoding:NSUTF8StringEncoding];
+        MPLog(@"ERR:%@", log);
+        [log release];
+    }
 }
 
 //////////////////////////////////////////////protocol for render/////////////////////////////////////////////////////
