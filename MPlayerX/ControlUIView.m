@@ -107,6 +107,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 					   boolNo, kUDKeyLBAutoHeightInFullScrn,
 					   boolNo, kUDKeyPlayWhenEnterFullScrn,
 					   boolYes, kUDKeyResizeControlBar,
+                       boolNo, kUDKeyPauseShowTime,
 					   nil]];
 }
 
@@ -612,7 +613,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			osdStr = kMPXStringOSDNull;
 			break;
 	}
-	[osd setStringValue:osdStr owner:kOSDOwnerOther updateTimer:YES];
+    if ([ud boolForKey:kUDKeyPauseShowTime] && (playerController.playerState == kMPCPausedState)) {
+        [osd setStringValue:@" " owner:kOSDOwnerTime updateTimer:YES];
+    } else {
+        [osd setStringValue:osdStr owner:kOSDOwnerOther updateTimer:YES];
+    }
 }
 
 -(IBAction) toggleMute:(id)sender

@@ -110,6 +110,7 @@ NSString * const kUDKeyClickTogPlayPause                    = @"ClickTogPlayPaus
 NSString * const kUDKeyARUseSysVol                          = @"ARUseSysVol";
 NSString * const kUDKeyARMenuKeyTogTimeDisp                 = @"ARMenuKeyTogTimeDisp";
 NSString * const kUDKeyAnimateFullScreen                    = @"AnimateFullScreen";
+NSString * const kUDKeyPauseShowTime                        = @"PauseShowTime";
 
 NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";
