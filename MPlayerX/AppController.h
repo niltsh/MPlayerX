@@ -31,6 +31,8 @@
 	
 	SPMediaKeyTap *keyTap;
 
+    NSSound *trashSound;
+    
 	IBOutlet PlayerController *playerController;
 	IBOutlet OpenURLController *openUrlController;
 	IBOutlet RootLayerView *dispView;

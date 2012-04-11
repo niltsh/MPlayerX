@@ -112,6 +112,7 @@ static BOOL init_ed = NO;
                 bookmarks = [[NSMutableDictionary alloc] initWithCapacity:10];
             }
             keyTap = nil;
+            trashSound = nil;
         }
 	}
 	return self;
@@ -128,6 +129,8 @@ static BOOL init_ed = NO;
 {
 	[bookmarks release];
 	[keyTap release];
+    [trashSound release];
+
 	sharedInstance = nil;
 	
 	[super dealloc];
@@ -284,10 +287,16 @@ static BOOL init_ed = NO;
 -(IBAction) moveToTrash:(id) sender
 {
 	NSURL *path = [[playerController lastPlayedPath] retain];
-		
+    
 	if (path && [path isFileURL]) {
 		[playerController stop];
-		[[NSWorkspace sharedWorkspace] recycleURLs:[NSArray arrayWithObject:path] completionHandler:nil];
+		[[NSWorkspace sharedWorkspace] recycleURLs:[NSArray arrayWithObject:path] completionHandler:^(NSDictionary *newURLs, NSError *error) {
+            if (!trashSound) {
+                trashSound = [[NSSound alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForSoundResource:@"drop-trash-sound"] byReference:YES];
+                [trashSound setLoops:NO];
+            }
+            [trashSound play];
+        }];
 	}
 	[path release];
 }
