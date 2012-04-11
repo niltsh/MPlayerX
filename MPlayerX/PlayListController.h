@@ -33,8 +33,8 @@
 
 +(PlayListController*) sharedPlayListController;
 
-+(NSString*) SearchNextMoviePathFrom:(NSString*)path inFormats:(NSSet*)exts;
-+(NSString*) SearchPreviousMoviePathFrom:(NSString*)path inFormats:(NSSet*)exts;
++(NSString*) SearchNextMoviePathFrom:(NSString*)path;
++(NSString*) SearchPreviousMoviePathFrom:(NSString*)path;
 
 -(IBAction) playNext:(id)sender;
 -(IBAction) playPrevious:(id)sender;

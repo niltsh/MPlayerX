@@ -28,6 +28,8 @@
 #import "SPMediaKeyTap.h"
 #import "AODetector.h"
 
+#import <CoreServices/CoreServices.h>
+
 #define kSnapshotSaveDefaultPath	(@"~/Pictures")
 
 /**
@@ -66,10 +68,6 @@ static BOOL init_ed = NO;
 @implementation AppController
 
 @synthesize bookmarks;
-@synthesize supportVideoFormats;
-@synthesize supportAudioFormats;
-@synthesize supportSubFormats;
-@synthesize playableFormats;
 
 +(void) initialize
 {
@@ -102,28 +100,7 @@ static BOOL init_ed = NO;
         if (self = [super init]) {
             ud = [NSUserDefaults standardUserDefaults];
             notifCenter = [NSNotificationCenter defaultCenter];
-            
-            NSBundle *mainBundle = [NSBundle mainBundle];
-            // 建立支持格式的Set
-            for( NSDictionary *dict in [mainBundle objectForInfoDictionaryKey:@"CFBundleDocumentTypes"]) {
-                
-                NSString *obj = [dict objectForKey:@"CFBundleTypeName"];
-                // 对不同种类的格式
-                if ([obj isEqualToString:@"Audio Media"]) {
-                    // 如果是音频文件
-                    supportAudioFormats = [[NSSet alloc] initWithArray:[dict objectForKey:@"CFBundleTypeExtensions"]];
-                    
-                } else if ([obj isEqualToString:@"Video Media"]) {
-                    // 如果是视频文件
-                    supportVideoFormats = [[NSSet alloc] initWithArray:[dict objectForKey:@"CFBundleTypeExtensions"]];
-                } else if ([obj isEqualToString:@"Subtitle"]) {
-                    // 如果是字幕文件
-                    supportSubFormats = [[NSSet alloc] initWithArray:[dict objectForKey:@"CFBundleTypeExtensions"]];
-                }
-            }
-            
-            playableFormats = [[supportVideoFormats setByAddingObjectsFromSet:supportAudioFormats] retain];
-            
+                        
             /////////////////////////setup bookmarks////////////////////
             // 得到书签的文件名
             NSString *lastStoppedTimePath = [[NSFileManager UserPath:NSApplicationSupportDirectory WithSuffix:kMPCStringMPlayerX] stringByAppendingPathComponent:kMPCFMTBookmarkPath];
@@ -149,11 +126,6 @@ static BOOL init_ed = NO;
 
 -(void) dealloc
 {
-	[supportVideoFormats release];
-	[supportAudioFormats release];
-	[supportSubFormats release];
-	[playableFormats release];
-	
 	[bookmarks release];
 	[keyTap release];
 	sharedInstance = nil;
@@ -340,6 +312,30 @@ static BOOL init_ed = NO;
 -(IBAction) gotoFeedbackPage:(id)sender
 {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kMPXFeedbackURL]];
+}
+
+-(BOOL) isFilePlayable:(NSString*)path
+{
+    if (path) {
+        NSWorkspace *ws = [NSWorkspace sharedWorkspace];
+        NSString *type = [ws typeOfFile:path error:NULL];
+        if (type && [ws type:type conformsToType:(NSString*)kUTTypeAudiovisualContent]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+-(BOOL) isFileSubtitle:(NSString*)path
+{
+    if (path) {
+        NSWorkspace *ws = [NSWorkspace sharedWorkspace];
+        NSString *type = [ws typeOfFile:path error:NULL];
+        if (type && [ws type:type conformsToType:(NSString*)kUTTypePlainText]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 //////////////////////////////////////Media Key Delegate//////////////////////////////////////

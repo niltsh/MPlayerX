@@ -365,14 +365,12 @@ enum {
 							break;
 						} else {
 							// 如果文件存在
-							NSString *ext = [[path pathExtension] lowercaseString];
-							
-							if ([[[AppController sharedAppController] playableFormats] containsObject:ext]) {
+							if ([[AppController sharedAppController] isFilePlayable:path]) {
 								// 如果是支持的格式
 								[self playMedia:file];
 								break;
 								
-							} else if ([[[AppController sharedAppController] supportSubFormats] containsObject:ext]) {
+							} else if ([[AppController sharedAppController] isFileSubtitle:path]) {
 								// 如果是字幕文件
 								if (PlayerCouldAcceptCommand) {
 									// 如果是在播放状态，就加载字幕
@@ -604,14 +602,13 @@ static BOOL isNetworkPath(const char *path)
 	{
 		// TODO 这里需要检查mediaFile是文件名还是 路径名
 		NSDictionary *fileAttr = [directoryEnumerator fileAttributes];
-		NSString *ext = [[mediaFile pathExtension] lowercaseString];
-		
+        
 		if ([[fileAttr objectForKey:NSFileType] isEqualToString:NSFileTypeDirectory]) {
 			//不遍历子目录
 			[directoryEnumerator skipDescendants];
 
 		} else if ([[fileAttr objectForKey:NSFileType] isEqualToString: NSFileTypeRegular] &&
-					([[[AppController sharedAppController] playableFormats] containsObject:ext])) {
+					([[AppController sharedAppController] isFilePlayable:[directoryPath stringByAppendingPathComponent:mediaFile]])) {
 			// 如果是正常文件，并且是媒体文件
 			NSString *mediaName = [[mediaFile stringByDeletingPathExtension] lowercaseString];
 			
@@ -977,9 +974,7 @@ static BOOL isNetworkPath(const char *path)
 	if ([ud boolForKey:kUDKeyAutoPlayNext] && [lastPlayedPath isFileURL] && (!stoppedByForce)) {
 		//如果不是强制关闭的话
 		//如果不是本地文件，肯定返回nil
-		NSString *nextPath = 
-			[PlayListController SearchNextMoviePathFrom:[lastPlayedPath path] 
-											  inFormats:[[AppController sharedAppController] playableFormats]];
+		NSString *nextPath = [PlayListController SearchNextMoviePathFrom:[lastPlayedPath path]];
 		
 		if (nextPath != nil) {			
 			autoPlayState = kMPCAutoPlayStateJustFound;

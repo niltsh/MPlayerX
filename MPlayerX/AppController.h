@@ -27,11 +27,6 @@
 	NSUserDefaults *ud;
 	NSNotificationCenter *notifCenter;
 
-	NSSet *supportVideoFormats;
-	NSSet *supportAudioFormats;
-	NSSet *supportSubFormats;
-	NSSet *playableFormats;
-
 	NSMutableDictionary *bookmarks;
 	
 	SPMediaKeyTap *keyTap;
@@ -44,12 +39,11 @@
 }
 
 @property (readonly) NSMutableDictionary *bookmarks;
-@property (readonly) NSSet *supportVideoFormats;
-@property (readonly) NSSet *supportAudioFormats;
-@property (readonly) NSSet *supportSubFormats;
-@property (readonly) NSSet *playableFormats;
 
 +(AppController*) sharedAppController;
+
+-(BOOL) isFilePlayable:(NSString*)path;
+-(BOOL) isFileSubtitle:(NSString*)path;
 
 -(IBAction) openFile:(id) sender;
 -(IBAction) openVIDEOTS:(id) sender;
