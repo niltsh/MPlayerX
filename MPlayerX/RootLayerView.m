@@ -142,6 +142,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 					   boolNo, kUDKeyAlwaysUseSecondaryScreen,
                        boolNo, kUDKeyClickTogPlayPause,
                        boolYes, kUDKeyAnimateFullScreen,
+                       boolYes, kUDKeyControlUIDetectMouseExit,
 					   nil]];
 }
 
@@ -550,7 +551,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 
 -(void) mouseExited:(NSEvent *)theEvent
 {
-	if (![self isInFullScreenMode]) {
+	if ((![self isInFullScreenMode]) && [ud boolForKey:kUDKeyControlUIDetectMouseExit]) {
 		// 全屏模式下，不那么积极的
 		[controlUI doHide];
 	}

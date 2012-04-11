@@ -107,6 +107,7 @@ extern NSString * const kUDKeyARUseSysVol;
 extern NSString * const kUDKeyARMenuKeyTogTimeDisp;
 extern NSString * const kUDKeyAnimateFullScreen;
 extern NSString * const kUDKeyPauseShowTime;
+extern NSString * const kUDKeyControlUIDetectMouseExit;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;
