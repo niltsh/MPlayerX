@@ -800,14 +800,14 @@
 								</object>
 								<object class="NSMenuItem" id="1044550076">
 									<reference key="NSMenu" ref="302108905"/>
-									<string key="NSTitle">Deinterlace</string>
+									<string key="NSTitle">Deinterlace Method</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 									<string key="NSAction">submenuAction:</string>
 									<object class="NSMenu" key="NSSubmenu" id="353687751">
-										<string key="NSTitle">Deinterlace</string>
+										<string key="NSTitle">Deinterlace Method</string>
 										<object class="NSMutableArray" key="NSMenuItems">
 											<bool key="EncodedWithXMLCoder">YES</bool>
 											<object class="NSMenuItem" id="137965554">
@@ -1921,6 +1921,7 @@
 							<string key="NSFrame">{{466, 2}, {12, 12}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<bool key="NSViewIsLayerTreeHost">YES</bool>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSClassName">ResizeIndicator</string>
@@ -1989,7 +1990,7 @@
 				<string key="NSWindowContentMaxSize">{500, 94}</string>
 				<string key="NSWindowContentMinSize">{500, 94}</string>
 				<object class="NSView" key="NSWindowView" id="77567990">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2180,7 +2181,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{500, 94}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="532294819"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
@@ -2189,7 +2189,7 @@
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSCustomView" id="568663015">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2261,7 +2261,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{541, 62}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="54709664"/>
 				<string key="NSReuseIdentifierKey">_NS:499</string>
 				<string key="NSClassName">NSView</string>
@@ -2276,7 +2275,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="90702681">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2339,7 +2338,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{480, 112}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="346616591"/>
 					<string key="NSReuseIdentifierKey">_NS:20</string>
 				</object>
