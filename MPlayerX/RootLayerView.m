@@ -33,6 +33,7 @@
 #import "PlayerWindow.h"
 #import "LocalizedStrings.h"
 #import "def.h"
+#import "AppController.h"
 
 #define kOnTopModeNormal		(0)
 #define kOnTopModeAlways		(1)
@@ -1644,10 +1645,16 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
         if (([NSEvent modifierFlags] & NSCommandKeyMask) == NSCommandKeyMask) {
             return NSDragOperationCopy;
         } else {
-            BOOL actOld = [osd isActive];
-            [osd setActive:YES];
-            [osd setStringValue:kMPXStringDragSubOSDHint owner:kOSDOwnerOther updateTimer:YES];
-            [osd setActive:actOld];
+            
+            NSArray *names = [pboard propertyListForType:NSFilenamesPboardType];
+            if (names && [names count]) {
+                if ([[AppController sharedAppController] isFileSubtitle:[names objectAtIndex:0]]) {
+                    BOOL actOld = [osd isActive];
+                    [osd setActive:YES];
+                    [osd setStringValue:kMPXStringDragSubOSDHint owner:kOSDOwnerOther updateTimer:YES];
+                    [osd setActive:actOld];
+                }
+            }
             return NSDragOperationMove;
         }
     }
