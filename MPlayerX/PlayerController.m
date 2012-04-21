@@ -131,7 +131,10 @@ enum {
 					   boolNo, kUDKeyNoDispSub,
 					   boolNo, kUDKeyAutoDetectSPDIF,
 					   boolYes, kUDKeyEnableOpenRecentMenu,
-                       [NSArray arrayWithObjects:@"/Library/Fonts/Arial Unicode.ttf", nil], kUDKeyFontFallbackList,
+                       [NSArray arrayWithObjects:
+                        @"/System/Library/Fonts/LucidaGrande.ttc",
+                        @"/Library/Fonts/Hiragino Sans GB W3.otf",
+                        @"/Library/Fonts/Arial Unicode.ttf", nil], kUDKeyFontFallbackList,
 					   nil]];
 }
 
@@ -181,6 +184,7 @@ enum {
 
 		// 决定是否使用64bit的mplayer
 		[mplayer.pm setPrefer64bMPlayer:[self shouldRun64bitMPlayer]];
+        [mplayer.pm setFontFallbackList:[ud objectForKey:kUDKeyFontFallbackList]];
 
 		lastPlayedPath = nil;
 		lastPlayedPathPre = nil;
@@ -501,7 +505,6 @@ static BOOL isNetworkPath(const char *path)
 	}
 	
 	[mplayer.pm setNoDispSub:[ud boolForKey:kUDKeyNoDispSub]];
-    [mplayer.pm setFontFallbackList:[ud objectForKey:kUDKeyFontFallbackList]];
 
 	// 这里必须要retain，否则如果用lastPlayedPath作为参数传入的话会有问题
 	lastPlayedPathPre = [[url absoluteURL] retain];
