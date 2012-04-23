@@ -1150,11 +1150,14 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			if (shouldResize) {
 				shouldResize = NO;
 				// 得到目标frame
-				/*
+                
+                MPLog(@"rcBefore:%@", NSStringFromRect(rcBeforeFullScrn));
+                // 这里的再次计算是必要的，当在全屏时由多个屏幕变为一个屏幕时，会退出全屏
+                // 这个时候 rcBeforeFullScrn 可能会在主屏幕外面
 				rcBeforeFullScrn = [self calculateFrameFrom:rcBeforeFullScrn
 													  toFit:[dispLayer aspectRatio]
 													   mode:kCalFrameSizeDiag | kCalFrameFixPosCenter];
-				*/
+                MPLog(@"rcAfter: %@", NSStringFromRect(rcBeforeFullScrn));
 				[dispLayer forceAdjustToFitBounds:YES];
 				if (displaying) {
 					// 先将playerWindow放到全屏窗口的背后
@@ -1288,7 +1291,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			if (shouldResize) {
 				shouldResize = NO;
 				// 得到目标frame
-				/*
+				// 多个屏幕的时候会强制使用旧方式全屏，因此 新方式的推出全屏只会出现在一个屏幕的时候
+                // rcBeforeFullScrn不会改变，因此不需要重新计算
+                /*
 				rcBeforeFullScrn = [self calculateFrameFrom:rcBeforeFullScrn
 													  toFit:[dispLayer aspectRatio]
 													   mode:kCalFrameSizeDiag | kCalFrameFixPosCenter];
