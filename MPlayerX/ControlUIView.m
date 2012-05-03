@@ -108,6 +108,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 					   boolNo, kUDKeyPlayWhenEnterFullScrn,
 					   boolYes, kUDKeyResizeControlBar,
                        boolNo, kUDKeyPauseShowTime,
+                       boolNo, kUDKeyResumedShowTime,
 					   nil]];
 }
 
@@ -613,7 +614,9 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			osdStr = kMPXStringOSDNull;
 			break;
 	}
-    if ([ud boolForKey:kUDKeyPauseShowTime] && (playerController.playerState == kMPCPausedState)) {
+    
+    if (([ud boolForKey:kUDKeyPauseShowTime] && (playerController.playerState == kMPCPausedState)) ||
+        ([ud boolForKey:kUDKeyResumedShowTime] && (playerController.playerState == kMPCPlayingState))) {
         [osd setStringValue:@" " owner:kOSDOwnerTime updateTimer:YES];
     } else {
         [osd setStringValue:osdStr owner:kOSDOwnerOther updateTimer:YES];
