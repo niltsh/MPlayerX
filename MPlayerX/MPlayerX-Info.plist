@@ -242,7 +242,7 @@
 			<key>UTTypeDescription</key>
 			<string>Advanced Audio Coding</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_audio</string>
+			<string>doc_aac</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-aac</string>
 			<key>UTTypeReferenceURL</key>
@@ -287,7 +287,7 @@
 			<key>UTTypeDescription</key>
 			<string>Monkey Audio</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_audio</string>
+			<string>doc_ape</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-monkeyaudio</string>
 			<key>UTTypeReferenceURL</key>
@@ -308,7 +308,7 @@
 			<key>UTTypeDescription</key>
 			<string>Free Lossless Audio Codec</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_audio</string>
+			<string>doc_flac</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-flac</string>
 			<key>UTTypeReferenceURL</key>
@@ -329,7 +329,7 @@
 			<key>UTTypeDescription</key>
 			<string>MIDI Audio</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_audio</string>
+			<string>doc_midi</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-midi</string>
 			<key>UTTypeReferenceURL</key>
@@ -352,7 +352,7 @@
 			<key>UTTypeDescription</key>
 			<string>Matroska Audio</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_audio</string>
+			<string>doc_mka</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-matroska-audio</string>
 			<key>UTTypeReferenceURL</key>
@@ -373,7 +373,7 @@
 			<key>UTTypeDescription</key>
 			<string>Ogg Audio</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_audio</string>
+			<string>doc_ogg</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-ogg</string>
 			<key>UTTypeReferenceURL</key>
@@ -436,7 +436,7 @@
 			<key>UTTypeDescription</key>
 			<string>DV Video</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_video</string>
+			<string>doc_dv</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-dv</string>
 			<key>UTTypeReferenceURL</key>
@@ -458,7 +458,7 @@
 			<key>UTTypeDescription</key>
 			<string>Flash Video</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_video</string>
+			<string>doc_flash</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-flash-video</string>
 			<key>UTTypeReferenceURL</key>
@@ -482,7 +482,7 @@
 			<key>UTTypeDescription</key>
 			<string>MPEG-2 Transport Stream</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_video</string>
+			<string>doc_mts</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-mts</string>
 			<key>UTTypeReferenceURL</key>
@@ -507,7 +507,7 @@
 			<key>UTTypeDescription</key>
 			<string>MPEG-4 Video</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_video</string>
+			<string>doc_mp4</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-m4v</string>
 			<key>UTTypeReferenceURL</key>
@@ -530,7 +530,7 @@
 			<key>UTTypeDescription</key>
 			<string>Matroska Video</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_video</string>
+			<string>doc_mkv</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-matroska-video</string>
 			<key>UTTypeReferenceURL</key>
@@ -573,7 +573,7 @@
 			<key>UTTypeDescription</key>
 			<string>Ogg Video</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_video</string>
+			<string>doc_ogm</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-ogg-video</string>
 			<key>UTTypeReferenceURL</key>
@@ -595,7 +595,7 @@
 			<key>UTTypeDescription</key>
 			<string>Real Media</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_video</string>
+			<string>doc_rm</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-rmvb</string>
 			<key>UTTypeReferenceURL</key>
@@ -659,7 +659,7 @@
 			<key>UTTypeDescription</key>
 			<string>SubRip Subtitle</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_sub</string>
+			<string>doc_srt</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-subrip</string>
 			<key>UTTypeReferenceURL</key>
@@ -701,7 +701,7 @@
 			<key>UTTypeDescription</key>
 			<string>Advanced Substation Alpha/Substation Alpha</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_sub</string>
+			<string>doc_ass</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-ass</string>
 			<key>UTTypeReferenceURL</key>
@@ -723,7 +723,7 @@
 			<key>UTTypeDescription</key>
 			<string>Direct VobSub</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_sub</string>
+			<string>doc_vobsub</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-vobsub</string>
 			<key>UTTypeReferenceURL</key>
@@ -745,7 +745,7 @@
 			<key>UTTypeDescription</key>
 			<string>SAMI Subtitle</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_sub</string>
+			<string>doc_sami</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-sami</string>
 			<key>UTTypeReferenceURL</key>
