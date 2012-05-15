@@ -33,6 +33,9 @@
 
     NSSound *trashSound;
     
+    NSSet *subExts;
+    NSSet *playableExts;
+    
 	IBOutlet PlayerController *playerController;
 	IBOutlet OpenURLController *openUrlController;
 	IBOutlet RootLayerView *dispView;

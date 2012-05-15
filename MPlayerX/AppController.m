@@ -113,6 +113,22 @@ static BOOL init_ed = NO;
             }
             keyTap = nil;
             trashSound = nil;
+            
+            subExts = [[NSSet alloc] initWithObjects:
+                       @"utf", @"utf8", @"srt", @"ass", @"smi", @"txt",
+                       @"ssa", @"smil", @"jss", @"rt", @"idx", @"sub", nil];
+            playableExts = [[NSSet alloc] initWithObjects:
+                            @"ac3", @"acm", @"dts", @"m3u", @"mpa", @"pcm", 
+                            @"ra", @"ram", @"asf", @"asx", @"dat", @"divx", 
+                            @"tp", @"mjp", @"mpeg", @"mpg", @"mtv", @"mxf",
+                            @"qtz", @"qt", @"vc1", @"vcd", @"vfw", @"vob",
+                            @"xvid", @"yuv", @"dvdmedia", @"aac", @"aif", @"aiff", 
+                            @"ape", @"caf", @"flac", @"m4a", @"mid", @"midi", 
+                            @"mka", @"mp3", @"ogg", @"wav", @"wma", @"3g2", 
+                            @"3gp", @"avi", @"dv", @"hdv", @"f4v", @"flv", 
+                            @"fli", @"swf", @"m2t", @"m2ts", @"mts", @"ts", 
+                            @"mp4", @"m4v", @"mkv", @"webm", @"mov", @"ogm", 
+                            @"ogv", @"rm", @"rmvb", @"rv", @"wmv", nil];
         }
 	}
 	return self;
@@ -130,6 +146,8 @@ static BOOL init_ed = NO;
 	[bookmarks release];
 	[keyTap release];
     [trashSound release];
+    [subExts release];
+    [playableExts release];
 
 	sharedInstance = nil;
 	
@@ -328,7 +346,8 @@ static BOOL init_ed = NO;
     if (path) {
         NSWorkspace *ws = [NSWorkspace sharedWorkspace];
         NSString *type = [ws typeOfFile:path error:NULL];
-        if (type && [ws type:type conformsToType:(NSString*)kUTTypeAudiovisualContent]) {
+        if ((type && [ws type:type conformsToType:(NSString*)kUTTypeAudiovisualContent]) ||
+            [playableExts containsObject:[[path pathExtension] lowercaseString]]) {
             return YES;
         }
     }
@@ -340,7 +359,10 @@ static BOOL init_ed = NO;
     if (path) {
         NSWorkspace *ws = [NSWorkspace sharedWorkspace];
         NSString *type = [ws typeOfFile:path error:NULL];
-        if (type && [ws type:type conformsToType:(NSString*)kUTTypePlainText]) {
+
+        if ((type && [ws type:type conformsToType:(NSString*)kUTTypePlainText]) ||
+            [subExts containsObject:[[path pathExtension] lowercaseString]]) {
+            // 如果文件是文本文件，或者扩展名OK
             return YES;
         }
     }
