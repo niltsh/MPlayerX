@@ -21,11 +21,9 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>doc_audio.icns</string>
 			<key>CFBundleTypeName</key>
-			<string>Audio Media</string>
+			<string>Audio Media Format</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSHandlerRank</key>
-			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
 			<array/>
 			<key>LSTypeIsPackage</key>
@@ -55,11 +53,9 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>doc_video.icns</string>
 			<key>CFBundleTypeName</key>
-			<string>Video Media</string>
+			<string>Video Meida Format</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSHandlerRank</key>
-			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
 			<array/>
 			<key>LSTypeIsPackage</key>
@@ -79,8 +75,6 @@
 			<string>Subtitle</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSHandlerRank</key>
-			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
 			<array/>
 			<key>LSTypeIsPackage</key>
@@ -94,11 +88,9 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>doc_video.icns</string>
 			<key>CFBundleTypeName</key>
-			<string>DVD Media</string>
+			<string>DVD Media Format</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSHandlerRank</key>
-			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
 			<array/>
 			<key>LSTypeIsPackage</key>
@@ -115,8 +107,6 @@
 			<string>AAC Media</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSHandlerRank</key>
-			<string>Alternate</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -139,7 +129,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>doc_ape</string>
 			<key>CFBundleTypeName</key>
-			<string>Monkey&apos;s Audio</string>
+			<string>Monkey's Audio</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 		</dict>
@@ -418,7 +408,7 @@
 				<string>ssa</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>doc_ass</string>
+			<string>doc_ssa</string>
 			<key>CFBundleTypeName</key>
 			<string>Advanced Substation Alpha/Substation Alpha</string>
 			<key>CFBundleTypeRole</key>
@@ -449,6 +439,18 @@
 			<string>Direct VobSub</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_video</string>
+			<key>CFBundleTypeName</key>
+			<string>General Media</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.data</string>
+			</array>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -595,7 +597,7 @@
 				<string>public.audio</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Monkey&apos;s Audio</string>
+			<string>Monkey's Audio</string>
 			<key>UTTypeIconFile</key>
 			<string>doc_ape</string>
 			<key>UTTypeIdentifier</key>
@@ -1011,7 +1013,7 @@
 			<key>UTTypeDescription</key>
 			<string>Advanced Substation Alpha/Substation Alpha</string>
 			<key>UTTypeIconFile</key>
-			<string>doc_ass</string>
+			<string>doc_ssa</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.niltsh.mplayerx-ass</string>
 			<key>UTTypeReferenceURL</key>
