@@ -8,7 +8,16 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
-			<array/>
+			<array>
+				<string>ac3</string>
+				<string>acm</string>
+				<string>dts</string>
+				<string>m3u</string>
+				<string>mpa</string>
+				<string>pcm</string>
+				<string>ra</string>
+				<string>ram</string>
+			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>doc_audio.icns</string>
 			<key>CFBundleTypeName</key>
@@ -18,34 +27,31 @@
 			<key>LSHandlerRank</key>
 			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
-			<array>
-				<string>org.niltsh.mplayerx-aac</string>
-				<string>org.niltsh.mplayerx-ac3</string>
-				<string>public.aifc-audio</string>
-				<string>public.aiff-audio</string>
-				<string>public.ulaw-audio</string>
-				<string>org.niltsh.mplayerx-monkeyaudio</string>
-				<string>com.apple.coreaudio-format</string>
-				<string>org.niltsh.mplayerx-flac</string>
-				<string>public.mpeg-4-audio</string>
-				<string>org.niltsh.mplayerx-midi</string>
-				<string>org.niltsh.mplayerx-matroska-audio</string>
-				<string>public.mp3</string>
-				<string>org.niltsh.mplayerx-ogg</string>
-				<string>org.niltsh.mplayerx-pcm</string>
-				<string>com.real.realaudio</string>
-				<string>com.microsoft.waveform-audio</string>
-				<string>com.microsoft.windows-media-wma</string>
-				<string>com.microsoft.windows-media-wmx</string>
-				<string>com.microsoft.advanced-stream-redirector</string>
-				<string>public.audio</string>
-			</array>
+			<array/>
 			<key>LSTypeIsPackage</key>
 			<false/>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
-			<array/>
+			<array>
+				<string>asf</string>
+				<string>asx</string>
+				<string>dat</string>
+				<string>divx</string>
+				<string>tp</string>
+				<string>mjp</string>
+				<string>mpeg</string>
+				<string>mpg</string>
+				<string>mtv</string>
+				<string>mxf</string>
+				<string>qtz</string>
+				<string>vc1</string>
+				<string>vcd</string>
+				<string>vfw</string>
+				<string>vob</string>
+				<string>xvid</string>
+				<string>yuv</string>
+			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>doc_video.icns</string>
 			<key>CFBundleTypeName</key>
@@ -55,39 +61,18 @@
 			<key>LSHandlerRank</key>
 			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
-			<array>
-				<string>public.3gpp2</string>
-				<string>public.3gpp</string>
-				<string>com.microsoft.advanced-systems-format</string>
-				<string>public.avi</string>
-				<string>org.niltsh.mplayerx-divx</string>
-				<string>public.dv-movie</string>
-				<string>org.niltsh.mplayerx-dv</string>
-				<string>org.niltsh.mplayerx-flash-video</string>
-				<string>org.niltsh.mplayerx-mts</string>
-				<string>org.niltsh.mplayerx-m4v</string>
-				<string>org.niltsh.mplayerx-matroska-video</string>
-				<string>com.apple.quicktime-movie</string>
-				<string>public.mpeg-4</string>
-				<string>public.mpeg</string>
-				<string>org.niltsh.mplayerx-mxf</string>
-				<string>org.niltsh.mplayerx-ogg-video</string>
-				<string>com.apple.quartz-composer-composition</string>
-				<string>com.real.realmedia</string>
-				<string>org.niltsh.mplayerx-rmvb</string>
-				<string>org.niltsh.mplayerx-video-object</string>
-				<string>com.microsoft.windows-media-wm</string>
-				<string>com.microsoft.windows-media-wmv</string>
-				<string>com.microsoft.windows-media-wmp</string>
-				<string>org.niltsh.mplayerx-xvid</string>
-				<string>public.movie</string>
-			</array>
+			<array/>
 			<key>LSTypeIsPackage</key>
 			<false/>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
-			<array/>
+			<array>
+				<string>utf</string>
+				<string>utf8</string>
+				<string>jss</string>
+				<string>rt</string>
+			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>doc_sub.icns</string>
 			<key>CFBundleTypeName</key>
@@ -97,20 +82,15 @@
 			<key>LSHandlerRank</key>
 			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
-			<array>
-				<string>org.niltsh.mplayerx-subrip</string>
-				<string>org.niltsh.mplayerx-ass</string>
-				<string>org.niltsh.mplayerx-sami</string>
-				<string>org.niltsh.mplayerx-microdvd</string>
-				<string>org.niltsh.mplayerx-vobsub</string>
-				<string>public.plain-text</string>
-			</array>
+			<array/>
 			<key>LSTypeIsPackage</key>
 			<false/>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
-			<array/>
+			<array>
+				<string>dvdmedia</string>
+			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>doc_video.icns</string>
 			<key>CFBundleTypeName</key>
@@ -120,25 +100,355 @@
 			<key>LSHandlerRank</key>
 			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
-			<array>
-				<string>org.niltsh.mplayerx-dvdmedia</string>
-			</array>
+			<array/>
 			<key>LSTypeIsPackage</key>
 			<true/>
 		</dict>
 		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>aac</string>
+			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>doc_video</string>
+			<string>doc_aac</string>
 			<key>CFBundleTypeName</key>
-			<string>General Media</string>
+			<string>AAC Media</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>Alternate</string>
-			<key>LSItemContentTypes</key>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>public.data</string>
+				<string>aif</string>
+				<string>aiff</string>
 			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_aiff</string>
+			<key>CFBundleTypeName</key>
+			<string>Audio Interchange File Format</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>ape</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_ape</string>
+			<key>CFBundleTypeName</key>
+			<string>Monkey&apos;s Audio</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>caf</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_caf</string>
+			<key>CFBundleTypeName</key>
+			<string>Core Audio Format</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>flac</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_flac</string>
+			<key>CFBundleTypeName</key>
+			<string>Free Lossless Audio Codec</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>m4a</string>
+				<string>m4b</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_m4a</string>
+			<key>CFBundleTypeName</key>
+			<string>MPEG-4 Audio</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>mid</string>
+				<string>midi</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_midi</string>
+			<key>CFBundleTypeName</key>
+			<string>MIDI Audio</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>mka</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_mka</string>
+			<key>CFBundleTypeName</key>
+			<string>Matroska Audio</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>mp3</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_mp3</string>
+			<key>CFBundleTypeName</key>
+			<string>MPEG-3 Audio</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>ogg</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_ogg</string>
+			<key>CFBundleTypeName</key>
+			<string>OGG Audio</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>wav</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_wav</string>
+			<key>CFBundleTypeName</key>
+			<string>WAVE Audio</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>wma</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_wma</string>
+			<key>CFBundleTypeName</key>
+			<string>Windows Media Audio</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>3g2</string>
+				<string>3gp</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_3gp</string>
+			<key>CFBundleTypeName</key>
+			<string>3GPP Media</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>avi</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_avi</string>
+			<key>CFBundleTypeName</key>
+			<string>Audio Video Interleave</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>dv</string>
+				<string>hdv</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_dv</string>
+			<key>CFBundleTypeName</key>
+			<string>DV Video</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>f4v</string>
+				<string>fli</string>
+				<string>flv</string>
+				<string>swf</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_flash</string>
+			<key>CFBundleTypeName</key>
+			<string>Flash Video</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>m2t</string>
+				<string>m2ts</string>
+				<string>mts</string>
+				<string>mtv</string>
+				<string>ts</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_mts</string>
+			<key>CFBundleTypeName</key>
+			<string>MPEG-2 Transport Stream</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>mp4</string>
+				<string>m4v</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_mp4</string>
+			<key>CFBundleTypeName</key>
+			<string>MPEG-4 Video</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>mkv</string>
+				<string>webm</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_mkv</string>
+			<key>CFBundleTypeName</key>
+			<string>Matroska Video</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>mov</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_mov</string>
+			<key>CFBundleTypeName</key>
+			<string>Apple QuickTime Movie</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>ogm</string>
+				<string>ogv</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_ogm</string>
+			<key>CFBundleTypeName</key>
+			<string>OGG Video</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>rm</string>
+				<string>rmvb</string>
+				<string>rv</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_rm</string>
+			<key>CFBundleTypeName</key>
+			<string>Real Video</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>wmv</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_wmv</string>
+			<key>CFBundleTypeName</key>
+			<string>Microsoft Media Video</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>srt</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_srt</string>
+			<key>CFBundleTypeName</key>
+			<string>SubRip Subtitle</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>ass</string>
+				<string>ssa</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_ass</string>
+			<key>CFBundleTypeName</key>
+			<string>Advanced Substation Alpha/Substation Alpha</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>smi</string>
+				<string>smil</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_sami</string>
+			<key>CFBundleTypeName</key>
+			<string>SAMI Subtitle</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>idx</string>
+				<string>sub</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>doc_vobsub</string>
+			<key>CFBundleTypeName</key>
+			<string>Direct VobSub</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -285,7 +595,7 @@
 				<string>public.audio</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Monkey Audio</string>
+			<string>Monkey&apos;s Audio</string>
 			<key>UTTypeIconFile</key>
 			<string>doc_ape</string>
 			<key>UTTypeIdentifier</key>
