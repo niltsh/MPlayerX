@@ -88,7 +88,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>doc_video.icns</string>
 			<key>CFBundleTypeName</key>
-			<string>DVD Media Format</string>
+			<string>DVD Media</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
@@ -1068,25 +1068,6 @@
 				<array>
 					<string>smi</string>
 					<string>smil</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.folder</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>DVDMedia Content</string>
-			<key>UTTypeIconFile</key>
-			<string>doc_video</string>
-			<key>UTTypeIdentifier</key>
-			<string>org.niltsh.mplayerx-dvdmedia</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>dvdmedia</string>
 				</array>
 			</dict>
 		</dict>
