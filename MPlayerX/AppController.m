@@ -98,6 +98,8 @@ static BOOL init_ed = NO;
 		init_ed = YES;
         
         if (self = [super init]) {
+            NSDictionary *dict;
+            
             ud = [NSUserDefaults standardUserDefaults];
             notifCenter = [NSNotificationCenter defaultCenter];
                         
@@ -114,21 +116,10 @@ static BOOL init_ed = NO;
             keyTap = nil;
             trashSound = nil;
             
-            subExts = [[NSSet alloc] initWithObjects:
-                       @"utf", @"utf8", @"srt", @"ass", @"smi", @"txt",
-                       @"ssa", @"smil", @"jss", @"rt", @"idx", @"sub", nil];
-            playableExts = [[NSSet alloc] initWithObjects:
-                            @"ac3", @"acm", @"dts", @"m3u", @"mpa", @"pcm", 
-                            @"ra", @"ram", @"asf", @"asx", @"dat", @"divx", 
-                            @"tp", @"mjp", @"mpeg", @"mpg", @"mtv", @"mxf",
-                            @"qtz", @"qt", @"vc1", @"vcd", @"vfw", @"vob",
-                            @"xvid", @"yuv", @"dvdmedia", @"aac", @"aif", @"aiff", 
-                            @"ape", @"caf", @"flac", @"m4a", @"mid", @"midi", 
-                            @"mka", @"mp3", @"ogg", @"wav", @"wma", @"3g2", 
-                            @"3gp", @"avi", @"dv", @"hdv", @"f4v", @"flv", 
-                            @"fli", @"swf", @"m2t", @"m2ts", @"mts", @"ts", 
-                            @"mp4", @"m4v", @"mkv", @"webm", @"mov", @"ogm", 
-                            @"ogv", @"rm", @"rmvb", @"rv", @"wmv", nil];
+            dict = [[NSBundle mainBundle] infoDictionary];
+            subExts = [[NSSet alloc] initWithArray:[dict objectForKey:@"SupportedSubtitleExtensions"]]; 
+            playableExts = [[NSSet alloc] initWithArray:[dict objectForKey:@"SupportedAVExtensions"]];
+            // MPLog(@"Sub %@ \n AV %@", subExts, playableExts);
         }
 	}
 	return self;
