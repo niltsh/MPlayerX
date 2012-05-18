@@ -39,6 +39,13 @@
 	float seekStepTimeU;
 	float seekStepTimeB;
     
+    float seekStepPeriod;
+    
+    NSTimeInterval lastSeekL;
+    NSTimeInterval lastSeekR;
+    NSTimeInterval lastSeekU;
+    NSTimeInterval lastSeekB;
+    
 	IBOutlet PlayerController *playerController;
 	IBOutlet ControlUIView *controlUI;
 	IBOutlet RootLayerView *dispView;

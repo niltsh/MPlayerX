@@ -51,7 +51,8 @@
 					   [NSNumber numberWithBool:YES], kUDKeySupportAppleRemote,
                        [NSNumber numberWithBool:NO], kUDKeyARUseSysVol,
                        [NSNumber numberWithBool:NO], kUDKeyARMenuKeyTogTimeDisp,
-					   nil]];
+					   [NSNumber numberWithFloat:0.1], kUDKeyKBSeekStepPeriod,
+                       nil]];
 }
 
 -(id) init
@@ -65,6 +66,13 @@
 		seekStepTimeR = [ud floatForKey:kUDKeySeekStepR];
 		seekStepTimeU = [ud floatForKey:kUDKeySeekStepU];
 		seekStepTimeB = [ud floatForKey:kUDKeySeekStepB];
+        
+        seekStepPeriod = [ud floatForKey:kUDKeyKBSeekStepPeriod];
+        
+        lastSeekL = 0;
+        lastSeekR = 0;
+        lastSeekU = 0;
+        lastSeekB = 0;
 
 		arKeyRepTime = [ud floatForKey:kUDKeyARKeyRepeatTimeInterval];
 
@@ -217,21 +225,35 @@
 			case 0:				// 什么功能键也没有按
 				switch (key)
 				{
+                    NSTimeInterval evtTime = [event timestamp];
+                    
 					case NSRightArrowFunctionKey:
-						if ([playerController playerState] == kMPCPausedState) {
-							[playerController frameStep];
-						} else {
-							[controlUI changeTimeBy:seekStepTimeR];
-						}
+                        if ((evtTime - lastSeekR) > seekStepPeriod) {
+                            if ([playerController playerState] == kMPCPausedState) {
+                                [playerController frameStep];
+                            } else {
+                                [controlUI changeTimeBy:seekStepTimeR];
+                            }
+                            lastSeekR = evtTime;
+                        }
 						break;
 					case NSLeftArrowFunctionKey:
-						[controlUI changeTimeBy:seekStepTimeL];
+                        if ((evtTime - lastSeekL) > seekStepPeriod) {
+                            [controlUI changeTimeBy:seekStepTimeL];
+                            lastSeekL = evtTime;
+                        }
 						break;
 					case NSUpArrowFunctionKey:
-						[controlUI changeTimeBy:seekStepTimeU];
+                        if ((evtTime - lastSeekU) > seekStepPeriod) {
+                            [controlUI changeTimeBy:seekStepTimeU];
+                            lastSeekU = evtTime;
+                        }
 						break;
 					case NSDownArrowFunctionKey:
-						[controlUI changeTimeBy:seekStepTimeB];
+                        if ((evtTime - lastSeekB) > seekStepPeriod) {
+                            [controlUI changeTimeBy:seekStepTimeB];
+                            lastSeekB = evtTime;
+                        }
 						break;
 					default:
 						ret = NO;
