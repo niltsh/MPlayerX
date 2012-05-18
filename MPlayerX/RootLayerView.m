@@ -608,6 +608,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 			if ((fabsf(x) > fabsf(y*8)) && (![ud boolForKey:kUDKeyDisableHScrollSeek])) {
 				// MPLog(@"%f", x);
                 NSTimeInterval evtTime = [theEvent timestamp];
+                // MPLog(@"%f", (float)evtTime);
                 
                 if ((evtTime - lastScrollLR) > [ud floatForKey:kUDKeyKBSeekStepPeriod]) {
                     switch ([playerController playerState]) {

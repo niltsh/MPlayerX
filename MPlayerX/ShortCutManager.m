@@ -51,7 +51,7 @@
 					   [NSNumber numberWithBool:YES], kUDKeySupportAppleRemote,
                        [NSNumber numberWithBool:NO], kUDKeyARUseSysVol,
                        [NSNumber numberWithBool:NO], kUDKeyARMenuKeyTogTimeDisp,
-					   [NSNumber numberWithFloat:0.1], kUDKeyKBSeekStepPeriod,
+					   [NSNumber numberWithFloat:0.5], kUDKeyKBSeekStepPeriod,
                        nil]];
 }
 
@@ -225,7 +225,7 @@
 			case 0:				// 什么功能键也没有按
             {
                 NSTimeInterval evtTime = [event timestamp];
-
+                //MPLog(@"%f", (float)evtTime);
 				switch (key) {                        
 					case NSRightArrowFunctionKey:
                         if ((evtTime - lastSeekR) > seekStepPeriod) {
@@ -235,6 +235,7 @@
                                 [controlUI changeTimeBy:seekStepTimeR];
                             }
                             lastSeekR = evtTime;
+                            //MPLog(@"R proc");
                         }
 						break;
 					case NSLeftArrowFunctionKey:
