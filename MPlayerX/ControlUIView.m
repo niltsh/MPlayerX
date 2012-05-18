@@ -108,7 +108,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 					   boolNo, kUDKeyPlayWhenEnterFullScrn,
 					   boolYes, kUDKeyResizeControlBar,
                        boolNo, kUDKeyPauseShowTime,
-                       boolNo, kUDKeyResumedShowTime,
+                       boolYes, kUDKeyResumedShowTime,
 					   nil]];
 }
 
