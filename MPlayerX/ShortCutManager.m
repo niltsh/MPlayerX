@@ -223,10 +223,10 @@
                 }
                 break;
 			case 0:				// 什么功能键也没有按
-				switch (key)
-				{
-                    NSTimeInterval evtTime = [event timestamp];
-                    
+            {
+                NSTimeInterval evtTime = [event timestamp];
+
+				switch (key) {                        
 					case NSRightArrowFunctionKey:
                         if ((evtTime - lastSeekR) > seekStepPeriod) {
                             if ([playerController playerState] == kMPCPausedState) {
@@ -259,7 +259,8 @@
 						ret = NO;
 						break;
 				}
-				break;
+            }
+                break;
 			default:
 				ret = NO;
 				break;
