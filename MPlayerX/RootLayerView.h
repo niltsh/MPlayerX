@@ -56,6 +56,8 @@
 	float threeFingersPinchDistance;
 	NSInteger fourFingersPinch;
 	float fourFingersPinchDistance;
+    
+    NSTimeInterval lastScrollLR;
 	
 	// 在切换全屏的时候，view的window会发生变化，因此这里用一个成员变量锁定window
 	IBOutlet PlayerWindow *playerWindow;

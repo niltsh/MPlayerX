@@ -183,6 +183,8 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 		threeFingersPinchDistance = 1;
 		fourFingersPinch = kFourFingersPinchInit;
 		fourFingersPinchDistance = 1;
+        
+        lastScrollLR = 0;
 
 		[self setAcceptsTouchEvents:YES];
 		[self setWantsRestingTouches:NO];
@@ -605,18 +607,23 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 		case 0:
 			if ((fabsf(x) > fabsf(y*8)) && (![ud boolForKey:kUDKeyDisableHScrollSeek])) {
 				// MPLog(@"%f", x);
-				switch ([playerController playerState]) {
-					case kMPCPausedState:
-						if (x < 0) {
-							[playerController frameStep];
-						}
-						break;
-					case kMPCPlayingState:
-						[controlUI changeTimeBy:-x];
-						break;
-					default:
-						break;
-				}
+                NSTimeInterval evtTime = [event timestamp];
+                
+                if ((evtTime - lastScrollLR) > [ud floatForKey:kUDKeyKBSeekStepPeriod]) {
+                    switch ([playerController playerState]) {
+                        case kMPCPausedState:
+                            if (x < 0) {
+                                [playerController frameStep];
+                            }
+                            break;
+                        case kMPCPlayingState:
+                            [controlUI changeTimeBy:-x];
+                            break;
+                        default:
+                            break;
+                    }
+                    lastScrollLR = evtTime;
+                }
 			} else if ((fabsf(x*8) < fabsf(y)) && (![ud boolForKey:kUDKeyDisableVScrollVol])) {
 				[controlUI changeVolumeBy:[NSNumber numberWithFloat:y*0.2]];
 			}
