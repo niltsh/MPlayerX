@@ -20,6 +20,7 @@
 
 #import "CocoaAppendix.h"
 #import "LocalizedStrings.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define kMPXSysVersionInvalid		(0x0000)
 
@@ -688,3 +689,22 @@ SInt32 MPXGetSysVersion()
 	NSReleaseAlertPanel(alertPanel);
 }
 @end
+
+NSImage* MPCreateNSImageFromCIImage(CIImage *ciImage)
+{
+    NSImage *ret = nil;
+    if (ciImage) {
+        ret = [[NSImage alloc] initWithSize: NSMakeSize([ciImage extent].size.width, [ciImage extent].size.height)];
+        [ret lockFocus];
+        
+        CGContextRef contextRef = [[NSGraphicsContext currentContext] graphicsPort];
+        CIContext *ciContext = [CIContext contextWithCGContext:contextRef
+                                                       options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES]
+                                                                                           forKey:kCIContextUseSoftwareRenderer]];
+        [ciContext drawImage:ciImage atPoint:CGPointMake(0, 0) fromRect:[ciImage extent]];
+        /*Does not leak when using the software renderer!*/
+        [ret unlockFocus];
+    }
+    return ret;
+}
+

@@ -60,3 +60,5 @@ SInt32 MPXGetSysVersion();
 @interface NSObject (MPXAdditional)
 -(void) showAlertPanelModal:(NSString*) str;
 @end
+
+NSImage* MPCreateNSImageFromCIImage(CIImage *ciImage);
