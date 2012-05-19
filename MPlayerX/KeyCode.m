@@ -89,3 +89,5 @@ NSString * const kSCMSubDelayResetKeyEquivalent			= @"\\";
 NSString * const kSCMABLoopSetStartKeyEquivalent        = @"b";
 NSString * const kSCMABLoopSetReturnKeyEquivalent       = @"n";
 NSString * const kSCMABLoopSetCancelKeyEquivalent       = @"h";
+
+NSString * const kSCMGotoSnapshotFolderKeyEquivalent    = @"g";

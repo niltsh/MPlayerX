@@ -252,6 +252,9 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
     [menuABLPSetStart setKeyEquivalent:kSCMABLoopSetStartKeyEquivalent];
     [menuABLPSetReturn setKeyEquivalent:kSCMABLoopSetReturnKeyEquivalent];
     [menuABLPCancel setKeyEquivalent:kSCMABLoopSetCancelKeyEquivalent];
+    
+    [menuGotoSnapshotFolder setKeyEquivalentModifierMask:kSCMGotoSnapshotFolderKeyEquivalentModifierFlagMask];
+    [menuGotoSnapshotFolder setKeyEquivalent:kSCMGotoSnapshotFolderKeyEquivalent];
 	
 	////////////////////////////////////////load Images////////////////////////////////////////
 	// 初始化音量大小图标

@@ -125,3 +125,6 @@ extern NSString * const kSCMWindowFitToScreenKeyEquivalent;
 extern NSString * const kSCMABLoopSetStartKeyEquivalent;
 extern NSString * const kSCMABLoopSetReturnKeyEquivalent;
 extern NSString * const kSCMABLoopSetCancelKeyEquivalent;
+
+extern NSString * const kSCMGotoSnapshotFolderKeyEquivalent;
+#define kSCMGotoSnapshotFolderKeyEquivalentModifierFlagMask     (NSCommandKeyMask|NSShiftKeyMask)

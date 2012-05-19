@@ -132,6 +132,8 @@
     IBOutlet NSMenuItem *menuABLPCancel;
     
     IBOutlet NSMenu *deintMenu;
+    
+    IBOutlet NSMenuItem *menuGotoSnapshotFolder;
 }
 
 ////////////////////////////////显示相关////////////////////////////////

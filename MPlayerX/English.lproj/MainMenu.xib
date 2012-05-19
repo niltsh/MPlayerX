@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">11D50</string>
+		<string key="IBDocument.SystemVersion">11E53</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
-		<string key="IBDocument.AppKitVersion">1138.32</string>
-		<string key="IBDocument.HIToolboxVersion">568.00</string>
+		<string key="IBDocument.AppKitVersion">1138.47</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">2182</string>
@@ -27,6 +27,7 @@
 			<string>NSView</string>
 			<string>NSWindowTemplate</string>
 			<string>NSTextField</string>
+			<string>NSUserDefaultsController</string>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -373,6 +374,14 @@
 									<reference key="NSMenu" ref="458109416"/>
 									<bool key="NSIsDisabled">YES</bool>
 									<string key="NSTitle">Snapshot</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="1035171433">
+									<reference key="NSMenu" ref="458109416"/>
+									<string key="NSTitle">Goto Snapshot Folder</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -2375,6 +2384,9 @@
 			<object class="NSCustomObject" id="504271648">
 				<string key="NSClassName">PlayListController</string>
 			</object>
+			<object class="NSUserDefaultsController" id="208711934">
+				<bool key="NSSharedInstance">YES</bool>
+			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
@@ -3749,6 +3761,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuGotoSnapshotFolder</string>
+						<reference key="source" ref="85098728"/>
+						<reference key="destination" ref="1035171433"/>
+					</object>
+					<int key="connectionID">1211</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
 						<string key="label">controlUI</string>
 						<reference key="source" ref="774071611"/>
 						<reference key="destination" ref="85098728"/>
@@ -3957,6 +3977,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
+						<string key="label">revealSnapshotPath:</string>
+						<reference key="source" ref="924801219"/>
+						<reference key="destination" ref="1035171433"/>
+					</object>
+					<int key="connectionID">1210</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
 						<string key="label">showUI:</string>
 						<reference key="source" ref="986313835"/>
 						<reference key="destination" ref="902432428"/>
@@ -4130,6 +4158,22 @@
 						<reference key="destination" ref="976324537"/>
 					</object>
 					<int key="connectionID">1032</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: values.SnapshotFormat</string>
+						<reference key="source" ref="1035171433"/>
+						<reference key="destination" ref="208711934"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="1035171433"/>
+							<reference key="NSDestination" ref="208711934"/>
+							<string key="NSLabel">enabled: values.SnapshotFormat</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">values.SnapshotFormat</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1209</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -4546,6 +4590,7 @@
 							<reference ref="838516892"/>
 							<reference ref="124910692"/>
 							<reference ref="89559302"/>
+							<reference ref="1035171433"/>
 						</object>
 						<reference key="parent" ref="759618259"/>
 					</object>
@@ -5724,6 +5769,16 @@
 						<reference key="object" ref="344030224"/>
 						<reference key="parent" ref="353687751"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1206</int>
+						<reference key="object" ref="1035171433"/>
+						<reference key="parent" ref="458109416"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1207</int>
+						<reference key="object" ref="208711934"/>
+						<reference key="parent" ref="0"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -5828,6 +5883,8 @@
 					<string>1198.IBPluginDependency</string>
 					<string>1200.IBPluginDependency</string>
 					<string>1201.IBPluginDependency</string>
+					<string>1206.IBPluginDependency</string>
+					<string>1207.IBPluginDependency</string>
 					<string>124.IBPluginDependency</string>
 					<string>125.IBPluginDependency</string>
 					<string>126.IBPluginDependency</string>
@@ -6129,6 +6186,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{364, 564}, {480, 360}}</string>
 					<boolean value="NO"/>
 					<string>RootLayerView</string>
@@ -6356,7 +6415,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1205</int>
+			<int key="maxID">1211</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6900,6 +6959,7 @@
 							<string>menuEnlargeFrame</string>
 							<string>menuEnlargeFrame2</string>
 							<string>menuFlip</string>
+							<string>menuGotoSnapshotFolder</string>
 							<string>menuMirror</string>
 							<string>menuMoveFrameToCenter</string>
 							<string>menuMoveToTrash</string>
@@ -7009,6 +7069,7 @@
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
 							<string>NSButton</string>
 							<string>OsdText</string>
 							<string>NSButton</string>
@@ -7049,6 +7110,7 @@
 							<string>menuEnlargeFrame</string>
 							<string>menuEnlargeFrame2</string>
 							<string>menuFlip</string>
+							<string>menuGotoSnapshotFolder</string>
 							<string>menuMirror</string>
 							<string>menuMoveFrameToCenter</string>
 							<string>menuMoveToTrash</string>
@@ -7174,6 +7236,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">menuFlip</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuGotoSnapshotFolder</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -7916,12 +7982,16 @@
 							<string>onTopModeChanged:</string>
 							<string>osdSetChanged:</string>
 							<string>recentMenuSettingChanged:</string>
+							<string>revealSnapshotPath:</string>
 							<string>showUI:</string>
+							<string>snapshotFormatChanged:</string>
 							<string>subEncodingSchemeChanged:</string>
 							<string>switchViews:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -7947,7 +8017,9 @@
 							<string>onTopModeChanged:</string>
 							<string>osdSetChanged:</string>
 							<string>recentMenuSettingChanged:</string>
+							<string>revealSnapshotPath:</string>
 							<string>showUI:</string>
+							<string>snapshotFormatChanged:</string>
 							<string>subEncodingSchemeChanged:</string>
 							<string>switchViews:</string>
 						</object>
@@ -7986,7 +8058,15 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">revealSnapshotPath:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">showUI:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">snapshotFormatChanged:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
