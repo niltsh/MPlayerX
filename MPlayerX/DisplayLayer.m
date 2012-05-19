@@ -99,7 +99,20 @@
 -(CIImage*) snapshot
 {
 	if (bufRefs && (frameNow >= 0)) {
-		return [CIImage imageWithCVImageBuffer:bufRefs[frameNow]];
+        CIImage *org = [CIImage imageWithCVImageBuffer:bufRefs[frameNow]];
+        CIImage *dst = org;
+        float inputRatio = [self originalAspectRatio] * [org extent].size.height / [org extent].size.width;
+        
+        if (fabsf(inputRatio - 1) >= 0.001) {
+            // if there are huge error between fmt.ratio and width/height, which means SAR != 1
+            CIFilter *scaleFilter = [CIFilter filterWithName:@"CILanczosScaleTransform"];
+            [scaleFilter setValue:org forKey:@"inputImage"];
+            [scaleFilter setValue:[NSNumber numberWithFloat:1.0] forKey:@"inputScale"];
+            [scaleFilter setValue:[NSNumber numberWithFloat:inputRatio] forKey:@"inputAspectRatio"];
+            
+            dst = [scaleFilter valueForKey:@"outputImage"];
+        }
+        return dst;
 	}
 	return nil;
 }
