@@ -89,6 +89,7 @@
 					<string key="NSFrameSize">{413, 228}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
+					<reference key="NSNextKeyView"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
@@ -96,7 +97,7 @@
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSCustomView" id="379309208">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -105,6 +106,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{524, 16}, {18, 20}}</string>
 						<reference key="NSSuperview" ref="379309208"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="726333758">
@@ -1182,6 +1184,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{560, 469}</string>
+				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="510195735"/>
 				<string key="NSClassName">NSView</string>
 			</object>
@@ -3419,14 +3422,6 @@ dGhpcywgb3RoZXJ3aXNlIHBsZWFzZSBsZWF2ZSBpdCBibGFuay4</string>
 					<int key="connectionID">606</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">revealSnapshotPathToFinder</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="354229521"/>
-					</object>
-					<int key="connectionID">610</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">revealSnapshotPath:</string>
 						<reference key="source" ref="1001"/>
@@ -4888,6 +4883,26 @@ dGhpcywgb3RoZXJ3aXNlIHBsZWFzZSBsZWF2ZSBpdCBibGFuay4</string>
 						</object>
 					</object>
 					<int key="connectionID">605</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: values.SnapshotFormat</string>
+						<reference key="source" ref="354229521"/>
+						<reference key="destination" ref="659034198"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="354229521"/>
+							<reference key="NSDestination" ref="659034198"/>
+							<string key="NSLabel">enabled: values.SnapshotFormat</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">values.SnapshotFormat</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSNullPlaceholder</string>
+								<integer value="0" key="NS.object.0"/>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">613</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -7352,7 +7367,7 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">611</int>
+			<int key="maxID">613</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -8442,7 +8457,6 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>playerController</string>
 							<string>prefToolbar</string>
 							<string>prefWin</string>
-							<string>revealSnapshotPathToFinder</string>
 							<string>viewAdvanced</string>
 							<string>viewAudio</string>
 							<string>viewGeneral</string>
@@ -8459,7 +8473,6 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>PlayerController</string>
 							<string>NSToolbar</string>
 							<string>NSWindow</string>
-							<string>NSButton</string>
 							<string>NSView</string>
 							<string>NSView</string>
 							<string>NSView</string>
@@ -8479,7 +8492,6 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<string>playerController</string>
 							<string>prefToolbar</string>
 							<string>prefWin</string>
-							<string>revealSnapshotPathToFinder</string>
 							<string>viewAdvanced</string>
 							<string>viewAudio</string>
 							<string>viewGeneral</string>
@@ -8516,10 +8528,6 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 							<object class="IBToOneOutletInfo">
 								<string key="name">prefWin</string>
 								<string key="candidateClassName">NSWindow</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">revealSnapshotPathToFinder</string>
-								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">viewAdvanced</string>

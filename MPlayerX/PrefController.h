@@ -44,7 +44,6 @@
 	IBOutlet ControlUIView *controlUI;
 	IBOutlet NSPopUpButton *charsetListPopup;
 	IBOutlet NSPopUpButton *fontListPopup;
-    IBOutlet NSButton *revealSnapshotPathToFinder;
 }
 
 -(IBAction) showUI:(id)sender;

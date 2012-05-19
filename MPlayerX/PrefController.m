@@ -150,9 +150,6 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 
 		[fontPool drain];
 
-        if ([[ud objectForKey:kUDKeySnapshotSavePath] isEqualToString:@""]) {
-            [revealSnapshotPathToFinder setEnabled:NO];
-        }
 		/////////////////////////////////////////////////////////////////////
 		CGFloat winH = [prefWin frame].size.height;
 		
@@ -285,7 +282,6 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
     if (selection == kMPSnapshotFormatPasteBoard) {
         // if save to pasteboard, clear the save path
         [ud setObject:@"" forKey:kUDKeySnapshotSavePath];
-        [revealSnapshotPathToFinder setEnabled:NO];
     } else {
         // if save to file, pop up the open panel
         NSOpenPanel *panel = [NSOpenPanel openPanel];
@@ -315,7 +311,6 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
                     [ud setObject:kMPXSnapshotSaveDefaultPath forKey:kUDKeySnapshotSavePath];
                 }
             }
-            [revealSnapshotPathToFinder setEnabled:YES];
         }];
     }
 }
