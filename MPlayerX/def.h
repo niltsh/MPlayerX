@@ -28,3 +28,9 @@ extern NSString * const kMPXMediaKeyBackwardNotification;
 
 extern NSString * const kMPCRemoteMediaInfoNotification;
 extern NSString * const kMPCRemoteMediaInfoTitleKey;
+
+#define kMPSnapshotFormatPasteBoard     (0)
+#define kMPSnapshotFormatPNG            (1)
+#define kMPSnapshotFormatJPEG           (2)
+#define kMPSnapshotFormatTIFF           (3)
+#define kMPSnapshotFormatBMP            (4)

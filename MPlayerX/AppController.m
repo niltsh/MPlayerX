@@ -79,6 +79,7 @@ static BOOL init_ed = NO;
 					   [SPMediaKeyTap defaultMediaKeyUserBundleIdentifiers], kMediaKeyUsingBundleIdentifiersDefaultsKey,
 					   [NSNumber numberWithBool:YES], kUDKeyEnableMediaKeyTap,
 					   [NSNumber numberWithBool:NO], kUDKeyDisableLastStopBookmark,
+                       [NSNumber numberWithInt:kMPSnapshotFormatPNG], kUDKeySnapshotFormat,
 					   nil]];
 
 	MPSetLogEnable([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyLogMode]);

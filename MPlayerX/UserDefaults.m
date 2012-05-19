@@ -33,6 +33,7 @@ NSString * const kUDKeySeekStepB							= @"SeekStepTimeB";
 NSString * const kUDKeyVolumeStep							= @"VolumeStep";
 NSString * const kUDKeyAutoPlayNext							= @"AutoPlayNext";
 NSString * const kUDKeySubFontPath							= @"SubFontPath";
+NSString * const kUDKeySnapshotFormat                       = @"SnapshotFormat";
 NSString * const kUDKeySnapshotSavePath						= @"SnapshotSavePath";
 NSString * const kUDKeyStartByFullScreen					= @"StartByFullScreen";
 NSString * const kUDKeySubDelayStepTime						= @"SubDelayStepTime";
