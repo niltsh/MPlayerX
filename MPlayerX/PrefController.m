@@ -286,13 +286,18 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
         // if save to file, pop up the open panel
         NSOpenPanel *panel = [NSOpenPanel openPanel];
         
+        [panel setDelegate:self];
+        
         [panel setCanChooseFiles:NO];
         [panel setCanChooseDirectories:YES];
         [panel setResolvesAliases:NO];
         [panel setAllowsMultipleSelection:NO];
         [panel setCanCreateDirectories:YES];
+        [panel setTreatsFilePackagesAsDirectories:NO];
         
         [panel beginSheetModalForWindow:prefWin completionHandler:^(NSInteger result) {
+            
+            [panel setDelegate:nil];
             
             if (result == NSFileHandlingPanelOKButton) {
                 NSString *path = [[[panel URLs] objectAtIndex:0] path];
@@ -308,6 +313,14 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
             }
         }];
     }
+}
+
+- (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url
+{
+    if ([[NSFileManager defaultManager] isWritableFileAtPath:[url path]]) {
+        return YES;
+    }
+    return NO;
 }
 
 /////////////////////////////Toolbar Delegate/////////////////////

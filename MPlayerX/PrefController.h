@@ -22,7 +22,7 @@
 
 @class PlayerController, RootLayerView, ControlUIView;
 
-@interface PrefController : NSObject
+@interface PrefController : NSObject <NSOpenSavePanelDelegate>
 {
 	NSUserDefaults *ud;
 
