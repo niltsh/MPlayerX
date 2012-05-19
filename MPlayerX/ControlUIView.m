@@ -514,7 +514,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			autoHideTimer = nil;
 		}
 		autoHideTimeInterval = ti;
-		autoHideTimer = [NSTimer timerWithTimeInterval:autoHideTimeInterval/2
+		autoHideTimer = [NSTimer timerWithTimeInterval:(autoHideTimeInterval + 1)/2
 												target:self
 											  selector:@selector(tryToHide)
 											  userInfo:nil
