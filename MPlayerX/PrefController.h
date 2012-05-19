@@ -44,6 +44,7 @@
 	IBOutlet ControlUIView *controlUI;
 	IBOutlet NSPopUpButton *charsetListPopup;
 	IBOutlet NSPopUpButton *fontListPopup;
+    IBOutlet NSButton *revealSnapshotPathToFinder;
 }
 
 -(IBAction) showUI:(id)sender;
@@ -59,5 +60,5 @@
 -(IBAction) fontSelected:(id)sender;
 -(IBAction) recentMenuSettingChanged:(id)sender;
 -(IBAction) snapshotFormatChanged:(id)sender;
-
+-(IBAction) revealSnapshotPath:(id)sender;
 @end

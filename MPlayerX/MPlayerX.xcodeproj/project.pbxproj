@@ -205,6 +205,7 @@
 		86E7CEC5143C876500EF8CDD /* fullscreen-active-lion.png in Resources */ = {isa = PBXBuildFile; fileRef = 86E7CEC3143C876500EF8CDD /* fullscreen-active-lion.png */; };
 		86E7CEC6143C876500EF8CDD /* fullscreen-rollover-lion.png in Resources */ = {isa = PBXBuildFile; fileRef = 86E7CEC4143C876500EF8CDD /* fullscreen-rollover-lion.png */; };
 		86EA467B13BF23E300B1F588 /* ChapterItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EA467A13BF23E300B1F588 /* ChapterItem.m */; };
+		86F2CE0815677FA0004AD675 /* reveal.png in Resources */ = {isa = PBXBuildFile; fileRef = 86F2CE0715677FA0004AD675 /* reveal.png */; };
 		86F4DADB10BC329F007AE56A /* ControlUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F4DADA10BC329F007AE56A /* ControlUIView.m */; };
 		86F4DD8110BD6ECA007AE56A /* pause.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 86F4DD7F10BD6ECA007AE56A /* pause.pdf */; };
 		86F4DD8210BD6ECA007AE56A /* play.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 86F4DD8010BD6ECA007AE56A /* play.pdf */; };
@@ -495,6 +496,7 @@
 		86E7CEC4143C876500EF8CDD /* fullscreen-rollover-lion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fullscreen-rollover-lion.png"; sourceTree = "<group>"; };
 		86EA467913BF23E300B1F588 /* ChapterItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ChapterItem.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		86EA467A13BF23E300B1F588 /* ChapterItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ChapterItem.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		86F2CE0715677FA0004AD675 /* reveal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reveal.png; sourceTree = "<group>"; };
 		86F4DAD910BC329F007AE56A /* ControlUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ControlUIView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		86F4DADA10BC329F007AE56A /* ControlUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ControlUIView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		86F4DD7F10BD6ECA007AE56A /* pause.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pause.pdf; sourceTree = "<group>"; };
@@ -668,6 +670,7 @@
 		8629272810C155300077B63E /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				86F2CE0715677FA0004AD675 /* reveal.png */,
 				860F6728111C6A6E00190BCC /* VideoTuner */,
 				868B9BD0131283FF001901F9 /* next-episode.pdf */,
 				868B9BD1131283FF001901F9 /* prev-episode.pdf */,
@@ -1179,6 +1182,7 @@
 				86E2B16F15626B1600137412 /* doc_ogg.icns in Resources */,
 				86E2B17015626B1600137412 /* doc_ogm.icns in Resources */,
 				86E2B17215626C2900137412 /* doc_flash.icns in Resources */,
+				86F2CE0815677FA0004AD675 /* reveal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
