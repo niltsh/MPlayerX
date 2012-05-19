@@ -617,7 +617,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
     
     if (([ud boolForKey:kUDKeyPauseShowTime] && (playerController.playerState == kMPCPausedState)) ||
         ([ud boolForKey:kUDKeyResumedShowTime] && (playerController.playerState == kMPCPlayingState))) {
-        [osd setStringValue:@" " owner:kOSDOwnerTime updateTimer:YES];
+        [self updateOSDTime:[timeSlider floatValue]];
     } else {
         [osd setStringValue:osdStr owner:kOSDOwnerOther updateTimer:YES];
     }
@@ -682,31 +682,15 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 									 mode:([[timeSlider cell] isDragging])?kMPCSeekModeAbsolute:kMPCSeekModeRelative];
 
 	[self updateHintTime];
-	
-	if ([osd isActive] && (time > 0)) {
-		NSString *osdStr = [timeFormatter stringForObjectValue:[NSNumber numberWithFloat:time]];
-		double length = [timeSlider maxValue];
-		
-		if (length > 0) {
-			osdStr = [osdStr stringByAppendingFormat:kStringFMTTimeAppendTotal, [timeFormatter stringForObjectValue:[NSNumber numberWithDouble:length]]];
-		}
-		[osd setStringValue:osdStr owner:kOSDOwnerTime updateTimer:YES];
-	}
+    
+    [self updateOSDTime:time];
 }
 
 -(void) changeTimeBy:(float) delta
 {
 	delta = [playerController changeTimeBy:delta];
-
-	if ([osd isActive] && (delta > 0)) {
-		NSString *osdStr = [timeFormatter stringForObjectValue:[NSNumber numberWithFloat:delta]];
-		double length = [timeSlider maxValue];
-		
-		if (length > 0) {
-			osdStr = [osdStr stringByAppendingFormat:kStringFMTTimeAppendTotal, [timeFormatter stringForObjectValue:[NSNumber numberWithDouble:length]]];
-		}
-		[osd setStringValue:osdStr owner:kOSDOwnerTime updateTimer:YES];
-	}
+    
+    [self updateOSDTime:delta];
 }
 
 -(IBAction) toggleFullScreen:(id)sender
@@ -1906,6 +1890,19 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	} else {
 		[hintTime.animator setAlphaValue:0];
 	}
+}
+
+-(void) updateOSDTime:(float)time
+{
+	if ([osd isActive] && (time > 0)) {
+		NSString *osdStr = [timeFormatter stringForObjectValue:[NSNumber numberWithFloat:time]];
+		double length = [timeSlider maxValue];
+		
+		if (length > 0) {
+			osdStr = [osdStr stringByAppendingFormat:kStringFMTTimeAppendTotal, [timeFormatter stringForObjectValue:[NSNumber numberWithDouble:length]]];
+		}
+		[osd setStringValue:osdStr owner:kOSDOwnerTime updateTimer:YES];
+	}    
 }
 
 - (void)mouseDragged:(NSEvent *)event
