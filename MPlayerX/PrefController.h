@@ -58,5 +58,6 @@
 -(IBAction) subEncodingSchemeChanged:(id)sender;
 -(IBAction) fontSelected:(id)sender;
 -(IBAction) recentMenuSettingChanged:(id)sender;
+-(IBAction) snapshotFormatChanged:(id)sender;
 
 @end

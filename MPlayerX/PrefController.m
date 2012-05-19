@@ -274,6 +274,42 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
         [[NSDocumentController sharedDocumentController] clearRecentDocuments:nil];
     }
 }
+
+-(IBAction) snapshotFormatChanged:(id)sender
+{
+    NSInteger selection = [[sender selectedItem] tag];
+    
+    if (selection == kMPSnapshotFormatPasteBoard) {
+        // if save to pasteboard, clear the save path
+        [ud setObject:@"" forKey:kUDKeySnapshotSavePath];
+    } else {
+        // if save to file, pop up the open panel
+        NSOpenPanel *panel = [NSOpenPanel openPanel];
+        
+        [panel setCanChooseFiles:NO];
+        [panel setCanChooseDirectories:YES];
+        [panel setResolvesAliases:NO];
+        [panel setAllowsMultipleSelection:NO];
+        [panel setCanCreateDirectories:YES];
+        
+        [panel beginSheetModalForWindow:prefWin completionHandler:^(NSInteger result) {
+            
+            if (result == NSFileHandlingPanelOKButton) {
+                NSString *path = [[[panel URLs] objectAtIndex:0] path];
+                path = [path stringByAbbreviatingWithTildeInPath];
+                
+                [ud setObject:path forKey:kUDKeySnapshotSavePath];
+            } else {
+                if ([[ud objectForKey:kUDKeySnapshotSavePath] isEqualToString:@""]) {
+                    // if change from pasteboard -> files, and press the cancel button
+                    // the path is setted @"", so restore it to the default one
+                    [ud setObject:kMPXSnapshotSaveDefaultPath forKey:kUDKeySnapshotSavePath];
+                }
+            }
+        }];
+    }
+}
+
 /////////////////////////////Toolbar Delegate/////////////////////
 /*
  * 如何添加新的Pref View

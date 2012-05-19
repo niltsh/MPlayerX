@@ -34,3 +34,5 @@ extern NSString * const kMPCRemoteMediaInfoTitleKey;
 #define kMPSnapshotFormatJPEG           (2)
 #define kMPSnapshotFormatTIFF           (3)
 #define kMPSnapshotFormatBMP            (4)
+
+extern NSString * const kMPXSnapshotSaveDefaultPath;

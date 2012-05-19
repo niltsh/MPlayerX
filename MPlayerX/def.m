@@ -26,3 +26,6 @@ NSString * const kMPXMediaKeyBackwardNotification		= @"MPXMediaKeyBackward";
 
 NSString * const kMPCRemoteMediaInfoNotification    = @"MPCRemoteMediaInfoNotification";
 NSString * const kMPCRemoteMediaInfoTitleKey        = @"MPCRemoteMediaInfoTitle";
+
+NSString * const kMPXSnapshotSaveDefaultPath = @"~/Pictures/MPlayerX";
+
