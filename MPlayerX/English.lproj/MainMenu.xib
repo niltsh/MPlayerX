@@ -381,7 +381,7 @@
 								</object>
 								<object class="NSMenuItem" id="1035171433">
 									<reference key="NSMenu" ref="458109416"/>
-									<string key="NSTitle">Goto Snapshot Folder</string>
+									<string key="NSTitle">Goto Snapshot Folder...</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -1930,6 +1930,7 @@
 							<string key="NSFrame">{{466, 2}, {12, 12}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<bool key="NSViewIsLayerTreeHost">YES</bool>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSClassName">ResizeIndicator</string>
