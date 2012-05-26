@@ -270,6 +270,43 @@
 	return ret;
 }
 
+-(BOOL) processKeyUp:(NSEvent*) event
+{
+    unichar key;
+    BOOL ret = NO;
+    // 这里处理的是没有keyequivalent的快捷键
+	if ([[event charactersIgnoringModifiers] length] == 0) {
+		ret = NO;
+	} else {
+		key = [[event charactersIgnoringModifiers] characterAtIndex:0];
+        
+		switch ([event modifierFlags] & (NSShiftKeyMask| NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask)) {
+            case 0:				// 什么功能键也没有按
+            {
+				switch (key) {                        
+					case NSRightArrowFunctionKey:
+                        lastSeekR = 0;
+						break;
+					case NSLeftArrowFunctionKey:
+                        lastSeekL = 0;
+						break;
+					case NSUpArrowFunctionKey:
+                        lastSeekU = 0;
+						break;
+					case NSDownArrowFunctionKey:
+                        lastSeekB = 0;
+                        break;
+					default:
+						break;
+				}
+            }
+            default:
+                break;
+        }
+    }
+    return ret;
+}
+
 - (void)hidRemote:(HIDRemote *)theHidRemote
   eventWithButton:(HIDRemoteButtonCode)buttonCode
         isPressed:(BOOL)isPressed

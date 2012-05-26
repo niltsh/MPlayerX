@@ -53,6 +53,7 @@
 }
 
 -(BOOL) processKeyDown:(NSEvent*) event;
+-(BOOL) processKeyUp:(NSEvent*) event;
 
 - (void)hidRemote:(HIDRemote *)hidRemote                        // The instance of HIDRemote sending this
   eventWithButton:(HIDRemoteButtonCode)buttonCode               // Event for the button specified by code

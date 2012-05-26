@@ -568,6 +568,13 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	}
 }
 
+-(void) keyUp:(NSEvent *)theEvent
+{
+    if (![shortCutManager processKeyUp:theEvent]) {
+        [super keyUp:theEvent];
+    }
+}
+
 -(void) cancelOperation:(id)sender
 {
 	if ([self isInFullScreenMode]) {
