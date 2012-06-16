@@ -129,7 +129,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>doc_ape</string>
 			<key>CFBundleTypeName</key>
-			<string>Monkey's Audio</string>
+			<string>Monkey&apos;s Audio</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 		</dict>
@@ -544,6 +544,8 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>MPApplication</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
 	<key>SupportedAVExtensions</key>
 	<array>
 		<string>ac3</string>
@@ -679,7 +681,7 @@
 				<string>public.audio</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Monkey's Audio</string>
+			<string>Monkey&apos;s Audio</string>
 			<key>UTTypeIconFile</key>
 			<string>doc_ape</string>
 			<key>UTTypeIdentifier</key>
