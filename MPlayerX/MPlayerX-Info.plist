@@ -129,7 +129,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>doc_ape</string>
 			<key>CFBundleTypeName</key>
-			<string>Monkey&apos;s Audio</string>
+			<string>Monkey's Audio</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 		</dict>
@@ -537,15 +537,15 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>MPXCommitHash</key>
-	<string>808b1231b7b2457a8272e23842a90a1b06c43513</string>
+	<string>6cd7c1b626b0cbbc824c7220d408378d075cc27b</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2009-2012, Zongyao QU</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>MPApplication</string>
-	<key>NSHighResolutionCapable</key>
-	<true/>
 	<key>SupportedAVExtensions</key>
 	<array>
 		<string>ac3</string>
@@ -681,7 +681,7 @@
 				<string>public.audio</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Monkey&apos;s Audio</string>
+			<string>Monkey's Audio</string>
 			<key>UTTypeIconFile</key>
 			<string>doc_ape</string>
 			<key>UTTypeIdentifier</key>
