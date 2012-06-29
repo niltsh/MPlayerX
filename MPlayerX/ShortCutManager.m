@@ -222,6 +222,29 @@
                         break;
                 }
                 break;
+            case NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask:
+            	switch (key) {
+            		case NSRightArrowFunctionKey:
+            		    if ([playerController playerState] == kMPCPausedState) {
+                            [playerController frameStep];
+                        } else {
+                            [controlUI changeTimeBy:seekStepTimeR];
+                        }
+            			break;
+            		case NSLeftArrowFunctionKey:
+            			[controlUI changeTimeBy:seekStepTimeL];
+            			break;
+            		case NSUpArrowFunctionKey:
+            			[controlUI changeTimeBy:seekStepTimeU];
+            			break;
+            		case NSDownArrowFunctionKey:
+            			[controlUI changeTimeBy:seekStepTimeB];
+            			break;
+            		default:
+            			ret = NO;
+            			break;
+            	}
+            	break;
 			case 0:				// 什么功能键也没有按
             {
                 NSTimeInterval evtTime = [event timestamp];
@@ -418,6 +441,7 @@ fromHardwareWithAttributes:(NSMutableDictionary *)attributes
 				key = NSRightArrowFunctionKey;
 				target = self;
 				action = @selector(processKeyDown:);
+				modifierFlagMask = NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask;
 				break;
 			case kHIDRemoteButtonCodeLeftHold:
 				repeatEntered = YES;
@@ -427,6 +451,7 @@ fromHardwareWithAttributes:(NSMutableDictionary *)attributes
 				key = NSLeftArrowFunctionKey;
 				target = self;
 				action = @selector(processKeyDown:);
+				modifierFlagMask = NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask;
 				break;			
 			
 			default:
@@ -475,7 +500,7 @@ fromHardwareWithAttributes:(NSMutableDictionary *)attributes
 				} else {
 					key = NSDownArrowFunctionKey;
 				}
-				newEv = [NSEvent makeKeyDownEvent:[NSString stringWithCharacters:&key length:1] modifierFlags:0];
+				newEv = [NSEvent makeKeyDownEvent:[NSString stringWithCharacters:&key length:1] modifierFlags:NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask];
 				timeLong = [ud floatForKey:kUDKeyARKeyRepeatTimeIntervalLong];
 			} else {
 				newEv = evt;
