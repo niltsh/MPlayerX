@@ -79,6 +79,7 @@ enum {
 -(void) playMedia:(NSURL*)url;
 -(NSURL*) findFirstMediaFileFromSubFile:(NSString*)path;
 -(void) enablePowerSave:(BOOL)en;
+-(void) gotRemoteMediaInfo:(NSNotification*)notif;
 @end
 
 @interface PlayerController (SubConverterDelegate)
@@ -197,6 +198,10 @@ enum {
         
         mplayer.debug = [ud boolForKey:kUDKeyLogMode];
         mplayer.pm.debug = [ud boolForKey:kUDKeyLogMode];
+		
+		[notifCenter addObserver:self selector:@selector(gotRemoteMediaInfo:)
+							name:kMPCRemoteMediaInfoNotification object:nil];
+
 	}
 	return self;
 }
@@ -314,6 +319,11 @@ enum {
 -(BOOL) couldAcceptCommand { return PlayerCouldAcceptCommand; }
 -(MovieInfo*) mediaInfo { return [mplayer movieInfo]; }
 -(void) setPlayDisk:(NSInteger) pd { [mplayer.pm setPlayDisk:pd]; }
+
+-(void) gotRemoteMediaInfo:(NSNotification*)notif
+{
+	[mplayer.movieInfo.metaData setObject:[[notif userInfo] objectForKey:kMPCRemoteMediaInfoTitleKey] forKey:@"title"];
+}
 
 -(void) enablePowerSave:(BOOL)en
 {
