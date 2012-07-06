@@ -300,7 +300,19 @@ static BOOL init_ed = NO;
             }
             
             if (savePath) {
-                NSString *mediaPath = ([playerController.lastPlayedPath isFileURL])?([playerController.lastPlayedPath path]):([playerController.lastPlayedPath absoluteString]);
+                NSString *mediaPath = nil;
+				
+				if ([playerController.lastPlayedPath isFileURL]) {
+					mediaPath = [playerController.lastPlayedPath path];
+				} else {
+					mediaPath = [[playerController mediaInfo].metaData objectForKey:@"title"];
+					if (!mediaPath) {
+						mediaPath = [playerController.lastPlayedPath absoluteString];
+					}
+					NSLog(@"mediaPath: %s", [mediaPath fileSystemRepresentation]);
+				}
+				mediaPath = [[mediaPath lastPathComponent] stringByDeletingPathExtension];
+				
                 NSString *dateTime = [NSDateFormatter localizedStringFromDate:[NSDate date]
                                                                     dateStyle:NSDateFormatterMediumStyle
                                                                     timeStyle:NSDateFormatterMediumStyle];
@@ -311,7 +323,7 @@ static BOOL init_ed = NO;
                 // 修改文件名中的：，因为：无法作为文件名存储
                 savePath = [NSString stringWithFormat:@"%@/%@_%@.%@", 
                             savePath, 
-                            [[mediaPath lastPathComponent] stringByDeletingPathExtension],
+                            mediaPath,
                             dateTime,
                             ext];
                 // 得到图像的Rep
