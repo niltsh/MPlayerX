@@ -200,7 +200,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	[trackingArea release];
 	[fullScreenOptions release];
 	[dispLayer release];
-	[logo release];
+	CGImageRelease(logo);
 	
 	[super dealloc];
 }
@@ -235,11 +235,15 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	[root setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
 
 	// 图标设定
-	logo = [[NSBitmapImageRep alloc] initWithCIImage:
-			[CIImage imageWithContentsOfURL:
-			 [[[NSBundle mainBundle] resourceURL] URLByAppendingPathComponent:@"logo.png"]]];
+	NSImage* nsImage;
+	CGImageSourceRef source;
+	
+	nsImage = [NSImage imageNamed:@"logo"];
+	source = CGImageSourceCreateWithData((CFDataRef)[nsImage TIFFRepresentation], NULL);
+	logo = CGImageSourceCreateImageAtIndex(source, 0, NULL);
+	CFRelease(source);
 	[root setContentsGravity:kCAGravityCenter];
-	[root setContents:(id)[logo CGImage]];
+	[root setContents:(id)logo];
 	
 	// 默认添加dispLayer
 	[root insertSublayer:dispLayer atIndex:0];
@@ -358,7 +362,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	playbackFinalized = NO;
 	[self setPlayerWindowLevel];
 	[playerWindow setTitle:kMPCStringMPlayerX];
-	[[self layer] setContents:(id)[logo CGImage]];
+	[[self layer] setContents:(id)logo];
 }
 
 -(void) playBackStarted:(NSNotification*)notif
@@ -367,7 +371,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 
 	if ([[[notif userInfo] objectForKey:kMPCPlayStartedAudioOnlyKey] boolValue]) {
 		// if audio only
-		[[self layer] setContents:(id)[logo CGImage]];
+		[[self layer] setContents:(id)logo];
 		[playerWindow setContentSize:[playerWindow contentMinSize]];
 		if (![NSApp isHidden]) {
 			[playerWindow makeKeyAndOrderFront:nil];

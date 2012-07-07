@@ -116,6 +116,7 @@
 		865A5D2A12CA0E100021CF8E /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 865A5D2912CA0E100021CF8E /* AppController.m */; };
 		865AB3FD10EC82A300065E2F /* PrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = 865AB3FC10EC82A300065E2F /* PrefController.m */; };
 		8661414210FA2B7E007F36DA /* SubConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8661414110FA2B7E007F36DA /* SubConverter.m */; };
+		8663088215A81639002A2F77 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8663088115A81639002A2F77 /* logo@2x.png */; };
 		86689CA511304163009DA72C /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 86689CA411304163009DA72C /* logo.png */; };
 		866CCF5511DE378300032F96 /* EqualizerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 866CCF5411DE378300032F96 /* EqualizerController.m */; };
 		866CCFAC11DE3EAB00032F96 /* Equalizer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 866CCFAB11DE3EAB00032F96 /* Equalizer.xib */; };
@@ -396,6 +397,7 @@
 		865AB3FC10EC82A300065E2F /* PrefController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PrefController.m; sourceTree = "<group>"; };
 		8661414010FA2B7E007F36DA /* SubConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SubConverter.h; sourceTree = "<group>"; };
 		8661414110FA2B7E007F36DA /* SubConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SubConverter.m; sourceTree = "<group>"; };
+		8663088115A81639002A2F77 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		86689CA411304163009DA72C /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		866CCF5311DE378300032F96 /* EqualizerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 2; path = EqualizerController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		866CCF5411DE378300032F96 /* EqualizerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EqualizerController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -856,6 +858,7 @@
 				86E2B135156268F700137412 /* file type */,
 				8629272810C155300077B63E /* buttons */,
 				86689CA411304163009DA72C /* logo.png */,
+				8663088115A81639002A2F77 /* logo@2x.png */,
 				861097F010F1C9A50085B3DF /* MPlayerX.icns */,
 			);
 			name = icons;
@@ -1275,6 +1278,7 @@
 				86C566EF158CD0F9000375BD /* zoom-inactive-disabled-lion@2x.png in Resources */,
 				86C566F0158CD0F9000375BD /* zoom-rollover-graphite-lion@2x.png in Resources */,
 				86C566F1158CD0F9000375BD /* zoom-rollover-lion@2x.png in Resources */,
+				8663088215A81639002A2F77 /* logo@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
