@@ -240,7 +240,13 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	
 	nsImage = [NSImage imageNamed:@"logo"];
 	source = CGImageSourceCreateWithData((CFDataRef)[nsImage TIFFRepresentation], NULL);
-	logo = CGImageSourceCreateImageAtIndex(source, 0, NULL);
+	if ((MPXGetSysVersion() < kMPXSysVersionLion) ||
+		([[self window] backingScaleFactor] < 1.5f)) {
+		// 如果是SL系统，或者scalingFactor为1.0的话
+		logo = CGImageSourceCreateImageAtIndex(source, 1, NULL);
+	} else {
+		logo = CGImageSourceCreateImageAtIndex(source, 0, NULL);
+	}
 	CFRelease(source);
 	[root setContentsGravity:kCAGravityCenter];
 	[root setContents:(id)logo];
