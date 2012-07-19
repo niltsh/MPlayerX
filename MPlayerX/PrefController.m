@@ -294,6 +294,16 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
         [panel setAllowsMultipleSelection:NO];
         [panel setCanCreateDirectories:YES];
         [panel setTreatsFilePackagesAsDirectories:NO];
+		
+		NSString *expStr = [[ud objectForKey:kUDKeySnapshotSavePath] stringByExpandingTildeInPath];
+		
+		if ([expStr isEqualToString:@""] ||
+			(![[NSFileManager defaultManager] fileExistsAtPath:expStr])) {
+			// 如果是从 pasteboard刚过来准备选的话
+			// 或者现有文件夹不存在的话
+			expStr = [kMPXSnapshotSaveDefaultPath stringByExpandingTildeInPath];
+		}
+		[panel setDirectoryURL:[NSURL fileURLWithPath:expStr isDirectory:YES]];
         
         [panel beginSheetModalForWindow:prefWin completionHandler:^(NSInteger result) {
             
