@@ -906,13 +906,15 @@ static BOOL isNetworkPath(const char *path)
 //////////////////////////////////////private methods////////////////////////////////////////////////////
 -(BOOL) shouldRun64bitMPlayer
 {
-	int value = 0 ;
+/*	int value = 0 ;
 	unsigned long length = sizeof(value);
 	
 	if ((sysctlbyname("hw.optional.x86_64", &value, &length, NULL, 0) == 0) && (value == 1))
 		return [ud boolForKey:kUDKeyPrefer64bitMPlayer];
 	
 	return NO;
+ */
+    return YES;
 }
 
 ///////////////////////////////////////MPlayer Notifications/////////////////////////////////////////////
