@@ -377,7 +377,7 @@ NSString * const kPMParFontFBList           = @"-font-fblist";
 		
 		subBorderWidth = MIN(kPMSubBorderWidthMax, subBorderWidth);
 		
-		otherStyles = [NSString stringWithFormat:kPMValAssForceStylePrefixMarginVOutline, assSubMarginV, subBorderWidth];
+		otherStyles = [NSString stringWithFormat:kPMValAssForceStylePrefixMarginVOutline, (int)assSubMarginV, subBorderWidth];
 		
 		if (subAlign != kPMSubAlignDefault) {
 			otherStyles = [otherStyles stringByAppendingFormat:kPMValFmtAssSubAlginment, subAlign];

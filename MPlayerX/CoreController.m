@@ -140,7 +140,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 
 		imageData = NULL;
 		imageSize = 0;
-		sharedBufferName = [[NSString alloc] initWithFormat:@"MPlayerX_%X", self];
+		sharedBufferName = [[NSString alloc] initWithFormat:@"MPlayerX_%lX", (unsigned long)self];
 		
 		renderThread = [[NSThread alloc] initWithTarget:self selector:@selector(renderRoutine) object:nil];
 		[renderThread setThreadPriority:0.9];

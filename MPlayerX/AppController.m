@@ -372,7 +372,7 @@ static BOOL init_ed = NO;
 
 	[[NSWorkspace sharedWorkspace] openURL:
 	 [NSURL URLWithString:[NSString stringWithFormat:
-						   @"https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mplayerx%%2eqzy%%40gmail%%2ecom&lc=US&item_name=MPlayerX&no_note=0&currency_code=%@&bn=PP%%2dDonationsBF%%3abtn_donate_LG%2egif%%3aNonHostedGuest", currency]]];
+						   @"https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mplayerx%%2eqzy%%40gmail%%2ecom&lc=US&item_name=MPlayerX&no_note=0&currency_code=%@&bn=PP%%2dDonationsBF%%3abtn_donate_LG%%2egif%%3aNonHostedGuest", currency]]];
 }
 
 -(IBAction) gotoFeedbackPage:(id)sender

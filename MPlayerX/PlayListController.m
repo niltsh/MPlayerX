@@ -234,7 +234,7 @@ static BOOL init_ed = NO;
 			
 			if (idxNow > 1) {
 				// 数字值必须大于1
-				idxNext = [NSString stringWithFormat:@"%d", idxNow - 1];
+				idxNext = [NSString stringWithFormat:@"%ld", idxNow - 1];
 
 				NSUInteger idxNextLen = [idxNext length];
 				// 减法对此不成立，10 - 1 = 9 or 09
@@ -384,7 +384,7 @@ ExitLoopPrev:
 			digitRange = [val rangeValue];
 
 			// 得到下一个想要播放的文件的index
-			idxNext = [NSString stringWithFormat:@"%d", [[movieName substringWithRange:digitRange] integerValue] + 1];
+			idxNext = [NSString stringWithFormat:@"%ld", [[movieName substringWithRange:digitRange] integerValue] + 1];
 
 			NSUInteger idxNextLen = [idxNext length];
 			// 如果这个index的长度比上一个短，说明有padding
@@ -399,7 +399,7 @@ ExitLoopPrev:
 						// match the with the padding 0001
 						if (lastRange.length > 1) {
 							digitLast = digitRange.location+digitRange.length;
-							NSString *fmt = [NSString stringWithFormat:@"%%@%%@%%@%%0%dd",lastRange.length];
+							NSString *fmt = [NSString stringWithFormat:@"%%@%%@%%@%%0%ldd",lastRange.length];
 							fileNamePrefix = [NSString stringWithFormat:fmt,
 											  [movieName substringToIndex:digitRange.location],
 											  idxNext,

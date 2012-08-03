@@ -198,7 +198,7 @@ NSString * const kYTDLInfoIsErrorKey    = @"YTDLInfoIsError";
             retStr = [self processHtmlEntities:retStr];
         }
     } else {
-        retStr = [NSString stringWithString:@""];
+        retStr = @"";
     }
     
     if (currentOperation && (![currentOperation isCancelled])) {
