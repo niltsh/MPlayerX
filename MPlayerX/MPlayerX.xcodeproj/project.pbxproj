@@ -1324,7 +1324,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  echo \"in Release\"\n                \nelif [ \"${CONFIGURATION}\" = \"Deploy\" ]; then\n  echo \"in Deploy\"\n# Sign the framework\n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UniversalDetector.framework/Versions/A\"\n/usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UniversalDetector.framework/Versions/A\n\n# Sign 64bit binaries\n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/mplayer\"\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/mplayer\n\n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfontconfig.1.dylib\"\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfontconfig.1.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfreetype.6.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfribidi.0.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libspeex.1.5.0.dylib\n# Sign 64bit binaries\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/mplayer\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libfontconfig.1.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libfreetype.6.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libfribidi.0.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libspeex.1.5.0.dylib\n  \n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ytdl\"\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ytdl\nelse\n  echo \"in Debug\"\nfi\n";
+			shellScript = "#!/bin/sh\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    echo \"in Release\"\n# Sign the framework\n    echo \"/usr/bin/codesign --force --sign \\\"Developer ID Application: Zongyao Qu\\\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UniversalDetector.framework/Versions/A\"\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UniversalDetector.framework/Versions/A\n\n# Sign 64bit binaries\n    echo \"/usr/bin/codesign --force --sign \\\"Developer ID Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/mplayer\"\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/mplayer\n\n    echo \"/usr/bin/codesign --force --sign \\\"Developer ID Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfontconfig.1.dylib\"\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfontconfig.1.dylib\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfreetype.6.dylib\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfribidi.0.dylib\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libspeex.1.5.0.dylib\n# Sign 64bit binaries\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/mplayer\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libfontconfig.1.dylib\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libfreetype.6.dylib\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libfribidi.0.dylib\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libspeex.1.5.0.dylib\n\n    echo \"/usr/bin/codesign --force --sign \\\"Developer ID Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ytdl\"\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ytdl\n\nelif [ \"${CONFIGURATION}\" = \"Deploy\" ]; then\n  echo \"in Deploy\"\n# Sign the framework\n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UniversalDetector.framework/Versions/A\"\n/usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UniversalDetector.framework/Versions/A\n\n# Sign 64bit binaries\n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/mplayer\"\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/mplayer\n\n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfontconfig.1.dylib\"\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfontconfig.1.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfreetype.6.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfribidi.0.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libspeex.1.5.0.dylib\n# Sign 64bit binaries\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/mplayer\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libfontconfig.1.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libfreetype.6.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libfribidi.0.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/m32/lib/libspeex.1.5.0.dylib\n  \n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ytdl\"\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ytdl\nelse\n  echo \"in Debug\"\nfi\n";
 		};
 		86E1D04B14FBA92400432C93 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1509,7 +1509,7 @@
 		869B71CF13A0E3FA00B9BA76 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1523,7 +1523,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
-				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
 		};
@@ -1539,7 +1538,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COMBINE_HIDPI_IMAGES = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application: Zongyao Qu";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1553,6 +1552,7 @@
 				INSTALL_PATH = /Applications;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = MPlayerX;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -1583,7 +1583,7 @@
 		86FDD36D1314E4A400A79853 /* Deploy */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1597,7 +1597,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
-				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Deploy;
 		};
@@ -1614,7 +1613,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Zongyao Qu";
-				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1636,14 +1634,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../UniversalDetector/build/Release\"",
 					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Versions/A/Frameworks\"",
 				);
-				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MPlayerX_Prefix.pch;
@@ -1658,7 +1654,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -1674,7 +1670,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
 		};
