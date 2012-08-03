@@ -176,14 +176,19 @@ static OSStatus DeviceListener( AudioObjectID inObjectID, UInt32 inNumberAddress
 			MPLog(@"Device Changed.\n");
 
 			AODetector *d = (AODetector*)inClientData;
-			char *name;
+			char *name = NULL;
 			
 			[d setDigital: AudioDeviceSupportsDigital([d defaultDevID])];
 			
 			GetAudioPropertyString([d defaultDevID], kAudioObjectPropertyName, &name);
-            [d setDeviceName:[NSString stringWithCString:name encoding:NSUTF8StringEncoding]];
-			free(name);
-			
+
+            if (name) {
+                [d setDeviceName:[NSString stringWithCString:name encoding:NSUTF8StringEncoding]];
+                free(name);
+            } else {
+                [d setDeviceName:@"Unknown"];
+            }
+
 			[[NSNotificationCenter defaultCenter] postNotificationName:kMPXDefaultAudioDeviceChanged object:d];
 			break;
         }
