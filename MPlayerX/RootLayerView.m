@@ -185,6 +185,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 		fourFingersPinchDistance = 1;
         
         lastScrollLR = 0;
+        logo = nil;
 
 		[self setAcceptsTouchEvents:YES];
 		[self setWantsRestingTouches:NO];
@@ -200,8 +201,8 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	[trackingArea release];
 	[fullScreenOptions release];
 	[dispLayer release];
-	CGImageRelease(logo);
-	
+	[logo release];
+
 	[super dealloc];
 }
 
@@ -235,21 +236,9 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	[root setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
 
 	// 图标设定
-	NSImage* nsImage;
-	CGImageSourceRef source;
-	
-	nsImage = [NSImage imageNamed:@"logo"];
-	source = CGImageSourceCreateWithData((CFDataRef)[nsImage TIFFRepresentation], NULL);
-	if ((MPXGetSysVersion() < kMPXSysVersionLion) ||
-		([[self window] backingScaleFactor] < 1.5f)) {
-		// 如果是SL系统，或者scalingFactor为1.0的话
-		logo = CGImageSourceCreateImageAtIndex(source, 1, NULL);
-	} else {
-		logo = CGImageSourceCreateImageAtIndex(source, 0, NULL);
-	}
-	CFRelease(source);
+	logo = [NSImage imageNamed:@"logo"];
 	[root setContentsGravity:kCAGravityCenter];
-	[root setContents:(id)logo];
+	[root setContents:logo];
 	
 	// 默认添加dispLayer
 	[root insertSublayer:dispLayer atIndex:0];
@@ -368,7 +357,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	playbackFinalized = NO;
 	[self setPlayerWindowLevel];
 	[playerWindow setTitle:kMPCStringMPlayerX];
-	[[self layer] setContents:(id)logo];
+	[[self layer] setContents:logo];
 }
 
 -(void) playBackStarted:(NSNotification*)notif
@@ -377,7 +366,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 
 	if ([[[notif userInfo] objectForKey:kMPCPlayStartedAudioOnlyKey] boolValue]) {
 		// if audio only
-		[[self layer] setContents:(id)logo];
+		[[self layer] setContents:logo];
 		[playerWindow setContentSize:[playerWindow contentMinSize]];
 		if (![NSApp isHidden]) {
 			[playerWindow makeKeyAndOrderFront:nil];

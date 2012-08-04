@@ -29,7 +29,7 @@
 	NSNotificationCenter *notifCenter;
 
 	NSTrackingArea *trackingArea;
-	CGImageRef logo;
+	NSImage *logo;
 	
 	BOOL shouldResize;
 	NSRect rcBeforeFullScrn;
