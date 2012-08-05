@@ -7,6 +7,3 @@
 [submodule "localization"]
 	path = localization
 	url = git@github.com:niltsh/MPlayerX-Localization.git
-[submodule "deploy"]
-	path = deploy
-	url = git@github.com:niltsh/MPlayerX-Deploy.git
