@@ -29,6 +29,7 @@
 #import "AODetector.h"
 #import "def.h"
 
+#import <Sparkle/Sparkle.h>
 #import <CoreServices/CoreServices.h>
 
 /**
@@ -79,6 +80,7 @@ static BOOL init_ed = NO;
 					   [NSNumber numberWithBool:YES], kUDKeyEnableMediaKeyTap,
 					   [NSNumber numberWithBool:NO], kUDKeyDisableLastStopBookmark,
                        [NSNumber numberWithInt:kMPSnapshotFormatPNG], kUDKeySnapshotFormat,
+                       @"https://raw.github.com/niltsh/MPlayerX-Deploy/master/appcast.xml", @"SUFeedURL",
 					   nil]];
 
 	MPSetLogEnable([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyLogMode]);
@@ -539,6 +541,8 @@ static BOOL init_ed = NO;
 			[self application:NSApp openFile:cmdStr];
 		}
 	}
+
+    [[SUUpdater sharedUpdater] checkForUpdatesInBackground];
 }
 
 @end
