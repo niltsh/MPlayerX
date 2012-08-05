@@ -546,6 +546,8 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>MPApplication</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
 	<key>SupportedAVExtensions</key>
 	<array>
 		<string>ac3</string>
