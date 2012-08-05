@@ -120,6 +120,7 @@
 		863D0A9F12CDE85900170081 /* zoom-active.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 863D0A9312CDE85900170081 /* zoom-active.tiff */; };
 		863D0AA012CDE85900170081 /* zoom-inactive-disabled.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 863D0A9412CDE85900170081 /* zoom-inactive-disabled.tiff */; };
 		863D0AA212CDE85900170081 /* zoom-rollover.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 863D0A9612CDE85900170081 /* zoom-rollover.tiff */; };
+		86456F0515CE6E5A0032C4F8 /* reveal.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 86456F0415CE6E5A0032C4F8 /* reveal.pdf */; };
 		8654807F10CBB231009438A4 /* FloatWrapFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8654807E10CBB231009438A4 /* FloatWrapFormatter.m */; };
 		865845171346D7E900570BA6 /* def.m in Sources */ = {isa = PBXBuildFile; fileRef = 865845161346D7E900570BA6 /* def.m */; };
 		8658451B1346D8E300570BA6 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8658451A1346D8E300570BA6 /* ApplicationServices.framework */; };
@@ -409,6 +410,7 @@
 		863D0A9412CDE85900170081 /* zoom-inactive-disabled.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "zoom-inactive-disabled.tiff"; sourceTree = "<group>"; };
 		863D0A9612CDE85900170081 /* zoom-rollover.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "zoom-rollover.tiff"; sourceTree = "<group>"; };
 		86450B871108840700E79645 /* LocalizedStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LocalizedStrings.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		86456F0415CE6E5A0032C4F8 /* reveal.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = reveal.pdf; sourceTree = "<group>"; };
 		8654807D10CBB231009438A4 /* FloatWrapFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FloatWrapFormatter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8654807E10CBB231009438A4 /* FloatWrapFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FloatWrapFormatter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		865845151346D7E900570BA6 /* def.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = def.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -890,6 +892,7 @@
 		866CD14F11DF135400032F96 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				86456F0415CE6E5A0032C4F8 /* reveal.pdf */,
 				86E2B135156268F700137412 /* file type */,
 				8629272810C155300077B63E /* buttons */,
 				86689CA411304163009DA72C /* logo.png */,
@@ -1325,6 +1328,7 @@
 				8627141F15CD6712001C4DBB /* sharpen-min.png in Resources */,
 				8627142015CD6712001C4DBB /* sharpen-min@2x.png in Resources */,
 				867596C715CE5F1D00033ED0 /* dsa_pub.pem in Resources */,
+				86456F0515CE6E5A0032C4F8 /* reveal.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
