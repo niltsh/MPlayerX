@@ -110,6 +110,7 @@ extern NSString * const kUDKeyAnimateFullScreen;
 extern NSString * const kUDKeyPauseShowTime;
 extern NSString * const kUDKeyControlUIDetectMouseExit;
 extern NSString * const kUDKeyResumedShowTime;
+extern NSString * const kUDKeyEnableHWAccel;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;

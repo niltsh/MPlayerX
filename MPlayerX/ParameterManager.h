@@ -80,6 +80,7 @@
 	NSString *edlPath;
 	NSString *audioFilePath;
     NSArray *fontFallbackList;
+    BOOL hwAccel;
 }
 
 @property (assign, readwrite) SUBFILE_NAMERULE subNameRule;
@@ -121,6 +122,7 @@
 @property (retain, readwrite) NSString *audioFilePath;
 @property (retain, readwrite) NSArray *fontFallbackList;
 @property (assign, readwrite) BOOL debug;
+@property (assign, readwrite) BOOL hwAccel;
 
 -(void) setSubFontColor:(NSColor*)col;
 -(void) setSubFontBorderColor:(NSColor*)col;

@@ -114,6 +114,7 @@ NSString * const kUDKeyAnimateFullScreen                    = @"AnimateFullScree
 NSString * const kUDKeyPauseShowTime                        = @"PauseShowTime";
 NSString * const kUDKeyControlUIDetectMouseExit             = @"ControlUIDetectMouseExit";
 NSString * const kUDKeyResumedShowTime                      = @"ResumedShowTime";
+NSString * const kUDKeyEnableHWAccel                        = @"EnableHWAccel";
 
 NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";

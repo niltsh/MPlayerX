@@ -118,6 +118,9 @@ NSString * const kPMParAudioFile			= @"-audiofile";
 NSString * const kPMParNoFlipHebrew         = @"-noflip-hebrew";
 NSString * const kPMParFontFBList           = @"-font-fblist";
 
+NSString * const kPMParVC                   = @"-vc";
+NSString * const kPMValNoHWAccel            = @"-ffh264vda,";
+
 #define kSubScaleNoAss			(8.0)
 
 #define kPMSubBorderWidthMax	(4)
@@ -131,7 +134,7 @@ NSString * const kPMParFontFBList           = @"-font-fblist";
 @synthesize pauseAtStart, overlapSub, rtspOverHttp, mixToStereo;
 @synthesize demuxer, deinterlace, imgEnhance, extraOptions, equalizer;
 @synthesize subBorderWidth, noDispSub, playDisk, assSubMarginV, displayCacheLog;
-@synthesize edlPath, audioFilePath, fontFallbackList, debug;
+@synthesize edlPath, audioFilePath, fontFallbackList, debug, hwAccel;
 
 #pragma mark Init/Dealloc
 -(id) init
@@ -193,6 +196,7 @@ NSString * const kPMParFontFBList           = @"-font-fblist";
 		edlPath = nil;
 		audioFilePath = nil;
         fontFallbackList = nil;
+        hwAccel = YES;
 	}
 	return self;
 }
@@ -547,6 +551,11 @@ NSString * const kPMParFontFBList           = @"-font-fblist";
     if (fontFallbackList) {
         [paramArray addObject:kPMParFontFBList];
         [paramArray addObject:[fontFallbackList componentsJoinedByString:kPMComma]];
+    }
+
+    if (!hwAccel) {
+        [paramArray addObject:kPMParVC];
+        [paramArray addObject:kPMValNoHWAccel];
     }
 	
 	if (extraOptions) {
