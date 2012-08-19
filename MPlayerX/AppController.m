@@ -167,6 +167,11 @@ static BOOL init_ed = NO;
 	}
 	return YES;
 }
+
+-(PlayerController*) frontMostPlayer
+{
+    return playerController;
+}
 /////////////////////////////////////Actions//////////////////////////////////////
 -(IBAction) openFile:(id) sender
 {

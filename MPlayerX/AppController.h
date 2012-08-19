@@ -47,6 +47,7 @@
 
 +(AppController*) sharedAppController;
 
+-(PlayerController*) frontMostPlayer;
 -(BOOL) isFilePlayable:(NSString*)path;
 -(BOOL) isFileSubtitle:(NSString*)path;
 

@@ -117,6 +117,7 @@
 		863D0AA012CDE85900170081 /* zoom-inactive-disabled.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 863D0A9412CDE85900170081 /* zoom-inactive-disabled.tiff */; };
 		863D0AA212CDE85900170081 /* zoom-rollover.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 863D0A9612CDE85900170081 /* zoom-rollover.tiff */; };
 		86456F0515CE6E5A0032C4F8 /* reveal.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 86456F0415CE6E5A0032C4F8 /* reveal.pdf */; };
+		8647852215E0D01B002D1442 /* MPlayerXScript.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 8647852115E0D01B002D1442 /* MPlayerXScript.sdef */; };
 		8654807F10CBB231009438A4 /* FloatWrapFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8654807E10CBB231009438A4 /* FloatWrapFormatter.m */; };
 		865845171346D7E900570BA6 /* def.m in Sources */ = {isa = PBXBuildFile; fileRef = 865845161346D7E900570BA6 /* def.m */; };
 		8658451B1346D8E300570BA6 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8658451A1346D8E300570BA6 /* ApplicationServices.framework */; };
@@ -145,6 +146,7 @@
 		867596C415CE5D1300033ED0 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 867596C315CE5D1300033ED0 /* Sparkle.framework */; };
 		867596C515CE5D4000033ED0 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 867596C315CE5D1300033ED0 /* Sparkle.framework */; };
 		867596C715CE5F1D00033ED0 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 867596C615CE5F1D00033ED0 /* dsa_pub.pem */; };
+		867B51F915E116A900DA7E92 /* ScriptCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 867B51F815E116A900DA7E92 /* ScriptCommands.m */; };
 		867FDF351169FD2E000C71A6 /* HueSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 867FDF341169FD2E000C71A6 /* HueSliderCell.m */; };
 		868B9BD2131283FF001901F9 /* next-episode.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 868B9BD0131283FF001901F9 /* next-episode.pdf */; };
 		868B9BD3131283FF001901F9 /* prev-episode.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 868B9BD1131283FF001901F9 /* prev-episode.pdf */; };
@@ -407,6 +409,7 @@
 		863D0A9612CDE85900170081 /* zoom-rollover.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "zoom-rollover.tiff"; sourceTree = "<group>"; };
 		86450B871108840700E79645 /* LocalizedStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LocalizedStrings.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		86456F0415CE6E5A0032C4F8 /* reveal.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = reveal.pdf; sourceTree = "<group>"; };
+		8647852115E0D01B002D1442 /* MPlayerXScript.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MPlayerXScript.sdef; sourceTree = "<group>"; };
 		8654807D10CBB231009438A4 /* FloatWrapFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FloatWrapFormatter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8654807E10CBB231009438A4 /* FloatWrapFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FloatWrapFormatter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		865845151346D7E900570BA6 /* def.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = def.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -440,6 +443,8 @@
 		8674A56212CF2942009A2D05 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		867596C315CE5D1300033ED0 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		867596C615CE5F1D00033ED0 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		867B51F715E116A900DA7E92 /* ScriptCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptCommands.h; sourceTree = "<group>"; };
+		867B51F815E116A900DA7E92 /* ScriptCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptCommands.m; sourceTree = "<group>"; };
 		867FDF331169FD2E000C71A6 /* HueSliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = HueSliderCell.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		867FDF341169FD2E000C71A6 /* HueSliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HueSliderCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		868B9BD0131283FF001901F9 /* next-episode.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "next-episode.pdf"; sourceTree = "<group>"; };
@@ -669,6 +674,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8647852115E0D01B002D1442 /* MPlayerXScript.sdef */,
 				86C7D8F81501B41500EB7C65 /* ytdl */,
 				8674A56412CF294F009A2D05 /* Credits.rtf */,
 				863D0A8A12CDE82F00170081 /* window buttons */,
@@ -991,6 +997,8 @@
 		86C7D8FB1501B5D600EB7C65 /* others */ = {
 			isa = PBXGroup;
 			children = (
+				867B51F715E116A900DA7E92 /* ScriptCommands.h */,
+				867B51F815E116A900DA7E92 /* ScriptCommands.m */,
 				86C7D8FC1501B63800EB7C65 /* YTDL.m */,
 				86C7D8FD1501B63800EB7C65 /* YTDL.h */,
 				86C02AEE12309BCF004E8181 /* UserDefaults.m */,
@@ -1329,6 +1337,7 @@
 				8660504715D7E93E00F094EE /* gamma-min.pdf in Resources */,
 				8660504A15D7ECAE00F094EE /* noisereduction-max.pdf in Resources */,
 				8660504B15D7ECAE00F094EE /* noisereduction-min.pdf in Resources */,
+				8647852215E0D01B002D1442 /* MPlayerXScript.sdef in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1462,6 +1471,7 @@
 				869A336113D6EBFA0014B201 /* MPXWindowButton.m in Sources */,
 				86E6F06014F7C3F500CA1546 /* HIDRemote.m in Sources */,
 				86C7D8FE1501B63800EB7C65 /* YTDL.m in Sources */,
+				867B51F915E116A900DA7E92 /* ScriptCommands.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

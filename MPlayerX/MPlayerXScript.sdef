@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+
+<dictionary title="MPlayerX Terminology">
+
+	<suite name="MPlayerX Suite" code="mplx" description="Commands for MPlayerX.">
+        <command name="pause" code="mplxpaus" description="Pause playback if it is playing, no affect if already paused.">
+            <cocoa class="PauseCommand"/>
+        </command>
+
+        <command name="resume" code="mplxresu" description="Resume playback if it is paused, no affect if already playing.">
+            <cocoa class="ResumeCommand"/>
+        </command>
+	</suite>
+
+</dictionary>

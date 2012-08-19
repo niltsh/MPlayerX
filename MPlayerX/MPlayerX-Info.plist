@@ -538,6 +538,8 @@
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>MPXCommitHash</key>
 	<string>37d10e569f98367a060166be4586654da9f38e4d</string>
+	<key>NSAppleScriptEnabled</key>
+	<true/>
 	<key>NSHighResolutionCapable</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
@@ -546,6 +548,8 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>MPApplication</string>
+	<key>OSAScriptingDefinition</key>
+	<string>MPlayerXScript.sdef</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 	<key>SupportedAVExtensions</key>
