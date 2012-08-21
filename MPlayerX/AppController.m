@@ -387,6 +387,11 @@ static BOOL init_ed = NO;
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kMPXFeedbackURL]];
 }
 
+-(IBAction) checkForUpdate:(id)sender
+{
+    [[SUUpdater sharedUpdater] checkForUpdates:sender];
+}
+
 -(BOOL) isFilePlayable:(NSString*)path
 {
     if (path) {

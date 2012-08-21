@@ -59,5 +59,6 @@
 -(IBAction) donate:(id)sender;
 -(IBAction) gotoFeedbackPage:(id)sender;
 -(IBAction) openExternalAudioFile:(id)sender;
+-(IBAction) checkForUpdate:(id)sender;
 
 @end
