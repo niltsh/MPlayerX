@@ -696,33 +696,33 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 #pragma mark multitouch
 
 
-float DistanceOf(NSPoint p1, NSPoint p2, NSPoint p3)
+inline static float DistanceOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *p3)
 {
-	return fabs(p1.x - p2.x) + fabs(p1.y - p2.y) +
-	fabs(p1.x - p3.x) + fabs(p1.y - p3.y) +
-	fabs(p2.x - p3.x) + fabs(p2.y - p3.y);
+	return fabs(p1->x - p2->x) + fabs(p1->y - p2->y) +
+	fabs(p1->x - p3->x) + fabs(p1->y - p3->y) +
+	fabs(p2->x - p3->x) + fabs(p2->y - p3->y);
 }
 
-float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
+inline static float AreaOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *p3, const NSPoint *p4)
 {
 	CGFloat top, bottom, left, right;
-	top = p1.y;
-	bottom = p1.y;
-	left = p1.x;
-	right = p1.x;
+	top = p1->y;
+	bottom = p1->y;
+	left = p1->x;
+	right = p1->x;
 	
-	if (left   > p2.x) { left   = p2.x; }
-	if (right  < p2.x) { right  = p2.x; }
-	if (top    < p2.y) { top    = p2.y; }
-	if (bottom > p2.y) { bottom = p2.y; }
-	if (left   > p3.x) { left   = p3.x; }
-	if (right  < p3.x) { right  = p3.x; }
-	if (top    < p3.y) { top    = p3.y; }
-	if (bottom > p3.y) { bottom = p3.y; }
-	if (left   > p4.x) { left   = p4.x; }
-	if (right  < p4.x) { right  = p4.x; }
-	if (top    < p4.y) { top    = p4.y; }
-	if (bottom > p4.y) { bottom = p4.y; }
+	if (left   > p2->x) { left   = p2->x; }
+	if (right  < p2->x) { right  = p2->x; }
+	if (top    < p2->y) { top    = p2->y; }
+	if (bottom > p2->y) { bottom = p2->y; }
+	if (left   > p3->x) { left   = p3->x; }
+	if (right  < p3->x) { right  = p3->x; }
+	if (top    < p3->y) { top    = p3->y; }
+	if (bottom > p3->y) { bottom = p3->y; }
+	if (left   > p4->x) { left   = p4->x; }
+	if (right  < p4->x) { right  = p4->x; }
+	if (top    < p4->y) { top    = p4->y; }
+	if (bottom > p4->y) { bottom = p4->y; }
 	
 	return fabs(top - bottom) * fabs(right - left);
 }
@@ -731,7 +731,9 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 {
 	// MPLog(@"BEGAN");
 	NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseTouching inView:self];
-	
+
+    NSPoint p1, p2, p3, p4;
+    
 	switch ([touch count]) {
 		case 3:
 			if (threeFingersTap == kThreeFingersTapInit) {
@@ -743,9 +745,10 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			if (threeFingersPinch == kThreeFingersPinchInit) {
 				threeFingersPinch = kThreeFingersPinchReady;
 				NSArray *touchAr = [touch allObjects];
-				threeFingersPinchDistance = DistanceOf([[touchAr objectAtIndex:0] normalizedPosition],
-													   [[touchAr objectAtIndex:1] normalizedPosition], 
-													   [[touchAr objectAtIndex:2] normalizedPosition]);
+                p1 = [[touchAr objectAtIndex:0] normalizedPosition];
+                p2 = [[touchAr objectAtIndex:1] normalizedPosition];
+                p3 = [[touchAr objectAtIndex:2] normalizedPosition];
+				threeFingersPinchDistance = DistanceOf(&p1, &p2, &p3);
 				MPLog(@"Init 3f Dist:%f", threeFingersPinchDistance);
 			}
 			break;
@@ -756,10 +759,12 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			if (fourFingersPinch == kFourFingersPinchInit) {
 				fourFingersPinch = kFourFingersPinchReady;
 				NSArray *touchAr = [touch allObjects];
-				fourFingersPinchDistance = AreaOf([[touchAr objectAtIndex:0] normalizedPosition],
-												  [[touchAr objectAtIndex:1] normalizedPosition],
-												  [[touchAr objectAtIndex:2] normalizedPosition],
-												  [[touchAr objectAtIndex:3] normalizedPosition]);
+                p1 = [[touchAr objectAtIndex:0] normalizedPosition];
+                p2 = [[touchAr objectAtIndex:1] normalizedPosition];
+                p3 = [[touchAr objectAtIndex:2] normalizedPosition];
+                p4 = [[touchAr objectAtIndex:3] normalizedPosition];
+
+				fourFingersPinchDistance = AreaOf(&p1, &p2, &p3, &p4);
 				MPLog(@"Init 4f Dist:%f", fourFingersPinchDistance);
 			}
 			break;
@@ -772,6 +777,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 
 -(void) touchesMovedWithEvent:(NSEvent*)event
 {
+    NSPoint p1, p2, p3, p4;
 	// MPLog(@"MOVED");
 	// 任何时候当move的时候，就不ready了
 	threeFingersTap = kThreeFingersTapInvalid;
@@ -781,9 +787,11 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		
 		if ([touch count] == 3) {
 			NSArray *touchAr = [touch allObjects];
-			float dist = DistanceOf([[touchAr objectAtIndex:0] normalizedPosition],
-									[[touchAr objectAtIndex:1] normalizedPosition], 
-									[[touchAr objectAtIndex:2] normalizedPosition]);
+            p1 = [[touchAr objectAtIndex:0] normalizedPosition];
+            p2 = [[touchAr objectAtIndex:1] normalizedPosition];
+            p3 = [[touchAr objectAtIndex:2] normalizedPosition];
+
+			float dist = DistanceOf(&p1, &p2, &p3);
 			float thresh = [ud floatForKey:kUDKeyThreeFingersPinchThreshRatio];
 			
 			MPLog(@"Curr 3f Dist:%f", dist/threeFingersPinchDistance);
@@ -801,10 +809,12 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		
 		if ([touch count] == 4) {
 			NSArray *touchAr = [touch allObjects];
-			float dist = AreaOf([[touchAr objectAtIndex:0] normalizedPosition],
-								[[touchAr objectAtIndex:1] normalizedPosition],
-								[[touchAr objectAtIndex:2] normalizedPosition],
-								[[touchAr objectAtIndex:3] normalizedPosition]);
+            p1 = [[touchAr objectAtIndex:0] normalizedPosition];
+            p2 = [[touchAr objectAtIndex:1] normalizedPosition];
+            p3 = [[touchAr objectAtIndex:2] normalizedPosition];
+            p4 = [[touchAr objectAtIndex:3] normalizedPosition];
+
+			float dist = AreaOf(&p1, &p2, &p3, &p4);
 			MPLog(@"Curr 4f Dist:%f", dist / fourFingersPinchDistance);
 			
 			if (dist * [ud floatForKey:kUDKeyFourFingersPinchThreshRatio] < fourFingersPinchDistance) {
