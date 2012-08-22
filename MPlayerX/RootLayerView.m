@@ -672,7 +672,8 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	}
 	
 	if (key) {
-		[shortCutManager processKeyDown:[NSEvent makeKeyDownEvent:[NSString stringWithCharacters:&key length:1] modifierFlags:0]];
+		[shortCutManager processKeyDown:[NSEvent makeKeyDownEvent:[NSString stringWithCharacters:&key length:1]
+                                                    modifierFlags:NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask]];
 	}
 }
 
