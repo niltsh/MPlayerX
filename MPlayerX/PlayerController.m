@@ -54,6 +54,7 @@ NSString * const kMPCFMTMplayerPathX64	= @"binaries/x86_64/%@";
 NSString * const kMPCFFMpegProtoHead	= @"ffmpeg://";
 
 NSString * const kMPXPowerSaveAssertion	= @"MPlayerX is in playback.";
+NSString * const kMPXUserActivityDeclare = @"MPlayerX is running.";
 
 #define kThreadsNumMax	(8)
 
@@ -331,18 +332,52 @@ enum {
 	if (en) {
 		// to enable power save, release the assertion
 		if (nonSleepHandler != kIOPMNullAssertionID) {
+            IOReturn err;
+            IOPMAssertionID userAct = kIOPMNullAssertionID;
+
+            err = IOPMAssertionDeclareUserActivity((CFStringRef)kMPXUserActivityDeclare, kIOPMUserActiveLocal, &userAct);
+            if (err != kIOReturnSuccess) {
+                MPLog(@"Declare user activity failed.");
+            }
+
 			IOPMAssertionRelease(nonSleepHandler);
 			nonSleepHandler = kIOPMNullAssertionID;
-		}	
+
+            if (userAct != kIOPMNullAssertionID) {
+                MPLog(@"Declare user activity released - powersave ON.");
+                IOPMAssertionRelease(userAct);
+            }
+		}
 	} else {
 		// to disable power save, create the assertion
-		if (nonSleepHandler == kIOPMNullAssertionID) {
-			IOReturn err =
-				IOPMAssertionCreateWithName(kIOPMAssertionTypeNoDisplaySleep, kIOPMAssertionLevelOn,
-											(CFStringRef)kMPXPowerSaveAssertion, &nonSleepHandler);
+        if (nonSleepHandler == kIOPMNullAssertionID) {
+            IOReturn err;
+            IOPMAssertionID userAct = kIOPMNullAssertionID;
+            CFStringRef assertionType;
+
+            if (mplayer.movieInfo.videoInfo.count == 0) {
+                // no video, should allow dim display
+                assertionType = kIOPMAssertionTypePreventUserIdleSystemSleep;
+            } else {
+                // has video, should not allow dim display
+                assertionType = kIOPMAssertionTypePreventUserIdleDisplaySleep;
+                // only declare if there are video tracks
+                err = IOPMAssertionDeclareUserActivity((CFStringRef)kMPXUserActivityDeclare, kIOPMUserActiveLocal, &userAct);
+                if (err != kIOReturnSuccess) {
+                    MPLog(@"Declare user activity failed.");
+                }
+            }
+
+            err = IOPMAssertionCreateWithName(assertionType, kIOPMAssertionLevelOn, (CFStringRef)kMPXPowerSaveAssertion, &nonSleepHandler);
 			if (err != kIOReturnSuccess) {
 				MPLog(@"Can't disable powersave");
 			}
+            MPLog(@"Assertion: %@", (NSString*)assertionType);
+
+            if (userAct != kIOPMNullAssertionID) {
+                MPLog(@"Declare user activity released - powersave OFF.");
+                IOPMAssertionRelease(userAct);
+            }
 		}
 	}
 }
@@ -943,11 +978,6 @@ static BOOL isNetworkPath(const char *path)
 		dict = [NSDictionary dictionaryWithObjectsAndKeys: lastPlayedPathPre, kMPCPlayOpenedURLKey, nil];		
 	}
 
-	// disable the powersave
-	// when in auto play next, this function will be called multiple times
-	// but it is OK, calling this function multiple times won't lead errors
-	[self enablePowerSave:NO];
-	
 	[notifCenter postNotificationName:kMPCPlayOpenedNotification object:self userInfo:dict];
 }
 
@@ -957,6 +987,13 @@ static BOOL isNetworkPath(const char *path)
 							 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
 									   [NSNumber numberWithBool:([mplayer.movieInfo.videoInfo count] == 0)], kMPCPlayStartedAudioOnlyKey,
 									   nil]];
+
+	// disable the powersave
+	// when in auto play next, this function will be called multiple times
+	// but it is OK, calling this function multiple times won't lead errors
+    if (!mplayer.pm.pauseAtStart) {
+        [self enablePowerSave:NO];
+    }
 
 	MPLog(@"vc:%lu, ac:%lu", [mplayer.movieInfo.videoInfo count], [mplayer.movieInfo.audioInfo count]);
 }
