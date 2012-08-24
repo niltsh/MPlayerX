@@ -54,6 +54,10 @@
 #define kFourFingersPinchInvalid	(-1)
 #define kFourFingersPinchReady		(1)
 
+#define kThreeFingersSwipeInit		(0)
+#define kThreeFingersSwipeInvalid	(-1)
+#define kThreeFingersSwipeReady		(1)
+
 // calculateFrameFrom:(NSRect)orgFrame toFit:(CGFloat)ar mode:(NSUInteger)modeMask;
 #define kCalFrameSizeDiag			(1)
 #define kCalFrameSizeInFit			(2)
@@ -144,6 +148,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
                        boolNo, kUDKeyClickTogPlayPause,
                        boolYes, kUDKeyAnimateFullScreen,
                        boolYes, kUDKeyControlUIDetectMouseExit,
+                       [NSNumber numberWithFloat:0.15], kUDKeyThreeFingersSwipeThreshRatio,
 					   nil]];
 }
 
@@ -183,6 +188,9 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 		threeFingersPinchDistance = 1;
 		fourFingersPinch = kFourFingersPinchInit;
 		fourFingersPinchDistance = 1;
+		threeFingersSwipe = kThreeFingersSwipeInit;
+		threeFingersSwipeCord = NSMakePoint(0, 0);
+        // hasSwipeEvent = NO;
         
         lastScrollLR = 0;
         logo = nil;
@@ -586,6 +594,18 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	}
 }
 
+/*
+ * 有关scrollWheel, swipeWithEvent, touch...Event
+ * 
+ * OFF      双指      三指      双指或三指       用户设定
+ *  NO      YES       NO            YES       [NSEvent isSwipeTrackingScrollEnabled]
+ *  NO       NO      YES            YES       三指滚动是否会发生swipeWithEvent
+ * YES      YES       NO             NO       三指滚动是否会发生scrollWheel
+ * YES      YES      YES            YES       双指滚动是否会发生scrollWheel
+ *
+ * 问题在于在发生scrollWheel的时候，无法知道是 三指引发的 还是 双指引发的，这样三指就会发生冲突。
+ * 目前没有办法解决。
+ */
 -(void)scrollWheel:(NSEvent *)theEvent
 {
 	float x, y;
@@ -658,23 +678,31 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	CGFloat x = [event deltaX];
 	CGFloat y = [event deltaY];
 	unichar key;
-	
+	NSString *str = nil;
+
 	if (x < 0) {
 		key = NSRightArrowFunctionKey;
+        str = @"Right";
 	} else if (x > 0) {
 		key = NSLeftArrowFunctionKey;
+        str = @"Left";
 	} else if (y > 0) {
 		key = NSUpArrowFunctionKey;
+        str = @"Up";
 	} else if (y < 0) {
 		key = NSDownArrowFunctionKey;
+        str = @"Down";
 	} else {
 		key = 0;
 	}
 	
 	if (key) {
+        MPLog(@"swipeWithEvent: %@", str);
 		[shortCutManager processKeyDown:[NSEvent makeKeyDownEvent:[NSString stringWithCharacters:&key length:1]
                                                     modifierFlags:NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask]];
 	}
+
+    // hasSwipeEvent = YES;
 }
 
 -(void) rotateWithEvent:(NSEvent*)event
@@ -695,15 +723,22 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 
 #pragma mark multitouch
 
+inline static NSPoint centerOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *p3)
+{
+    NSPoint ret;
+    ret.x = (p1->x + p2->x + p3->x) / 3;
+    ret.y = (p1->y + p2->y + p3->y) / 3;
+    return ret;
+}
 
-inline static float DistanceOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *p3)
+inline static float distanceOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *p3)
 {
 	return fabs(p1->x - p2->x) + fabs(p1->y - p2->y) +
 	fabs(p1->x - p3->x) + fabs(p1->y - p3->y) +
 	fabs(p2->x - p3->x) + fabs(p2->y - p3->y);
 }
 
-inline static float AreaOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *p3, const NSPoint *p4)
+inline static float areaOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *p3, const NSPoint *p4)
 {
 	CGFloat top, bottom, left, right;
 	top = p1->y;
@@ -727,11 +762,27 @@ inline static float AreaOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *
 	return fabs(top - bottom) * fabs(right - left);
 }
 
+static void getPointsFromArray3(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPoint *p3)
+{
+    *p1 = [[touchAr objectAtIndex:0] normalizedPosition];
+    *p2 = [[touchAr objectAtIndex:1] normalizedPosition];
+    *p3 = [[touchAr objectAtIndex:2] normalizedPosition];
+}
+
+static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPoint *p3, NSPoint *p4)
+{
+    *p1 = [[touchAr objectAtIndex:0] normalizedPosition];
+    *p2 = [[touchAr objectAtIndex:1] normalizedPosition];
+    *p3 = [[touchAr objectAtIndex:2] normalizedPosition];
+    *p4 = [[touchAr objectAtIndex:3] normalizedPosition];
+}
+
 -(void) touchesBeganWithEvent:(NSEvent*)event
 {
 	// MPLog(@"BEGAN");
 	NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseTouching inView:self];
 
+    NSArray *touchAr = nil;
     NSPoint p1, p2, p3, p4;
     
 	switch ([touch count]) {
@@ -744,27 +795,39 @@ inline static float AreaOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *
 			
 			if (threeFingersPinch == kThreeFingersPinchInit) {
 				threeFingersPinch = kThreeFingersPinchReady;
-				NSArray *touchAr = [touch allObjects];
-                p1 = [[touchAr objectAtIndex:0] normalizedPosition];
-                p2 = [[touchAr objectAtIndex:1] normalizedPosition];
-                p3 = [[touchAr objectAtIndex:2] normalizedPosition];
-				threeFingersPinchDistance = DistanceOf(&p1, &p2, &p3);
+				touchAr = [touch allObjects];
+                getPointsFromArray3(touchAr, &p1, &p2, &p3);
+				threeFingersPinchDistance = distanceOf(&p1, &p2, &p3);
 				MPLog(@"Init 3f Dist:%f", threeFingersPinchDistance);
 			}
+
+            // if (!hasSwipeEvent) {
+            if (0) {
+                // if ((MPXGetSysVersion >= kMPXSysVersionLion) && [NSEvent isSwipeTrackingFromScrollEventsEnabled]) {
+                //　如果是SL系统，会调用swipeWithEvent函数，不需要调用这里
+                // 如果没有用到trackingFromScrollEvents，那么也会产生swipeWithEvent函数，不需要调用这里
+                    if (threeFingersSwipe == kThreeFingersSwipeInit) {
+                        if (!touchAr) {
+                            touchAr = [touch allObjects];
+                            getPointsFromArray3(touchAr, &p1, &p2, &p3);
+                        }
+                        threeFingersSwipe = kThreeFingersSwipeReady;
+                        threeFingersSwipeCord = centerOf(&p1, &p2, &p3);
+                        MPLog(@"Init 3F Center: x:%f y:%f", threeFingersSwipeCord.x, threeFingersSwipeCord.y);
+                    }
+                // }
+            }
 			break;
 		case 4:
 			threeFingersTap = kThreeFingersTapInit;
 			threeFingersPinch = kThreeFingersPinchInit;
+            threeFingersSwipe = kThreeFingersSwipeInit;
 			
 			if (fourFingersPinch == kFourFingersPinchInit) {
 				fourFingersPinch = kFourFingersPinchReady;
-				NSArray *touchAr = [touch allObjects];
-                p1 = [[touchAr objectAtIndex:0] normalizedPosition];
-                p2 = [[touchAr objectAtIndex:1] normalizedPosition];
-                p3 = [[touchAr objectAtIndex:2] normalizedPosition];
-                p4 = [[touchAr objectAtIndex:3] normalizedPosition];
-
-				fourFingersPinchDistance = AreaOf(&p1, &p2, &p3, &p4);
+				touchAr = [touch allObjects];
+                getPointsFromArray4(touchAr, &p1, &p2, &p3, &p4);
+				fourFingersPinchDistance = areaOf(&p1, &p2, &p3, &p4);
 				MPLog(@"Init 4f Dist:%f", fourFingersPinchDistance);
 			}
 			break;
@@ -778,46 +841,84 @@ inline static float AreaOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *
 -(void) touchesMovedWithEvent:(NSEvent*)event
 {
     NSPoint p1, p2, p3, p4;
+    NSArray *touchAr = nil;
+
+    NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseMoved|NSTouchPhaseStationary inView:self];
 	// MPLog(@"MOVED");
 	// 任何时候当move的时候，就不ready了
 	threeFingersTap = kThreeFingersTapInvalid;
 	
 	if (threeFingersPinch == kThreeFingersPinchReady) {
-		NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseMoved|NSTouchPhaseStationary inView:self];
-		
 		if ([touch count] == 3) {
-			NSArray *touchAr = [touch allObjects];
-            p1 = [[touchAr objectAtIndex:0] normalizedPosition];
-            p2 = [[touchAr objectAtIndex:1] normalizedPosition];
-            p3 = [[touchAr objectAtIndex:2] normalizedPosition];
+			touchAr = [touch allObjects];
+			getPointsFromArray3(touchAr, &p1, &p2, &p3);
 
-			float dist = DistanceOf(&p1, &p2, &p3);
+			float dist = distanceOf(&p1, &p2, &p3);
 			float thresh = [ud floatForKey:kUDKeyThreeFingersPinchThreshRatio];
-			
-			MPLog(@"Curr 3f Dist:%f", dist/threeFingersPinchDistance);
+
 			if (((![self isInFullScreenMode]) && (dist > threeFingersPinchDistance * thresh)) ||
-				(( [self isInFullScreenMode]) && (dist * thresh < threeFingersPinchDistance))){
+				(( [self isInFullScreenMode]) && (dist * thresh < threeFingersPinchDistance))) {
 				// toggle fullscreen
+				MPLog(@"Curr 3f Dist:%f", dist/threeFingersPinchDistance);
+
 				threeFingersPinch = kThreeFingersPinchInit;
+				threeFingersSwipe = kThreeFingersSwipeInit;
 				[controlUI toggleFullScreen:nil];
 			}
 		}
 	}
 	
+    // if (hasSwipeEvent) {
+    //     threeFingersSwipe = kThreeFingersSwipeInit;
+    // }
+	// if (threeFingersSwipe == kThreeFingersSwipeReady) {
+    if (0) {
+		if ([touch count] == 3) {
+			if (!touchAr) {
+				touchAr = [touch allObjects];
+				getPointsFromArray3(touchAr, &p1, &p2, &p3);
+			}
+			NSPoint cordNow, cordAbs;
+			cordNow = centerOf(&p1, &p2, &p3);
+			
+			cordNow.x -= threeFingersSwipeCord.x;
+			cordNow.y -= threeFingersSwipeCord.y;
+
+			cordAbs.x = fabs(cordNow.x);
+			cordAbs.y = fabs(cordNow.y);
+			
+			float thresh = [ud floatForKey:kUDKeyThreeFingersSwipeThreshRatio];
+			unichar key = 0;
+
+            MPLog(@"Curr 3F Center: x:%f y:%f", cordNow.x, cordNow.y);
+			
+            if ((cordAbs.x >= cordAbs.y) && (cordAbs.x >= thresh)) {
+				key = (cordNow.x > 0)?(NSRightArrowFunctionKey):(NSLeftArrowFunctionKey);
+				MPLog(@"Swipe Touch %@", (cordNow.x > 0)?(@"Right"):(@"Left"));
+			} else if ((cordAbs.y >= cordAbs.x) && (cordAbs.y >= thresh)) {
+				key = (cordNow.y > 0)?(NSUpArrowFunctionKey):(NSDownArrowFunctionKey);
+				MPLog(@"Swipe Touch %@", (cordNow.y > 0)?(@"Up"):(@"Down"));
+			}
+
+			if (key) {
+				threeFingersSwipe = kThreeFingersSwipeInit;
+				threeFingersPinch = kThreeFingersPinchInit;
+				[shortCutManager processKeyDown:[NSEvent makeKeyDownEvent:[NSString stringWithCharacters:&key length:1]
+                                                            modifierFlags:NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask]];
+			}
+		}
+	}
+
 	if (fourFingersPinch == kFourFingersPinchReady) {
-		NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseMoved|NSTouchPhaseStationary inView:self];
 		
 		if ([touch count] == 4) {
-			NSArray *touchAr = [touch allObjects];
-            p1 = [[touchAr objectAtIndex:0] normalizedPosition];
-            p2 = [[touchAr objectAtIndex:1] normalizedPosition];
-            p3 = [[touchAr objectAtIndex:2] normalizedPosition];
-            p4 = [[touchAr objectAtIndex:3] normalizedPosition];
+			touchAr = [touch allObjects];
+            getPointsFromArray4(touchAr, &p1, &p2, &p3, &p4);
 
-			float dist = AreaOf(&p1, &p2, &p3, &p4);
-			MPLog(@"Curr 4f Dist:%f", dist / fourFingersPinchDistance);
+			float dist = areaOf(&p1, &p2, &p3, &p4);
 			
 			if (dist * [ud floatForKey:kUDKeyFourFingersPinchThreshRatio] < fourFingersPinchDistance) {
+				MPLog(@"Curr 4f Dist:%f", dist / fourFingersPinchDistance);
 				fourFingersPinch = kFourFingersPinchInit;
 				[[self window] performClose:self];
 			}
@@ -843,6 +944,7 @@ inline static float AreaOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *
 		
 		threeFingersPinch = kThreeFingersPinchInit;
 		fourFingersPinch = kFourFingersPinchInit;
+        threeFingersSwipe = kThreeFingersSwipeInit;
 	}
 	
 	[super touchesEndedWithEvent:event];
@@ -854,6 +956,7 @@ inline static float AreaOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *
 	threeFingersTap = kThreeFingersTapInit;
 	threeFingersPinch = kThreeFingersPinchInit;
 	fourFingersPinch = kFourFingersPinchInit;
+    threeFingersSwipe = kThreeFingersSwipeInit;
 	
 	[super touchesCancelledWithEvent:event];
 }

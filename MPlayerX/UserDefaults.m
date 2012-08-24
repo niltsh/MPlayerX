@@ -124,5 +124,6 @@ NSString * const kUDKeyThreeFingersPinchThreshRatio			= @"TFPThreshRatio";
 NSString * const kUDKeyFourFingersPinchThreshRatio			= @"FFPThreshRatio";
 NSString * const kUDKeyFontFallbackList                     = @"FontFallbackList";
 NSString * const kUDKeyKBSeekStepPeriod                     = @"KBSeekStepPeriod";
+NSString * const kUDKeyThreeFingersSwipeThreshRatio			= @"TFSThreshRatio";
 
 NSString * const kUDKeyPinPMode								= @"PinPMode";

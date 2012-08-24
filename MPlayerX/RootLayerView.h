@@ -56,6 +56,9 @@
 	float threeFingersPinchDistance;
 	NSInteger fourFingersPinch;
 	float fourFingersPinchDistance;
+    NSInteger threeFingersSwipe;
+    NSPoint threeFingersSwipeCord;
+    // BOOL hasSwipeEvent;
     
     NSTimeInterval lastScrollLR;
 	
