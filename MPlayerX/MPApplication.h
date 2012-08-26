@@ -19,9 +19,16 @@
  */
 #import <Foundation/Foundation.h>
 
+@class PlayerController, ControlUIView;
 
-@interface MPApplication : NSApplication {
-    
+@interface MPApplication : NSApplication
+{
+    IBOutlet PlayerController *playerController;
+    IBOutlet ControlUIView *controlUI;
 }
+@end
 
+
+@interface MPApplication (Scripting)
+-(id) processScriptCommand:(NSScriptCommand*)command;
 @end

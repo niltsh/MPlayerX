@@ -19,26 +19,14 @@
  */
 
 #import "ScriptCommands.h"
-#import "CocoaAppendix.h"
-#import "AppController.h"
-#import "PlayerController.h"
-#import "KeyCode.h"
+#import "MPApplication.h"
 
-@implementation PauseCommand
+@implementation MPXScriptCommand
+
 -(id) performDefaultImplementation
 {
-    if ([[[AppController sharedAppController] frontMostPlayer] playerState] == kMPCPlayingState) {
-        [NSApp sendEvent:[NSEvent makeKeyDownEvent:kSCMPlayPauseKeyEquivalent modifierFlags:0]];
-    }
-    return nil;
-}
-@end
-
-@implementation ResumeCommand
-- (id) performDefaultImplementation
-{
-    if ([[[AppController sharedAppController] frontMostPlayer] playerState] == kMPCPausedState) {
-        [NSApp sendEvent:[NSEvent makeKeyDownEvent:kSCMPlayPauseKeyEquivalent modifierFlags:0]];
+    if ([NSApp respondsToSelector:@selector(processScriptCommand:)]) {
+        return [NSApp processScriptCommand:self];
     }
     return nil;
 }

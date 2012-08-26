@@ -20,8 +20,5 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PauseCommand : NSScriptCommand
-@end
-
-@interface ResumeCommand : NSScriptCommand
+@interface MPXScriptCommand : NSScriptCommand
 @end

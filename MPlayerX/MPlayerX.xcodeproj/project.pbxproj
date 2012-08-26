@@ -127,6 +127,7 @@
 		8660504715D7E93E00F094EE /* gamma-min.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8660504515D7E93E00F094EE /* gamma-min.pdf */; };
 		8660504A15D7ECAE00F094EE /* noisereduction-max.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8660504815D7ECAE00F094EE /* noisereduction-max.pdf */; };
 		8660504B15D7ECAE00F094EE /* noisereduction-min.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8660504915D7ECAE00F094EE /* noisereduction-min.pdf */; };
+		8660D92415E7C88E0063CF2C /* MPApplication+Scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8660D92315E7C88E0063CF2C /* MPApplication+Scripting.m */; };
 		8661414210FA2B7E007F36DA /* SubConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8661414110FA2B7E007F36DA /* SubConverter.m */; };
 		8663088215A81639002A2F77 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8663088115A81639002A2F77 /* logo@2x.png */; };
 		86689CA511304163009DA72C /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 86689CA411304163009DA72C /* logo.png */; };
@@ -423,6 +424,7 @@
 		8660504515D7E93E00F094EE /* gamma-min.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "gamma-min.pdf"; sourceTree = "<group>"; };
 		8660504815D7ECAE00F094EE /* noisereduction-max.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "noisereduction-max.pdf"; sourceTree = "<group>"; };
 		8660504915D7ECAE00F094EE /* noisereduction-min.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "noisereduction-min.pdf"; sourceTree = "<group>"; };
+		8660D92315E7C88E0063CF2C /* MPApplication+Scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPApplication+Scripting.m"; sourceTree = "<group>"; };
 		8661414010FA2B7E007F36DA /* SubConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SubConverter.h; sourceTree = "<group>"; };
 		8661414110FA2B7E007F36DA /* SubConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SubConverter.m; sourceTree = "<group>"; };
 		8663088115A81639002A2F77 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
@@ -990,6 +992,7 @@
 				8612503E12D1C2290085DFF0 /* InspectorController.m */,
 				8605F0D4137E67FE00317941 /* MPApplication.h */,
 				8605F0D5137E67FE00317941 /* MPApplication.m */,
+				8660D92315E7C88E0063CF2C /* MPApplication+Scripting.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1472,6 +1475,7 @@
 				86E6F06014F7C3F500CA1546 /* HIDRemote.m in Sources */,
 				86C7D8FE1501B63800EB7C65 /* YTDL.m in Sources */,
 				867B51F915E116A900DA7E92 /* ScriptCommands.m in Sources */,
+				8660D92415E7C88E0063CF2C /* MPApplication+Scripting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
