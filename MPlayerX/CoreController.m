@@ -293,6 +293,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 		
 		switch (pixelFormat) {
 			case kYUVSPixelFormat:
+            case k2vuyPixelFormat:
 				fmt.bytes = 2;
 				break;
 			case k24RGBPixelFormat:
