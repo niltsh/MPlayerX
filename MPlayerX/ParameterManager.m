@@ -120,6 +120,7 @@ NSString * const kPMParFontFBList           = @"-font-fblist";
 
 NSString * const kPMParVC                   = @"-vc";
 NSString * const kPMValNoHWAccel            = @"-ffh264vda,";
+NSString * const kPMValHWAccel              = @"ffh264vda,";
 
 #define kSubScaleNoAss			(8.0)
 
@@ -556,6 +557,9 @@ NSString * const kPMValNoHWAccel            = @"-ffh264vda,";
     if (!hwAccel) {
         [paramArray addObject:kPMParVC];
         [paramArray addObject:kPMValNoHWAccel];
+    } else {
+        [paramArray addObject:kPMParVC];
+        [paramArray addObject:kPMValHWAccel];
     }
 	
 	if (extraOptions) {
