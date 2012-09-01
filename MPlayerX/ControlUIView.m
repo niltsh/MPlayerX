@@ -57,6 +57,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 
 @interface ControlUIView (ControlUIViewInternal)
 -(void) windowHasResized:(NSNotification*)notification;
+-(void) appWillTerminate:(NSNotification*)notif;
 -(void) calculateHintTime;
 -(void) resetSubtitleMenu;
 -(void) resetAudioMenu;
@@ -109,6 +110,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 					   boolYes, kUDKeyResizeControlBar,
                        boolNo, kUDKeyPauseShowTime,
                        boolYes, kUDKeyResumedShowTime,
+                       [NSNumber numberWithFloat:-1.0f], kUDKeyControlUICenterYRatio,
 					   nil]];
 }
 
@@ -396,12 +398,25 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 
 	[notifCenter addObserver:self selector:@selector(playInfoUpdated:)
 						name:kMPCPlayInfoUpdatedNotification object:playerController];
+
+    [notifCenter addObserver:self selector:@selector(appWillTerminate:)
+                        name:NSApplicationWillTerminateNotification
+                      object:NSApp];
 	
 	// this functioin must be called after the Notification is setuped
 	[playerController setupKVO];
 
 	// force hide titlebar
 	[title setAlphaValue:([ud boolForKey:kUDKeyHideTitlebar])?0:CONTROLALPHA];
+
+    float yRatio = [ud floatForKey:kUDKeyControlUICenterYRatio];
+    if (yRatio > 0.0) {
+        NSRect superFrame = [[self superview] frame];
+        NSRect selfFrame = [self frame];
+        // 这里最小值必须为1，为0的时候，ControlUI会跳到窗口最上部，原因未知
+        selfFrame.origin.y = MIN(MAX(1, superFrame.size.height * yRatio - selfFrame.size.height / 2), superFrame.size.height - selfFrame.size.height-1);
+        [self setFrameOrigin:selfFrame.origin];
+    }
 }
 
 -(void) dealloc
@@ -1930,5 +1945,14 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	
 	// 这里是为了让字体大小符合窗口大小
 	[osd setStringValue:nil owner:osd.owner updateTimer:NO];
+}
+
+-(void) appWillTerminate:(NSNotification*)notif
+{
+    NSRect selfFrame = [self frame];
+
+    [ud setFloat:(selfFrame.origin.y + selfFrame.size.height / 2) / [[self superview] frame].size.height
+          forKey:kUDKeyControlUICenterYRatio];
+    [ud synchronize];
 }
 @end
