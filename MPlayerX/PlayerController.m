@@ -605,8 +605,11 @@ static BOOL isNetworkPath(const char *path)
 	if ([ext isEqualToString:@"rm"] || [ext isEqualToString:@"rmvb"] ||
 		[ext isEqualToString:@"ra"] || [ext isEqualToString:@"ram"]) {
 		[mplayer.pm setDemuxer:nil];
+        // issue 851 : RM解码有bug，多线程的时候有一些文件无法解码
+        [mplayer.pm setThreads:1];
 	} else {
 		[mplayer.pm setDemuxer:kPMValDemuxFFMpeg];
+        [mplayer.pm setThreads:[ud integerForKey:kUDKeyThreadNum]];
 	}
 	////////////////////////////////////////////////////////////////////
 
