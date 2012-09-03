@@ -111,6 +111,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
                        boolNo, kUDKeyPauseShowTime,
                        boolYes, kUDKeyResumedShowTime,
                        [NSNumber numberWithFloat:-1.0f], kUDKeyControlUICenterYRatio,
+                       boolNo, kUDKeyShowRealRemainingTime,
 					   nil]];
 }
 
@@ -1569,7 +1570,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			[timeTextAlt setIntValue:length + 0.5];
 		} else {
 			// display remaining time
-			[timeTextAlt setIntValue:time - length - 0.5];
+            if ([ud boolForKey:kUDKeyShowRealRemainingTime]) {
+                [timeTextAlt setIntValue:time - length - 0.5];
+            } else {
+                [timeTextAlt setIntValue:((time - length - 0.5) / [[playerController mediaInfo].playingInfo.speed floatValue])];
+            }
 		}
 	}
 
