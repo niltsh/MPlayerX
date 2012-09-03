@@ -113,6 +113,7 @@ extern NSString * const kUDKeyResumedShowTime;
 extern NSString * const kUDKeyEnableHWAccel;
 extern NSString * const kUDKeyControlUICenterYRatio;
 extern NSString * const kUDKeyShowRealRemainingTime;
+extern NSString * const kUDKeyFFmpegRealCodecThreadFix;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;

@@ -117,6 +117,7 @@ NSString * const kUDKeyResumedShowTime                      = @"ResumedShowTime"
 NSString * const kUDKeyEnableHWAccel                        = @"EnableHWAccel";
 NSString * const kUDKeyControlUICenterYRatio                = @"ControlUICenterYRatio";
 NSString * const kUDKeyShowRealRemainingTime                = @"ShowRealRemainingTime";
+NSString * const kUDKeyFFmpegRealCodecThreadFix             = @"FFmpegRealCodecThreadFix";
 
 NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";

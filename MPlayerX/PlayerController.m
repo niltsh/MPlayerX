@@ -138,6 +138,7 @@ enum {
                         @"/Library/Fonts/Hiragino Sans GB W3.otf",
                         @"/Library/Fonts/Arial Unicode.ttf", nil], kUDKeyFontFallbackList,
                        boolYes, kUDKeyEnableHWAccel,
+                       boolYes, kUDKeyFFmpegRealCodecThreadFix,
 					   nil]];
 }
 
@@ -606,10 +607,14 @@ static BOOL isNetworkPath(const char *path)
 		[ext isEqualToString:@"ra"] || [ext isEqualToString:@"ram"]) {
 		[mplayer.pm setDemuxer:nil];
         // issue 851 : RM解码有bug，多线程的时候有一些文件无法解码
-        [mplayer.pm setThreads:1];
+        if ([ud boolForKey:kUDKeyFFmpegRealCodecThreadFix]) {
+            [mplayer.pm setThreads:1];
+        }
 	} else {
 		[mplayer.pm setDemuxer:kPMValDemuxFFMpeg];
-        [mplayer.pm setThreads:[ud integerForKey:kUDKeyThreadNum]];
+        if ([ud boolForKey:kUDKeyFFmpegRealCodecThreadFix]) {
+            [mplayer.pm setThreads:[ud integerForKey:kUDKeyThreadNum]];
+        }
 	}
 	////////////////////////////////////////////////////////////////////
 
