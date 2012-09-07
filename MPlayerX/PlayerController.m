@@ -341,9 +341,12 @@ BOOL shouldFixMjpegPngCodec(NSString *ext)
             IOReturn err;
             IOPMAssertionID userAct = kIOPMNullAssertionID;
 
-            err = IOPMAssertionDeclareUserActivity((CFStringRef)kMPXUserActivityDeclare, kIOPMUserActiveLocal, &userAct);
-            if (err != kIOReturnSuccess) {
-                MPLog(@"Declare user activity failed.");
+            if (MPXGetSysVersion() >= kMPXSysVersionLion) {
+                // this is a 10.7 or above API
+                err = IOPMAssertionDeclareUserActivity((CFStringRef)kMPXUserActivityDeclare, kIOPMUserActiveLocal, &userAct);
+                if (err != kIOReturnSuccess) {
+                    MPLog(@"Declare user activity failed.");
+                }
             }
 
 			IOPMAssertionRelease(nonSleepHandler);
@@ -367,10 +370,14 @@ BOOL shouldFixMjpegPngCodec(NSString *ext)
             } else {
                 // has video, should not allow dim display
                 assertionType = kIOPMAssertionTypePreventUserIdleDisplaySleep;
-                // only declare if there are video tracks
-                err = IOPMAssertionDeclareUserActivity((CFStringRef)kMPXUserActivityDeclare, kIOPMUserActiveLocal, &userAct);
-                if (err != kIOReturnSuccess) {
-                    MPLog(@"Declare user activity failed.");
+
+                if (MPXGetSysVersion() >= kMPXSysVersionLion) {
+                    // only declare if there are video tracks
+                    // this is a 10.7 or above API
+                    err = IOPMAssertionDeclareUserActivity((CFStringRef)kMPXUserActivityDeclare, kIOPMUserActiveLocal, &userAct);
+                    if (err != kIOReturnSuccess) {
+                        MPLog(@"Declare user activity failed.");
+                    }
                 }
             }
 
