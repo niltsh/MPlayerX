@@ -121,6 +121,7 @@ NSString * const kPMParFontFBList           = @"-font-fblist";
 NSString * const kPMParVC                   = @"-vc";
 NSString * const kPMValNoHWAccel            = @"-ffh264vda,";
 NSString * const kPMValHWAccel              = @"ffh264vda,";
+NSString * const kPMValDisableMjpegPngCodec = @"-ffmjpeg,-ffpng,";
 
 #define kSubScaleNoAss			(8.0)
 
@@ -135,7 +136,7 @@ NSString * const kPMValHWAccel              = @"ffh264vda,";
 @synthesize pauseAtStart, overlapSub, rtspOverHttp, mixToStereo;
 @synthesize demuxer, deinterlace, imgEnhance, extraOptions, equalizer;
 @synthesize subBorderWidth, noDispSub, playDisk, assSubMarginV, displayCacheLog;
-@synthesize edlPath, audioFilePath, fontFallbackList, debug, hwAccel;
+@synthesize edlPath, audioFilePath, fontFallbackList, debug, hwAccel, disableMjpegPngCodec;
 
 #pragma mark Init/Dealloc
 -(id) init
@@ -198,6 +199,7 @@ NSString * const kPMValHWAccel              = @"ffh264vda,";
 		audioFilePath = nil;
         fontFallbackList = nil;
         hwAccel = YES;
+        disableMjpegPngCodec = NO;
 	}
 	return self;
 }
@@ -244,6 +246,7 @@ NSString * const kPMValHWAccel              = @"ffh264vda,";
 {
 	BOOL useVideoFilters = NO;
 	BOOL usePPFilters    = NO;
+    NSString *vfSettings = nil;
 	
 	if (paramArray) {
 		[paramArray removeAllObjects];
@@ -554,12 +557,18 @@ NSString * const kPMValHWAccel              = @"ffh264vda,";
         [paramArray addObject:[fontFallbackList componentsJoinedByString:kPMComma]];
     }
 
+    if (disableMjpegPngCodec) {
+        vfSettings = kPMValDisableMjpegPngCodec;
+    } else {
+        vfSettings = @"";
+    }
+    
     if (!hwAccel) {
         [paramArray addObject:kPMParVC];
-        [paramArray addObject:kPMValNoHWAccel];
+        [paramArray addObject:[vfSettings stringByAppendingString:kPMValNoHWAccel]];
     } else {
         [paramArray addObject:kPMParVC];
-        [paramArray addObject:kPMValHWAccel];
+        [paramArray addObject:[vfSettings stringByAppendingString:kPMValHWAccel]];
     }
 	
 	if (extraOptions) {

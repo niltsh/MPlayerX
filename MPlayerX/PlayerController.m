@@ -87,6 +87,11 @@ enum {
 -(NSString*) subConverter:(id)subConv detectedFile:(NSString*)path ofCharsetName:(NSString*)charsetName confidence:(float)confidence;
 @end
 
+BOOL shouldFixMjpegPngCodec(NSString *ext)
+{
+    return [ext isEqualToString:@"m4a"] || [ext isEqualToString:@"mp3"];
+}
+
 @implementation PlayerController
 
 @synthesize lastPlayedPath;
@@ -618,6 +623,14 @@ static BOOL isNetworkPath(const char *path)
 	}
 	////////////////////////////////////////////////////////////////////
 
+	////////////////////////////////////////////////////////////////////
+    // 有一些mp3/m4a文件，如果有album art的时候，会出现pts出错的问题
+    if (shouldFixMjpegPngCodec(ext)) {
+        [mplayer.pm setDisableMjpegPngCodec:YES];
+    } else {
+        [mplayer.pm setDisableMjpegPngCodec:NO];
+    }
+	////////////////////////////////////////////////////////////////////
 	if ([ud boolForKey:kUDKeyAutoResume] && (stime = [[[AppController sharedAppController] bookmarks] objectForKey:[lastPlayedPathPre absoluteString]])) {
 		// if AutoResume is ON and there was a record in the bookmarks
 		// and 5s to help the users to remember where they left in the movie
@@ -993,7 +1006,7 @@ static BOOL isNetworkPath(const char *path)
 {
 	[notifCenter postNotificationName:kMPCPlayStartedNotification object:self 
 							 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-									   [NSNumber numberWithBool:([mplayer.movieInfo.videoInfo count] == 0)], kMPCPlayStartedAudioOnlyKey,
+									   [NSNumber numberWithBool:(([mplayer.movieInfo.videoInfo count] == 0)||shouldFixMjpegPngCodec([lastPlayedPath pathExtension]))], kMPCPlayStartedAudioOnlyKey,
 									   nil]];
 
 	// disable the powersave
