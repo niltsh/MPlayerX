@@ -1387,7 +1387,7 @@
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="35849962">
 										<int key="NSCellFlags">67108864</int>
-										<int key="NSCellFlags2">131072</int>
+										<int key="NSCellFlags2">67239936</int>
 										<string key="NSContents"/>
 										<object class="NSFont" key="NSSupport" id="26">
 											<string key="NSName">LucidaGrande</string>
@@ -1738,7 +1738,7 @@
 								<object class="NSSlider" id="427466563">
 									<reference key="NSNextResponder" ref="85098728"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{62, 7}, {306, 15}}</string>
+									<string key="NSFrame">{{57, 7}, {316, 15}}</string>
 									<reference key="NSSuperview" ref="85098728"/>
 									<reference key="NSNextKeyView" ref="694480288"/>
 									<bool key="NSEnabled">YES</bool>

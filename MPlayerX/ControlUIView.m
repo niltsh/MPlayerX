@@ -32,6 +32,7 @@
 #import "CocoaAppendix.h"
 #import "TimeFormatter.h"
 #import "DisplayLayer.h"
+#import "TimeSliderCell.h"
 
 #define CONTROLALPHA		(1)
 #define BACKGROUNDALPHA		(0.9)
@@ -1877,9 +1878,9 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 -(void) calculateHintTime
 {
 	NSPoint pt = [self convertPoint:[[self window] convertScreenToBase:[NSEvent mouseLocation]] fromView:nil];
-	NSRect frm = timeSlider.frame;
+	NSRect frm = [[timeSlider cell] effectiveRect];
 	
-	float timeDisp = ((pt.x-frm.origin.x) * [timeSlider maxValue])/ frm.size.width;;
+	float timeDisp = ((pt.x-frm.origin.x) * [timeSlider maxValue])/ (frm.size.width);
 
 	if ((([NSEvent modifierFlags] == kSCMSwitchTimeHintKeyModifierMask)?YES:NO) != 
 		[ud boolForKey:kUDKeySwitchTimeHintPressOnAbusolute]) {
@@ -1894,7 +1895,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 {
 	// 得到鼠标在CotrolUI中的位置
 	NSPoint pt = [self convertPoint:[[self window] convertScreenToBase:[NSEvent mouseLocation]] fromView:nil];
-	NSRect frm = timeSlider.frame;
+	NSRect frm = [[timeSlider cell] effectiveRect];
 
 	// if the media is not seekable, timeSlider is disabled
 	// but if the length of the media is available, we should display the hintTime, whether it is seekable or not

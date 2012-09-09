@@ -35,5 +35,6 @@ typedef enum
 }
 
 @property (readonly, getter=isDragging) BOOL dragging;
+@property (readonly) NSRect effectiveRect;
 
 @end
