@@ -364,14 +364,16 @@ BOOL shouldFixMjpegPngCodec(NSString *ext)
             IOPMAssertionID userAct = kIOPMNullAssertionID;
             CFStringRef assertionType;
 
-            if (mplayer.movieInfo.videoInfo.count == 0) {
-                // no video, should allow dim display
-                assertionType = kIOPMAssertionTypePreventUserIdleSystemSleep;
+            if (MPXGetSysVersion() < kMPXSysVersionLion) {
+                assertionType = kIOPMAssertionTypeNoDisplaySleep;
             } else {
-                // has video, should not allow dim display
-                assertionType = kIOPMAssertionTypePreventUserIdleDisplaySleep;
+                if (mplayer.movieInfo.videoInfo.count == 0) {
+                    // no video, should allow dim display
+                    assertionType = kIOPMAssertionTypePreventUserIdleSystemSleep;
+                } else {
+                    // has video, should not allow dim display
+                    assertionType = kIOPMAssertionTypePreventUserIdleDisplaySleep;
 
-                if (MPXGetSysVersion() >= kMPXSysVersionLion) {
                     // only declare if there are video tracks
                     // this is a 10.7 or above API
                     err = IOPMAssertionDeclareUserActivity((CFStringRef)kMPXUserActivityDeclare, kIOPMUserActiveLocal, &userAct);
@@ -380,7 +382,6 @@ BOOL shouldFixMjpegPngCodec(NSString *ext)
                     }
                 }
             }
-
             err = IOPMAssertionCreateWithName(assertionType, kIOPMAssertionLevelOn, (CFStringRef)kMPXPowerSaveAssertion, &nonSleepHandler);
 			if (err != kIOReturnSuccess) {
 				MPLog(@"Can't disable powersave");
