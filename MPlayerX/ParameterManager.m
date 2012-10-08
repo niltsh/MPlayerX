@@ -123,6 +123,8 @@ NSString * const kPMValNoHWAccel            = @"-ffh264vda,";
 NSString * const kPMValHWAccel              = @"ffh264vda,";
 NSString * const kPMValDisableMjpegPngCodec = @"-ffmjpeg,-ffpng,";
 
+NSString * const kPMParDR                   = @"-dr";
+
 #define kSubScaleNoAss			(8.0)
 
 #define kPMSubBorderWidthMax	(4)
@@ -280,6 +282,7 @@ NSString * const kPMValDisableMjpegPngCodec = @"-ffmjpeg,-ffpng,";
 
     [paramArray addObject:kPMParNoFlipHebrew];
 	[paramArray addObject:kPMParNoDouble];
+    [paramArray addObject:kPMParDR];
 	
 	if (cache > 0) {
 		[paramArray addObject:kPMParCache];
