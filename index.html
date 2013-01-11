@@ -187,19 +187,33 @@ function googleTranslateElementInit() {
     
     <div id="sharezone" class="shadowframe">
 
-        <div style="margin-top:40px;margin-right:24px;float:left;position:relative;">
+        <div style="margin-top:40px;margin-right:8px;float:left;position:relative;">
             <wb:share-button size="middle"></wb:share-button>
         </div>
         
-        <div style="margin-top:42px;margin-right:24px;float:left;position:relative;">
+        <div style="margin-top:42px;margin-right:8px;float:left;position:relative;">
             <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mplayerx.org" data-count="horizontal" data-via="Niltsh" data-related="MPlayerX">Tweet</a>
             <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
         </div>
 
-        <div style="margin-top:38px;margin-right:24px;float:left;position:relative;">
+        <div style="margin-top:38px;margin-right:8px;float:left;position:relative;">
         <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-        <div class="fb-like" data-href="http://mplayerx.org" data-send="true" data-layout="button_count" data-width="20" data-show-faces="true" data-action="recommend" data-font="lucida grande" style="margin:4px;"></div>
+        <div class="fb-like" data-href="http://mplayerx.org" data-send="true" data-layout="button_count" data-width="20" data-show-faces="true" data-action="like" data-font="lucida grande" style="margin:4px;"></div>
         </div>
+
+        <div style="margin-top:42px;margin-right:16px;float:left;position:relative;">
+            <!-- Place this tag where you want the +1 button to render. -->
+            <div class="g-plusone" data-size="medium" data-href="http://mplayerx.org"></div>
+
+            <!-- Place this tag after the last +1 button tag. -->
+            <script type="text/javascript">
+                (function() {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/plusone.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                })();
+            </script>
+        </div>      
         <div class="clear"></div>
         
         <p style="font-size:9pt;margin-left:40px;margin-top:16px;">If feeling good on MPlayerX, please let more guys get to know it.</p>
