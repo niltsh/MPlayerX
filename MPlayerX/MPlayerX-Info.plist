@@ -129,7 +129,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>doc_ape</string>
 			<key>CFBundleTypeName</key>
-			<string>Monkey's Audio</string>
+			<string>Monkeys Audio</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 		</dict>
@@ -687,7 +687,7 @@
 				<string>public.audio</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Monkey's Audio</string>
+			<string>Monkeys Audio</string>
 			<key>UTTypeIconFile</key>
 			<string>doc_ape</string>
 			<key>UTTypeIdentifier</key>
