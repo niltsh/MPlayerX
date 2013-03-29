@@ -13,6 +13,17 @@
     <link href='http://fonts.googleapis.com/css?family=Droid+Serif:700' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 
+    <script type="text/javascript">
+    /* <![CDATA[ */
+        (function() {
+            var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+            t.parentNode.insertBefore(s, t);
+        })();
+    /* ]]> */</script>
+
     <link rel="stylesheet" href="fancybox/source/jquery.fancybox.css?v=2.0.6" type="text/css" media="screen" />
     <script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.0.6"></script>
     <script type="text/javascript">
@@ -199,17 +210,15 @@ function googleTranslateElementInit() {
     <div class="clear"></div>
     
     <div id="sharezone" class="shadowframe">
-
-        <div style="margin-top:40px;margin-right:8px;float:left;position:relative;">
-            <wb:share-button size="middle"></wb:share-button>
-        </div>
+        <p style="font-size:9pt;margin-top:16px;text-align: center;">If feeling good on MPlayerX, please let more guys get to know it.</p>
+        <div class="clear"></div>
         
         <div style="margin-top:42px;margin-right:8px;float:left;position:relative;">
             <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://mplayerx.org" data-count="horizontal" data-via="Niltsh" data-related="MPlayerX">Tweet</a>
             <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
         </div>
 
-        <div style="margin-top:38px;margin-right:8px;float:left;position:relative;">
+        <div style="margin-top:38px;margin-right:28px;float:left;position:relative;">
         <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
         <div class="fb-like" data-href="http://mplayerx.org" data-send="true" data-layout="button_count" data-width="20" data-show-faces="true" data-action="like" data-font="lucida grande" style="margin:4px;"></div>
         </div>
@@ -226,19 +235,23 @@ function googleTranslateElementInit() {
                     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
                 })();
             </script>
-        </div>      
-        <div class="clear"></div>
+        </div>
+
+        <div style="margin-top:40px;margin-right:8px;float:left;position:relative;">
+            <wb:share-button size="middle"></wb:share-button>
+        </div>
+
+        <div style="margin-top:43px;margin-right:148px;float:left;position:relative;">
+            <a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://mplayerx.org"></a>
+            <noscript><a href="http://flattr.com/thing/1211206/MPlayerX" target="_blank">
+            <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
+        </div>
         
-        <p style="font-size:9pt;margin-left:40px;margin-top:16px;">If feeling good on MPlayerX, please let more guys get to know it.</p>
-        <div class="clear"></div>
 
-    </div>
-
-    <div id="donatezone" class="shadowframe">
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" style="margin-top:8px; margin-bottom:4px;">
+        <div style="width:160px;float:left;position:relative;"><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
             <input type="hidden" name="cmd" value="_s-xclick">
             <input type="hidden" name="hosted_button_id" value="5NXSG2QZ4ZY7N">
-            <table style="margin-left: 128px;">
+            <table  style="margin:auto;">
                 <tr><td><input type="hidden" name="on0" value="Donation To MPlayerX"></td></tr><tr><td><select name="os0">
                     <option value="One">$1.00 USD</option>
                     <option value="Two">$2.00 USD</option>
@@ -250,12 +263,13 @@ function googleTranslateElementInit() {
                 </select> </td></tr>
             </table>
             <input type="hidden" name="currency_code" value="USD">
-            <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" style="margin-left: 105px;">
+            <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" style="margin-left:6px;">
             <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-        </form>
-    <p style="font-size:9pt;text-align:center; margin:auto 50px;">If feeling good on MPlayerX, you may help MPlayerX to go further.</p>
+        </form></div>
+
+
+        <div class="clear"></div>
     </div>
-    <div class="clear"></div>
 
 <div style="margin-left:136px;">
 <script type="text/javascript"><!--

@@ -248,18 +248,9 @@
 }
 
 #sharezone {
-    float:left;
-    width:530px;
-    margin:0px auto 8px 6px;
-    padding:16px 16px 8px 86px;
-    height:120px;
-}
-
-#donatezone {
-    float:left;
-    width:342px;
-    margin:0px 6px 8px 6px;
-    padding:16px 4px 8px 4px;
+    float:none;
+    width:944px;
+    padding:8px 4px 8px 40px;
     height:120px;
 }
 
