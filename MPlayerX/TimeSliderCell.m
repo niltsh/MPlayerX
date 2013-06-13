@@ -177,10 +177,14 @@
 			rcBounds.origin.y -= 2.0f;
 			rcBounds.size.width -= TIMESLIDER_EFFECTIVE_WIDTH_OFFSET;
 			rcBounds.size.height = 8.0f;
-			
-			rcBounds.size.width *= ([self floatValue]/[self maxValue]);
-			rcBounds.size.width = MAX(rcBounds.size.width, 1);
-            
+
+            if ([self maxValue]) {
+                rcBounds.size.width *= ([self floatValue]/[self maxValue]);
+                rcBounds.size.width = MAX(rcBounds.size.width, 1);
+            } else {
+                rcBounds.size.width = 1.0;
+            }
+
 			path = [[NSBezierPath alloc] init];
 			[path appendBezierPathWithRoundedRect:rcBounds xRadius:4 yRadius:4];
 
