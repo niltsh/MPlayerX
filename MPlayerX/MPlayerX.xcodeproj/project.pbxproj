@@ -158,7 +158,6 @@
 		868CB5CC1358710200EDC86F /* BGThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 868CB5C71358710200EDC86F /* BGThemeManager.m */; };
 		869A336113D6EBFA0014B201 /* MPXWindowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 869A336013D6EBFA0014B201 /* MPXWindowButton.m */; };
 		86A34A0910F60F7E00AECBB2 /* UniversalDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A34A0810F60F7E00AECBB2 /* UniversalDetector.framework */; };
-		86A34A2510F60FA000AECBB2 /* UniversalDetector.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 86A34A0810F60F7E00AECBB2 /* UniversalDetector.framework */; };
 		86A5E40C10C7D24D00D061C7 /* wqy-microhei.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 86A5E40B10C7D24D00D061C7 /* wqy-microhei.ttc */; };
 		86B99D0210C9418600AB28FB /* OpenURLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B99D0110C9418600AB28FB /* OpenURLController.m */; };
 		86B9E23712D1B0910094B55E /* Inspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86B9E23612D1B0910094B55E /* Inspector.xib */; };
@@ -273,6 +272,27 @@
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = MPlayerX;
 		};
+		EA8596AE1769FF0D0097DF07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA8596A91769FF0D0097DF07 /* UniversalDetector.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = UniversalDetector;
+		};
+		EA8596B01769FF0D0097DF07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA8596A91769FF0D0097DF07 /* UniversalDetector.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B0DDCAB0A2D0AD10009B697;
+			remoteInfo = DetectorTest;
+		};
+		EA8596B21769FF140097DF07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA8596A91769FF0D0097DF07 /* UniversalDetector.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = UniversalDetector;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -294,7 +314,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				867596C415CE5D1300033ED0 /* Sparkle.framework in Copy Frameworks */,
-				86A34A2510F60FA000AECBB2 /* UniversalDetector.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -588,6 +607,7 @@
 		86FB6F7F1131A4BF005E95B5 /* coredef_private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = coredef_private.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		86FB6FC41131B42D005E95B5 /* KeyCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KeyCode.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8D1107320486CEB800E47090 /* MPlayerX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MPlayerX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA8596A91769FF0D0097DF07 /* UniversalDetector.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UniversalDetector.xcodeproj; path = ../UniversalDetector/UniversalDetector.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -664,6 +684,7 @@
 		29B97314FDCFA39411CA2CEA /* MplayerX */ = {
 			isa = PBXGroup;
 			children = (
+				EA8596A91769FF0D0097DF07 /* UniversalDetector.xcodeproj */,
 				863CD3B312D9A96200C8E321 /* VersionRelated */,
 				080E96DDFE201D6D7F000001 /* Source */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -1121,6 +1142,15 @@
 			name = ControlUI;
 			sourceTree = "<group>";
 		};
+		EA8596AA1769FF0D0097DF07 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EA8596AF1769FF0D0097DF07 /* UniversalDetector.framework */,
+				EA8596B11769FF0D0097DF07 /* DetectorTest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1140,6 +1170,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				EA8596B31769FF140097DF07 /* PBXTargetDependency */,
 				863CD3D712D9B9A000C8E321 /* PBXTargetDependency */,
 			);
 			name = MPlayerX;
@@ -1170,6 +1201,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* MplayerX */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = EA8596AA1769FF0D0097DF07 /* Products */;
+					ProjectRef = EA8596A91769FF0D0097DF07 /* UniversalDetector.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				863CD3D312D9B98B00C8E321 /* Update Versoin in info.plist */,
@@ -1178,6 +1215,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		EA8596AF1769FF0D0097DF07 /* UniversalDetector.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = UniversalDetector.framework;
+			remoteRef = EA8596AE1769FF0D0097DF07 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EA8596B11769FF0D0097DF07 /* DetectorTest */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = DetectorTest;
+			remoteRef = EA8596B01769FF0D0097DF07 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D1107290486CEB800E47090 /* Resources */ = {
@@ -1492,6 +1546,11 @@
 			target = 8D1107260486CEB800E47090 /* MPlayerX */;
 			targetProxy = 86E1D04E14FBAC4100432C93 /* PBXContainerItemProxy */;
 		};
+		EA8596B31769FF140097DF07 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = UniversalDetector;
+			targetProxy = EA8596B21769FF140097DF07 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1618,6 +1677,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = MPlayerX;
 				PROVISIONING_PROFILE = "";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -1693,6 +1753,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = MPlayerX;
 				PROVISIONING_PROFILE = "";
+				SDKROOT = macosx;
 			};
 			name = Deploy;
 		};
@@ -1715,6 +1776,7 @@
 				INSTALL_PATH = /Applications;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = MPlayerX;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
