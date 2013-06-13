@@ -47,7 +47,6 @@ static NSRect trackRect;
 	self = [super initWithFrame:frame];
 	
     if (self) {
-		[[NSUserDefaults standardUserDefaults] addSuiteNamed:NSGlobalDomain];
 
 		title = nil;
 		titleAttr = [[NSDictionary alloc]
