@@ -1502,6 +1502,11 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 	}
 }
 
+-(NSArray*) customWindowsToEnterFullScreenForWindow:(NSWindow *)window onScreen:(NSScreen*)scrn
+{
+    return [self customWindowsToEnterFullScreenForWindow:window];
+}
+
 -(NSArray*) customWindowsToEnterFullScreenForWindow:(NSWindow *)window
 {
 	if (window == playerWindow) {
@@ -1518,21 +1523,21 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 	return nil;	
 }
 
--(void) window:(NSWindow*)window startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration
+-(void) window:(NSWindow*)window startCustomAnimationToEnterFullScreenOnScreen:(NSScreen*)screen withDuration:(NSTimeInterval)duration
 {
 	[self invalidateRestorableState];
-    
+
 	[window setStyleMask:([window styleMask] | NSFullScreenWindowMask)];
 
-    NSScreen *screen = [window screen];
-    NSRect screenFrame = [screen frame];    
+    // NSScreen *screen = [window screen];
+    NSRect screenFrame = [screen frame];
     NSRect proposedFrame = screenFrame;
-	
+
     proposedFrame.size = [self window:window willUseFullScreenContentSize:proposedFrame.size];
-    
+
     proposedFrame.origin.x += floor(0.5 * (NSWidth(screenFrame) - NSWidth(proposedFrame)));
     proposedFrame.origin.y += floor(0.5 * (NSHeight(screenFrame) - NSHeight(proposedFrame)));
-    
+
 	[dispLayer forceAdjustToFitBounds:YES];
 	[dispLayer enablePositionOffset:YES];
 	[dispLayer enableScale:YES];
@@ -1540,7 +1545,7 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
         if ([ud boolForKey:kUDKeyAnimateFullScreen]) {
             [context setDuration:duration * 0.5];
-            [[window animator] setFrame:proposedFrame display:YES];		
+            [[window animator] setFrame:proposedFrame display:YES];
         } else {
             [context setDuration:0];
             [window setFrame:proposedFrame display:YES animate:NO];
@@ -1549,6 +1554,11 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 		[dispLayer display];
 		[dispLayer forceAdjustToFitBounds:NO];
 	}];
+}
+
+-(void) window:(NSWindow*)window startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration
+{
+    [self window:window startCustomAnimationToEnterFullScreenOnScreen:[window screen] withDuration:duration];
 }
 
 -(void) window:(NSWindow*)window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration
