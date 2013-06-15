@@ -19,10 +19,11 @@
  */
 
 #import <Cocoa/Cocoa.h>
+#import <HockeySDK/HockeySDK.h>
 
 @class PlayerController, OpenURLController, RootLayerView, SPMediaKeyTap;
 
-@interface AppController : NSObject <NSApplicationDelegate>
+@interface AppController : NSObject <NSApplicationDelegate, BITCrashReportManagerDelegate>
 {
 	NSUserDefaults *ud;
 	NSNotificationCenter *notifCenter;
