@@ -538,6 +538,8 @@
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>MPXCommitHash</key>
 	<string>3fdd0b628f08c74d39bd89530781551c768d202a</string>
+	<key>NSAppSleepDisabled</key>
+	<true/>
 	<key>NSAppleScriptEnabled</key>
 	<true/>
 	<key>NSHighResolutionCapable</key>
