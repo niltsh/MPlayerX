@@ -510,8 +510,16 @@ static BOOL init_ed = NO;
 	return NSTerminateNow;	
 }
 
+- (void)showMainApplicationWindow {
+}
+
 -(void) applicationDidFinishLaunching:(NSNotification *)notification
 {
+  [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"a613ae16d76226c61488d1f7b0803aa5"
+                                                      companyName:@""
+                                       crashReportManagerDelegate:self];
+  [[BITHockeyManager sharedHockeyManager] setMaxTimeIntervalOfCrashForReturnMainApplicationDelay:1];
+  [[BITHockeyManager sharedHockeyManager] startManager];
 	if ([ud boolForKey:kUDKeyEnableMediaKeyTap]) {
 		keyTap = [[SPMediaKeyTap alloc] initWithDelegate:self];
 		if ([SPMediaKeyTap usesGlobalMediaKeyTap]) {
