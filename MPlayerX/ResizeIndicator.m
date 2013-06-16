@@ -23,17 +23,9 @@
 
 @implementation ResizeIndicator
 
-- (id)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        im = nil;
-    }
-    return self;
-}
-
 -(void) awakeFromNib
 {
-	im = [NSImage imageNamed: @"resizeindicator"];
+	im = [[NSImage imageNamed: @"resizeindicator"] retain];
 	imRect = NSMakeRect(0, 0, [im size].width, [im size].height);
 }
 
@@ -41,6 +33,11 @@
 {
 	// 让图片画在view的右下角
 	[im drawAtPoint:NSMakePoint([self bounds].size.width - imRect.size.width, 0) fromRect:imRect operation:NSCompositeSourceOver fraction:1];
+}
+
+- (void)dealloc {
+  [im release];
+  [super dealloc];
 }
 
 - (BOOL)acceptsFirstMouse:(NSEvent *)event 
