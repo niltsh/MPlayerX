@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">12B19</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
-		<string key="IBDocument.AppKitVersion">1187</string>
-		<string key="IBDocument.HIToolboxVersion">624.00</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2549</string>
+			<string key="NS.object.0">3084</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1214,7 +1214,7 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="668958637">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1275,6 +1275,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 16}, {526, 26}}</string>
 						<reference key="NSSuperview" ref="668958637"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="492134401">
 							<int key="NSCellFlags">-2076180416</int>
@@ -1668,6 +1669,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{560, 429}</string>
+				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="404347190"/>
 				<string key="NSClassName">NSView</string>
 			</object>
@@ -1950,7 +1952,7 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="403688566">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3008,12 +3010,11 @@ IHBsYXliYWNrLg</string>
 					</object>
 				</object>
 				<string key="NSFrameSize">{560, 565}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="955376275"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="382663841">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3145,12 +3146,11 @@ IHBsYXliYWNrLg</string>
 					</object>
 				</object>
 				<string key="NSFrameSize">{560, 154}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="207560814"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="615974115">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3159,7 +3159,6 @@ IHBsYXliYWNrLg</string>
 						<int key="NSvFlags">266</int>
 						<string key="NSFrame">{{18, 18}, {524, 18}}</string>
 						<reference key="NSSuperview" ref="615974115"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:771</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="556964982">
@@ -3317,7 +3316,6 @@ dGhpcywgb3RoZXJ3aXNlIHBsZWFzZSBsZWF2ZSBpdCBibGFuay4</string>
 					</object>
 				</object>
 				<string key="NSFrameSize">{560, 223}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="104985871"/>
 				<string key="NSClassName">NSView</string>
 			</object>
@@ -4196,6 +4194,39 @@ dGhpcywgb3RoZXJ3aXNlIHBsZWFzZSBsZWF2ZSBpdCBibGFuay4</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: self.oldFullScreenMethod</string>
+						<reference key="source" ref="847863497"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="847863497"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: self.oldFullScreenMethod</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">self.oldFullScreenMethod</string>
+							<object class="NSDictionary" key="NSOptions">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSArray" key="dict.sortedKeys">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<string>NSMultipleValuesPlaceholder</string>
+									<string>NSNoSelectionPlaceholder</string>
+									<string>NSNotApplicablePlaceholder</string>
+									<string>NSNullPlaceholder</string>
+								</object>
+								<object class="NSArray" key="dict.values">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<integer value="0"/>
+									<integer value="0"/>
+									<integer value="0"/>
+									<integer value="0"/>
+								</object>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">647</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
 						<string key="label">selectedIndex: values.LetterBoxMode</string>
 						<reference key="source" ref="811497946"/>
 						<reference key="destination" ref="659034198"/>
@@ -4457,6 +4488,39 @@ dGhpcywgb3RoZXJ3aXNlIHBsZWFzZSBsZWF2ZSBpdCBibGFuay4</string>
 						<reference key="destination" ref="847863497"/>
 					</object>
 					<int key="connectionID">406</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: self.oldFullScreenMethod</string>
+						<reference key="source" ref="43155216"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="43155216"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: self.oldFullScreenMethod</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">self.oldFullScreenMethod</string>
+							<object class="NSDictionary" key="NSOptions">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSArray" key="dict.sortedKeys">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<string>NSMultipleValuesPlaceholder</string>
+									<string>NSNoSelectionPlaceholder</string>
+									<string>NSNotApplicablePlaceholder</string>
+									<string>NSNullPlaceholder</string>
+								</object>
+								<object class="NSArray" key="dict.values">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<integer value="0"/>
+									<integer value="0"/>
+									<integer value="0"/>
+									<integer value="0"/>
+								</object>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">651</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -4852,6 +4916,39 @@ dGhpcywgb3RoZXJ3aXNlIHBsZWFzZSBsZWF2ZSBpdCBibGFuay4</string>
 						<reference key="destination" ref="135654454"/>
 					</object>
 					<int key="connectionID">584</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: self.oldFullScreenMethod</string>
+						<reference key="source" ref="172220793"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="172220793"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: self.oldFullScreenMethod</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">self.oldFullScreenMethod</string>
+							<object class="NSDictionary" key="NSOptions">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSArray" key="dict.sortedKeys">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<string>NSMultipleValuesPlaceholder</string>
+									<string>NSNoSelectionPlaceholder</string>
+									<string>NSNotApplicablePlaceholder</string>
+									<string>NSNullPlaceholder</string>
+								</object>
+								<object class="NSArray" key="dict.values">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<integer value="0"/>
+									<integer value="0"/>
+									<integer value="0"/>
+									<integer value="0"/>
+								</object>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">643</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -7488,7 +7585,7 @@ YWxsIGxpbmVzIHdpdGggYSAoLTEgMiA2IDIgLTEpIGZpbHRlci4</string>
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">631</int>
+			<int key="maxID">651</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

@@ -65,6 +65,20 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 	return self;
 }
 
+-(void) awakeFromNib
+{
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(screenConfigurationChanged:)
+						name:NSApplicationDidChangeScreenParametersNotification object:NSApp];
+
+}
+
+-(void) screenConfigurationChanged:(NSNotification *)notif
+{
+    // 当插入或者拔出视频线的时候，手动通知oldFullScreenMethod的KVO
+    [self willChangeValueForKey:@"oldFullScreenMethod"];
+    [self didChangeValueForKey:@"oldFullScreenMethod"];
+}
+
 -(IBAction) showUI:(id)sender
 {
 	if (!nibLoaded) {
@@ -204,6 +218,11 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 		
 		[ud setInteger:[sender tag] forKey:kUDKeySelectedPrefView];
 	}
+}
+
+-(BOOL) oldFullScreenMethod
+{
+    return shouldUseOldFullScreenMethod();
 }
 
 - (IBAction)multiThreadChanged:(id)sender

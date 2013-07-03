@@ -45,6 +45,7 @@
 	IBOutlet NSPopUpButton *charsetListPopup;
 	IBOutlet NSPopUpButton *fontListPopup;
 }
+@property (readonly) BOOL oldFullScreenMethod;
 
 -(IBAction) showUI:(id)sender;
 -(IBAction) switchViews:(id)sender;
