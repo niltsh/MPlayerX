@@ -1263,9 +1263,7 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
         // 所以现在的判断逻辑是，只有在用户选择的旧方式 或者 系统为10.6以下 或者 系统为10.9以下并且有多个屏幕
         SInt32 sysVer = MPXGetSysVersion();
 
-		oldWay = ((sysVer < kMPXSysVersionLion) ||
-				  (([[NSScreen screens] count] > 1) && (sysVer < kMPXSysVersionMavericks))||
-				  ([ud boolForKey:kUDKeyOldFullScreenMethod]));
+		oldWay = shouldUseOldFullScreenMethod();
         MPLog(@"enter fullscreen sysVer:0x%X, old:%d", sysVer, oldWay);
 	} else {
 		// 现在是全屏状态，要推出全屏

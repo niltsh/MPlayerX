@@ -32,6 +32,8 @@ void MPSetLogEnable(BOOL en);
 
 SInt32 MPXGetSysVersion();
 
+BOOL shouldUseOldFullScreenMethod();
+
 @interface NSMenu (CharsetListAppend)
 -(void) appendCharsetList;
 @end

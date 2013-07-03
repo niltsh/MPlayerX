@@ -21,8 +21,9 @@
 #import "CocoaAppendix.h"
 #import "LocalizedStrings.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UserDefaults.h"
 
-#define kMPXSysVersionInvalid		(0x0000)
+#define kMPXSysVersionInvalid		(INT32_MAX)
 
 NSString * const kMPCStringMPlayerX						= @"MPlayerX";
 
@@ -52,6 +53,14 @@ SInt32 MPXGetSysVersion()
 		Gestalt(gestaltSystemVersion, &ver);
 	}
 	return ver;
+}
+
+BOOL shouldUseOldFullScreenMethod()
+{
+    SInt32 sysVer = MPXGetSysVersion();
+    return ((sysVer < kMPXSysVersionLion) ||
+            (([[NSScreen screens] count] > 1) && (sysVer < kMPXSysVersionMavericks))||
+            ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyOldFullScreenMethod]));;
 }
 
 @implementation NSColor (MPXAdditional)
