@@ -1566,12 +1566,24 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 
 -(void) window:(NSWindow*)window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration
 {
+    NSRect scrnRC = window.screen.visibleFrame;
+    
 	[window setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
 
 	[dispLayer forceAdjustToFitBounds:YES];
 	[dispLayer enablePositionOffset:NO];
 	[dispLayer enableScale:NO];
 
+    if (!NSContainsRect(scrnRC, rcBeforeFullScrn)) {
+        MPLog(@"exit fullscreen: recalculate window frame");
+        MPLog(@"rcbefore %@", NSStringFromRect(rcBeforeFullScrn));
+        MPLog(@"screen %@", NSStringFromRect(scrnRC));
+
+        rcBeforeFullScrn.origin.x = (scrnRC.size.width - rcBeforeFullScrn.size.width) / 2 + scrnRC.origin.x;
+        rcBeforeFullScrn.origin.y = (scrnRC.size.height - rcBeforeFullScrn.size.height) / 2 + scrnRC.origin.y;
+        MPLog(@"recalculate %@", NSStringFromRect(rcBeforeFullScrn));
+    }
+    
 	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
         if ([ud boolForKey:kUDKeyAnimateFullScreen]) {
             [context setDuration:duration * 0.5];
