@@ -139,7 +139,7 @@ NSString * const kStringURLSchemaUdp	= @"udp";
         [urlBox setStringValue:[[url standardizedURL] absoluteString]];
         
         if (([scheme isEqualToString:kStringURLSchemaHttp] || [scheme isEqualToString:kStringURLSchemaHttps]) &&
-            [[url host] isEqualToString:@"www.youtube.com"]) {
+            ([[url host] isEqualToString:@"www.youtube.com"] || [[url host] isEqualToString:@"www.xvideos.com"])) {
             MPLog(@"try to open: %@", [url host]);
             
             // prepare the UI
