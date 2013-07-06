@@ -165,7 +165,7 @@ NSString * const kStringURLSchemaUdp	= @"udp";
             [self addCurrentURLToMenu];
         }
 	} else {
-		NSBeginAlertSheet(kMPXStringError, kMPXStringOK, nil, nil, openURLPanel, nil, nil, nil, nil, kMPXStringURLNotSupported);
+		NSBeginAlertSheet(kMPXStringError, kMPXStringOK, nil, nil, openURLPanel, nil, nil, nil, nil, @"%@", kMPXStringURLNotSupported);
 	}
 }
 
