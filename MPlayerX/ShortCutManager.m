@@ -464,7 +464,7 @@ fromHardwareWithAttributes:(NSMutableDictionary *)attributes
 			} else {
 				event = [NSEvent makeKeyDownEvent:[NSString stringWithCharacters:&key length:1] modifierFlags:modifierFlagMask];
 			}
-			[self simulateEvent:[NSArray arrayWithObjects:target, [NSString stringWithUTF8String:sel_getName(action)], event, nil]];
+			[self simulateEvent:[NSArray arrayWithObjects:target, NSStringFromSelector(action), event, nil]];
 		}		
 	} else {
 		// 如果是放开键
@@ -476,7 +476,7 @@ fromHardwareWithAttributes:(NSMutableDictionary *)attributes
 -(void) simulateEvent:(NSArray *)arg
 {
 	id tgt = [arg objectAtIndex:0];
-	SEL sel = sel_getUid([[arg objectAtIndex:1] UTF8String]);
+	SEL sel = NSSelectorFromString([arg objectAtIndex:1]);
 	NSEvent *evt = [arg objectAtIndex:2];
 	
 	if (!repeatCanceled) {
@@ -507,7 +507,7 @@ fromHardwareWithAttributes:(NSMutableDictionary *)attributes
 			}
 			
 			[self performSelector:@selector(simulateEvent:)
-					   withObject:[NSArray arrayWithObjects:tgt, [NSString stringWithUTF8String:sel_getName(sel)], newEv, nil]
+					   withObject:[NSArray arrayWithObjects:tgt, NSStringFromSelector(sel), newEv, nil]
 					   afterDelay:arKeyRepTime];
 			arKeyRepTime = timeLong;
 		}
