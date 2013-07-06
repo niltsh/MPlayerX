@@ -245,7 +245,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 
 	// 图标设定
 	logo = [NSImage imageNamed:@"logo"];
-	[root setContentsGravity:kCAGravityCenter];
+	[root setContentsGravity:kCAGravityResizeAspect];
 	[root setContents:logo];
 	
 	// 默认添加dispLayer
