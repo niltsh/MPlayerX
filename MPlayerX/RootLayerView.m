@@ -1574,7 +1574,7 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 	[dispLayer enablePositionOffset:NO];
 	[dispLayer enableScale:NO];
 
-    if (!NSContainsRect(scrnRC, rcBeforeFullScrn)) {
+    if (!NSIntersectsRect(scrnRC, rcBeforeFullScrn)) {
         MPLog(@"exit fullscreen: recalculate window frame");
         MPLog(@"rcbefore %@", NSStringFromRect(rcBeforeFullScrn));
         MPLog(@"screen %@", NSStringFromRect(scrnRC));
