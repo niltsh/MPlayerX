@@ -23,7 +23,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UserDefaults.h"
 
-#define kMPXSysVersionInvalid		(INT32_MAX)
+#define kMPXSysVersionInvalid		(INT32_MIN)
 
 NSString * const kMPCStringMPlayerX						= @"MPlayerX";
 
