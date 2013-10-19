@@ -70,7 +70,7 @@
 			[charsetListPopup selectItem:item];
 		}
 	}
-	return [NSApp runModalForWindow:encodingWindow];
+	return (CFStringEncoding)[NSApp runModalForWindow:encodingWindow];
 }
 
 -(IBAction) confirmed:(id)sender

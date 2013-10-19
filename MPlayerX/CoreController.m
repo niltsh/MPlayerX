@@ -800,7 +800,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 				case kMITypeSubAppend:
 					// 会发生insert的KVO change
 					// MPLog(@"%@", obj);
-					[movieInfo.playingInfo setCurrentSubID:[NSNumber numberWithInt:[[movieInfo subInfo] count]]];
+					[movieInfo.playingInfo setCurrentSubID:[NSNumber numberWithUnsignedInteger:[[movieInfo subInfo] count]]];
 					[[movieInfo mutableArrayValueForKey:kMovieInfoKVOSubInfo] addObject: [[dict objectForKey:key] lastPathComponent]];
 					break;
 				case kMITypeStateChanged:

@@ -977,7 +977,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 
 -(IBAction) stepSubtitles:(id)sender
 {
-	int selectedTag = -2;
+	NSInteger selectedTag = -2;
 	NSMenuItem* mItem;
 	
 	// 找到目前被选中的字幕
@@ -1001,7 +1001,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 -(IBAction) setSubWithID:(id)sender
 {
 	if (sender) {
-		[playerController setSubtitle:[sender tag]];
+		[playerController setSubtitle:(int)[sender tag]];
 		
 		for (NSMenuItem* mItem in [subListMenu itemArray]) {
 			if (([mItem state] == NSOnState) && (![mItem isSeparatorItem])) {
@@ -1042,7 +1042,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 -(IBAction) setAudioWithID:(id)sender
 {
 	if (sender) {
-		[playerController setAudio:[sender tag]];
+		[playerController setAudio:(int)[sender tag]];
 		
 		// This is a hack
 		// since I have to reset the volume when switch audio
@@ -1092,7 +1092,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 -(IBAction) setVideoWithID:(id)sender
 {
 	if (sender) {
-		[playerController setVideo:[sender tag]];
+		[playerController setVideo:(int)[sender tag]];
 		
 		for (NSMenuItem* mItem in [videoListMenu itemArray]) {
 			if ([mItem state] == NSOnState) {

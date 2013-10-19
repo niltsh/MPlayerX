@@ -115,7 +115,7 @@ BOOL shouldFixMjpegPngCodec(NSString *ext)
 					   boolNo, kUDKeyDTSPassThrough,
 					   boolNo, kUDKeyAC3PassThrough,
 					   /** auto processor setting */
-					   [NSNumber numberWithUnsignedInt:[[NSProcessInfo processInfo] processorCount]], kUDKeyThreadNum,
+					   [NSNumber numberWithUnsignedInteger:[[NSProcessInfo processInfo] processorCount]], kUDKeyThreadNum,
 					   boolYes, kUDKeyUseEmbeddedFonts,
 					   [NSNumber numberWithUnsignedInt:10000], kUDKeyCacheSize,
 					   [NSNumber numberWithUnsignedInt:5000], kUDKeyCacheSizeLocalMinLimit,
@@ -531,7 +531,7 @@ static BOOL isNetworkPath(const char *path)
 	}
 	
 	[mplayer.pm setForceIndex:[ud boolForKey:kUDKeyForceIndex]];
-	[mplayer.pm setSubNameRule:[ud integerForKey:kUDKeySubFileNameRule]];
+	[mplayer.pm setSubNameRule:(SUBFILE_NAMERULE)[ud integerForKey:kUDKeySubFileNameRule]];
 	
 	if ([ud boolForKey:kUDKeyAutoDetectSPDIF]) {
 		BOOL digi = [[AODetector defaultDetector] isDigital];
@@ -543,18 +543,18 @@ static BOOL isNetworkPath(const char *path)
 	}
 	[mplayer.pm setUseEmbeddedFonts:[ud boolForKey:kUDKeyUseEmbeddedFonts]];
 	
-	[mplayer.pm setLetterBoxMode:[ud integerForKey:kUDKeyLetterBoxMode]];
+	[mplayer.pm setLetterBoxMode:(unsigned int)[ud integerForKey:kUDKeyLetterBoxMode]];
 	[mplayer.pm setLetterBoxHeight:[ud floatForKey:kUDKeyLetterBoxHeight]];
 	
 	[mplayer.pm setOverlapSub:[ud boolForKey:kUDKeyOverlapSub]];
-	[mplayer.pm setMixToStereo:[ud integerForKey:kUDKeyMixToStereoMode]];
+	[mplayer.pm setMixToStereo:(unsigned int)[ud integerForKey:kUDKeyMixToStereoMode]];
 	
-	[mplayer.pm setImgEnhance:[ud integerForKey:kUDKeyImgEnhanceMethod]];
-	[mplayer.pm setDeinterlace:[ud integerForKey:kUDKeyDeIntMethod]];
+	[mplayer.pm setImgEnhance:(unsigned int)[ud integerForKey:kUDKeyImgEnhanceMethod]];
+	[mplayer.pm setDeinterlace:(unsigned int)[ud integerForKey:kUDKeyDeIntMethod]];
 
 	[mplayer.pm setExtraOptions:[ud stringForKey:kUDKeyExtraOptions]];
-	[mplayer.pm setSubAlign:[ud integerForKey:kUDKeySubAlign]];
-	[mplayer.pm setSubBorderWidth:[ud integerForKey:kUDKeySubBorderWidth]];
+	[mplayer.pm setSubAlign:(unsigned int)[ud integerForKey:kUDKeySubAlign]];
+	[mplayer.pm setSubBorderWidth:(unsigned int)[ud integerForKey:kUDKeySubBorderWidth]];
 	[mplayer.pm setAssSubMarginV:[ud integerForKey:kUDKeyAssSubMarginV]];
 	
 	if (autoPlayState == kMPCAutoPlayStateJustFound) {
@@ -577,7 +577,7 @@ static BOOL isNetworkPath(const char *path)
 
 		if (isNetworkPath([path UTF8String])) {
 			// is network path
-			[mplayer.pm setCache:[ud integerForKey:kUDKeyCacheSize]];
+			[mplayer.pm setCache:(unsigned int)[ud integerForKey:kUDKeyCacheSize]];
 			[mplayer.pm setDisplayCacheLog:YES];
 		} else {
 			// local path
@@ -602,7 +602,7 @@ static BOOL isNetworkPath(const char *path)
 		// network stream
 		path = [url absoluteString];
 		
-		[mplayer.pm setCache:[ud integerForKey:kUDKeyCacheSize]];
+		[mplayer.pm setCache:(unsigned int)[ud integerForKey:kUDKeyCacheSize]];
 		[mplayer.pm setPreferIPV6:[ud boolForKey:kUDKeyPreferIPV6]];
 		[mplayer.pm setRtspOverHttp:[ud boolForKey:kUDKeyRtspOverHttp]];
 		[mplayer.pm setDisplayCacheLog:YES];
@@ -626,7 +626,7 @@ static BOOL isNetworkPath(const char *path)
 	} else {
 		[mplayer.pm setDemuxer:kPMValDemuxFFMpeg];
         if ([ud boolForKey:kUDKeyFFmpegRealCodecThreadFix]) {
-            [mplayer.pm setThreads:[ud integerForKey:kUDKeyThreadNum]];
+            [mplayer.pm setThreads:(unsigned int)[ud integerForKey:kUDKeyThreadNum]];
         }
 	}
 	////////////////////////////////////////////////////////////////////
@@ -662,7 +662,7 @@ static BOOL isNetworkPath(const char *path)
 -(NSURL*) findFirstMediaFileFromSubFile:(NSString*)path
 {
 	// 需要先得到 nameRule的最新值
-	[mplayer.pm setSubNameRule:[ud integerForKey:kUDKeySubFileNameRule]];
+	[mplayer.pm setSubNameRule:(SUBFILE_NAMERULE)[ud integerForKey:kUDKeySubFileNameRule]];
 
 	// 得到最新的nameRule
 	SUBFILE_NAMERULE nameRule = [mplayer.pm subNameRule];
@@ -718,7 +718,7 @@ static BOOL isNetworkPath(const char *path)
 {
 	NSString *resPath = [[NSBundle mainBundle] resourcePath];
 	
-	[mplayer.pm setThreads: MIN(kThreadsNumMax, MAX(1,[ud integerForKey:kUDKeyThreadNum]))];
+	[mplayer.pm setThreads: MIN(kThreadsNumMax, MAX(1, (unsigned int)[ud integerForKey:kUDKeyThreadNum]))];
 	[ud setInteger:[mplayer.pm threads] forKey:kUDKeyThreadNum];
 	
 	[mplayer setMpPathPair: [NSDictionary dictionaryWithObjectsAndKeys: 
@@ -1107,7 +1107,7 @@ static BOOL isNetworkPath(const char *path)
 			ce = [charsetController askForSubEncodingForFile:path charsetName:charsetName confidence:confidence];
 		} else {
 			// 如果是自动fallback
-			ce = [ud integerForKey:kUDKeyTextSubtitleCharsetFallback];
+			ce = (CFStringEncoding)[ud integerForKey:kUDKeyTextSubtitleCharsetFallback];
 		}
 		ret = (NSString*)CFStringConvertEncodingToIANACharSetName(ce);
 	}

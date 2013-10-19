@@ -43,7 +43,7 @@
 
 	// render things
 	void *imageData;
-	unsigned int imageSize;
+	unsigned long imageSize;
 	NSString *sharedBufferName;
 	NSThread *renderThread;
 

@@ -1376,7 +1376,7 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 				opts = [NSApp presentationOptions];
 			}
 			
-			[fullScreenOptions setObject:[NSNumber numberWithInt:opts] forKey:NSFullScreenModeApplicationPresentationOptions];
+			[fullScreenOptions setObject:[NSNumber numberWithUnsignedLong:opts] forKey:NSFullScreenModeApplicationPresentationOptions];
 			// whether grab all the screens
 			[fullScreenOptions setObject:[NSNumber numberWithBool:!keepOtherSrn] forKey:NSFullScreenModeAllScreens];
 			
@@ -1610,7 +1610,7 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 -(void) setPlayerWindowLevel
 {
 	// in window mode
-	int onTopMode = [ud integerForKey:kUDKeyOnTopMode];
+	NSInteger onTopMode = [ud integerForKey:kUDKeyOnTopMode];
 	BOOL fullscr = [self isInFullScreenMode];
 	
 	if ((((onTopMode == kOnTopModeAlways)||((onTopMode == kOnTopModePlaying) && (playerController.playerState == kMPCPlayingState)))&&(!fullscr)) ||

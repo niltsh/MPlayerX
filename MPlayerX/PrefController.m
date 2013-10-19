@@ -258,7 +258,7 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 
 -(IBAction) letterBoxModeChanged:(id)sender
 {
-	unsigned int mode = [ud integerForKey:kUDKeyLetterBoxMode];
+	NSInteger mode = [ud integerForKey:kUDKeyLetterBoxMode];
 	
 	if (mode != kPMLetterBoxModeNotDisplay) {
 		// 如果是现实letterbox，那么更新alt
