@@ -374,11 +374,11 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 
 	if ([[[notif userInfo] objectForKey:kMPCPlayStartedAudioOnlyKey] boolValue]) {
 		// if audio only
-		[[self layer] setContents:logo];
 		[playerWindow setContentSize:[playerWindow contentMinSize]];
 		if (![NSApp isHidden]) {
 			[playerWindow makeKeyAndOrderFront:nil];
 		}
+		[[self layer] setContents:logo];
 	} else {
 		// if has video
 		[[self layer] setContents:nil];
