@@ -531,13 +531,13 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1630</string>
+	<string>1677</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.entertainment</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>MPXCommitHash</key>
-	<string>3fdd0b628f08c74d39bd89530781551c768d202a</string>
+	<string>f32178e8dffe94e2965e8e1e6789dc4e65b905cd</string>
 	<key>NSAppSleepDisabled</key>
 	<true/>
 	<key>NSAppleScriptEnabled</key>
