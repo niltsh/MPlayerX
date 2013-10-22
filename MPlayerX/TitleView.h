@@ -60,4 +60,5 @@
 @property(readonly) NSButton *miniButton;
 @property(readonly) NSButton *zoomButton;
 
+-(void) resetPosition;
 @end

@@ -264,6 +264,18 @@ static NSRect trackRect;
 	}
 }
 
+-(void) resetPosition
+{
+    NSRect rcWin = [[self window] frame];
+    CGFloat ht = self.bounds.size.height;
+
+    rcWin.origin.x = 0;
+    rcWin.origin.y = rcWin.size.height - ht;
+    rcWin.size.height = ht;
+
+    [self setFrame:rcWin];
+}
+
 - (void)drawRect:(NSRect)dirtyRect
 {	
 	NSSize leftSize = [tbCornerLeft size];
