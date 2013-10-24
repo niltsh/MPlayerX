@@ -146,7 +146,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 					   boolNo, kUDKeyOldFullScreenMethod,
 					   boolNo, kUDKeyAlwaysUseSecondaryScreen,
                        boolNo, kUDKeyClickTogPlayPause,
-                       boolYes, kUDKeyAnimateFullScreen,
+                       boolNo, kUDKeyAnimateFullScreen,
                        boolYes, kUDKeyControlUIDetectMouseExit,
                        [NSNumber numberWithFloat:0.15], kUDKeyThreeFingersSwipeThreshRatio,
 					   nil]];
