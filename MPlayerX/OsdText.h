@@ -52,5 +52,6 @@ typedef enum
 
 -(void) setAutoHideTimeInterval:(NSTimeInterval)ti;
 -(void) setStringValue:(NSString *)aString owner:(OSDOWNER)ow updateTimer:(BOOL)ut;
+-(void) resetPosition;
 
 @end

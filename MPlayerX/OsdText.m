@@ -177,4 +177,18 @@
 		}
 	}
 }
+
+-(void) resetPosition
+{
+    NSRect rcWin = [[self superview] frame];
+    CGFloat ht = self.bounds.size.height;
+
+    rcWin.origin.x = 20;
+    rcWin.size.width -= 40;
+
+    rcWin.origin.y = rcWin.size.height - ht - 25;
+    rcWin.size.height = ht;
+
+    [self setFrame:rcWin];
+}
 @end

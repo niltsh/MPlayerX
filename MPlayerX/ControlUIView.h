@@ -152,6 +152,7 @@ extern NSString * const kFillScreenButtonImageUBKey;
 -(void) refreshAutoHideTimer;
 -(void) refreshOSDSetting;
 
+-(void)resetPosition;
 //////////////////////////////其他控件相关/////////////////////////////
 -(IBAction) togglePlayPause:(id)sender;
 -(IBAction) toggleMute:(id)sender;

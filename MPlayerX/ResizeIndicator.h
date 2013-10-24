@@ -27,4 +27,6 @@
 	NSRect imRect;
 }
 
+-(void) resetPosition;
+
 @end

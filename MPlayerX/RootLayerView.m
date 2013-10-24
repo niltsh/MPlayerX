@@ -1556,6 +1556,12 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 	} completionHandler:^(void) {
 		[dispLayer display];
 		[dispLayer forceAdjustToFitBounds:NO];
+
+        // workaround for unknown bug in 10.8
+        // 当动画退出全屏的是偶，titlebar的方位大小会发生奇怪的变化
+        [titlebar resetPosition];
+        [osd resetPosition];
+        [controlUI resetPosition];
 	}];
 }
 
@@ -1600,6 +1606,8 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
         // workaround for unknown bug in 10.8
         // 当动画退出全屏的是偶，titlebar的方位大小会发生奇怪的变化
         [titlebar resetPosition];
+        [osd resetPosition];
+        [controlUI resetPosition];
 	}];
 }
 

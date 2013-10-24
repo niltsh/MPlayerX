@@ -1962,4 +1962,15 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
           forKey:kUDKeyControlUICenterYRatio];
     [ud synchronize];
 }
+
+-(void)resetPosition
+{
+    NSRect rcWin = [[self superview] frame];
+    NSRect rcSelf = self.frame;
+
+    rcSelf.size.width = MIN(rcSelf.size.width, rcWin.size.width - rcSelf.origin.x);
+
+    [self setFrame:rcSelf];
+    [rzIndicator resetPosition];
+}
 @end

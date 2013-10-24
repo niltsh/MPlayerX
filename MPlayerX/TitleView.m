@@ -266,7 +266,7 @@ static NSRect trackRect;
 
 -(void) resetPosition
 {
-    NSRect rcWin = [[self window] frame];
+    NSRect rcWin = [[self superview] frame];
     CGFloat ht = self.bounds.size.height;
 
     rcWin.origin.x = 0;
