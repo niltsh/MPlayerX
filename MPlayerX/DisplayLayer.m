@@ -215,9 +215,9 @@
 		CGFloat sAspect = [self aspectRatio];
 		
 		if (((sAspect * rc.size.height) > rc.size.width) == fillScreen) {
-			rc.size.width = rc.size.height * sAspect;
+			rc.size.width = round(rc.size.height * sAspect);
 		} else {
-			rc.size.height = rc.size.width / sAspect;
+			rc.size.height = round(rc.size.width / sAspect);
 		}
 		
 		if (scaleEnabled) {
