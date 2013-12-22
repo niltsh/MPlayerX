@@ -225,7 +225,7 @@
 			rc.size.height *= renderRatio.size.height;
 		}
 		
-		self.bounds = rc;
+		self.bounds = CGRectIntegral(rc);
 		
 		flagAspectRatioChanged = NO;
 		flagFillScrnChanged = NO;
