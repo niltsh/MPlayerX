@@ -51,6 +51,8 @@
 	BOOL flagPositionOffsetChanged;
 	BOOL flagScaleChanged;
 	BOOL refitBounds;
+    
+    NSLock *_lock;
 }
 
 @property (readwrite, assign) BOOL fillScreen;

@@ -77,6 +77,8 @@
 		
 		mirror = NO;
 		flip = NO;
+        _lock = [[NSLock alloc] init];
+
 	}
 	return self;
 }
@@ -268,33 +270,36 @@
  */
 -(int) startWithFormat:(DisplayFormat)displayFormat buffer:(char**)data total:(NSUInteger)num
 {
-	@synchronized(self) {
-		fmt = displayFormat;
-
-		if (data && (num > 0)) {
-			CVReturn error;
-			
-			bufRefs = malloc(num * sizeof(CVOpenGLBufferRef));
-			
-			for (bufTotal=0; bufTotal<num; bufTotal++) {
-				error = CVPixelBufferCreateWithBytes(NULL, fmt.width, fmt.height, fmt.pixelFormat, 
-													 data[bufTotal], fmt.width * fmt.bytes, 
-													 NULL, NULL, NULL, &bufRefs[bufTotal]);
-				if (error != kCVReturnSuccess) {
-					[self stop];
-					MPLog(@"video buffer failed");
-					break;
-				}
-                
-                // FIXME: here frame size is used to guess the color space of the image
-                CVBufferSetAttachment(bufRefs[bufTotal],
-                                      kCVImageBufferYCbCrMatrixKey,
-                                      ((fmt.width >= 1280) || (fmt.height > 576))?(kCVImageBufferYCbCrMatrix_ITU_R_709_2):(kCVImageBufferYCbCrMatrix_ITU_R_601_4),
-                                      kCVAttachmentMode_ShouldPropagate);
+    
+    [_lock lock];
+    
+    fmt = displayFormat;
+    
+    if (data && (num > 0)) {
+        CVReturn error;
+        
+        bufRefs = malloc(num * sizeof(CVOpenGLBufferRef));
+        
+        for (bufTotal=0; bufTotal<num; bufTotal++) {
+            error = CVPixelBufferCreateWithBytes(NULL, fmt.width, fmt.height, fmt.pixelFormat,
+                                                 data[bufTotal], fmt.width * fmt.bytes,
+                                                 NULL, NULL, NULL, &bufRefs[bufTotal]);
+            if (error != kCVReturnSuccess) {
+                [self stop];
+                MPLog(@"video buffer failed");
+                break;
             }
-		}
-		flagAspectRatioChanged = YES;
-	}
+            
+            // FIXME: here frame size is used to guess the color space of the image
+            CVBufferSetAttachment(bufRefs[bufTotal],
+                                  kCVImageBufferYCbCrMatrixKey,
+                                  ((fmt.width >= 1920) || (fmt.height > 864))?(kCVImageBufferYCbCrMatrix_SMPTE_240M_1995):(kCVImageBufferYCbCrMatrix_ITU_R_709_2),
+                                  kCVAttachmentMode_ShouldPropagate);
+        }
+    }
+    flagAspectRatioChanged = YES;
+	[_lock unlock];
+    
 	[self setOpaque:YES];
 	return (bufRefs)?0:1;
 }
@@ -307,28 +312,31 @@
 
 -(void) stop
 {
-	@synchronized(self) {
-		frameNow = -1;
-		
-		if (bufRefs) {
-			for(;bufTotal>0;bufTotal--) {
-				SAFERELEASEOPENGLBUFFER(bufRefs[bufTotal-1]);
-			}
-			free(bufRefs);
-			bufRefs = NULL;
-		}
-		
-		memset(&fmt, 0, sizeof(fmt));
-		fmt.aspect = kDisplayAscpectRatioInvalid;
-		flagAspectRatioChanged = YES;
-		
-		// 这里不能清除externalAspectRatio
-		// 因为有可能在一次播放过程中出现多次start，stop
-		// 用户强制设定了externalAspectRaio的时候，即使多次start，stop也不应该重置externalAspectRatio
-		// 因此应该在外部重置
-
-		[self setNeedsDisplay];
-	}
+	[_lock lock];
+    
+    frameNow = -1;
+    
+    if (bufRefs) {
+        for(;bufTotal>0;bufTotal--) {
+            SAFERELEASEOPENGLBUFFER(bufRefs[bufTotal-1]);
+        }
+        free(bufRefs);
+        bufRefs = NULL;
+    }
+    
+    memset(&fmt, 0, sizeof(fmt));
+    fmt.aspect = kDisplayAscpectRatioInvalid;
+    flagAspectRatioChanged = YES;
+    
+    // 这里不能清除externalAspectRatio
+    // 因为有可能在一次播放过程中出现多次start，stop
+    // 用户强制设定了externalAspectRaio的时候，即使多次start，stop也不应该重置externalAspectRatio
+    // 因此应该在外部重置
+    
+    [self setNeedsDisplay];
+    
+    [_lock unlock];
+	
 	[self setOpaque:NO];
 }
 
