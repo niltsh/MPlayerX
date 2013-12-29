@@ -1,9 +1,6 @@
 [submodule "BGHUDAppKit"]
 	path = BGHUDAppKit
-	url = git@github.com:niltsh/BGHUDAppKit.git
+url=https://github.com/AnakinMac/BGHUDAppKit.git
 [submodule "UniversalDetector"]
 	path = UniversalDetector
-	url = git@github.com:niltsh/UniversalDetector.git
-[submodule "localization"]
-	path = localization
-	url = git@github.com:niltsh/MPlayerX-Localization.git
+url=https://github.com/AnakinMac/UniversalDetector.git
