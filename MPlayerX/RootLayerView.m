@@ -1940,6 +1940,13 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 	}
 }
 
+- (void)windowWillMiniaturize:(NSNotification *)notification
+{
+    if (playerController.playerState == kMPCPlayingState) {
+        [controlUI togglePlayPause:nil];
+    }
+}
+
 #pragma mark Accessibility
 -(void)accessibilitySetValue:(id)value forAttribute:(NSString *)attr
 {
