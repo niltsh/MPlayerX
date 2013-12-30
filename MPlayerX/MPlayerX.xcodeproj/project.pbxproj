@@ -34,6 +34,7 @@
 
 /* Begin PBXBuildFile section */
 		178BAFC51870CDB500D20319 /* UniversalDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178BAFC41870CDB500D20319 /* UniversalDetector.framework */; };
+		17C7DF411870ED4600E5F571 /* UniversalDetector.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 178BAFC41870CDB500D20319 /* UniversalDetector.framework */; };
 		86030A9311F1E00600F8D1E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86030A9211F1E00600F8D1E8 /* Localizable.strings */; };
 		86034C3210D13DBF001CB180 /* fold.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 86034C3010D13DBF001CB180 /* fold.pdf */; };
 		86034C3310D13DBF001CB180 /* unfold.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 86034C3110D13DBF001CB180 /* unfold.pdf */; };
@@ -292,6 +293,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				17C7DF411870ED4600E5F571 /* UniversalDetector.framework in Copy Frameworks */,
 				867596C415CE5D1300033ED0 /* Sparkle.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -1588,6 +1590,7 @@
 				HEADER_SEARCH_PATHS = ../BGHUDAppKit/Framework;
 				INFOPLIST_FILE = "MPlayerX-Info.plist";
 				INSTALL_PATH = /Applications;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = MPlayerX;
 				PROVISIONING_PROFILE = "";
@@ -1668,6 +1671,7 @@
 				HEADER_SEARCH_PATHS = ../BGHUDAppKit/Framework;
 				INFOPLIST_FILE = "MPlayerX-Info.plist";
 				INSTALL_PATH = /Applications;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = MPlayerX;
 				PROVISIONING_PROFILE = "";
@@ -1692,6 +1696,7 @@
 				HEADER_SEARCH_PATHS = ../BGHUDAppKit/Framework;
 				INFOPLIST_FILE = "MPlayerX-Info.plist";
 				INSTALL_PATH = /Applications;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = MPlayerX;
 			};

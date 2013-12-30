@@ -39,6 +39,8 @@ NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 							  backing:bufferingType
 								defer:flag];
 	if (self) {
+        [self setOpaque:NO];
+        [self setBackgroundColor:[NSColor clearColor]];
 	}
 	return self;
 }
@@ -61,7 +63,6 @@ NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 	scrnRC.origin.x += (scrnRC.size.width - winRC.size.width) / 2;
 	scrnRC.origin.y += (scrnRC.size.height-winRC.size.height) / 2;
 	[self setFrameOrigin:scrnRC.origin];
-    [self setOpaque:NO];
 }
 
 -(BOOL) canBecomeKeyWindow { return YES;}
