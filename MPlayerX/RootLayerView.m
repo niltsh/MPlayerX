@@ -247,6 +247,8 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	logo = [NSImage imageNamed:@"logo"];
 	[root setContentsGravity:kCAGravityCenter];
 	[root setContents:logo];
+    [root setCornerRadius:5.0];
+    root.shouldRasterize = YES;
 	
 	// 默认添加dispLayer
 	[root insertSublayer:dispLayer atIndex:0];
@@ -1936,6 +1938,13 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 		[self setExternalAspectRatio:(sz.width/sz.height)];
 		[dispLayer display];
 	}
+}
+
+- (void)windowWillMiniaturize:(NSNotification *)notification
+{
+    if (playerController.playerState == kMPCPlayingState) {
+        [controlUI togglePlayPause:nil];
+    }
 }
 
 #pragma mark Accessibility

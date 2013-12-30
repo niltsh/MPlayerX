@@ -1,6 +1,6 @@
 #import <Cocoa/Cocoa.h>
 #import <IOKit/hidsystem/ev_keymap.h>
-#import <HIToolbox/HIToolbox.h>
+#import <Carbon/Carbon.h>
 
 // http://overooped.com/post/2593597587/mediakeys
 

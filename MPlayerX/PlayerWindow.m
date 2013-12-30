@@ -39,6 +39,8 @@ NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 							  backing:bufferingType
 								defer:flag];
 	if (self) {
+        [self setOpaque:NO];
+        [self setBackgroundColor:[NSColor clearColor]];
 	}
 	return self;
 }

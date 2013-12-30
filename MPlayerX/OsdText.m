@@ -21,8 +21,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UserDefaults.h"
 #import "OsdText.h"
+#import "CocoaAppendix.h"
 
-#define kOSDAutoHideTimeInterval	(5)
+#define kOSDAutoHideTimeInterval	(5.0)
 
 #define kOSDFontSizeMinDefault		(24)
 #define kOSDFontSizeMaxDefault		(48)
@@ -117,15 +118,6 @@
             autoHideTimer = nil;
         }
 		autoHideTimeInterval = ti;
-		autoHideTimer = [NSTimer timerWithTimeInterval:(autoHideTimeInterval + 1)/2
-												target:self
-											  selector:@selector(tryToHide)
-											  userInfo:nil
-											   repeats:YES];
-		NSRunLoop *rl = [NSRunLoop mainRunLoop];
-		[rl addTimer:autoHideTimer forMode:NSDefaultRunLoopMode];
-		[rl addTimer:autoHideTimer forMode:NSModalPanelRunLoopMode];
-		[rl addTimer:autoHideTimer forMode:NSEventTrackingRunLoopMode];
 	}
 }
 
@@ -133,6 +125,10 @@
 {
 	if (shouldHide) {
 		[self setAlphaValue:0];
+        if (autoHideTimer) {
+            [autoHideTimer invalidate];
+            autoHideTimer = nil;
+        }
 	} else {
 		shouldHide = YES;
 	}
@@ -175,6 +171,22 @@
 			owner = ow;
 			shouldHide = NO;
 		}
+        if (self.alphaValue == 1 && !autoHideTimer) {
+            autoHideTimer = [NSTimer timerWithTimeInterval:(autoHideTimeInterval + 1)/2
+                                                    target:self
+                                                  selector:@selector(tryToHide)
+                                                  userInfo:nil
+                                                   repeats:YES];
+            if (MPXGetSysVersion() == kMPXSysVersionMavericks) {
+                [autoHideTimer setTolerance:1.0];
+            }
+            
+            NSRunLoop *rl = [NSRunLoop mainRunLoop];
+            [rl addTimer:autoHideTimer forMode:NSDefaultRunLoopMode];
+            [rl addTimer:autoHideTimer forMode:NSModalPanelRunLoopMode];
+            [rl addTimer:autoHideTimer forMode:NSEventTrackingRunLoopMode];
+        }
+        
 	}
 }
 

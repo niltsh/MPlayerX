@@ -528,18 +528,8 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	float ti = [ud doubleForKey:kUDKeyCtrlUIAutoHideTime];
 	
 	if ((ti != autoHideTimeInterval) && (ti > 0)) {
-		// 这个Timer没有retain，所以也不需要release
-		if (autoHideTimer) {
-			[autoHideTimer invalidate];
-			autoHideTimer = nil;
-		}
-		autoHideTimeInterval = ti;
-		autoHideTimer = [NSTimer timerWithTimeInterval:(autoHideTimeInterval + 1)/2
-												target:self
-											  selector:@selector(tryToHide)
-											  userInfo:nil
-											   repeats:YES];
-		[[NSRunLoop mainRunLoop] addTimer:autoHideTimer forMode:NSDefaultRunLoopMode];
+        autoHideTimeInterval = ti;
+		
 	}
 }
 
@@ -573,7 +563,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 				[title.animator setAlphaValue:0];
 			}
 		}			
-	}	
+	}
+	if (autoHideTimer) {
+        [autoHideTimer invalidate];
+        autoHideTimer = nil;
+    }
 }
 
 -(void) tryToHide
@@ -588,6 +582,24 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 -(void) showUp
 {
 	shouldHide = NO;
+    
+    if (autoHideTimer) {
+        [autoHideTimer invalidate];
+        autoHideTimer = nil;
+    }
+    
+    autoHideTimer = [NSTimer timerWithTimeInterval:(autoHideTimeInterval + 1)/2
+                                            target:self
+                                          selector:@selector(tryToHide)
+                                          userInfo:nil
+                                           repeats:YES];
+    
+    if (MPXGetSysVersion() == kMPXSysVersionMavericks) {
+        [autoHideTimer setTolerance:1.0];
+    }
+    
+    [[NSRunLoop mainRunLoop] addTimer:autoHideTimer forMode:NSDefaultRunLoopMode];
+    
 
 	[self.animator setAlphaValue:CONTROLALPHA];
 
