@@ -1,7 +1,7 @@
 /*
  * MPlayerX - CocoaAppendix.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -60,3 +60,5 @@ SInt32 MPXGetSysVersion();
 @interface NSObject (MPXAdditional)
 -(void) showAlertPanelModal:(NSString*) str;
 @end
+
+NSImage* MPCreateNSImageFromCIImage(CIImage *ciImage);

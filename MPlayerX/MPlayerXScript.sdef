@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+
+<dictionary title="MPlayerX Terminology">
+
+	<suite name="MPlayerX Suite" code="mplx" description="Commands for MPlayerX.">
+
+        <command name="pause" code="mplxpaus" description="Pause playback if it is playing, no affect if already paused.">
+            <cocoa class="MPXScriptCommand"/>
+        </command>
+
+        <command name="play" code="mplxplay" description="Resume playback if it is paused, no affect if already playing.">
+            <cocoa class="MPXScriptCommand"/>
+        </command>
+
+        <command name="playpause" code="mplxplps" description="Toggle between Play and Pause.">
+            <cocoa class="MPXScriptCommand"/>
+        </command>
+
+        <command name="stop" code="mplxstop" description="Stop playback.">
+            <cocoa class="MPXScriptCommand"/>
+        </command>
+
+        <command name="goto next episode" code="mplxnext" description="Try to jump to next episode.">
+            <cocoa class="MPXScriptCommand"/>
+        </command>
+
+        <command name="goto previous episode" code="mplxprev" description="Try to jump to previous episode.">
+            <cocoa class="MPXScriptCommand"/>
+        </command>
+
+        <command name="mute" code="mplxmute" description="Toggle mute ON/OFF.">
+            <cocoa class="MPXScriptCommand"/>
+        </command>
+
+        <command name="seekto" code="mplxseek" description="Seek to given time position.">
+            <direct-parameter type="real" description="Target time position."/>
+            <cocoa class="MPXScriptCommand"/>
+        </command>
+
+        <command name="current time" code="mplxcutm" description="Get current time position.">
+            <cocoa class="MPXScriptCommand"/>
+            <result type="real" description="."/>
+        </command>
+
+        <command name="duration" code="mplxdura" description="Get the duration of the current media.">
+            <cocoa class="MPXScriptCommand"/>
+            <result type="real" description="."/>
+        </command>
+
+        <enumeration name="player status" code="plst">
+			<enumerator name="Playing" code="plin" description="Playing.">
+				<cocoa string-value="Playing"/>
+			</enumerator>
+			<enumerator name="Paused" code="paus" description="Paused.">
+				<cocoa string-value="Paused"/>
+			</enumerator>
+			<enumerator name="Stopped" code="stpd" description="Stopped.">
+				<cocoa string-value="Stopped"/>
+			</enumerator>
+		</enumeration>
+
+        <command name="playstatus" code="mplxstat" description=".">
+            <cocoa class="MPXScriptCommand"/>
+            <result type="player status" description="."/>
+        </command>
+
+	</suite>
+
+</dictionary>

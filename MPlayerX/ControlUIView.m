@@ -1,7 +1,7 @@
 /*
  * MPlayerX - ControlUIView.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -45,6 +45,8 @@
 
 #define ASPECTRATIOBASE			(900)
 
+#define ABLOOPTAGBASE           (1000)
+
 NSString * const kFillScreenButtonImageLRKey = @"LR";
 NSString * const kFillScreenButtonImageUBKey = @"UB";
 
@@ -55,6 +57,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 
 @interface ControlUIView (ControlUIViewInternal)
 -(void) windowHasResized:(NSNotification*)notification;
+-(void) appWillTerminate:(NSNotification*)notif;
 -(void) calculateHintTime;
 -(void) resetSubtitleMenu;
 -(void) resetAudioMenu;
@@ -105,6 +108,10 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 					   boolNo, kUDKeyLBAutoHeightInFullScrn,
 					   boolNo, kUDKeyPlayWhenEnterFullScrn,
 					   boolYes, kUDKeyResizeControlBar,
+                       boolNo, kUDKeyPauseShowTime,
+                       boolYes, kUDKeyResumedShowTime,
+                       [NSNumber numberWithFloat:-1.0f], kUDKeyControlUICenterYRatio,
+                       boolNo, kUDKeyShowRealRemainingTime,
 					   nil]];
 }
 
@@ -236,12 +243,21 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuSubDelayReset setKeyEquivalentModifierMask:kSCMSubDelayKeyEquivalentModifierFlagMask];
 	[menuSubDelayReset setKeyEquivalent:kSCMSubDelayResetKeyEquivalent];
 	
+    [menuZoomToHalfSize setKeyEquivalentModifierMask:kSCMWindowZoomHalfSizeKeyEquivalentModifierFlagMask];
+    [menuZoomToHalfSize setKeyEquivalent:kSCMWindowZoomHalfSizeKeyEquivalent];
 	[menuZoomToOriginSize setKeyEquivalentModifierMask:kSCMWindowZoomToOrgSizeKeyEquivalentModifierFlagMask];
 	[menuZoomToOriginSize setKeyEquivalent:kSCMWindowZoomToOrgSizeKeyEquivalent];
 	[menuZoomToDoubleSize setKeyEquivalentModifierMask:kSCMWindowZoomDblSizeKeyEquivalentModifierFlagMask];
 	[menuZoomToDoubleSize setKeyEquivalent:kSCMWindowZoomDblSizeKeyEquivalent];
 	[menuWndFitToScrn setKeyEquivalentModifierMask:kSCMWindowFitToScreenKeyEquivalentModifierFlagMask];
 	[menuWndFitToScrn setKeyEquivalent:kSCMWindowFitToScreenKeyEquivalent];
+    
+    [menuABLPSetStart setKeyEquivalent:kSCMABLoopSetStartKeyEquivalent];
+    [menuABLPSetReturn setKeyEquivalent:kSCMABLoopSetReturnKeyEquivalent];
+    [menuABLPCancel setKeyEquivalent:kSCMABLoopSetCancelKeyEquivalent];
+    
+    [menuGotoSnapshotFolder setKeyEquivalentModifierMask:kSCMGotoSnapshotFolderKeyEquivalentModifierFlagMask];
+    [menuGotoSnapshotFolder setKeyEquivalent:kSCMGotoSnapshotFolderKeyEquivalent];
 	
 	////////////////////////////////////////load Images////////////////////////////////////////
 	// 初始化音量大小图标
@@ -346,8 +362,14 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuToggleAuxiliaryCtrls setTag:NO];
 	[menuToggleAuxiliaryCtrls setTitle:kMPXStringMenuShowAuxCtrls];
 	[menuToggleAuxiliaryCtrls setEnabled:NO];
-	
-	//////ibtool bug fix, set noborder////////
+    
+    [menuABLPSetStart setTag:-1 * ABLOOPTAGBASE];
+    [menuABLPSetReturn setTag:-1 * ABLOOPTAGBASE];
+    
+    [ud addObserver:self forKeyPath:kUDKeyDeIntMethod
+            options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:NULL];
+
+    //////ibtool bug fix, set noborder////////
 	[volumeButton setBordered:NO];
 	[nextEPButton setBordered:NO];
 	[prevEPButton setBordered:NO];
@@ -377,17 +399,32 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 
 	[notifCenter addObserver:self selector:@selector(playInfoUpdated:)
 						name:kMPCPlayInfoUpdatedNotification object:playerController];
+
+    [notifCenter addObserver:self selector:@selector(appWillTerminate:)
+                        name:NSApplicationWillTerminateNotification
+                      object:NSApp];
 	
 	// this functioin must be called after the Notification is setuped
 	[playerController setupKVO];
 
 	// force hide titlebar
 	[title setAlphaValue:([ud boolForKey:kUDKeyHideTitlebar])?0:CONTROLALPHA];
+
+    float yRatio = [ud floatForKey:kUDKeyControlUICenterYRatio];
+    if (yRatio > 0.0) {
+        NSRect superFrame = [[self superview] frame];
+        NSRect selfFrame = [self frame];
+        // 这里最小值必须为1，为0的时候，ControlUI会跳到窗口最上部，原因未知
+        selfFrame.origin.y = MIN(MAX(1, superFrame.size.height * yRatio - selfFrame.size.height / 2), superFrame.size.height - selfFrame.size.height-1);
+        [self setFrameOrigin:selfFrame.origin];
+    }
 }
 
 -(void) dealloc
 {
 	[notifCenter removeObserver:self];
+    
+    [ud removeObserver:self forKeyPath:kUDKeyDeIntMethod];
 	
 	if (autoHideTimer) {
 		[autoHideTimer invalidate];
@@ -417,8 +454,35 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[super dealloc];
 }
 
+-(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (object == ud) {
+        if ([keyPath isEqualToString:kUDKeyDeIntMethod]) {
+            // turn off all item
+            for (NSMenuItem *item in [deintMenu itemArray]) {
+                if ([item state] == NSOnState) {
+                    [item setState:NSOffState];
+                    break;
+                }
+            }
+            
+            // choose the current item
+            [[deintMenu itemWithTag:[ud integerForKey:kUDKeyDeIntMethod]] setState:NSOnState];
+        }
+        return;
+    }
+    return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
 -(BOOL) acceptsFirstMouse:(NSEvent *)event { return YES; }
 -(BOOL) acceptsFirstResponder { return YES; }
+
+-(void) mouseUp:(NSEvent *)theEvent
+{
+	if ([theEvent clickCount] != 2) {
+        [super mouseUp:theEvent];
+    }
+}
 
 -(void) refreshBackgroundAlpha
 {
@@ -469,7 +533,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			autoHideTimer = nil;
 		}
 		autoHideTimeInterval = ti;
-		autoHideTimer = [NSTimer timerWithTimeInterval:autoHideTimeInterval/2
+		autoHideTimer = [NSTimer timerWithTimeInterval:(autoHideTimeInterval + 1)/2
 												target:self
 											  selector:@selector(tryToHide)
 											  userInfo:nil
@@ -486,9 +550,10 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 		NSPoint pos = [[self window] convertScreenToBase:[NSEvent mouseLocation]];
 		
 		// 如果不在这个View的话，那么就隐藏自己
-		// if HideTitlebar is ON, ignore the titlebar area when hiding the cursor
+		// if HideTitlebar is ON or in fullscreen, ignore the titlebar area when hiding the cursor
 		if ((!NSPointInRect([self  convertPoint:pos fromView:nil], self.bounds)) && 
-			((!NSPointInRect([title convertPoint:pos fromView:nil], title.bounds)) || [ud boolForKey:kUDKeyHideTitlebar])) {
+			((!NSPointInRect([title convertPoint:pos fromView:nil], title.bounds)) || [ud boolForKey:kUDKeyHideTitlebar] || [dispView isInFullScreenMode])) {
+            [[self window] makeFirstResponder:dispView];
 			[self.animator setAlphaValue:0];
 			
 			// 如果是全屏模式也要隐藏鼠标
@@ -569,7 +634,13 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			osdStr = kMPXStringOSDNull;
 			break;
 	}
-	[osd setStringValue:osdStr owner:kOSDOwnerOther updateTimer:YES];
+    
+    if (([ud boolForKey:kUDKeyPauseShowTime] && (playerController.playerState == kMPCPausedState)) ||
+        ([ud boolForKey:kUDKeyResumedShowTime] && (playerController.playerState == kMPCPlayingState))) {
+        [self updateOSDTime:[timeSlider floatValue]];
+    } else {
+        [osd setStringValue:osdStr owner:kOSDOwnerOther updateTimer:YES];
+    }
 }
 
 -(IBAction) toggleMute:(id)sender
@@ -631,31 +702,15 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 									 mode:([[timeSlider cell] isDragging])?kMPCSeekModeAbsolute:kMPCSeekModeRelative];
 
 	[self updateHintTime];
-	
-	if ([osd isActive] && (time > 0)) {
-		NSString *osdStr = [timeFormatter stringForObjectValue:[NSNumber numberWithFloat:time]];
-		double length = [timeSlider maxValue];
-		
-		if (length > 0) {
-			osdStr = [osdStr stringByAppendingFormat:kStringFMTTimeAppendTotal, [timeFormatter stringForObjectValue:[NSNumber numberWithDouble:length]]];
-		}
-		[osd setStringValue:osdStr owner:kOSDOwnerTime updateTimer:YES];
-	}
+    
+    [self updateOSDTime:time];
 }
 
 -(void) changeTimeBy:(float) delta
 {
 	delta = [playerController changeTimeBy:delta];
-
-	if ([osd isActive] && (delta > 0)) {
-		NSString *osdStr = [timeFormatter stringForObjectValue:[NSNumber numberWithFloat:delta]];
-		double length = [timeSlider maxValue];
-		
-		if (length > 0) {
-			osdStr = [osdStr stringByAppendingFormat:kStringFMTTimeAppendTotal, [timeFormatter stringForObjectValue:[NSNumber numberWithDouble:length]]];
-		}
-		[osd setStringValue:osdStr owner:kOSDOwnerTime updateTimer:YES];
-	}
+    
+    [self updateOSDTime:delta];
 }
 
 -(IBAction) toggleFullScreen:(id)sender
@@ -1201,7 +1256,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 
 -(IBAction) zoomToSize:(id)sender
 {
-	[dispView zoomToSize:[sender tag]];
+	[dispView zoomToSize:((float)[sender tag]) / 4];
 }
 
 -(IBAction) toggleTimeAltDisplayMode:(id)sender
@@ -1221,6 +1276,66 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	}
 	[sender setState:NSOnState];
 }
+
+-(IBAction) setABLoopStart:(id)sender
+{
+    float timeStart = [[playerController mediaInfo].playingInfo.currentTime floatValue];
+    float timeEnd = ((float)[menuABLPSetReturn tag]) / ABLOOPTAGBASE;
+    
+    [menuABLPSetStart setTitle:[NSString stringWithFormat:kMPXStringABLPUpdateStart,
+                                                          [TimeFormatter stringForIntegerValue:(NSInteger)timeStart]]];
+    [menuABLPSetStart setTag:timeStart * ABLOOPTAGBASE];
+    
+    [playerController startABLoopFrom:timeStart to:timeEnd];
+    
+    [osd setStringValue:[NSString stringWithFormat:@"%@: %@ ~ %@", 
+                                                   kMPXStringABLPPrefix,
+                                                   (timeStart >=0)?([TimeFormatter stringForIntegerValue:(NSInteger)timeStart]):(@""),
+                                                   (timeEnd   >=0)?([TimeFormatter stringForIntegerValue:(NSInteger)timeEnd])  :(@"")]
+                  owner:kOSDOwnerOther
+            updateTimer:YES];
+}
+
+-(IBAction) setABLoopReturn:(id)sender
+{
+    float timeEnd = [[playerController mediaInfo].playingInfo.currentTime floatValue];
+    float timeStart = ((float)[menuABLPSetStart tag]) / ABLOOPTAGBASE;
+    
+    [menuABLPSetReturn setTitle:[NSString stringWithFormat:kMPXStringABLPUpdateReturn,
+                                                           [TimeFormatter stringForIntegerValue:(NSInteger)timeEnd]]];
+    [menuABLPSetReturn setTag:timeEnd * ABLOOPTAGBASE];
+
+    [playerController startABLoopFrom:timeStart to:timeEnd];
+    
+    [osd setStringValue:[NSString stringWithFormat:@"%@: %@ ~ %@", 
+                                                   kMPXStringABLPPrefix,
+                                                   (timeStart >=0)?([TimeFormatter stringForIntegerValue:(NSInteger)timeStart]):(@""),
+                                                   (timeEnd   >=0)?([TimeFormatter stringForIntegerValue:(NSInteger)timeEnd])  :(@"")]
+                  owner:kOSDOwnerOther
+            updateTimer:YES];    
+}
+
+-(IBAction) stopABLoop:(id)sender
+{
+    [playerController stopABLoop];
+
+    [menuABLPSetStart setTag:-1 * ABLOOPTAGBASE];
+    [menuABLPSetReturn setTag:-1 * ABLOOPTAGBASE];
+
+    [menuABLPSetStart setTitle:kMPXStringABLPSetStart];
+    [menuABLPSetReturn setTitle:kMPXStringABLPSetReturn];
+    
+    [osd setStringValue:[NSString stringWithFormat:@"%@: %@", kMPXStringABLPPrefix, kMPXStringABLPCancelled]
+                  owner:kOSDOwnerOther
+            updateTimer:YES];    
+}
+
+-(IBAction) choseDeinterlaceMethod:(id)sender
+{
+    // set userdefault
+    [ud setInteger:[sender tag] forKey:kUDKeyDeIntMethod];
+}
+
 ////////////////////////////////////////////////FullscreenThings//////////////////////////////////////////////////
 -(void) setFillScreenMode:(NSString*)modeKey state:(NSInteger) state
 {
@@ -1245,6 +1360,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 		[menuWndFitToScrn setEnabled:YES];
 	}
 	[menuToggleLockAspectRatio setTitle:([dispView lockAspectRatio])?(kMPXStringMenuUnlockAspectRatio):(kMPXStringMenuLockAspectRatio)];
+    [menuZoomToHalfSize setEnabled:YES];
 	[menuZoomToOriginSize setEnabled:YES];
 	[menuZoomToDoubleSize setEnabled:YES];
 }
@@ -1256,6 +1372,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuToggleFullScreen setEnabled:NO];
 	[menuSnapshot setEnabled:NO];
 	[menuToggleLockAspectRatio setEnabled:NO];
+    [menuZoomToHalfSize setEnabled:NO];
 	[menuZoomToOriginSize setEnabled:NO];
 	[menuZoomToDoubleSize setEnabled:NO];
 	[menuWndFitToScrn setEnabled:NO];
@@ -1363,6 +1480,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	[menuSubDelayDec setEnabled:NO];
 	
 	[menuAudioChannels setEnabled:NO];
+    
+    [menuABLPSetStart setTitle:kMPXStringABLPSetStart];
+    [menuABLPSetReturn setTitle:kMPXStringABLPSetReturn];
+    [menuABLPSetStart setTag:-1 * ABLOOPTAGBASE];
+    [menuABLPSetReturn setTag:-1 * ABLOOPTAGBASE];
 }
 
 -(void) playInfoUpdated:(NSNotification*)notif
@@ -1449,7 +1571,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 			[timeTextAlt setIntValue:length + 0.5];
 		} else {
 			// display remaining time
-			[timeTextAlt setIntValue:time - length - 0.5];
+            if ([ud boolForKey:kUDKeyShowRealRemainingTime]) {
+                [timeTextAlt setIntValue:time - length - 0.5];
+            } else {
+                [timeTextAlt setIntValue:((time - length - 0.5) / [[playerController mediaInfo].playingInfo.speed floatValue])];
+            }
 		}
 	}
 
@@ -1596,7 +1722,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	
 	if ([osd isActive] && (percent > 0.01)) {
 		if (![win isVisible]) {
-			[win makeKeyAndOrderFront:self];
+			[win orderFront:self];
 		}
 		
 		[osd setStringValue:[NSString stringWithFormat:kMPXStringOSDCachingPercent, percent*100]
@@ -1790,6 +1916,19 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	}
 }
 
+-(void) updateOSDTime:(float)time
+{
+	if ([osd isActive] && (time > 0)) {
+		NSString *osdStr = [timeFormatter stringForObjectValue:[NSNumber numberWithFloat:time]];
+		double length = [timeSlider maxValue];
+		
+		if (length > 0) {
+			osdStr = [osdStr stringByAppendingFormat:kStringFMTTimeAppendTotal, [timeFormatter stringForObjectValue:[NSNumber numberWithDouble:length]]];
+		}
+		[osd setStringValue:osdStr owner:kOSDOwnerTime updateTimer:YES];
+	}    
+}
+
 - (void)mouseDragged:(NSEvent *)event
 {
 	NSRect selfFrame = [self frame];
@@ -1812,5 +1951,14 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	
 	// 这里是为了让字体大小符合窗口大小
 	[osd setStringValue:nil owner:osd.owner updateTimer:NO];
+}
+
+-(void) appWillTerminate:(NSNotification*)notif
+{
+    NSRect selfFrame = [self frame];
+
+    [ud setFloat:(selfFrame.origin.y + selfFrame.size.height / 2) / [[self superview] frame].size.height
+          forKey:kUDKeyControlUICenterYRatio];
+    [ud synchronize];
 }
 @end

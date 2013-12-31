@@ -1,7 +1,7 @@
 /*
  * MPlayerX - TimeSliderCell.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -170,7 +170,9 @@
 			rcBounds.size.width -= 0.5f;
 			rcBounds.size.height = 8.0f;
 			
-			rcBounds.size.width *= ([self floatValue]/[self maxValue]);
+      if ([self maxValue]) {
+        rcBounds.size.width *= ([self floatValue]/[self maxValue]);
+      }
 			
 			path = [[NSBezierPath alloc] init];
 			[path appendBezierPathWithRoundedRect:rcBounds xRadius:4 yRadius:4];

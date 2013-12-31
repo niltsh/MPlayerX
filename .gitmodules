@@ -4,12 +4,6 @@
 [submodule "UniversalDetector"]
 	path = UniversalDetector
 	url = git@github.com:niltsh/UniversalDetector.git
-[submodule "Sparkle"]
-	path = Sparkle
-	url = git@github.com:niltsh/Sparkle.git
-[submodule "Apple Remote Control"]
-	path = Apple Remote Control
-	url = git@github.com:niltsh/apple_remote_control.git
 [submodule "localization"]
 	path = localization
 	url = git@github.com:niltsh/MPlayerX-Localization.git

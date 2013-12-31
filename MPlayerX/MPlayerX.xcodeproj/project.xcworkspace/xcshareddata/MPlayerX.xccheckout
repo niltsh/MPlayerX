@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>807A69A2-C1D0-4C3E-A305-ACE07449B63B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MPlayerX</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5E7EB298-94DA-4429-88B1-3EB3A205DDED</key>
+		<string>ssh://github.com/wwwjfy/MPlayerX.git</string>
+		<key>62C825CD-507D-4A6B-B80F-D94C412AAC0D</key>
+		<string>ssh://github.com/niltsh/BGHUDAppKit.git</string>
+		<key>D8BF6DE4-0C85-460C-B786-C34B07C63D09</key>
+		<string>ssh://github.com/niltsh/UniversalDetector.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MPlayerX/MPlayerX.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5E7EB298-94DA-4429-88B1-3EB3A205DDED</key>
+		<string>../../..</string>
+		<key>62C825CD-507D-4A6B-B80F-D94C412AAC0D</key>
+		<string>../../../BGHUDAppKit</string>
+		<key>D8BF6DE4-0C85-460C-B786-C34B07C63D09</key>
+		<string>../../../UniversalDetector</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/wwwjfy/MPlayerX.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5E7EB298-94DA-4429-88B1-3EB3A205DDED</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5E7EB298-94DA-4429-88B1-3EB3A205DDED</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MPlayerX</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D8BF6DE4-0C85-460C-B786-C34B07C63D09</string>
+			<key>IDESourceControlWCCName</key>
+			<string>UniversalDetector</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>62C825CD-507D-4A6B-B80F-D94C412AAC0D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>BGHUDAppKit</string>
+		</dict>
+	</array>
+</dict>
+</plist>

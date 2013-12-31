@@ -1,7 +1,7 @@
 /*
  * MPlayerX - OsdText.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -111,13 +111,13 @@
 
 -(void) setAutoHideTimeInterval:(NSTimeInterval)ti
 {
-	if (autoHideTimer) {
-		[autoHideTimer invalidate];
-		autoHideTimer = nil;
-	}
 	if (ti > 0) {
+        if (autoHideTimer) {
+            [autoHideTimer invalidate];
+            autoHideTimer = nil;
+        }
 		autoHideTimeInterval = ti;
-		autoHideTimer = [NSTimer timerWithTimeInterval:autoHideTimeInterval/2
+		autoHideTimer = [NSTimer timerWithTimeInterval:(autoHideTimeInterval + 1)/2
 												target:self
 											  selector:@selector(tryToHide)
 											  userInfo:nil
@@ -153,7 +153,7 @@
 			
 			float fontSize = MIN(fontSizeMax, MAX(fontSizeMin, (sz.height*fontSizeRatio) + fontSizeOffset));
 
-			NSFont *font = [NSFont systemFontOfSize:fontSize];
+			NSFont *font = [NSFont fontWithName:@"Helvetica" size:fontSize];
 			
 			NSDictionary *attrDict = [[NSDictionary alloc] initWithObjectsAndKeys:
 									  font, NSFontAttributeName,

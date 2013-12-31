@@ -1,7 +1,7 @@
 /*
  * MPlayerX - AppController.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,23 +19,24 @@
  */
 
 #import <Cocoa/Cocoa.h>
+#import <HockeySDK/HockeySDK.h>
 
 @class PlayerController, OpenURLController, RootLayerView, SPMediaKeyTap;
 
-@interface AppController : NSObject <NSApplicationDelegate>
+@interface AppController : NSObject <NSApplicationDelegate, BITCrashReportManagerDelegate>
 {
 	NSUserDefaults *ud;
 	NSNotificationCenter *notifCenter;
-
-	NSSet *supportVideoFormats;
-	NSSet *supportAudioFormats;
-	NSSet *supportSubFormats;
-	NSSet *playableFormats;
 
 	NSMutableDictionary *bookmarks;
 	
 	SPMediaKeyTap *keyTap;
 
+    NSSound *trashSound;
+    
+    NSSet *subExts;
+    NSSet *playableExts;
+    
 	IBOutlet PlayerController *playerController;
 	IBOutlet OpenURLController *openUrlController;
 	IBOutlet RootLayerView *dispView;
@@ -44,12 +45,11 @@
 }
 
 @property (readonly) NSMutableDictionary *bookmarks;
-@property (readonly) NSSet *supportVideoFormats;
-@property (readonly) NSSet *supportAudioFormats;
-@property (readonly) NSSet *supportSubFormats;
-@property (readonly) NSSet *playableFormats;
 
 +(AppController*) sharedAppController;
+
+-(BOOL) isFilePlayable:(NSString*)path;
+-(BOOL) isFileSubtitle:(NSString*)path;
 
 -(IBAction) openFile:(id) sender;
 -(IBAction) openVIDEOTS:(id) sender;
@@ -59,5 +59,6 @@
 -(IBAction) donate:(id)sender;
 -(IBAction) gotoFeedbackPage:(id)sender;
 -(IBAction) openExternalAudioFile:(id)sender;
+-(IBAction) checkForUpdate:(id)sender;
 
 @end

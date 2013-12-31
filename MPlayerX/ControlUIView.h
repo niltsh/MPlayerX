@@ -1,7 +1,7 @@
 /*
  * MPlayerX - ControlUIView.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -120,11 +120,20 @@
 	IBOutlet NSMenuItem *menuSubDelayDec;
 	IBOutlet NSMenuItem *menuSubDelayReset;
 	
+    IBOutlet NSMenuItem *menuZoomToHalfSize;
 	IBOutlet NSMenuItem *menuZoomToOriginSize;
 	IBOutlet NSMenuItem *menuZoomToDoubleSize;
 	IBOutlet NSMenuItem *menuWndFitToScrn;
 	IBOutlet NSMenuItem *menuAudioChannels;
 	IBOutlet NSMenuItem *menuChapterList;
+
+    IBOutlet NSMenuItem *menuABLPSetStart;
+    IBOutlet NSMenuItem *menuABLPSetReturn;
+    IBOutlet NSMenuItem *menuABLPCancel;
+    
+    IBOutlet NSMenu *deintMenu;
+    
+    IBOutlet NSMenuItem *menuGotoSnapshotFolder;
 }
 
 ////////////////////////////////显示相关////////////////////////////////
@@ -198,4 +207,11 @@ extern NSString * const kFillScreenButtonImageUBKey;
 -(IBAction) toggleTimeAltDisplayMode:(id)sender;
 
 -(IBAction) mapAudioChannelsTo:(id)sender;
+
+-(IBAction) setABLoopStart:(id)sender;
+-(IBAction) setABLoopReturn:(id)sender;
+-(IBAction) stopABLoop:(id)sender;
+
+-(IBAction) choseDeinterlaceMethod:(id)sender;
+
 @end

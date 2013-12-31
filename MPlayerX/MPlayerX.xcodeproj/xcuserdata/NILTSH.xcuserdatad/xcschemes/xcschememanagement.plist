@@ -4,7 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>MPlayerX.xcscheme</key>
+		<key>Generate strings file.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>MPlayerX-DeveloperID.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>MPlayerX-MAS.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -13,6 +23,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>863CD3D312D9B98B00C8E321</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>86E1D04514FBA91000432C93</key>
 		<dict>
 			<key>primary</key>
 			<true/>

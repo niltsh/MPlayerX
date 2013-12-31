@@ -1,7 +1,7 @@
 /*
  * MPlayerX - PlayListController.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -49,34 +49,6 @@ NSArray* findDigitParts(NSString *name)
 	}
 	if (range.length > 0) {
 		[ret addObject:[NSValue valueWithRange:NSMakeRange(0, range.length)]];
-	}
-	return [ret autorelease];
-}
-
-NSArray* enumerateAllFilesAt(NSString *dirPath, NSSet *exts)
-{
-	NSMutableArray *ret = nil;
-
-	NSDirectoryEnumerator *directoryEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:dirPath];
-	
-	for (NSString *file in directoryEnumerator) {
-		// enum the folder
-		NSDictionary *fileAttr = [directoryEnumerator fileAttributes];
-		
-		if ([[fileAttr objectForKey:NSFileType] isEqualToString:NSFileTypeDirectory]) {
-			// skip all sub-folders
-			[directoryEnumerator skipDescendants];
-			
-		} else if ([[fileAttr objectForKey:NSFileType] isEqualToString: NSFileTypeRegular] &&
-				   ((exts && [exts containsObject:[[file pathExtension] lowercaseString]]) || (!exts))) {
-			// the normal file and the file extension is OK
-			// or if exts is nil, don't care the extensions
-			if (!ret) {
-				// lazy load
-				ret = [[NSMutableArray alloc] initWithCapacity:20];
-			}
-			[ret addObject:file];
-		}
 	}
 	return [ret autorelease];
 }
@@ -151,6 +123,34 @@ static BOOL init_ed = NO;
 	[super dealloc];
 }
 
++(NSArray*) enumerateAllFilesAt:(NSString*)dirPath
+{
+	NSMutableArray *ret = nil;
+    
+	NSDirectoryEnumerator *directoryEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:dirPath];
+	
+	for (NSString *file in directoryEnumerator) {
+		// enum the folder
+		NSDictionary *fileAttr = [directoryEnumerator fileAttributes];
+		
+		if ([[fileAttr objectForKey:NSFileType] isEqualToString:NSFileTypeDirectory]) {
+			// skip all sub-folders
+			[directoryEnumerator skipDescendants];
+			
+		} else if ([[fileAttr objectForKey:NSFileType] isEqualToString: NSFileTypeRegular] &&
+                   [[AppController sharedAppController] isFilePlayable:[dirPath stringByAppendingPathComponent:file]]) {
+			// the normal file and the file extension is OK
+			// or if exts is nil, don't care the extensions
+			if (!ret) {
+				// lazy load
+				ret = [[NSMutableArray alloc] initWithCapacity:20];
+			}
+			[ret addObject:file];
+		}
+	}
+	return [ret autorelease];
+}
+
 -(IBAction) playNext:(id)sender
 {
 	// MPLog(@"Play next");
@@ -159,8 +159,7 @@ static BOOL init_ed = NO;
 	
 	if (lastURL) {
 		if ([lastURL isFileURL]) {
-			NSString *nextPath = [PlayListController SearchNextMoviePathFrom:[lastURL path]
-																   inFormats:[[AppController sharedAppController] playableFormats]];
+			NSString *nextPath = [PlayListController SearchNextMoviePathFrom:[lastURL path]];
 			if (nextPath) {
 				// requestingNextOrPrev 能够工作是因为 loadFiles工作在一个线程
 				// 在loadFiles退出的时候，就已经保证mplayer按照正确的顺序进行了stop→start
@@ -186,8 +185,7 @@ static BOOL init_ed = NO;
 	
 	if (lastURL) {
 		if ([lastURL isFileURL]) {
-			NSString *nextPath = [PlayListController SearchPreviousMoviePathFrom:[lastURL path]
-																	   inFormats:[[AppController sharedAppController] playableFormats]];
+			NSString *nextPath = [PlayListController SearchPreviousMoviePathFrom:[lastURL path]];
 			if (nextPath) {
 				// requestingNextOrPrev 能够工作是因为 loadFiles工作在一个线程
 				// 在loadFiles退出的时候，就已经保证mplayer按照正确的顺序进行了stop→start
@@ -205,7 +203,7 @@ static BOOL init_ed = NO;
 	}
 }
 
-+ (NSString*) SearchPreviousMoviePathFrom:(NSString*)path inFormats:(NSSet*)exts
++ (NSString*) SearchPreviousMoviePathFrom:(NSString*)path
 {
 	NSString *nextPath = nil;
 
@@ -236,7 +234,7 @@ static BOOL init_ed = NO;
 			
 			if (idxNow > 1) {
 				// 数字值必须大于1
-				idxNext = [NSString stringWithFormat:@"%d", idxNow - 1];
+				idxNext = [NSString stringWithFormat:@"%ld", idxNow - 1];
 
 				NSUInteger idxNextLen = [idxNext length];
 				// 减法对此不成立，10 - 1 = 9 or 09
@@ -262,7 +260,7 @@ static BOOL init_ed = NO;
 					// 得到所有文件的列表
 					if (!filesCandidates) {
 						// lazy load
-						filesCandidates = enumerateAllFilesAt(dirPath, exts);
+						filesCandidates = [PlayListController enumerateAllFilesAt:dirPath];
 					}
 					
 					NSInteger maxNum = 0;
@@ -336,7 +334,7 @@ static BOOL init_ed = NO;
 						// fuzzy matching
 						if (!filesCandidates) {
 							// lazy load
-							filesCandidates = enumerateAllFilesAt(dirPath, exts);
+							filesCandidates = [PlayListController enumerateAllFilesAt:dirPath];
 						}
 							
 						NSRange rng;
@@ -359,7 +357,7 @@ ExitLoopPrev:
 	return [nextPath autorelease];
 }
 
-+(NSString*) SearchNextMoviePathFrom:(NSString*)path inFormats:(NSSet*)exts
++(NSString*) SearchNextMoviePathFrom:(NSString*)path
 {
 	NSString *nextPath = nil;
 	
@@ -386,7 +384,7 @@ ExitLoopPrev:
 			digitRange = [val rangeValue];
 
 			// 得到下一个想要播放的文件的index
-			idxNext = [NSString stringWithFormat:@"%d", [[movieName substringWithRange:digitRange] integerValue] + 1];
+			idxNext = [NSString stringWithFormat:@"%ld", [[movieName substringWithRange:digitRange] integerValue] + 1];
 
 			NSUInteger idxNextLen = [idxNext length];
 			// 如果这个index的长度比上一个短，说明有padding
@@ -401,7 +399,7 @@ ExitLoopPrev:
 						// match the with the padding 0001
 						if (lastRange.length > 1) {
 							digitLast = digitRange.location+digitRange.length;
-							NSString *fmt = [NSString stringWithFormat:@"%%@%%@%%@%%0%dd",lastRange.length];
+							NSString *fmt = [NSString stringWithFormat:@"%%@%%@%%@%%0%ldd",lastRange.length];
 							fileNamePrefix = [NSString stringWithFormat:fmt,
 											  [movieName substringToIndex:digitRange.location],
 											  idxNext,
@@ -439,7 +437,7 @@ ExitLoopPrev:
 				// fuzzy matching
 				if (!filesCandidates) {
 					// lazy load
-					filesCandidates = enumerateAllFilesAt(dirPath, exts);
+					filesCandidates = [PlayListController enumerateAllFilesAt:dirPath];
 				}
 
 				NSRange rng;
