@@ -419,6 +419,21 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
         selfFrame.origin.y = MIN(MAX(1, superFrame.size.height * yRatio - selfFrame.size.height / 2), superFrame.size.height - selfFrame.size.height-1);
         [self setFrameOrigin:selfFrame.origin];
     }
+
+    // Accessibility
+    [volumeButton.cell accessibilitySetOverrideValue:NSLocalizedString(@"Mute", nil) forAttribute:NSAccessibilityDescriptionAttribute];
+    [volumeSlider.cell accessibilitySetOverrideValue:NSLocalizedString(@"Volume", nil) forAttribute:NSAccessibilityDescriptionAttribute];
+    [prevEPButton.cell accessibilitySetOverrideValue:NSLocalizedString(@"Play Previous Episode", nil) forAttribute:NSAccessibilityDescriptionAttribute];
+    [nextEPButton.cell accessibilitySetOverrideValue:NSLocalizedString(@"Play Next Episode", nil) forAttribute:NSAccessibilityDescriptionAttribute];
+    [playPauseButton.cell accessibilitySetOverrideValue:NSLocalizedString(@"Play", nil) forAttribute:NSAccessibilityDescriptionAttribute];
+    [fillScreenButton.cell accessibilitySetOverrideValue:NSLocalizedString(@"Fill Screen", nil) forAttribute:NSAccessibilityDescriptionAttribute];
+    [fullScreenButton.cell accessibilitySetOverrideValue:NSLocalizedString(@"Full Screen", nil) forAttribute:NSAccessibilityDescriptionAttribute];
+    [toggleAcceButton.cell accessibilitySetOverrideValue:NSLocalizedString(@"Show Auxiliary Controls", nil) forAttribute:NSAccessibilityDescriptionAttribute];
+    [timeDispSwitch.cell accessibilitySetOverrideValue:NSLocalizedString(@"Show total time instead of remaining time", nil) forAttribute:NSAccessibilityDescriptionAttribute];
+    [timeSlider.cell accessibilitySetOverrideValue:NSLocalizedString(@"Timeline", nil) forAttribute:NSAccessibilityDescriptionAttribute];
+    // these two don't work with VoiceOver (yet?)
+    [timeText.cell accessibilitySetOverrideValue:NSLocalizedString(@"Elapsed Time", nil) forAttribute:NSAccessibilityDescriptionAttribute];
+    [timeTextAlt.cell accessibilitySetOverrideValue:NSLocalizedString(@"Remaining or Total Time", nil) forAttribute:NSAccessibilityDescriptionAttribute];
 }
 
 -(void) dealloc
