@@ -20,10 +20,6 @@
 
 #import "MPXWindowButton.h"
 
-NSString * const kMPXAccessibilityCloseButtonDesc		= @"closeButton";
-NSString * const kMPXAccessibilityMinimizeButtonDesc	= @"minimizeButton";
-NSString * const kMPXAccessibilityZoomButtonDesc		= @"zoomButton";
-
 @implementation MPXWindowButton
 
 @synthesize windowButtonType;
@@ -104,21 +100,6 @@ NSString * const kMPXAccessibilityZoomButtonDesc		= @"zoomButton";
 					break;
 				default:
 					ret = NSAccessibilityUnknownSubrole;
-					break;
-			}
-		} else if ([attr isEqualToString:NSAccessibilityDescriptionAttribute]) {
-			switch (type) {
-				case kMPXWindowCloseButtonType:
-					ret = kMPXAccessibilityCloseButtonDesc;
-					break;
-				case kMPXWindowMinimizeButtonType:
-					ret = kMPXAccessibilityMinimizeButtonDesc;
-					break;
-				case kMPXWindowZoomButtonType:
-					ret = kMPXAccessibilityZoomButtonDesc;
-					break;
-				default:
-					ret = @"";
 					break;
 			}
 		} else if ([attr isEqualToString:NSAccessibilityEditedAttribute]) {

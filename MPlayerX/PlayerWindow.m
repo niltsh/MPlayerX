@@ -23,7 +23,6 @@
 #import "CocoaAppendix.h"
 #import "KeyCode.h"
 
-NSString * const kMPXAccessibilityPlayerWindowDesc		= @"PlayerWindow";
 NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 
 @implementation PlayerWindow
@@ -145,9 +144,6 @@ NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 		
 	} else if ([attr isEqualToString:NSAccessibilityZoomButtonAttribute]) {
 		ret = [titlebar zoomButton];
-		
-	} else if ([attr isEqualToString:NSAccessibilityDescriptionAttribute]) {
-		ret = kMPXAccessibilityPlayerWindowDesc;
 		
 	} else if ([attr isEqualToString:NSAccessibilitySubroleAttribute]) {
 		ret = NSAccessibilityStandardWindowSubrole;
