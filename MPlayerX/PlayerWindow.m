@@ -137,13 +137,13 @@ NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 	id ret;
 	
 	if ([attr isEqualToString:NSAccessibilityCloseButtonAttribute]) {
-		ret = [titlebar closeButton];
+		ret = [[titlebar closeButton] cell];
 		
 	} else if ([attr isEqualToString:NSAccessibilityMinimizeButtonAttribute]) {
-		ret = [titlebar miniButton];
+		ret = [[titlebar miniButton] cell];
 		
 	} else if ([attr isEqualToString:NSAccessibilityZoomButtonAttribute]) {
-		ret = [titlebar zoomButton];
+		ret = [[titlebar zoomButton] cell];
 		
 	} else if ([attr isEqualToString:NSAccessibilitySubroleAttribute]) {
 		ret = NSAccessibilityStandardWindowSubrole;
