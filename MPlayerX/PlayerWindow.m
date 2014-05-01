@@ -144,7 +144,12 @@ NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 		
 	} else if ([attr isEqualToString:NSAccessibilityZoomButtonAttribute]) {
 		ret = [[titlebar zoomButton] cell];
-		
+
+#if defined(MAC_OS_X_VERSION_10_7) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
+    } else if (&NSAccessibilityFullScreenButtonAttribute != nil && [attr isEqualToString:NSAccessibilityFullScreenButtonAttribute]) {
+        ret = [[titlebar fsButton] cell];
+#endif
+
 	} else if ([attr isEqualToString:NSAccessibilitySubroleAttribute]) {
 		ret = NSAccessibilityStandardWindowSubrole;
 		

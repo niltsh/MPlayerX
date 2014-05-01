@@ -98,6 +98,13 @@
 				case kMPXWindowZoomButtonType:
 					ret = NSAccessibilityZoomButtonSubrole;
 					break;
+#if defined(MAC_OS_X_VERSION_10_7) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
+                case kMPXWindowFullscreenButtonType:
+                    if (&NSAccessibilityFullScreenButtonAttribute != nil) {
+                        ret = NSAccessibilityFullScreenButtonSubrole;
+                        break;
+                    }
+#endif
 				default:
 					ret = NSAccessibilityUnknownSubrole;
 					break;
