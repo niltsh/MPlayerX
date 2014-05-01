@@ -765,6 +765,7 @@
                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                         </textFieldCell>
                                         <connections>
+                                            <accessibilityConnection property="title" destination="735" id="TBA-Io-Vg0"/>
                                             <action selector="changeSpeed:" target="540" id="767"/>
                                             <outlet property="nextKeyView" destination="744" id="779"/>
                                         </connections>
@@ -787,6 +788,7 @@
                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                         </textFieldCell>
                                         <connections>
+                                            <accessibilityConnection property="title" destination="742" id="Z1t-Fb-lBe"/>
                                             <action selector="changeAudioDelay:" target="540" id="768"/>
                                             <outlet property="nextKeyView" destination="747" id="780"/>
                                         </connections>
@@ -809,6 +811,7 @@
                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                         </textFieldCell>
                                         <connections>
+                                            <accessibilityConnection property="title" destination="746" id="rpk-0c-Etd"/>
                                             <action selector="changeSubDelay:" target="540" id="769"/>
                                             <outlet property="nextKeyView" destination="372" id="901"/>
                                         </connections>
