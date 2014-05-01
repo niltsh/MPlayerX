@@ -59,6 +59,8 @@
 @property(readonly) NSButton *closeButton;
 @property(readonly) NSButton *miniButton;
 @property(readonly) NSButton *zoomButton;
+@property(readonly) NSButton *fsButton;
+
 
 -(void) resetPosition;
 @end

@@ -36,6 +36,7 @@ static NSRect trackRect;
 @synthesize closeButton;
 @synthesize miniButton;
 @synthesize zoomButton;
+@synthesize fsButton;
 
 +(void) initialize
 {
