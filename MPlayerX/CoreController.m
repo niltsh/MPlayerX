@@ -1,7 +1,7 @@
 /*
  * MPlayerX - CoreController.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -37,8 +37,9 @@
 #define kMITypeVideoGotID	(8)
 #define KMITypeChapterInfo	(9)
 
-NSString * const kMPCPlayStoppedByForceKey		= @"kMPCPlayStoppedByForceKey";
-NSString * const kMPCPlayStoppedTimeKey			= @"kMPCPlayStoppedTimeKey";
+NSString * const kMPCPlayStoppedByForceKey		= @"PlayStoppedByForce";
+NSString * const kMPCPlayStoppedTimeKey			= @"PlayStoppedTime";
+NSString * const kMPCPlayStoppedAbnormalKey     = @"PlayStoppedAbnormal";
 
 NSString * const kCmdStringFMTFloat		= @"%@ %@ %f\n";
 NSString * const kCmdStringFMTInteger	= @"%@ %@ %d\n";
@@ -81,13 +82,8 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 
 @implementation CoreController
 
-@synthesize state;
-@synthesize dispDelegate;
-@synthesize pm;
-@synthesize movieInfo;
-@synthesize mpPathPair;
-@synthesize la;
-@synthesize delegate;
+@synthesize state, dispDelegate, pm, movieInfo;
+@synthesize mpPathPair, la, delegate, debug;
 
 ///////////////////////////////////////////Init/Dealloc////////////////////////////////////////////////////////
 -(id) init
@@ -144,13 +140,15 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 
 		imageData = NULL;
 		imageSize = 0;
-		sharedBufferName = [[NSString alloc] initWithFormat:@"MPlayerX_%X", self];
+		sharedBufferName = [[NSString alloc] initWithFormat:@"MPlayerX_%lX", (unsigned long)self];
 		
 		renderThread = [[NSThread alloc] initWithTarget:self selector:@selector(renderRoutine) object:nil];
 		[renderThread setThreadPriority:0.9];
 		[renderThread start];
 		
 		pollingTimer = nil;
+        
+        debug = NO;
 	}
 	return self;
 }
@@ -215,6 +213,10 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 //////////////////////////////////////////////comunication with playerCore/////////////////////////////////////////////////////
 -(void) playerCore:(id)player hasTerminated:(BOOL) byForce
 {
+    // 如果是byForce为否，并且没有处于播放状态时，判断为异常退出
+    // 没有播放状态就正常退出，意味着在open状态时就退出了
+    BOOL quitAbormal = !(byForce || (state & kMPCStateMask));
+
 	// if mplayer is crashed, it may not call stop to stop display
 	// and stop always happens before mplayer really exit
 	// so imageData is there means stop is forgotten
@@ -250,7 +252,9 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 		[delegate playbackStopped:self
 							 info:[NSDictionary dictionaryWithObjectsAndKeys:
 								   [NSNumber numberWithBool:byForce], kMPCPlayStoppedByForceKey,
-								   [movieInfo.playingInfo currentTime], kMPCPlayStoppedTimeKey, nil]];
+								   [movieInfo.playingInfo currentTime], kMPCPlayStoppedTimeKey, 
+                                   [NSNumber numberWithInt:quitAbormal], kMPCPlayStoppedAbnormalKey,
+                                   nil]];
 	}
 	MPLog(@"terminated:%d", byForce);
 }
@@ -258,14 +262,20 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 - (void) playerCore:(id)player outputAvailable:(NSData*)outData
 {
 	[la analyzeData:outData];
+    if (debug) {
+        NSString *log = [[NSString alloc] initWithData:outData encoding:NSUTF8StringEncoding];
+        MPLog(@"OUT:%@", log);
+        [log release];
+    }
 }
 
 - (void) playerCore:(id)player errorHappened:(NSData*) errData
 {
-	NSString *log = [[NSString alloc] initWithData:errData encoding:NSUTF8StringEncoding];
-	
-	MPLog(@"ERR:%@", log);
-	[log release];
+    if (debug) {
+        NSString *log = [[NSString alloc] initWithData:errData encoding:NSUTF8StringEncoding];
+        MPLog(@"ERR:%@", log);
+        [log release];
+    }
 }
 
 //////////////////////////////////////////////protocol for render/////////////////////////////////////////////////////
@@ -283,6 +293,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 		
 		switch (pixelFormat) {
 			case kYUVSPixelFormat:
+            case k2vuyPixelFormat:
 				fmt.bytes = 2;
 				break;
 			case k24RGBPixelFormat:
@@ -405,6 +416,11 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 			[delegate playbackOpened:self];
 		}
 		
+        // if the start pos is not 0, update the currentTime
+        if (pm.startTime > 0) {
+            [movieInfo.playingInfo setCurrentTime:[NSNumber numberWithFloat:pm.startTime]];
+        }
+        
 		// 这里需要打开Timer去Polling播放时间，然后定期发送现在的播放时间
 		pollingTimer = [[NSTimer timerWithTimeInterval:kPollingTimeForTimePos
 											    target:self
@@ -625,6 +641,37 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 	}
 }
 
+-(BOOL) mergeSubtitleToCurrentSub:(NSString*)path
+{
+    BOOL ret = NO;
+    
+    if (path) {
+        if ([[movieInfo subInfo] count]) {
+            // if the playback is reset, id will be nil
+            // if id < 0, means sub is disabled now
+            NSNumber *curSubID = [[movieInfo playingInfo] currentSubID];
+            NSInteger curSubIDNum;
+            if (curSubID) {
+                curSubIDNum = [curSubID integerValue];
+                
+                if (curSubIDNum >= 0) {
+                    NSString *currentSubName = [[movieInfo subInfo] objectAtIndex:curSubIDNum];
+                    MPLog(@"CurrentSubName:%@", currentSubName);
+                    
+                    path = [subConv mergeSubtitle:path to:currentSubName];
+                }
+            }
+        }
+        // if count is 0, means there is still no sub loaded,
+        // so just load the sub
+        if (path) {
+            [self loadSubFile:path];
+            ret = YES;
+        }
+    }
+    return ret;
+}
+
 -(void) setLetterBox:(BOOL) renderSubInLB top:(float) topRatio bottom:(float)bottomRatio
 {
 	[playerCore sendStringCommand:[NSString stringWithFormat:@"%@ %@ %f %f %d\n", 
@@ -716,6 +763,11 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 	}
 }
 
+-(void) setABLoopFrom:(float)start to:(float)stop
+{
+    [playerCore sendStringCommand:[NSString stringWithFormat:@"%@ %@ %f %f\n", kMPCPausingKeepForce, kMPCABLoopCmd, start, stop]];
+}
+
 // 这个是LogAnalyzer的delegate方法，
 // 因此是运行在工作线程上的，因为这里用到了KVC和KVO
 // 有没有必要运行在主线程上？
@@ -748,7 +800,7 @@ NSString * const kCmdStringFMTTimeSeek	= @"%@ %@ %f %d\n";
 				case kMITypeSubAppend:
 					// 会发生insert的KVO change
 					// MPLog(@"%@", obj);
-					[movieInfo.playingInfo setCurrentSubID:[NSNumber numberWithInt:[[movieInfo subInfo] count]]];
+					[movieInfo.playingInfo setCurrentSubID:[NSNumber numberWithUnsignedInteger:[[movieInfo subInfo] count]]];
 					[[movieInfo mutableArrayValueForKey:kMovieInfoKVOSubInfo] addObject: [[dict objectForKey:key] lastPathComponent]];
 					break;
 				case kMITypeStateChanged:

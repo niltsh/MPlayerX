@@ -1,7 +1,7 @@
 /*
  * MPlayerX - DisplayLayer.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -99,7 +99,20 @@
 -(CIImage*) snapshot
 {
 	if (bufRefs && (frameNow >= 0)) {
-		return [CIImage imageWithCVImageBuffer:bufRefs[frameNow]];
+        CIImage *org = [CIImage imageWithCVImageBuffer:bufRefs[frameNow]];
+        CIImage *dst = org;
+        float inputRatio = [self originalAspectRatio] * [org extent].size.height / [org extent].size.width;
+        
+        if (fabsf(inputRatio - 1) >= 0.001) {
+            // if there are huge error between fmt.ratio and width/height, which means SAR != 1
+            CIFilter *scaleFilter = [CIFilter filterWithName:@"CILanczosScaleTransform"];
+            [scaleFilter setValue:org forKey:@"inputImage"];
+            [scaleFilter setValue:[NSNumber numberWithFloat:1.0] forKey:@"inputScale"];
+            [scaleFilter setValue:[NSNumber numberWithFloat:inputRatio] forKey:@"inputAspectRatio"];
+            
+            dst = [scaleFilter valueForKey:@"outputImage"];
+        }
+        return dst;
 	}
 	return nil;
 }
@@ -202,9 +215,9 @@
 		CGFloat sAspect = [self aspectRatio];
 		
 		if (((sAspect * rc.size.height) > rc.size.width) == fillScreen) {
-			rc.size.width = rc.size.height * sAspect;
+			rc.size.width = round(rc.size.height * sAspect);
 		} else {
-			rc.size.height = rc.size.width / sAspect;
+			rc.size.height = round(rc.size.width / sAspect);
 		}
 		
 		if (scaleEnabled) {
@@ -212,7 +225,7 @@
 			rc.size.height *= renderRatio.size.height;
 		}
 		
-		self.bounds = rc;
+		self.bounds = CGRectIntegral(rc);
 		
 		flagAspectRatioChanged = NO;
 		flagFillScrnChanged = NO;
@@ -271,8 +284,14 @@
 					[self stop];
 					MPLog(@"video buffer failed");
 					break;
-				}				
-			}
+				}
+                
+                // FIXME: here frame size is used to guess the color space of the image
+                CVBufferSetAttachment(bufRefs[bufTotal],
+                                      kCVImageBufferYCbCrMatrixKey,
+                                      ((fmt.width >= 1280) || (fmt.height > 576))?(kCVImageBufferYCbCrMatrix_ITU_R_709_2):(kCVImageBufferYCbCrMatrix_ITU_R_601_4),
+                                      kCVAttachmentMode_ShouldPropagate);
+            }
 		}
 		flagAspectRatioChanged = YES;
 	}
@@ -327,7 +346,7 @@
 
 	CGLSetParameter(ctx, kCGLCPSwapInterval, &i);
 	
-	CGLEnable(ctx, kCGLCEMPEngine);
+	// CGLEnable(ctx, kCGLCEMPEngine);
 
 	SAFERELEASETEXTURECACHE(cache);
 	CVReturn error = CVOpenGLTextureCacheCreate(NULL, NULL, ctx, pf, NULL, &cache);

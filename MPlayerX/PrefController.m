@@ -1,7 +1,7 @@
 /*
  * MPlayerX - PrefController.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -180,7 +180,7 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 -(void) dealloc
 {
 	[prefViews release];
-	[super release];
+	[super dealloc];
 }
 
 -(IBAction) switchViews:(id)sender
@@ -206,9 +206,14 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 	}
 }
 
+-(BOOL) oldFullScreenMethod
+{
+    return (MPXGetSysVersion() < kMPXSysVersionMavericks);
+}
+
 - (IBAction)multiThreadChanged:(id)sender
 {
-	[playerController setMultiThreadMode:[ud boolForKey:kUDKeyEnableMultiThread]];
+	[playerController setMultiThreadMode];
 }
 
 - (IBAction)onTopModeChanged:(id)sender
@@ -239,7 +244,7 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 
 -(IBAction) letterBoxModeChanged:(id)sender
 {
-	unsigned int mode = [ud integerForKey:kUDKeyLetterBoxMode];
+	NSInteger mode = [ud integerForKey:kUDKeyLetterBoxMode];
 	
 	if (mode != kPMLetterBoxModeNotDisplay) {
 		// 如果是现实letterbox，那么更新alt
@@ -267,6 +272,77 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 	
 	[ud setObject:subFontPath forKey:kUDKeySubFontPath];
 }
+
+-(IBAction) recentMenuSettingChanged:(id)sender
+{
+    if (![ud boolForKey:kUDKeyEnableOpenRecentMenu]) {
+        [[NSDocumentController sharedDocumentController] clearRecentDocuments:nil];
+    }
+}
+
+-(IBAction) snapshotFormatChanged:(id)sender
+{
+    NSInteger selection = [[sender selectedItem] tag];
+    
+    if (selection == kMPSnapshotFormatPasteBoard) {
+        // if save to pasteboard, clear the save path
+        [ud setObject:@"" forKey:kUDKeySnapshotSavePath];
+    } else {
+        // if save to file, pop up the open panel
+        NSOpenPanel *panel = [NSOpenPanel openPanel];
+        
+        [panel setDelegate:self];
+        
+        [panel setCanChooseFiles:NO];
+        [panel setCanChooseDirectories:YES];
+        [panel setResolvesAliases:NO];
+        [panel setAllowsMultipleSelection:NO];
+        [panel setCanCreateDirectories:YES];
+        [panel setTreatsFilePackagesAsDirectories:NO];
+		
+		NSString *expStr = [[ud objectForKey:kUDKeySnapshotSavePath] stringByExpandingTildeInPath];
+		
+		if ([expStr isEqualToString:@""] ||
+			(![[NSFileManager defaultManager] fileExistsAtPath:expStr])) {
+			// 如果是从 pasteboard刚过来准备选的话
+			// 或者现有文件夹不存在的话
+			expStr = [kMPXSnapshotSaveDefaultPath stringByExpandingTildeInPath];
+		}
+		[panel setDirectoryURL:[NSURL fileURLWithPath:expStr isDirectory:YES]];
+        
+        [panel beginSheetModalForWindow:prefWin completionHandler:^(NSInteger result) {
+            
+            [panel setDelegate:nil];
+            
+            if (result == NSFileHandlingPanelOKButton) {
+                NSString *path = [[[panel URLs] objectAtIndex:0] path];
+                path = [path stringByAbbreviatingWithTildeInPath];
+                
+                [ud setObject:path forKey:kUDKeySnapshotSavePath];
+            } else {
+                if ([[ud objectForKey:kUDKeySnapshotSavePath] isEqualToString:@""]) {
+                    // if change from pasteboard -> files, and press the cancel button
+                    // the path is setted @"", so restore it to the default one
+                    [ud setObject:kMPXSnapshotSaveDefaultPath forKey:kUDKeySnapshotSavePath];
+                }
+            }
+        }];
+    }
+}
+
+- (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url
+{
+    if ([[NSFileManager defaultManager] isWritableFileAtPath:[url path]]) {
+        return YES;
+    }
+    return NO;
+}
+
+-(IBAction) revealSnapshotPath:(id)sender
+{
+    [[NSWorkspace sharedWorkspace] openFile:[[ud objectForKey:kUDKeySnapshotSavePath] stringByExpandingTildeInPath]];
+}
+
 /////////////////////////////Toolbar Delegate/////////////////////
 /*
  * 如何添加新的Pref View

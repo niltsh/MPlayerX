@@ -1,7 +1,7 @@
 /*
  * MPlayerX - PlayerWindow.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,7 +23,6 @@
 #import "CocoaAppendix.h"
 #import "KeyCode.h"
 
-NSString * const kMPXAccessibilityPlayerWindowDesc		= @"PlayerWindow";
 NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 
 @implementation PlayerWindow
@@ -138,17 +137,19 @@ NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 	id ret;
 	
 	if ([attr isEqualToString:NSAccessibilityCloseButtonAttribute]) {
-		ret = [titlebar closeButton];
+		ret = [[titlebar closeButton] cell];
 		
 	} else if ([attr isEqualToString:NSAccessibilityMinimizeButtonAttribute]) {
-		ret = [titlebar miniButton];
+		ret = [[titlebar miniButton] cell];
 		
 	} else if ([attr isEqualToString:NSAccessibilityZoomButtonAttribute]) {
-		ret = [titlebar zoomButton];
-		
-	} else if ([attr isEqualToString:NSAccessibilityDescriptionAttribute]) {
-		ret = kMPXAccessibilityPlayerWindowDesc;
-		
+		ret = [[titlebar zoomButton] cell];
+
+#if defined(MAC_OS_X_VERSION_10_7) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
+    } else if (&NSAccessibilityFullScreenButtonAttribute != nil && [attr isEqualToString:NSAccessibilityFullScreenButtonAttribute]) {
+        ret = [[titlebar fsButton] cell];
+#endif
+
 	} else if ([attr isEqualToString:NSAccessibilitySubroleAttribute]) {
 		ret = NSAccessibilityStandardWindowSubrole;
 		

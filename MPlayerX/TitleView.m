@@ -1,7 +1,7 @@
 /*
  * MPlayerX - TitleView.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -36,6 +36,7 @@ static NSRect trackRect;
 @synthesize closeButton;
 @synthesize miniButton;
 @synthesize zoomButton;
+@synthesize fsButton;
 
 +(void) initialize
 {
@@ -47,7 +48,7 @@ static NSRect trackRect;
 	self = [super initWithFrame:frame];
 	
     if (self) {
-		[[NSUserDefaults standardUserDefaults] addSuiteNamed:NSGlobalDomain];
+		// [[NSUserDefaults standardUserDefaults] addSuiteNamed:NSGlobalDomain];
 
 		title = nil;
 		titleAttr = [[NSDictionary alloc]
@@ -56,9 +57,9 @@ static NSRect trackRect;
 					 [NSFont titleBarFontOfSize:0], NSFontAttributeName,
 					 nil];
 
-		tbCornerLeft	= [[NSImage imageNamed:@"titlebar-corner-left.png"] retain];
-		tbCornerRight	= [[NSImage imageNamed:@"titlebar-corner-right.png"] retain];
-		tbMiddle		= [[NSImage imageNamed:@"titlebar-middle.png"] retain];
+		tbCornerLeft	= [[NSImage imageNamed:@"titlebar-corner-left"] retain];
+		tbCornerRight	= [[NSImage imageNamed:@"titlebar-corner-right"] retain];
+		tbMiddle		= [[NSImage imageNamed:@"titlebar-middle"] retain];
 
 		if (MPXGetSysVersion() < kMPXSysVersionLion) {
 			// in snow leopard
@@ -95,29 +96,29 @@ static NSRect trackRect;
 			// in lion
 			if ([[NSUserDefaults standardUserDefaults] integerForKey:@"AppleAquaColorVariant"] == 6) {
 				// graphite theme
-				imgCloseActive   = [[NSImage imageNamed:@"close-active-graphite-lion.png"] retain];
-				imgCloseInactive = [[NSImage imageNamed:@"close-inactive-disabled-graphite-lion.png"] retain];
-				imgCloseRollover = [[NSImage imageNamed:@"close-rollover-graphite-lion.png"] retain];
+				imgCloseActive   = [[NSImage imageNamed:@"close-active-graphite-lion"] retain];
+				imgCloseInactive = [[NSImage imageNamed:@"close-inactive-disabled-graphite-lion"] retain];
+				imgCloseRollover = [[NSImage imageNamed:@"close-rollover-graphite-lion"] retain];
 				
-				imgMiniActive	= [[NSImage imageNamed:@"minimize-active-graphite-lion.png"] retain];
-				imgMiniInactive = [[NSImage imageNamed:@"minimize-inactive-disabled-graphite-lion.png"] retain];
-				imgMiniRollover = [[NSImage imageNamed:@"minimize-rollover-graphite-lion.png"] retain];
+				imgMiniActive	= [[NSImage imageNamed:@"minimize-active-graphite-lion"] retain];
+				imgMiniInactive = [[NSImage imageNamed:@"minimize-inactive-disabled-graphite-lion"] retain];
+				imgMiniRollover = [[NSImage imageNamed:@"minimize-rollover-graphite-lion"] retain];
 				
-				imgZoomActive	= [[NSImage imageNamed:@"zoom-active-graphite-lion.png"] retain];
-				imgZoomInactive = [[NSImage imageNamed:@"zoom-inactive-disabled-graphite-lion.png"] retain];
-				imgZoomRollover = [[NSImage imageNamed:@"zoom-rollover-graphite-lion.png"] retain];
+				imgZoomActive	= [[NSImage imageNamed:@"zoom-active-graphite-lion"] retain];
+				imgZoomInactive = [[NSImage imageNamed:@"zoom-inactive-disabled-graphite-lion"] retain];
+				imgZoomRollover = [[NSImage imageNamed:@"zoom-rollover-graphite-lion"] retain];
 			} else {
-				imgCloseActive	 = [[NSImage imageNamed:@"close-active-lion.png"] retain];
-				imgCloseInactive = [[NSImage imageNamed:@"close-inactive-disabled-lion.png"] retain];
-				imgCloseRollover = [[NSImage imageNamed:@"close-rollover-lion.png"] retain];
+				imgCloseActive	 = [[NSImage imageNamed:@"close-active-lion"] retain];
+				imgCloseInactive = [[NSImage imageNamed:@"close-inactive-disabled-lion"] retain];
+				imgCloseRollover = [[NSImage imageNamed:@"close-rollover-lion"] retain];
 				
-				imgMiniActive	 = [[NSImage imageNamed:@"minimize-active-lion.png"] retain];
-				imgMiniInactive	 = [[NSImage imageNamed:@"minimize-inactive-disabled-lion.png"] retain];
-				imgMiniRollover	 = [[NSImage imageNamed:@"minimize-rollover-lion.png"] retain];
+				imgMiniActive	 = [[NSImage imageNamed:@"minimize-active-lion"] retain];
+				imgMiniInactive	 = [[NSImage imageNamed:@"minimize-inactive-disabled-lion"] retain];
+				imgMiniRollover	 = [[NSImage imageNamed:@"minimize-rollover-lion"] retain];
 				
-				imgZoomActive	 = [[NSImage imageNamed:@"zoom-active-lion.png"] retain];
-				imgZoomInactive	 = [[NSImage imageNamed:@"zoom-inactive-disabled-lion.png"] retain];
-				imgZoomRollover	 = [[NSImage imageNamed:@"zoom-rollover-lion.png"] retain];
+				imgZoomActive	 = [[NSImage imageNamed:@"zoom-active-lion"] retain];
+				imgZoomInactive	 = [[NSImage imageNamed:@"zoom-inactive-disabled-lion"] retain];
+				imgZoomRollover	 = [[NSImage imageNamed:@"zoom-rollover-lion"] retain];
 			}
 			// read the image
 			imgFSActive = [[NSImage imageNamed:@"fullscreen-active-lion"] retain];
@@ -262,6 +263,18 @@ static NSRect trackRect;
 			}
 		}
 	}
+}
+
+-(void) resetPosition
+{
+    NSRect rcWin = [[self superview] frame];
+    CGFloat ht = self.bounds.size.height;
+
+    rcWin.origin.x = 0;
+    rcWin.origin.y = rcWin.size.height - ht;
+    rcWin.size.height = ht;
+
+    [self setFrame:rcWin];
 }
 
 - (void)drawRect:(NSRect)dirtyRect

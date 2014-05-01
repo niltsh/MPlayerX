@@ -1,7 +1,7 @@
 /*
  * MPlayerX - CharsetQueryController.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -70,7 +70,7 @@
 			[charsetListPopup selectItem:item];
 		}
 	}
-	return [NSApp runModalForWindow:encodingWindow];
+	return (CFStringEncoding)[NSApp runModalForWindow:encodingWindow];
 }
 
 -(IBAction) confirmed:(id)sender

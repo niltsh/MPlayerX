@@ -1,7 +1,7 @@
 /*
  * MPlayerX - AppController.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -27,8 +27,10 @@
 #import "RootLayerView.h"
 #import "SPMediaKeyTap.h"
 #import "AODetector.h"
+#import "def.h"
 
-#define kSnapshotSaveDefaultPath	(@"~/Pictures")
+#import <Sparkle/Sparkle.h>
+#import <CoreServices/CoreServices.h>
 
 /**
  * This is a sample of how to create a singleton object,
@@ -56,8 +58,8 @@
  */
 
 NSString * const kMPCFMTBookmarkPath	= @"bookmarks.plist";
-NSString * const kMPXFeedbackURL		= @"http://mplayerx.org/#contact";
-NSString * const kMPXWikiURL			= @"https://github.com/niltsh/MPlayerX/wiki";
+NSString * const kMPXFeedbackURL		= @"http://mplayerx.org/support.html";
+NSString * const kMPXWikiURL			= @"http://mplayerx.org/support.html";
 NSString * const kMPXEAFPlaceHolder		= @"";
 
 static AppController *sharedInstance = nil;
@@ -66,21 +68,19 @@ static BOOL init_ed = NO;
 @implementation AppController
 
 @synthesize bookmarks;
-@synthesize supportVideoFormats;
-@synthesize supportAudioFormats;
-@synthesize supportSubFormats;
-@synthesize playableFormats;
 
 +(void) initialize
 {
 	[[NSUserDefaults standardUserDefaults] 
 	 registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 					   [NSNumber numberWithBool:NO], kUDKeyLogMode,
-					   kSnapshotSaveDefaultPath, kUDKeySnapshotSavePath,
+					   kMPXSnapshotSaveDefaultPath, kUDKeySnapshotSavePath,
 					   @"NO", @"AppleMomentumScrollSupported",
 					   [SPMediaKeyTap defaultMediaKeyUserBundleIdentifiers], kMediaKeyUsingBundleIdentifiersDefaultsKey,
 					   [NSNumber numberWithBool:YES], kUDKeyEnableMediaKeyTap,
 					   [NSNumber numberWithBool:NO], kUDKeyDisableLastStopBookmark,
+                       [NSNumber numberWithInt:kMPSnapshotFormatPNG], kUDKeySnapshotFormat,
+                       @"https://raw.github.com/niltsh/MPlayerX-Deploy/master/appcast.xml", @"SUFeedURL",
 					   nil]];
 
 	MPSetLogEnable([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyLogMode]);
@@ -98,42 +98,31 @@ static BOOL init_ed = NO;
 {
 	if (init_ed == NO) {
 		init_ed = YES;
-
-		ud = [NSUserDefaults standardUserDefaults];
-		notifCenter = [NSNotificationCenter defaultCenter];
-
-		NSBundle *mainBundle = [NSBundle mainBundle];
-		// 建立支持格式的Set
-		for( NSDictionary *dict in [mainBundle objectForInfoDictionaryKey:@"CFBundleDocumentTypes"]) {
-			
-			NSString *obj = [dict objectForKey:@"CFBundleTypeName"];
-			// 对不同种类的格式
-			if ([obj isEqualToString:@"Audio Media"]) {
-				// 如果是音频文件
-				supportAudioFormats = [[NSSet alloc] initWithArray:[dict objectForKey:@"CFBundleTypeExtensions"]];
-				
-			} else if ([obj isEqualToString:@"Video Media"]) {
-				// 如果是视频文件
-				supportVideoFormats = [[NSSet alloc] initWithArray:[dict objectForKey:@"CFBundleTypeExtensions"]];
-			} else if ([obj isEqualToString:@"Subtitle"]) {
-				// 如果是字幕文件
-				supportSubFormats = [[NSSet alloc] initWithArray:[dict objectForKey:@"CFBundleTypeExtensions"]];
-			}
-		}
-		
-		playableFormats = [[supportVideoFormats setByAddingObjectsFromSet:supportAudioFormats] retain];
-		
-		/////////////////////////setup bookmarks////////////////////
-		// 得到书签的文件名
-		NSString *lastStoppedTimePath = [[NSFileManager UserPath:NSApplicationSupportDirectory WithSuffix:kMPCStringMPlayerX] stringByAppendingPathComponent:kMPCFMTBookmarkPath];
-
-		// 得到记录播放时间的dict
-		bookmarks = [[NSMutableDictionary alloc] initWithContentsOfFile:lastStoppedTimePath];
-		if (!bookmarks) {
-			// 如果文件不存在或者格式非法
-			bookmarks = [[NSMutableDictionary alloc] initWithCapacity:10];
-		}
-		keyTap = nil;
+        
+        if (self = [super init]) {
+            NSDictionary *dict;
+            
+            ud = [NSUserDefaults standardUserDefaults];
+            notifCenter = [NSNotificationCenter defaultCenter];
+                        
+            /////////////////////////setup bookmarks////////////////////
+            // 得到书签的文件名
+            NSString *lastStoppedTimePath = [[NSFileManager UserPath:NSApplicationSupportDirectory WithSuffix:kMPCStringMPlayerX] stringByAppendingPathComponent:kMPCFMTBookmarkPath];
+            
+            // 得到记录播放时间的dict
+            bookmarks = [[NSMutableDictionary alloc] initWithContentsOfFile:lastStoppedTimePath];
+            if (!bookmarks) {
+                // 如果文件不存在或者格式非法
+                bookmarks = [[NSMutableDictionary alloc] initWithCapacity:10];
+            }
+            keyTap = nil;
+            trashSound = nil;
+            
+            dict = [[NSBundle mainBundle] infoDictionary];
+            subExts = [[NSSet alloc] initWithArray:[dict objectForKey:@"SupportedSubtitleExtensions"]]; 
+            playableExts = [[NSSet alloc] initWithArray:[dict objectForKey:@"SupportedAVExtensions"]];
+            // MPLog(@"Sub %@ \n AV %@", subExts, playableExts);
+        }
 	}
 	return self;
 }
@@ -147,13 +136,12 @@ static BOOL init_ed = NO;
 
 -(void) dealloc
 {
-	[supportVideoFormats release];
-	[supportAudioFormats release];
-	[supportSubFormats release];
-	[playableFormats release];
-	
 	[bookmarks release];
 	[keyTap release];
+    [trashSound release];
+    [subExts release];
+    [playableExts release];
+
 	sharedInstance = nil;
 	
 	[super dealloc];
@@ -261,48 +249,96 @@ static BOOL init_ed = NO;
 	
 	if (snapshot != nil) {
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		// 得到存储文件夹
-		NSString *savePath = [ud stringForKey:kUDKeySnapshotSavePath];
-		
-		// 如果是默认路径，那么就更换为绝对地址
-		if ([savePath isEqualToString:kSnapshotSaveDefaultPath]) {
-			savePath = [NSFileManager UserPath:NSPicturesDirectory WithSuffix:kMPCStringMPlayerX];
-		}
-		
-		NSFileManager *fm = [NSFileManager defaultManager];
-		BOOL isDir = NO;
-		if ([fm fileExistsAtPath:savePath isDirectory:&isDir] && (!isDir)) {
-			// 如果存在但不是文件夹的话
-			[fm removeItemAtPath:savePath error:NULL];
-		}
-		if (!isDir) {
-			// 如果原来不存在这个文件夹或者存在的是文件的话，都需要重建文件夹
-			if (![fm createDirectoryAtPath:savePath withIntermediateDirectories:YES attributes:nil error:NULL]) {
-				savePath = nil;
-			}
-		}
-
-		if (savePath) {
-			NSString *mediaPath = ([playerController.lastPlayedPath isFileURL])?([playerController.lastPlayedPath path]):([playerController.lastPlayedPath absoluteString]);
-			NSString *dateTime = [NSDateFormatter localizedStringFromDate:[NSDate date]
-																dateStyle:NSDateFormatterMediumStyle
-																timeStyle:NSDateFormatterMediumStyle];
-			dateTime = [dateTime stringByReplacingOccurrencesOfString:@":" withString:@"."];
-			dateTime = [dateTime stringByReplacingOccurrencesOfString:@"/" withString:@"."];
-			
-			// 创建文件名
-			// 修改文件名中的：，因为：无法作为文件名存储
-			savePath = [NSString stringWithFormat:@"%@/%@_%@.png", savePath, [[mediaPath lastPathComponent] stringByDeletingPathExtension],dateTime];							   
-			// 得到图像的Rep
-			NSBitmapImageRep *imRep = [[NSBitmapImageRep alloc] initWithCIImage:snapshot];
-			// 设定这个Rep的存储方式
-			NSData *imData = [NSBitmapImageRep representationOfImageRepsInArray:[NSArray arrayWithObject:imRep]
-																	  usingType:NSPNGFileType
-																	 properties:nil];
-			// 写文件
-			[imData writeToFile:savePath atomically:YES];
-			[imRep release];			
-		}
+        
+        NSInteger destination = [ud integerForKey:kUDKeySnapshotFormat];
+        
+        if (destination == kMPSnapshotFormatPasteBoard) {
+            // save to pasteboard
+            NSImage *im = MPCreateNSImageFromCIImage(snapshot);
+            if (im) {
+                NSPasteboard *pb = [NSPasteboard generalPasteboard];
+                [pb clearContents];
+                [pb writeObjects:[NSArray arrayWithObject:im]];
+                [im release];
+            }
+        } else {
+            // save to file
+            NSBitmapImageFileType fmt;
+            NSString *ext;
+            
+            switch (destination) {
+                case kMPSnapshotFormatBMP:
+                    fmt = NSBMPFileType;
+                    ext = @"bmp";
+                    break;
+                case kMPSnapshotFormatJPEG:
+                    fmt = NSJPEGFileType;
+                    ext = @"jpg";
+                    break;
+                case kMPSnapshotFormatTIFF:
+                    fmt = NSTIFFFileType;
+                    ext = @"tiff";
+                    break;
+                default:
+                    fmt = NSPNGFileType;
+                    ext = @"png";
+                    break;
+            }
+            
+            // 得到存储文件夹
+            NSString *savePath = [[ud stringForKey:kUDKeySnapshotSavePath] stringByExpandingTildeInPath];
+            
+            NSFileManager *fm = [NSFileManager defaultManager];
+            BOOL isDir = NO;
+            if ([fm fileExistsAtPath:savePath isDirectory:&isDir] && (!isDir)) {
+                // 如果存在但不是文件夹的话
+                [fm removeItemAtPath:savePath error:NULL];
+            }
+            if (!isDir) {
+                // 如果原来不存在这个文件夹或者存在的是文件的话，都需要重建文件夹
+                if (![fm createDirectoryAtPath:savePath withIntermediateDirectories:YES attributes:nil error:NULL]) {
+                    savePath = nil;
+                }
+            }
+            
+            if (savePath) {
+                NSString *mediaPath = nil;
+				
+				if ([playerController.lastPlayedPath isFileURL]) {
+					mediaPath = [playerController.lastPlayedPath path];
+				} else {
+					mediaPath = [[playerController mediaInfo].metaData objectForKey:@"title"];
+					if (!mediaPath) {
+						mediaPath = [playerController.lastPlayedPath absoluteString];
+					}
+					NSLog(@"mediaPath: %s", [mediaPath fileSystemRepresentation]);
+				}
+				mediaPath = [[mediaPath lastPathComponent] stringByDeletingPathExtension];
+				
+                NSString *dateTime = [NSDateFormatter localizedStringFromDate:[NSDate date]
+                                                                    dateStyle:NSDateFormatterMediumStyle
+                                                                    timeStyle:NSDateFormatterMediumStyle];
+                dateTime = [dateTime stringByReplacingOccurrencesOfString:@":" withString:@"."];
+                dateTime = [dateTime stringByReplacingOccurrencesOfString:@"/" withString:@"."];
+                
+                // 创建文件名
+                // 修改文件名中的：，因为：无法作为文件名存储
+                savePath = [NSString stringWithFormat:@"%@/%@_%@.%@", 
+                            savePath, 
+                            mediaPath,
+                            dateTime,
+                            ext];
+                // 得到图像的Rep
+                NSBitmapImageRep *imRep = [[NSBitmapImageRep alloc] initWithCIImage:snapshot];
+                // 设定这个Rep的存储方式
+                NSData *imData = [NSBitmapImageRep representationOfImageRepsInArray:[NSArray arrayWithObject:imRep]
+                                                                          usingType:fmt
+                                                                         properties:nil];
+                // 写文件
+                [imData writeToFile:savePath atomically:YES];
+                [imRep release];			
+            }
+        }
 		[pool drain];
 	}
 }
@@ -310,10 +346,16 @@ static BOOL init_ed = NO;
 -(IBAction) moveToTrash:(id) sender
 {
 	NSURL *path = [[playerController lastPlayedPath] retain];
-		
+    
 	if (path && [path isFileURL]) {
 		[playerController stop];
-		[[NSWorkspace sharedWorkspace] recycleURLs:[NSArray arrayWithObject:path] completionHandler:nil];
+		[[NSWorkspace sharedWorkspace] recycleURLs:[NSArray arrayWithObject:path] completionHandler:^(NSDictionary *newURLs, NSError *error) {
+            if (!trashSound) {
+                trashSound = [[NSSound alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForSoundResource:@"drop-trash-sound"] byReference:YES];
+                [trashSound setLoops:NO];
+            }
+            [trashSound play];
+        }];
 	}
 	[path release];
 }
@@ -332,12 +374,45 @@ static BOOL init_ed = NO;
 
 	[[NSWorkspace sharedWorkspace] openURL:
 	 [NSURL URLWithString:[NSString stringWithFormat:
-						   @"https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mplayerx%%2eqzy%%40gmail%%2ecom&lc=US&item_name=MPlayerX&no_note=0&currency_code=%@&bn=PP%%2dDonationsBF%%3abtn_donate_LG%2egif%%3aNonHostedGuest", currency]]];
+						   @"https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mplayerx%%2eqzy%%40gmail%%2ecom&lc=US&item_name=MPlayerX&no_note=0&currency_code=%@&bn=PP%%2dDonationsBF%%3abtn_donate_LG%%2egif%%3aNonHostedGuest", currency]]];
 }
 
 -(IBAction) gotoFeedbackPage:(id)sender
 {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kMPXFeedbackURL]];
+}
+
+-(IBAction) checkForUpdate:(id)sender
+{
+    [[SUUpdater sharedUpdater] checkForUpdates:sender];
+}
+
+-(BOOL) isFilePlayable:(NSString*)path
+{
+    if (path) {
+        NSWorkspace *ws = [NSWorkspace sharedWorkspace];
+        NSString *type = [ws typeOfFile:path error:NULL];
+        if ((type && [ws type:type conformsToType:(NSString*)kUTTypeAudiovisualContent]) ||
+            [playableExts containsObject:[[path pathExtension] lowercaseString]]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+-(BOOL) isFileSubtitle:(NSString*)path
+{
+    if (path) {
+        NSWorkspace *ws = [NSWorkspace sharedWorkspace];
+        NSString *type = [ws typeOfFile:path error:NULL];
+
+        if ((type && [ws type:type conformsToType:(NSString*)kUTTypePlainText]) ||
+            [subExts containsObject:[[path pathExtension] lowercaseString]]) {
+            // 如果文件是文本文件，或者扩展名OK
+            return YES;
+        }
+    }
+    return NO;
 }
 
 //////////////////////////////////////Media Key Delegate//////////////////////////////////////
@@ -471,6 +546,8 @@ static BOOL init_ed = NO;
 			[self application:NSApp openFile:cmdStr];
 		}
 	}
+
+    [[SUUpdater sharedUpdater] checkForUpdatesInBackground];
 }
 
 @end

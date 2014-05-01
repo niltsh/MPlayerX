@@ -1,7 +1,7 @@
 /*
  * MPlayerX - KeyCode.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -111,6 +111,8 @@ extern NSString * const kSCMMirrorKeyEquivalent;
 extern NSString * const kSCMFlipKeyEquivalent;
 #define kSCMFlipKeyEquivalentModifierFlagMask		(NSAlternateKeyMask)
 
+extern NSString * const kSCMWindowZoomHalfSizeKeyEquivalent;
+#define kSCMWindowZoomHalfSizeKeyEquivalentModifierFlagMask		(NSCommandKeyMask)
 extern NSString * const kSCMWindowZoomToOrgSizeKeyEquivalent;
 #define kSCMWindowZoomToOrgSizeKeyEquivalentModifierFlagMask	(NSCommandKeyMask)
 extern NSString * const kSCMWindowZoomDblSizeKeyEquivalent;
@@ -120,3 +122,9 @@ extern NSString * const kSCMWindowFitToScreenKeyEquivalent;
 
 #define kSCMRotateKeyEquivalentModifierFlagMask					(NSAlternateKeyMask)
 
+extern NSString * const kSCMABLoopSetStartKeyEquivalent;
+extern NSString * const kSCMABLoopSetReturnKeyEquivalent;
+extern NSString * const kSCMABLoopSetCancelKeyEquivalent;
+
+extern NSString * const kSCMGotoSnapshotFolderKeyEquivalent;
+#define kSCMGotoSnapshotFolderKeyEquivalentModifierFlagMask     (NSCommandKeyMask|NSShiftKeyMask)

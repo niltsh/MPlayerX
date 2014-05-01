@@ -1,7 +1,7 @@
 /*
  * MPlayerX - def.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,3 +23,9 @@ NSString * const kMPCDefaultSubFontPath	= @"wqy-microhei.ttc";
 NSString * const kMPXMediaKeyPlayPauseNotification		= @"MPXMediaKeyPlayPause";
 NSString * const kMPXMediaKeyForwardNotification		= @"MPXMediaKeyForward";
 NSString * const kMPXMediaKeyBackwardNotification		= @"MPXMediaKeyBackward";
+
+NSString * const kMPCRemoteMediaInfoNotification    = @"MPCRemoteMediaInfoNotification";
+NSString * const kMPCRemoteMediaInfoTitleKey        = @"MPCRemoteMediaInfoTitle";
+
+NSString * const kMPXSnapshotSaveDefaultPath = @"~/Pictures/MPlayerX";
+

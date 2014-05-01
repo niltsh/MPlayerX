@@ -1,7 +1,7 @@
 /*
  * MPlayerX - PlayerController.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -25,7 +25,6 @@
 #import "PlayerController.h"
 #import "PlayListController.h"
 #import <sys/sysctl.h>
-#import "OpenURLController.h"
 #import "CharsetQueryController.h"
 #import "AppController.h"
 #import "CoreController.h"
@@ -55,6 +54,7 @@ NSString * const kMPCFMTMplayerPathX64	= @"binaries/x86_64/%@";
 NSString * const kMPCFFMpegProtoHead	= @"ffmpeg://";
 
 NSString * const kMPXPowerSaveAssertion	= @"MPlayerX is in playback.";
+NSString * const kMPXUserActivityDeclare = @"MPlayerX is running.";
 
 #define kThreadsNumMax	(8)
 
@@ -80,11 +80,17 @@ enum {
 -(void) playMedia:(NSURL*)url;
 -(NSURL*) findFirstMediaFileFromSubFile:(NSString*)path;
 -(void) enablePowerSave:(BOOL)en;
+-(void) gotRemoteMediaInfo:(NSNotification*)notif;
 @end
 
 @interface PlayerController (SubConverterDelegate)
 -(NSString*) subConverter:(id)subConv detectedFile:(NSString*)path ofCharsetName:(NSString*)charsetName confidence:(float)confidence;
 @end
+
+BOOL shouldFixMjpegPngCodec(NSString *ext)
+{
+    return [ext isEqualToString:@"m4a"] || [ext isEqualToString:@"mp3"];
+}
 
 @implementation PlayerController
 
@@ -100,7 +106,6 @@ enum {
 					   boolYes, kUDKeyAutoPlayNext,
 					   kMPCDefaultSubFontPath, kUDKeySubFontPath,
 					   boolYes, kUDKeyPrefer64bitMPlayer,
-					   boolYes, kUDKeyEnableMultiThread,
 					   [NSNumber numberWithFloat:1.0], kUDKeySubScale,
 					   [NSNumber numberWithFloat:0.1], kUDKeySubScaleStepValue,
 					   [NSArchiver archivedDataWithRootObject:[NSColor colorWithCalibratedWhite:1.0 alpha:1.00]], kUDKeySubFontColor,
@@ -110,7 +115,7 @@ enum {
 					   boolNo, kUDKeyDTSPassThrough,
 					   boolNo, kUDKeyAC3PassThrough,
 					   /** auto processor setting */
-					   [NSNumber numberWithUnsignedInt:[[NSProcessInfo processInfo] processorCount]], kUDKeyThreadNum,
+					   [NSNumber numberWithUnsignedInteger:[[NSProcessInfo processInfo] processorCount]], kUDKeyThreadNum,
 					   boolYes, kUDKeyUseEmbeddedFonts,
 					   [NSNumber numberWithUnsignedInt:10000], kUDKeyCacheSize,
 					   [NSNumber numberWithUnsignedInt:5000], kUDKeyCacheSizeLocalMinLimit,
@@ -133,7 +138,13 @@ enum {
 					   boolNo, kUDKeyNoDispSub,
 					   boolNo, kUDKeyAutoDetectSPDIF,
 					   boolYes, kUDKeyEnableOpenRecentMenu,
-					   nil]];	
+                       [NSArray arrayWithObjects:
+                        @"/System/Library/Fonts/LucidaGrande.ttc",
+                        @"/Library/Fonts/Hiragino Sans GB W3.otf",
+                        @"/Library/Fonts/Arial Unicode.ttf", nil], kUDKeyFontFallbackList,
+                       boolYes, kUDKeyEnableHWAccel,
+                       boolYes, kUDKeyFFmpegRealCodecThreadFix,
+					   nil]];
 }
 
 #pragma mark Init/Dealloc
@@ -178,10 +189,11 @@ enum {
 		}
 
 		/////////////////////////setup CoreController////////////////////
-		[self setMultiThreadMode:[ud boolForKey:kUDKeyEnableMultiThread]];
+		[self setMultiThreadMode];
 
 		// 决定是否使用64bit的mplayer
 		[mplayer.pm setPrefer64bMPlayer:[self shouldRun64bitMPlayer]];
+        [mplayer.pm setFontFallbackList:[ud objectForKey:kUDKeyFontFallbackList]];
 
 		lastPlayedPath = nil;
 		lastPlayedPathPre = nil;
@@ -191,6 +203,13 @@ enum {
 		autoPlayState = kMPCAutoPlayStateInvalid;
 		
 		nonSleepHandler = kIOPMNullAssertionID;
+        
+        mplayer.debug = [ud boolForKey:kUDKeyLogMode];
+        mplayer.pm.debug = [ud boolForKey:kUDKeyLogMode];
+		
+		[notifCenter addObserver:self selector:@selector(gotRemoteMediaInfo:)
+							name:kMPCRemoteMediaInfoNotification object:nil];
+
 	}
 	return self;
 }
@@ -309,23 +328,70 @@ enum {
 -(MovieInfo*) mediaInfo { return [mplayer movieInfo]; }
 -(void) setPlayDisk:(NSInteger) pd { [mplayer.pm setPlayDisk:pd]; }
 
+-(void) gotRemoteMediaInfo:(NSNotification*)notif
+{
+	[mplayer.movieInfo.metaData setObject:[[notif userInfo] objectForKey:kMPCRemoteMediaInfoTitleKey] forKey:@"title"];
+}
+
 -(void) enablePowerSave:(BOOL)en
 {
 	if (en) {
 		// to enable power save, release the assertion
 		if (nonSleepHandler != kIOPMNullAssertionID) {
+            IOReturn err;
+            IOPMAssertionID userAct = kIOPMNullAssertionID;
+
+            if (MPXGetSysVersion() >= kMPXSysVersionLion) {
+                // this is a 10.7 or above API
+                err = IOPMAssertionDeclareUserActivity((CFStringRef)kMPXUserActivityDeclare, kIOPMUserActiveLocal, &userAct);
+                if (err != kIOReturnSuccess) {
+                    MPLog(@"Declare user activity failed.");
+                }
+            }
+
 			IOPMAssertionRelease(nonSleepHandler);
 			nonSleepHandler = kIOPMNullAssertionID;
-		}	
+
+            if (userAct != kIOPMNullAssertionID) {
+                MPLog(@"Declare user activity released - powersave ON.");
+                IOPMAssertionRelease(userAct);
+            }
+		}
 	} else {
 		// to disable power save, create the assertion
-		if (nonSleepHandler == kIOPMNullAssertionID) {
-			IOReturn err =
-				IOPMAssertionCreateWithName(kIOPMAssertionTypeNoDisplaySleep, kIOPMAssertionLevelOn,
-											(CFStringRef)kMPXPowerSaveAssertion, &nonSleepHandler);
+        if (nonSleepHandler == kIOPMNullAssertionID) {
+            IOReturn err;
+            IOPMAssertionID userAct = kIOPMNullAssertionID;
+            CFStringRef assertionType;
+
+            if (MPXGetSysVersion() < kMPXSysVersionLion) {
+                assertionType = kIOPMAssertionTypeNoDisplaySleep;
+            } else {
+                if (mplayer.movieInfo.videoInfo.count == 0) {
+                    // no video, should allow dim display
+                    assertionType = kIOPMAssertionTypePreventUserIdleSystemSleep;
+                } else {
+                    // has video, should not allow dim display
+                    assertionType = kIOPMAssertionTypePreventUserIdleDisplaySleep;
+
+                    // only declare if there are video tracks
+                    // this is a 10.7 or above API
+                    err = IOPMAssertionDeclareUserActivity((CFStringRef)kMPXUserActivityDeclare, kIOPMUserActiveLocal, &userAct);
+                    if (err != kIOReturnSuccess) {
+                        MPLog(@"Declare user activity failed.");
+                    }
+                }
+            }
+            err = IOPMAssertionCreateWithName(assertionType, kIOPMAssertionLevelOn, (CFStringRef)kMPXPowerSaveAssertion, &nonSleepHandler);
 			if (err != kIOReturnSuccess) {
 				MPLog(@"Can't disable powersave");
 			}
+            MPLog(@"Assertion: %@", (NSString*)assertionType);
+
+            if (userAct != kIOPMNullAssertionID) {
+                MPLog(@"Declare user activity released - powersave OFF.");
+                IOPMAssertionRelease(userAct);
+            }
 		}
 	}
 }
@@ -363,18 +429,20 @@ enum {
 							break;
 						} else {
 							// 如果文件存在
-							NSString *ext = [[path pathExtension] lowercaseString];
-							
-							if ([[[AppController sharedAppController] playableFormats] containsObject:ext]) {
+							if ([[AppController sharedAppController] isFilePlayable:path]) {
 								// 如果是支持的格式
 								[self playMedia:file];
 								break;
 								
-							} else if ([[[AppController sharedAppController] supportSubFormats] containsObject:ext]) {
+							} else if ([[AppController sharedAppController] isFileSubtitle:path]) {
 								// 如果是字幕文件
 								if (PlayerCouldAcceptCommand) {
 									// 如果是在播放状态，就加载字幕
-									[self loadSubFile:path];
+                                    if (([NSEvent modifierFlags] & NSCommandKeyMask) == NSCommandKeyMask) {
+                                        [self mergeSubtitleToCurrentSub:path];
+                                    } else {
+                                        [self loadSubFile:path];
+                                    }
 								} else {
 									// 如果是在停止状态，那么应该是想打开媒体文件先
 									// 需要根据字幕文件名去寻找影片文件
@@ -394,7 +462,7 @@ enum {
 									break;
 								}
 							} else {
-								if ([NSEvent modifierFlags] & NSControlKeyMask) {
+								if (([NSEvent modifierFlags] & NSControlKeyMask) == NSControlKeyMask) {
 									// open the file while control key pressing
 									// try to open the file 
 									[self playMedia:file];
@@ -463,7 +531,7 @@ static BOOL isNetworkPath(const char *path)
 	}
 	
 	[mplayer.pm setForceIndex:[ud boolForKey:kUDKeyForceIndex]];
-	[mplayer.pm setSubNameRule:[ud integerForKey:kUDKeySubFileNameRule]];
+	[mplayer.pm setSubNameRule:(SUBFILE_NAMERULE)[ud integerForKey:kUDKeySubFileNameRule]];
 	
 	if ([ud boolForKey:kUDKeyAutoDetectSPDIF]) {
 		BOOL digi = [[AODetector defaultDetector] isDigital];
@@ -475,18 +543,18 @@ static BOOL isNetworkPath(const char *path)
 	}
 	[mplayer.pm setUseEmbeddedFonts:[ud boolForKey:kUDKeyUseEmbeddedFonts]];
 	
-	[mplayer.pm setLetterBoxMode:[ud integerForKey:kUDKeyLetterBoxMode]];
+	[mplayer.pm setLetterBoxMode:(unsigned int)[ud integerForKey:kUDKeyLetterBoxMode]];
 	[mplayer.pm setLetterBoxHeight:[ud floatForKey:kUDKeyLetterBoxHeight]];
 	
 	[mplayer.pm setOverlapSub:[ud boolForKey:kUDKeyOverlapSub]];
-	[mplayer.pm setMixToStereo:[ud integerForKey:kUDKeyMixToStereoMode]];
+	[mplayer.pm setMixToStereo:(unsigned int)[ud integerForKey:kUDKeyMixToStereoMode]];
 	
-	[mplayer.pm setImgEnhance:[ud integerForKey:kUDKeyImgEnhanceMethod]];
-	[mplayer.pm setDeinterlace:[ud integerForKey:kUDKeyDeIntMethod]];
+	[mplayer.pm setImgEnhance:(unsigned int)[ud integerForKey:kUDKeyImgEnhanceMethod]];
+	[mplayer.pm setDeinterlace:(unsigned int)[ud integerForKey:kUDKeyDeIntMethod]];
 
 	[mplayer.pm setExtraOptions:[ud stringForKey:kUDKeyExtraOptions]];
-	[mplayer.pm setSubAlign:[ud integerForKey:kUDKeySubAlign]];
-	[mplayer.pm setSubBorderWidth:[ud integerForKey:kUDKeySubBorderWidth]];
+	[mplayer.pm setSubAlign:(unsigned int)[ud integerForKey:kUDKeySubAlign]];
+	[mplayer.pm setSubBorderWidth:(unsigned int)[ud integerForKey:kUDKeySubBorderWidth]];
 	[mplayer.pm setAssSubMarginV:[ud integerForKey:kUDKeyAssSubMarginV]];
 	
 	if (autoPlayState == kMPCAutoPlayStateJustFound) {
@@ -497,6 +565,8 @@ static BOOL isNetworkPath(const char *path)
 	}
 	
 	[mplayer.pm setNoDispSub:[ud boolForKey:kUDKeyNoDispSub]];
+    
+    [mplayer.pm setHwAccel:[ud boolForKey:kUDKeyEnableHWAccel]];
 
 	// 这里必须要retain，否则如果用lastPlayedPath作为参数传入的话会有问题
 	lastPlayedPathPre = [[url absoluteURL] retain];
@@ -507,7 +577,7 @@ static BOOL isNetworkPath(const char *path)
 
 		if (isNetworkPath([path UTF8String])) {
 			// is network path
-			[mplayer.pm setCache:[ud integerForKey:kUDKeyCacheSize]];
+			[mplayer.pm setCache:(unsigned int)[ud integerForKey:kUDKeyCacheSize]];
 			[mplayer.pm setDisplayCacheLog:YES];
 		} else {
 			// local path
@@ -532,13 +602,10 @@ static BOOL isNetworkPath(const char *path)
 		// network stream
 		path = [url absoluteString];
 		
-		[mplayer.pm setCache:[ud integerForKey:kUDKeyCacheSize]];
+		[mplayer.pm setCache:(unsigned int)[ud integerForKey:kUDKeyCacheSize]];
 		[mplayer.pm setPreferIPV6:[ud boolForKey:kUDKeyPreferIPV6]];
 		[mplayer.pm setRtspOverHttp:[ud boolForKey:kUDKeyRtspOverHttp]];
 		[mplayer.pm setDisplayCacheLog:YES];
-		
-		// 将URL加入OpenURLController
-		[openUrlController addUrl:path];
 
 		if ([ud boolForKey:kUDKeyFFMpegHandleStream] != ([NSEvent modifierFlags]==kSCMFFMpegHandleStreamShortCurKey)) {
 			path = [kMPCFFMpegProtoHead stringByAppendingString:path];
@@ -552,11 +619,26 @@ static BOOL isNetworkPath(const char *path)
 	if ([ext isEqualToString:@"rm"] || [ext isEqualToString:@"rmvb"] ||
 		[ext isEqualToString:@"ra"] || [ext isEqualToString:@"ram"]) {
 		[mplayer.pm setDemuxer:nil];
+        // issue 851 : RM解码有bug，多线程的时候有一些文件无法解码
+        if ([ud boolForKey:kUDKeyFFmpegRealCodecThreadFix]) {
+            [mplayer.pm setThreads:1];
+        }
 	} else {
 		[mplayer.pm setDemuxer:kPMValDemuxFFMpeg];
+        if ([ud boolForKey:kUDKeyFFmpegRealCodecThreadFix]) {
+            [mplayer.pm setThreads:(unsigned int)[ud integerForKey:kUDKeyThreadNum]];
+        }
 	}
 	////////////////////////////////////////////////////////////////////
 
+	////////////////////////////////////////////////////////////////////
+    // 有一些mp3/m4a文件，如果有album art的时候，会出现pts出错的问题
+    if (shouldFixMjpegPngCodec(ext)) {
+        [mplayer.pm setDisableMjpegPngCodec:YES];
+    } else {
+        [mplayer.pm setDisableMjpegPngCodec:NO];
+    }
+	////////////////////////////////////////////////////////////////////
 	if ([ud boolForKey:kUDKeyAutoResume] && (stime = [[[AppController sharedAppController] bookmarks] objectForKey:[lastPlayedPathPre absoluteString]])) {
 		// if AutoResume is ON and there was a record in the bookmarks
 		// and 5s to help the users to remember where they left in the movie
@@ -580,7 +662,7 @@ static BOOL isNetworkPath(const char *path)
 -(NSURL*) findFirstMediaFileFromSubFile:(NSString*)path
 {
 	// 需要先得到 nameRule的最新值
-	[mplayer.pm setSubNameRule:[ud integerForKey:kUDKeySubFileNameRule]];
+	[mplayer.pm setSubNameRule:(SUBFILE_NAMERULE)[ud integerForKey:kUDKeySubFileNameRule]];
 
 	// 得到最新的nameRule
 	SUBFILE_NAMERULE nameRule = [mplayer.pm subNameRule];
@@ -600,14 +682,13 @@ static BOOL isNetworkPath(const char *path)
 	{
 		// TODO 这里需要检查mediaFile是文件名还是 路径名
 		NSDictionary *fileAttr = [directoryEnumerator fileAttributes];
-		NSString *ext = [[mediaFile pathExtension] lowercaseString];
-		
+        
 		if ([[fileAttr objectForKey:NSFileType] isEqualToString:NSFileTypeDirectory]) {
 			//不遍历子目录
 			[directoryEnumerator skipDescendants];
 
 		} else if ([[fileAttr objectForKey:NSFileType] isEqualToString: NSFileTypeRegular] &&
-					([[[AppController sharedAppController] playableFormats] containsObject:ext])) {
+					([[AppController sharedAppController] isFilePlayable:[directoryPath stringByAppendingPathComponent:mediaFile]])) {
 			// 如果是正常文件，并且是媒体文件
 			NSString *mediaName = [[mediaFile stringByDeletingPathExtension] lowercaseString];
 			
@@ -633,35 +714,16 @@ static BOOL isNetworkPath(const char *path)
 	return [mediaURL autorelease];
 }
 
--(void) setMultiThreadMode:(BOOL) mt
+-(void) setMultiThreadMode
 {
 	NSString *resPath = [[NSBundle mainBundle] resourcePath];
 	
-	NSString *mplayerName;
-	unsigned int threadNum;
-	
-	if (/*mt*/0) {
-		// 使用多线程
-		threadNum = MIN(kThreadsNumMax, MAX(1,[ud integerForKey:kUDKeyThreadNum]));
-		mplayerName = kMPCMplayerNameMT;
-	} else {
-		threadNum = MIN(kThreadsNumMax, MAX(1,[ud integerForKey:kUDKeyThreadNum]));
-		mplayerName = kMPCMplayerName;
-	}
-
-	[ud setInteger:threadNum forKey:kUDKeyThreadNum];
-	
-    // temp hack for 1.0.10
-    // the threads larger than 4 will bring out-of-sync
-    // so limit it here to 4 and do not influence UI and Preference.
-    if (threadNum > 4) {
-        threadNum = 4;
-    }
-	[mplayer.pm setThreads: threadNum];
+	[mplayer.pm setThreads: MIN(kThreadsNumMax, MAX(1, (unsigned int)[ud integerForKey:kUDKeyThreadNum]))];
+	[ud setInteger:[mplayer.pm threads] forKey:kUDKeyThreadNum];
 	
 	[mplayer setMpPathPair: [NSDictionary dictionaryWithObjectsAndKeys: 
-							 [resPath stringByAppendingPathComponent:[NSString stringWithFormat:kMPCFMTMplayerPathM32, mplayerName]], kI386Key,
-							 [resPath stringByAppendingPathComponent:[NSString stringWithFormat:kMPCFMTMplayerPathX64, mplayerName]], kX86_64Key,
+							 [resPath stringByAppendingPathComponent:[NSString stringWithFormat:kMPCFMTMplayerPathM32, kMPCMplayerName]], kI386Key,
+							 [resPath stringByAppendingPathComponent:[NSString stringWithFormat:kMPCFMTMplayerPathX64, kMPCMplayerName]], kX86_64Key,
 							 nil]];
 }
 
@@ -860,6 +922,15 @@ static BOOL isNetworkPath(const char *path)
 	[mplayer loadSubFile:subPath];
 }
 
+-(void) mergeSubtitleToCurrentSub:(NSString*)path
+{
+    if (PlayerCouldAcceptCommand) {
+        if (![mplayer mergeSubtitleToCurrentSub:path]) {
+            [self showAlertPanelModal:[NSString stringWithFormat:kMPXStringMergeSubtitleFailed, [path lastPathComponent]]];
+        }
+    }
+}
+
 -(void) setLetterBox:(BOOL) renderSubInLB top:(float) topRatio bottom:(float)bottomRatio
 {
 	if (PlayerCouldAcceptCommand) {
@@ -886,16 +957,31 @@ static BOOL isNetworkPath(const char *path)
 {
 	[mplayer.pm setAudioFilePath:path];
 }
+
+-(void) startABLoopFrom:(float)start to:(float)stop
+{
+    if (PlayerCouldAcceptCommand) {
+        [mplayer setABLoopFrom:start to:stop];
+    }
+}
+
+-(void) stopABLoop
+{
+    [mplayer setABLoopFrom:-1.0 to:-1.0];
+}
+
 //////////////////////////////////////private methods////////////////////////////////////////////////////
 -(BOOL) shouldRun64bitMPlayer
 {
-	int value = 0 ;
+/*	int value = 0 ;
 	unsigned long length = sizeof(value);
 	
 	if ((sysctlbyname("hw.optional.x86_64", &value, &length, NULL, 0) == 0) && (value == 1))
 		return [ud boolForKey:kUDKeyPrefer64bitMPlayer];
 	
 	return NO;
+ */
+    return YES;
 }
 
 ///////////////////////////////////////MPlayer Notifications/////////////////////////////////////////////
@@ -921,11 +1007,6 @@ static BOOL isNetworkPath(const char *path)
 		dict = [NSDictionary dictionaryWithObjectsAndKeys: lastPlayedPathPre, kMPCPlayOpenedURLKey, nil];		
 	}
 
-	// disable the powersave
-	// when in auto play next, this function will be called multiple times
-	// but it is OK, calling this function multiple times won't lead errors
-	[self enablePowerSave:NO];
-	
 	[notifCenter postNotificationName:kMPCPlayOpenedNotification object:self userInfo:dict];
 }
 
@@ -933,8 +1014,15 @@ static BOOL isNetworkPath(const char *path)
 {
 	[notifCenter postNotificationName:kMPCPlayStartedNotification object:self 
 							 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-									   [NSNumber numberWithBool:([mplayer.movieInfo.videoInfo count] == 0)], kMPCPlayStartedAudioOnlyKey,
+									   [NSNumber numberWithBool:(([mplayer.movieInfo.videoInfo count] == 0)||shouldFixMjpegPngCodec([lastPlayedPath pathExtension]))], kMPCPlayStartedAudioOnlyKey,
 									   nil]];
+
+	// disable the powersave
+	// when in auto play next, this function will be called multiple times
+	// but it is OK, calling this function multiple times won't lead errors
+    if (!mplayer.pm.pauseAtStart) {
+        [self enablePowerSave:NO];
+    }
 
 	MPLog(@"vc:%lu, ac:%lu", [mplayer.movieInfo.videoInfo count], [mplayer.movieInfo.audioInfo count]);
 }
@@ -963,12 +1051,14 @@ static BOOL isNetworkPath(const char *path)
 		}
 	}
 	
+    if ([[dict objectForKey:kMPCPlayStoppedAbnormalKey] boolValue]) {
+        [self showAlertPanelModal:kMPXStringQuitAbnormally];
+    }
+
 	if ([ud boolForKey:kUDKeyAutoPlayNext] && [lastPlayedPath isFileURL] && (!stoppedByForce)) {
 		//如果不是强制关闭的话
 		//如果不是本地文件，肯定返回nil
-		NSString *nextPath = 
-			[PlayListController SearchNextMoviePathFrom:[lastPlayedPath path] 
-											  inFormats:[[AppController sharedAppController] playableFormats]];
+		NSString *nextPath = [PlayListController SearchNextMoviePathFrom:[lastPlayedPath path]];
 		
 		if (nextPath != nil) {			
 			autoPlayState = kMPCAutoPlayStateJustFound;
@@ -1017,7 +1107,7 @@ static BOOL isNetworkPath(const char *path)
 			ce = [charsetController askForSubEncodingForFile:path charsetName:charsetName confidence:confidence];
 		} else {
 			// 如果是自动fallback
-			ce = [ud integerForKey:kUDKeyTextSubtitleCharsetFallback];
+			ce = (CFStringEncoding)[ud integerForKey:kUDKeyTextSubtitleCharsetFallback];
 		}
 		ret = (NSString*)CFStringConvertEncodingToIANACharSetName(ce);
 	}

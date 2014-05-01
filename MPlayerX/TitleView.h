@@ -1,7 +1,7 @@
 /*
  * MPlayerX - TitleView.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -59,5 +59,8 @@
 @property(readonly) NSButton *closeButton;
 @property(readonly) NSButton *miniButton;
 @property(readonly) NSButton *zoomButton;
+@property(readonly) NSButton *fsButton;
 
+
+-(void) resetPosition;
 @end

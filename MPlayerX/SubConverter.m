@@ -1,7 +1,7 @@
 /*
  * MPlayerX - SubConverter.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -148,7 +148,7 @@ NSString * const kWorkDirSubDir = @"Subs";
 						prefix = [subPathNew stringByDeletingPathExtension];
 					}
 					// 如果该文件存在那么就寻找下一个不存在的文件名
-					subPathNew = [prefix stringByAppendingFormat:@".mpx.%d.%@", idx++, ext];
+					subPathNew = [prefix stringByAppendingFormat:@".%ld.%@", idx++, ext];
 				}
 				
 				// CP949据说总会fallback到EUC_KR，这里把它回到CP949(kCFStringEncodingDOSKorean)
@@ -274,4 +274,58 @@ NSString * const kWorkDirSubDir = @"Subs";
 	return [subEncDict autorelease];	
 }
 
+-(NSString*) mergeSubtitle:(NSString*)fullPath to:(NSString*)subName
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    NSString *ret = nil;
+    NSString *subDir = [workDirectory stringByAppendingPathComponent:kWorkDirSubDir];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    BOOL isDir = YES;
+    NSString *originalPath = [subDir stringByAppendingPathComponent:subName];
+    
+	if ([fm fileExistsAtPath:originalPath isDirectory:&isDir] && (!isDir)) {
+        // file exists and not folder
+        NSString *encoding = [self getCPOfTextSubtitle:fullPath];
+        
+        if (encoding) {
+            // convert the current sub
+            NSArray *newPath = [self convertTextSubsAndEncodings:[NSDictionary dictionaryWithObjectsAndKeys:encoding, fullPath, nil]];
+            if (newPath && [newPath count]) {
+                // convert succeeded, then merge the two subs
+                NSString *originalContent = [NSString stringWithContentsOfFile:originalPath
+                                                                      encoding:NSUTF8StringEncoding
+                                                                         error:NULL];
+                NSString *newContent = [NSString stringWithContentsOfFile:[newPath objectAtIndex:0]
+                                                                 encoding:NSUTF8StringEncoding
+                                                                    error:NULL];
+                if (originalContent && newContent) {
+                    // if all the contents are read out
+                    NSString *mergedContent = [NSString stringWithFormat:@"%@\r\n\r\n%@", newContent, originalContent];
+                    
+                    if (mergedContent) {
+                        NSString *tempDir = NSTemporaryDirectory();
+                        
+                        if (!tempDir) {
+                            tempDir = subDir;
+                        }
+                        NSString *newFullPath = [tempDir stringByAppendingPathComponent:
+                                                 [NSString stringWithFormat:
+                                                  @"%@_%@.merged.%@",
+                                                  [[fullPath lastPathComponent] stringByDeletingPathExtension],
+                                                  [[subName lastPathComponent] stringByDeletingPathExtension],
+                                                  [fullPath pathExtension]]];
+                        
+                        if ([mergedContent writeToFile:newFullPath atomically:NO encoding:NSUTF8StringEncoding error:NULL]) {
+                            ret = [newFullPath retain];
+                        }
+                    }
+                }
+            }
+        }
+	}
+    [pool drain];
+    
+    return [ret autorelease];
+}
 @end

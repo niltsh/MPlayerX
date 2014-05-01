@@ -1,7 +1,7 @@
 /*
  * MPlayerX - UserDefaults.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -33,12 +33,12 @@ NSString * const kUDKeySeekStepB							= @"SeekStepTimeB";
 NSString * const kUDKeyVolumeStep							= @"VolumeStep";
 NSString * const kUDKeyAutoPlayNext							= @"AutoPlayNext";
 NSString * const kUDKeySubFontPath							= @"SubFontPath";
+NSString * const kUDKeySnapshotFormat                       = @"SnapshotFormat";
 NSString * const kUDKeySnapshotSavePath						= @"SnapshotSavePath";
 NSString * const kUDKeyStartByFullScreen					= @"StartByFullScreen";
 NSString * const kUDKeySubDelayStepTime						= @"SubDelayStepTime";
 NSString * const kUDKeyAudioDelayStepTime					= @"AudioDelayStepTime";
 NSString * const kUDKeyPrefer64bitMPlayer					= @"Prefer64bitMPlayer";
-NSString * const kUDKeyEnableMultiThread					= @"EnableMultiThread";
 NSString * const kUDKeySubScale								= @"SubScale";
 NSString * const kUDKeySubScaleStepValue					= @"SubScaleStepValue";
 NSString * const kUDKeySwitchTimeHintPressOnAbusolute		= @"TimeHintPrsOnAbs";
@@ -105,8 +105,19 @@ NSString * const kUDKeyResizeControlBar						= @"ResizeControlBar";
 NSString * const kUDKeyInitialFrameSizeRatio				= @"InitialFrameSizeRatio";
 NSString * const kUDKeyDisableLastStopBookmark				= @"DisableLastStopBookmark";
 NSString * const kUDKeyEnableOpenRecentMenu					= @"EnableOpenRecentMenu";
-NSString * const kUDKeyOldFullScreenMethod					= @"OldFullScreenMethod";
+NSString * const kUDKeyOldFullScreenMethod					= @"OldFullScreenMethod2";
 NSString * const kUDKeyAlwaysUseSecondaryScreen				= @"AlwaysUseSecondaryScreen";
+NSString * const kUDKeyClickTogPlayPause                    = @"ClickTogPlayPause";
+NSString * const kUDKeyARUseSysVol                          = @"ARUseSysVol";
+NSString * const kUDKeyARMenuKeyTogTimeDisp                 = @"ARMenuKeyTogTimeDisp";
+NSString * const kUDKeyAnimateFullScreen                    = @"AnimateFullScreenDeprecated";
+NSString * const kUDKeyPauseShowTime                        = @"PauseShowTime";
+NSString * const kUDKeyControlUIDetectMouseExit             = @"ControlUIDetectMouseExit";
+NSString * const kUDKeyResumedShowTime                      = @"ResumedShowTime";
+NSString * const kUDKeyEnableHWAccel                        = @"EnableHWAccel2";
+NSString * const kUDKeyControlUICenterYRatio                = @"ControlUICenterYRatio";
+NSString * const kUDKeyShowRealRemainingTime                = @"ShowRealRemainingTime";
+NSString * const kUDKeyFFmpegRealCodecThreadFix             = @"FFmpegRealCodecThreadFix";
 
 NSString * const kUDKeySelectedPrefView						= @"SelectedPrefView";
 NSString * const kUDKeyCloseWindowWhenStopped				= @"CloseOnStopped";
@@ -114,5 +125,8 @@ NSString * const kUDKeyResizeStep							= @"ResizeStep";
 NSString * const kUDKeyFrameScaleStep						= @"FrameScaleStep";
 NSString * const kUDKeyThreeFingersPinchThreshRatio			= @"TFPThreshRatio";
 NSString * const kUDKeyFourFingersPinchThreshRatio			= @"FFPThreshRatio";
+NSString * const kUDKeyFontFallbackList                     = @"FontFallbackList";
+NSString * const kUDKeyKBSeekStepPeriod                     = @"KBSeekStepPeriod";
+NSString * const kUDKeyThreeFingersSwipeThreshRatio			= @"TFSThreshRatio";
 
 NSString * const kUDKeyPinPMode								= @"PinPMode";

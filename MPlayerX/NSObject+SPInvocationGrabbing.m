@@ -9,10 +9,6 @@
 @end
 
 @implementation SPInvocationGrabber
-
-@synthesize invocation = _invocation, object = _object;
-@synthesize backgroundAfterForward, onMainAfterForward, waitUntilDone;
-
 - (id)initWithObject:(id)obj
 {
 	return [self initWithObject:obj stacktraceSaving:YES];
@@ -35,7 +31,9 @@
 	self.invocation = nil;
 	[super dealloc];
 }
+@synthesize invocation = _invocation, object = _object;
 
+@synthesize backgroundAfterForward, onMainAfterForward, waitUntilDone;
 - (void)runInBackground
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -71,6 +69,7 @@
 
 - (void)invoke
 {
+
 	@try {
 		[_invocation invoke];
 	}

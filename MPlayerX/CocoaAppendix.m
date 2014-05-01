@@ -1,7 +1,7 @@
 /*
  * MPlayerX - CocoaAppendix.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,8 +20,10 @@
 
 #import "CocoaAppendix.h"
 #import "LocalizedStrings.h"
+#import <QuartzCore/QuartzCore.h>
+#import "UserDefaults.h"
 
-#define kMPXSysVersionInvalid		(0x0000)
+#define kMPXSysVersionInvalid		(INT32_MIN)
 
 NSString * const kMPCStringMPlayerX						= @"MPlayerX";
 
@@ -51,6 +53,14 @@ SInt32 MPXGetSysVersion()
 		Gestalt(gestaltSystemVersion, &ver);
 	}
 	return ver;
+}
+
+BOOL shouldUseOldFullScreenMethod()
+{
+    SInt32 sysVer = MPXGetSysVersion();
+    return ((sysVer < kMPXSysVersionLion) ||
+            (([[NSScreen screens] count] > 1) && (sysVer < kMPXSysVersionMavericks))||
+            ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyOldFullScreenMethod]));;
 }
 
 @implementation NSColor (MPXAdditional)
@@ -683,8 +693,27 @@ SInt32 MPXGetSysVersion()
 @implementation NSObject (MPXAdditional)
 -(void) showAlertPanelModal:(NSString*) str
 {
-	id alertPanel = NSGetAlertPanel(kMPXStringError, str, kMPXStringOK, nil, nil);
+	id alertPanel = NSGetAlertPanel(kMPXStringError, @"%@", kMPXStringOK, nil, nil, str);
 	[NSApp runModalForWindow:alertPanel];
 	NSReleaseAlertPanel(alertPanel);
 }
 @end
+
+NSImage* MPCreateNSImageFromCIImage(CIImage *ciImage)
+{
+    NSImage *ret = nil;
+    if (ciImage) {
+        ret = [[NSImage alloc] initWithSize: NSMakeSize([ciImage extent].size.width, [ciImage extent].size.height)];
+        [ret lockFocus];
+        
+        CGContextRef contextRef = [[NSGraphicsContext currentContext] graphicsPort];
+        CIContext *ciContext = [CIContext contextWithCGContext:contextRef
+                                                       options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES]
+                                                                                           forKey:kCIContextUseSoftwareRenderer]];
+        [ciContext drawImage:ciImage atPoint:CGPointMake(0, 0) fromRect:[ciImage extent]];
+        /*Does not leak when using the software renderer!*/
+        [ret unlockFocus];
+    }
+    return ret;
+}
+

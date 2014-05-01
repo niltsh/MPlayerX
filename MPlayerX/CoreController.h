@@ -1,7 +1,7 @@
 /*
  * MPlayerX - CoreController.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -28,6 +28,8 @@
 
 @interface CoreController : NSObject <PlayerCoreDelegate, LogAnalyzerDelegate>
 {
+    BOOL debug;
+
 	// state
 	int state;
 
@@ -41,7 +43,7 @@
 
 	// render things
 	void *imageData;
-	unsigned int imageSize;
+	unsigned long imageSize;
 	NSString *sharedBufferName;
 	NSThread *renderThread;
 
@@ -62,6 +64,7 @@
 @property (readonly)			LogAnalyzer *la;
 @property (assign, readwrite)	id<CoreDisplayDelegate> dispDelegate;
 @property (assign, readwrite)	id<CoreControllerDelegate> delegate;
+@property (assign, readwrite)   BOOL debug;
 
 -(void) setSubConverterDelegate:(id<SubConverterDelegate>)dlgt;
 
@@ -118,5 +121,9 @@
 -(void) setEqualizer:(NSArray*)amps;
 
 -(void) mapAudioChannelsTo:(NSInteger)mode;
+
+-(BOOL) mergeSubtitleToCurrentSub:(NSString*)path;
+
+-(void) setABLoopFrom:(float)start to:(float)stop;
 
 @end

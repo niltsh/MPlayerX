@@ -1,7 +1,7 @@
 /*
  * MPlayerX - def.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -25,3 +25,14 @@ extern NSString * const kMPCDefaultSubFontPath;
 extern NSString * const kMPXMediaKeyPlayPauseNotification;
 extern NSString * const kMPXMediaKeyForwardNotification;
 extern NSString * const kMPXMediaKeyBackwardNotification;
+
+extern NSString * const kMPCRemoteMediaInfoNotification;
+extern NSString * const kMPCRemoteMediaInfoTitleKey;
+
+#define kMPSnapshotFormatPasteBoard     (0)
+#define kMPSnapshotFormatPNG            (1)
+#define kMPSnapshotFormatJPEG           (2)
+#define kMPSnapshotFormatTIFF           (3)
+#define kMPSnapshotFormatBMP            (4)
+
+extern NSString * const kMPXSnapshotSaveDefaultPath;

@@ -1,7 +1,7 @@
 /*
  * MPlayerX - ParameterManager.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -27,6 +27,9 @@ NSString * const kPMDefaultSubLang			= @"en,eng,ch,chs,cht,ja,jpn";
 
 NSString * const kPMParMsgLevel				= @"-msglevel";
 NSString * const kPMValMsgLevel				= @"all=-1:global=4:cplayer=4:identify=4";
+NSString * const kPMValMsgLevelDebug		= @"all=4:global=4:cplayer=4:identify=4";
+NSString * const kPMParNoConfig             = @"-noconfig";
+NSString * const kPMValAll                  = @"all";
 NSString * const kPMFMTInt					= @"%d";
 NSString * const kPMParSlave				= @"-slave";
 NSString * const kPMParFrameDrop			= @"-framedrop";
@@ -112,49 +115,30 @@ NSString * const kPMParNoDispCacheLog		= @"-nodispclog";
 NSString * const kPMParEdl					= @"-edl";
 NSString * const kPMParAudioFile			= @"-audiofile";
 
+NSString * const kPMParNoFlipHebrew         = @"-noflip-hebrew";
+NSString * const kPMParFontFBList           = @"-font-fblist";
+
+NSString * const kPMParVC                   = @"-vc";
+NSString * const kPMValNoHWAccel            = @"-ffh264vda,";
+NSString * const kPMValHWAccel              = @"ffh264vda,";
+NSString * const kPMValDisableMjpegPngCodec = @"-ffmjpeg,-ffpng,";
+
+NSString * const kPMParDR                   = @"-dr";
+
 #define kSubScaleNoAss			(8.0)
 
 #define kPMSubBorderWidthMax	(4)
 
 @implementation ParameterManager
 
-@synthesize subNameRule;
-@synthesize prefer64bMPlayer;
-@synthesize guessSubCP;
-@synthesize startTime;
-@synthesize volume;
-@synthesize subPos;
-@synthesize subAlign;
-@synthesize subScale;
-@synthesize subFont;
-@synthesize subCP;
-@synthesize threads;
-@synthesize textSubs;
-@synthesize vobSub;
-@synthesize forceIndex;
-@synthesize dtsPass;
-@synthesize ac3Pass;
-@synthesize useEmbeddedFonts;
-@synthesize cache;
-@synthesize preferIPV6;
-@synthesize letterBoxMode;
-@synthesize letterBoxHeight;
-@synthesize pauseAtStart;
-@synthesize overlapSub;
-@synthesize rtspOverHttp;
-@synthesize mixToStereo;
-@synthesize demuxer;
-@synthesize deinterlace;
-@synthesize imgEnhance;
-@synthesize extraOptions;
-@synthesize equalizer;
-@synthesize subBorderWidth;
-@synthesize noDispSub;
-@synthesize playDisk;
-@synthesize assSubMarginV;
-@synthesize displayCacheLog;
-@synthesize edlPath;
-@synthesize audioFilePath;
+@synthesize subNameRule, prefer64bMPlayer, guessSubCP, startTime, volume;
+@synthesize subPos, subAlign, subScale, subFont, subCP;
+@synthesize threads, textSubs, vobSub, forceIndex, dtsPass, ac3Pass;
+@synthesize useEmbeddedFonts, cache, preferIPV6, letterBoxMode, letterBoxHeight;
+@synthesize pauseAtStart, overlapSub, rtspOverHttp, mixToStereo;
+@synthesize demuxer, deinterlace, imgEnhance, extraOptions, equalizer;
+@synthesize subBorderWidth, noDispSub, playDisk, assSubMarginV, displayCacheLog;
+@synthesize edlPath, audioFilePath, fontFallbackList, debug, hwAccel, disableMjpegPngCodec;
 
 #pragma mark Init/Dealloc
 -(id) init
@@ -162,6 +146,7 @@ NSString * const kPMParAudioFile			= @"-audiofile";
 	self = [super init];
 	
 	if (self) {
+        debug = NO;
 		paramArray = nil;
 		frameDrop = NO;
 		osdLevel = 0;
@@ -214,6 +199,9 @@ NSString * const kPMParAudioFile			= @"-audiofile";
 		displayCacheLog = YES;
 		edlPath = nil;
 		audioFilePath = nil;
+        fontFallbackList = nil;
+        hwAccel = YES;
+        disableMjpegPngCodec = NO;
 	}
 	return self;
 }
@@ -233,6 +221,7 @@ NSString * const kPMParAudioFile			= @"-audiofile";
 	[equalizer release];
 	[edlPath release];
 	[audioFilePath release];
+    [fontFallbackList release];
 	
 	[super dealloc];
 }
@@ -259,6 +248,7 @@ NSString * const kPMParAudioFile			= @"-audiofile";
 {
 	BOOL useVideoFilters = NO;
 	BOOL usePPFilters    = NO;
+    NSString *vfSettings = nil;
 	
 	if (paramArray) {
 		[paramArray removeAllObjects];
@@ -272,10 +262,13 @@ NSString * const kPMParAudioFile			= @"-audiofile";
 	}
 	
 	[paramArray addObject:kPMParMsgLevel];
-	[paramArray addObject:kPMValMsgLevel];
+	[paramArray addObject:(debug)?kPMValMsgLevelDebug:kPMValMsgLevel];
 	
 	[paramArray addObject:kPMParMsgCharset];
 	[paramArray addObject:kPMValMsgCharset];
+    
+    [paramArray addObject:kPMParNoConfig];
+    [paramArray addObject:kPMValAll];
 
 	[paramArray addObject:kPMParSlave];
 	
@@ -287,7 +280,9 @@ NSString * const kPMParAudioFile			= @"-audiofile";
 		[paramArray addObject:kPMParForceIdx];
 	}
 
+    [paramArray addObject:kPMParNoFlipHebrew];
 	[paramArray addObject:kPMParNoDouble];
+    [paramArray addObject:kPMParDR];
 	
 	if (cache > 0) {
 		[paramArray addObject:kPMParCache];
@@ -393,7 +388,7 @@ NSString * const kPMParAudioFile			= @"-audiofile";
 		
 		subBorderWidth = MIN(kPMSubBorderWidthMax, subBorderWidth);
 		
-		otherStyles = [NSString stringWithFormat:kPMValAssForceStylePrefixMarginVOutline, assSubMarginV, subBorderWidth];
+		otherStyles = [NSString stringWithFormat:kPMValAssForceStylePrefixMarginVOutline, (int)assSubMarginV, subBorderWidth];
 		
 		if (subAlign != kPMSubAlignDefault) {
 			otherStyles = [otherStyles stringByAppendingFormat:kPMValFmtAssSubAlginment, subAlign];
@@ -559,6 +554,25 @@ NSString * const kPMParAudioFile			= @"-audiofile";
 		[paramArray addObject:kPMParAudioFile];
 		[paramArray addObject:audioFilePath];
 	}
+    
+    if (fontFallbackList) {
+        [paramArray addObject:kPMParFontFBList];
+        [paramArray addObject:[fontFallbackList componentsJoinedByString:kPMComma]];
+    }
+
+    if (disableMjpegPngCodec) {
+        vfSettings = kPMValDisableMjpegPngCodec;
+    } else {
+        vfSettings = @"";
+    }
+    
+    if (!hwAccel) {
+        [paramArray addObject:kPMParVC];
+        [paramArray addObject:[vfSettings stringByAppendingString:kPMValNoHWAccel]];
+    } else {
+        [paramArray addObject:kPMParVC];
+        [paramArray addObject:[vfSettings stringByAppendingString:kPMValHWAccel]];
+    }
 	
 	if (extraOptions) {
 		NSArray *extrasArray = [extraOptions componentsSeparatedByString:@" "];
