@@ -41,7 +41,19 @@
 
     } else if ([name isEqualToString:@"duration"]) {
         ret = [NSNumber numberWithDouble:[[[playerController mediaInfo] length] doubleValue]];
-        
+
+    } else if ([name isEqualToString:@"url"]) {
+        ret = [playerController.lastPlayedPath absoluteString];
+
+    } else if ([name isEqualToString:@"title"]) {
+        if ([playerController.lastPlayedPath isFileURL]) {
+			ret = [[[playerController.lastPlayedPath path] lastPathComponent] stringByDeletingPathExtension];
+		} else {
+            ret = [playerController.mediaInfo.metaData objectForKey:@"title"];
+            if (!ret)
+                ret = [[playerController.lastPlayedPath absoluteString] lastPathComponent];
+		}
+
     } else if ([name isEqualToString:@"playstatus"]) {
         int status = [playerController playerState];
         switch (status) {
