@@ -48,6 +48,16 @@
             <result type="real" description="."/>
         </command>
 
+        <command name="title" code="mplxtitl" description="Title of the current media.">
+            <cocoa class="MPXScriptCommand"/>
+            <result type="text" description="."/>
+        </command>
+
+        <command name="url" code="mplxurll" description="URL of the current media.">
+            <cocoa class="MPXScriptCommand"/>
+            <result type="text" description="."/>
+        </command>
+
         <enumeration name="player status" code="plst">
 			<enumerator name="Playing" code="plin" description="Playing.">
 				<cocoa string-value="Playing"/>
