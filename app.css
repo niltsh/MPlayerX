@@ -1,3 +1,15 @@
 body {
 	background-image: url(images/background.png);
 }
+
+img.main-brand-dock {
+	position:absolute;
+	left:1.5%;
+	bottom:0px;
+}
+
+img.main-brand-dock-small {
+	position:absolute;
+	left:0%;
+	bottom:0px;
+}
