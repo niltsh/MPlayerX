@@ -13,3 +13,21 @@ img.main-brand-dock-small {
 	left:0%;
 	bottom:0px;
 }
+
+div.main-brand-text-block {
+	position:absolute;
+	top:10%;
+	width:97%;
+}
+
+div.main-brand-text-block-small {
+	position:absolute;
+	top:10%;
+	width:100%;
+}
+
+.main-brand-text {
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
+	color: rgb(238,238,238);
+	text-align:center;
+}
