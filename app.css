@@ -2,32 +2,19 @@ body {
 	background-image: url(images/background.png);
 }
 
-img.main-brand-dock {
-	position:absolute;
-	left:1.5%;
-	bottom:0px;
-}
-
-img.main-brand-dock-small {
-	position:absolute;
-	left:0%;
-	bottom:0px;
-}
-
-div.main-brand-text-block {
-	position:absolute;
-	top:10%;
-	width:97%;
-}
-
-div.main-brand-text-block-small {
-	position:absolute;
-	top:10%;
-	width:100%;
-}
-
-.main-brand-text {
+.main-brand-title {
+	color: rgb(255,255,255);
+	text-shadow: 0px 0px 6px #cccccc;
 	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
-	color: rgb(238,238,238);
-	text-align:center;
+}
+
+.main-brand-subtitle {
+	color: rgb(255,255,255);
+	text-shadow: 0px 0px 6px #202020;
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
+}
+
+#main-brand-back {
+	background-color:rgb(30,30,30);
+	background-image:url(images/main-brand.jpg);
 }
