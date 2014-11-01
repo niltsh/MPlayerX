@@ -18,3 +18,9 @@ body {
 	background-color:rgb(30,30,30);
 	background-image:url(images/main-brand.jpg);
 }
+
+h6.feature-desc-main-text {
+	color: rgb(108,108,108);
+}
+
+}
