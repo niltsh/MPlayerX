@@ -19,8 +19,17 @@ body {
 	background-image:url(images/main-brand.jpg);
 }
 
-h6.feature-desc-main-text {
+p.feature-desc-main-text {
 	color: rgb(108,108,108);
+	font-size: 90%;
 }
 
+p.feature-desc-main-text-small {
+	color: rgb(108,108,108);
+	font-size: 85%;
+}
+
+.footer-cp-text {
+	color: rgb(108,108,108);
+	font-size: 85%;
 }
