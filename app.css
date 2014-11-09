@@ -1,0 +1,40 @@
+body {
+	background-image: url(images/background.png);
+}
+
+.main-brand-title {
+	color: rgb(255,255,255);
+	text-shadow: 0px 0px 6px #cccccc;
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
+}
+
+.main-brand-subtitle {
+	color: rgb(255,255,255);
+	text-shadow: 0px 0px 6px #202020;
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
+}
+
+#main-brand-back {
+	background-color:rgb(30,30,30);
+	background-image:url(images/main-brand.jpg);
+}
+
+p.feature-desc-main-text {
+	color: rgb(108,108,108);
+	font-size: 90%;
+}
+
+p.feature-desc-main-text-small {
+	color: rgb(108,108,108);
+	font-size: 85%;
+}
+
+.footer-cp-text {
+	color: rgb(108,108,108);
+	font-size: 85%;
+}
+
+h5.feature-desc-main-text-small {
+	color: rgb(108,108,108);
+	font-size: 85%;
+}
