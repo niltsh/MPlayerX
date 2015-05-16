@@ -60,6 +60,7 @@ static NSRect trackRect;
       // [[NSUserDefaults standardUserDefaults] addSuiteNamed:NSGlobalDomain];
       self.material = NSVisualEffectMaterialDark;
       self.blendingMode = NSVisualEffectBlendingModeWithinWindow;
+      self.state = NSVisualEffectStateActive;
       
 
 		title = nil;

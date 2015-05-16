@@ -252,10 +252,10 @@
 		86FB6FC51131B42D005E95B5 /* KeyCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 86FB6FC41131B42D005E95B5 /* KeyCode.m */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		C02764091B0791150017C0D6 /* UniversalDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C02764081B0791150017C0D6 /* UniversalDetector.framework */; };
 		C027640C1B0799720017C0D6 /* SPMediaKeyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = C027640B1B0799720017C0D6 /* SPMediaKeyTap.m */; };
 		C02764101B0799B50017C0D6 /* NSObject+SPInvocationGrabbing.m in Sources */ = {isa = PBXBuildFile; fileRef = C027640F1B0799B50017C0D6 /* NSObject+SPInvocationGrabbing.m */; };
 		C02764121B079EA20017C0D6 /* UniversalDetector.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = C02764111B079EA20017C0D6 /* UniversalDetector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C02764131B07BE860017C0D6 /* UniversalDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C02764111B079EA20017C0D6 /* UniversalDetector.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -460,7 +460,6 @@
 		868CB5CD1358718500EDC86F /* BGHUDGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BGHUDGeometry.h; path = ../BGHUDAppKit/Framework/BGHUDGeometry.h; sourceTree = SOURCE_ROOT; };
 		869A335F13D6EBFA0014B201 /* MPXWindowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MPXWindowButton.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		869A336013D6EBFA0014B201 /* MPXWindowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MPXWindowButton.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		86A34A0810F60F7E00AECBB2 /* UniversalDetector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = UniversalDetector.framework; path = ../UniversalDetector/Build/Products/Release/UniversalDetector.framework; sourceTree = SOURCE_ROOT; };
 		86A5E40B10C7D24D00D061C7 /* wqy-microhei.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "wqy-microhei.ttc"; sourceTree = "<group>"; };
 		86B99D0010C9418600AB28FB /* OpenURLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = OpenURLController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		86B99D0110C9418600AB28FB /* OpenURLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OpenURLController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -584,7 +583,6 @@
 		86FB6F7F1131A4BF005E95B5 /* coredef_private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = coredef_private.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		86FB6FC41131B42D005E95B5 /* KeyCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KeyCode.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8D1107320486CEB800E47090 /* MPlayerX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MPlayerX.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C02764081B0791150017C0D6 /* UniversalDetector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniversalDetector.framework; path = ../UniversalDetector/Build/Release/UniversalDetector.framework; sourceTree = "<group>"; };
 		C027640A1B0799720017C0D6 /* SPMediaKeyTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMediaKeyTap.h; sourceTree = "<group>"; };
 		C027640B1B0799720017C0D6 /* SPMediaKeyTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMediaKeyTap.m; sourceTree = "<group>"; };
 		C027640E1B0799B50017C0D6 /* NSObject+SPInvocationGrabbing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SPInvocationGrabbing.h"; sourceTree = "<group>"; };
@@ -601,11 +599,11 @@
 				863702E7138EA5C200FD13BE /* CoreAudio.framework in Frameworks */,
 				863C0FED138020A700B5C906 /* Carbon.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				C02764131B07BE860017C0D6 /* UniversalDetector.framework in Frameworks */,
 				8608653910BA56A700459392 /* OpenGL.framework in Frameworks */,
 				8608654010BA56C100459392 /* QuartzCore.framework in Frameworks */,
 				8609C28110C6944A00B102CE /* IOKit.framework in Frameworks */,
 				8658451B1346D8E300570BA6 /* ApplicationServices.framework in Frameworks */,
-				C02764091B0791150017C0D6 /* UniversalDetector.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,7 +643,7 @@
 			isa = PBXGroup;
 			children = (
 				867596C315CE5D1300033ED0 /* Sparkle.framework */,
-				86A34A0810F60F7E00AECBB2 /* UniversalDetector.framework */,
+				C02764111B079EA20017C0D6 /* UniversalDetector.framework */,
 				863702E6138EA5C200FD13BE /* CoreAudio.framework */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
@@ -666,7 +664,6 @@
 		29B97314FDCFA39411CA2CEA /* MplayerX */ = {
 			isa = PBXGroup;
 			children = (
-				C02764111B079EA20017C0D6 /* UniversalDetector.framework */,
 				863CD3B312D9A96200C8E321 /* VersionRelated */,
 				080E96DDFE201D6D7F000001 /* Source */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -697,7 +694,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C02764081B0791150017C0D6 /* UniversalDetector.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -1141,7 +1137,6 @@
 				86086A7410BAD11C00459392 /* Copy Binaries */,
 				86CAF21E10BA438D00848B8E /* Copy Frameworks */,
 				86FD7D9811CE4961001726FD /* Localizations */,
-				86549262146E39F20068496A /* Code Sign */,
 			);
 			buildRules = (
 			);
@@ -1380,20 +1375,6 @@
 			shellPath = /bin/sh;
 			shellScript = "# shell script goes here\n\nexport PATH=${PATH}:/usr/local/bin:/usr/local/git/bin:/sw/bin\n\nruby updateInfoPlist.rb MPlayerX-Info.plist\ntouch -amfc MPlayerX-Info.plist\n\nexit 0";
 		};
-		86549262146E39F20068496A /* Code Sign */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Code Sign";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    echo \"in Release\"\n# Sign the framework\n    echo \"/usr/bin/codesign --force --sign \\\"Developer ID Application: Zongyao Qu\\\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UniversalDetector.framework/Versions/A\"\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UniversalDetector.framework/Versions/A\n    echo \"/usr/bin/codesign --force --sign \\\"Developer ID Application: Zongyao Qu\\\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework/Versions/A\"\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework/Versions/A\n\n# Sign 64bit binaries\n    echo \"/usr/bin/codesign --force --sign \\\"Developer ID Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/mplayer\"\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/mplayer\n    echo \"/usr/bin/codesign --force --sign \\\"Developer ID Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfontconfig.1.dylib\"\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfontconfig.1.dylib\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfreetype.6.dylib\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfribidi.0.dylib\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libspeex.1.5.0.dylib\n    /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libpng14.14.dylib\n\n    echo \"/usr/bin/codesign --force --sign \\\"Developer ID Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ytdl\"\n    /usr/bin/codesign --force --sign \"Developer ID Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ytdl\n\nelif [ \"${CONFIGURATION}\" = \"Deploy\" ]; then\n    echo \"in Deploy\"\n# Sign the framework\n    echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UniversalDetector.framework/Versions/A\"\n    /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UniversalDetector.framework/Versions/A\n    echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework/Versions/A\"\n    /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" ${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework/Versions/A\n\n# Sign 64bit binaries\n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/mplayer\"\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/mplayer\n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfontconfig.1.dylib\"\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfontconfig.1.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfreetype.6.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libfribidi.0.dylib\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libspeex.1.5.0.dylib\n   /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/binaries/x86_64/lib/libpng14.14.dylib\n\n  echo \"/usr/bin/codesign --force --sign \\\"3rd Party Mac Developer Application: Zongyao Qu\\\" --identifier \\\"org.niltsh.MPlayerX\\\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ytdl\"\n  /usr/bin/codesign --force --sign \"3rd Party Mac Developer Application: Zongyao Qu\" --identifier \"org.niltsh.MPlayerX\" ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ytdl\nelse\n  echo \"in Debug\"\nfi\n";
-		};
 		86E1D04B14FBA92400432C93 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1419,7 +1400,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nexport MPXVER=$(ruby getAppVersion.rb ${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME})\n\necho ${MPXVER}\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  echo \"in Release\"\n  cd ../localization/${MPXVER}\n  make clean\n  make\n  cp -R ./results/* ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n\nelif [ \"${CONFIGURATION}\" = \"Deploy\" ]; then\n  echo \"in Deploy\"\n  cd ../localization/${MPXVER}\n  make clean\n  make\n  cp -R ./results/* ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n\nelse\n  echo \"in Debug\"\nfi";
+			shellScript = "#!/bin/sh\n\nexport MPXVER=$(ruby getAppVersion.rb ${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME})\n\nMPXVER=1.0.23\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\necho \"in Release\"\ncd ../localization/${MPXVER}\nmake clean\nmake\ncp -R ./results/* ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n\nelif [ \"${CONFIGURATION}\" = \"Deploy\" ]; then\n  echo \"in Deploy\"\n  cd ../localization/${MPXVER}\n  make clean\n  make\n  cp -R ./results/* ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n\nelse\n  echo \"in Debug\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1571,6 +1552,7 @@
 		863CD3D412D9B98B00C8E321 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = "Update Versoin in info.plist";
 			};
@@ -1607,6 +1589,7 @@
 		869B71D013A0E3FA00B9BA76 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = "Update Versoin in info.plist";
 			};
@@ -1616,7 +1599,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "Developer ID Application: Zongyao Qu";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1692,6 +1675,7 @@
 		86FDD36E1314E4A400A79853 /* Deploy */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = "Update Versoin in info.plist";
 			};
@@ -1701,7 +1685,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Zongyao Qu";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1726,6 +1710,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (

@@ -148,6 +148,7 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
     
     self.material = NSVisualEffectMaterialDark;
     self.blendingMode = NSVisualEffectBlendingModeWithinWindow;
+    self.state = NSVisualEffectStateActive;
     
     self.wantsLayer = true;
     self.layer.cornerRadius = CONTROL_CORNER_RADIUS;
