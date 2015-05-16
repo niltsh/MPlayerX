@@ -247,6 +247,8 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	logo = [NSImage imageNamed:@"logo"];
 	[root setContentsGravity:kCAGravityCenter];
 	[root setContents:logo];
+  [root setCornerRadius:5.0];
+  root.shouldRasterize=true;
 	
 	// 默认添加dispLayer
 	[root insertSublayer:dispLayer atIndex:0];
