@@ -22,7 +22,7 @@
 
 @class RootLayerView, PlayerController, FloatWrapFormatter, ArrowTextField, ResizeIndicator, OsdText, TitleView, TimeFormatter;
 
-@interface ControlUIView : NSView
+@interface ControlUIView : NSVisualEffectView
 {
 	NSUserDefaults *ud;
 	NSNotificationCenter *notifCenter;
@@ -120,21 +120,23 @@
 	IBOutlet NSMenuItem *menuSubDelayDec;
 	IBOutlet NSMenuItem *menuSubDelayReset;
 	
-    IBOutlet NSMenuItem *menuZoomToHalfSize;
+  IBOutlet NSMenuItem *menuZoomToHalfSize;
 	IBOutlet NSMenuItem *menuZoomToOriginSize;
 	IBOutlet NSMenuItem *menuZoomToDoubleSize;
 	IBOutlet NSMenuItem *menuWndFitToScrn;
 	IBOutlet NSMenuItem *menuAudioChannels;
 	IBOutlet NSMenuItem *menuChapterList;
 
-    IBOutlet NSMenuItem *menuABLPSetStart;
-    IBOutlet NSMenuItem *menuABLPSetReturn;
-    IBOutlet NSMenuItem *menuABLPCancel;
+  IBOutlet NSMenuItem *menuABLPSetStart;
+  IBOutlet NSMenuItem *menuABLPSetReturn;
+  IBOutlet NSMenuItem *menuABLPCancel;
     
-    IBOutlet NSMenu *deintMenu;
+  IBOutlet NSMenu *deintMenu;
     
-    IBOutlet NSMenuItem *menuGotoSnapshotFolder;
+  IBOutlet NSMenuItem *menuGotoSnapshotFolder;
 }
+
+- (BOOL) allowsVibrancy;
 
 ////////////////////////////////显示相关////////////////////////////////
 extern NSString * const kFillScreenButtonImageLRKey;

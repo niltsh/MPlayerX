@@ -42,12 +42,25 @@ static NSRect trackRect;
 	trackRect = NSMakeRect(0, 0, 70, 23);
 }
 
+-(BOOL) allowsVibrancy
+{
+  static int allow = -1;
+  if (allow == -1) {
+    NSOperatingSystemVersion ver = [[NSProcessInfo processInfo] operatingSystemVersion];
+    allow = (ver.majorVersion == 10 && ver.minorVersion >=10);
+  }
+  return allow;
+}
+
 - (id)initWithFrame:(NSRect)frame
 {
 	self = [super initWithFrame:frame];
 	
     if (self) {
-		// [[NSUserDefaults standardUserDefaults] addSuiteNamed:NSGlobalDomain];
+      // [[NSUserDefaults standardUserDefaults] addSuiteNamed:NSGlobalDomain];
+      self.material = NSVisualEffectMaterialDark;
+      self.blendingMode = NSVisualEffectBlendingModeWithinWindow;
+      
 
 		title = nil;
 		titleAttr = [[NSDictionary alloc]
@@ -139,7 +152,7 @@ static NSRect trackRect;
 		mouseEntered = NO;
 		fsBtnEntered = NO;
 	}
-    return self;
+  return self;
 }
 
 -(void) dealloc
@@ -277,7 +290,12 @@ static NSRect trackRect;
 }
 
 - (void)drawRect:(NSRect)dirtyRect
-{	
+{
+  if (self.allowsVibrancy) {
+    [super drawRect:dirtyRect];
+    return;
+  }
+  
 	NSSize leftSize = [tbCornerLeft size];
 	NSSize rightSize = [tbCornerRight size];
 	NSSize titleSize = [self bounds].size;

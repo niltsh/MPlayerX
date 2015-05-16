@@ -21,7 +21,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface TitleView : NSView
+@interface TitleView : NSVisualEffectView
 {
 	NSButton *closeButton;
 	NSButton *miniButton;
@@ -61,4 +61,5 @@
 @property(readonly) NSButton *zoomButton;
 
 -(void) resetPosition;
+-(BOOL) allowsVibrancy;
 @end

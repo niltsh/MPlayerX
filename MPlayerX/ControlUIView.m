@@ -85,7 +85,6 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 -(void) gotChapterInfo:(NSArray*) cis;
 @end
 
-
 @implementation ControlUIView
 
 +(void) initialize
@@ -116,6 +115,16 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 					   nil]];
 }
 
+- (BOOL) allowsVibrancy
+{
+  static int allow = -1;
+  if (allow == -1) {
+    NSOperatingSystemVersion ver = [[NSProcessInfo processInfo] operatingSystemVersion];
+    allow = (ver.majorVersion == 10 && ver.minorVersion >=10);
+  }
+  return allow;
+}
+
 -(id) initWithFrame:(NSRect)frameRect
 {
 	self = [super initWithFrame:frameRect];
@@ -136,6 +145,13 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 		audioListMenu = [[NSMenu alloc] initWithTitle:@"AudioListMenu"];
 		videoListMenu = [[NSMenu alloc] initWithTitle:@"VideoListMenu"];
 		chapterListMenu = [[NSMenu alloc] initWithTitle:@"ChapterListMenu"];
+    
+    self.material = NSVisualEffectMaterialDark;
+    self.blendingMode = NSVisualEffectBlendingModeWithinWindow;
+    
+    self.wantsLayer = true;
+    self.layer.cornerRadius = CONTROL_CORNER_RADIUS;
+    self.layer.masksToBounds = true;
 	}
 	return self;
 }
@@ -411,14 +427,14 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	// force hide titlebar
 	[title setAlphaValue:([ud boolForKey:kUDKeyHideTitlebar])?0:CONTROLALPHA];
 
-    float yRatio = [ud floatForKey:kUDKeyControlUICenterYRatio];
-    if (yRatio > 0.0) {
-        NSRect superFrame = [[self superview] frame];
-        NSRect selfFrame = [self frame];
-        // 这里最小值必须为1，为0的时候，ControlUI会跳到窗口最上部，原因未知
-        selfFrame.origin.y = MIN(MAX(1, superFrame.size.height * yRatio - selfFrame.size.height / 2), superFrame.size.height - selfFrame.size.height-1);
-        [self setFrameOrigin:selfFrame.origin];
-    }
+  float yRatio = [ud floatForKey:kUDKeyControlUICenterYRatio];
+  if (yRatio > 0.0) {
+    NSRect superFrame = [[self superview] frame];
+    NSRect selfFrame = [self frame];
+    // 这里最小值必须为1，为0的时候，ControlUI会跳到窗口最上部，原因未知
+    selfFrame.origin.y = MIN(MAX(1, superFrame.size.height * yRatio - selfFrame.size.height / 2), superFrame.size.height - selfFrame.size.height-1);
+    [self setFrameOrigin:selfFrame.origin];
+  }
 }
 
 -(void) dealloc
@@ -1834,6 +1850,11 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 ////////////////////////////////////////////////draw myself//////////////////////////////////////////////////
 - (void)drawRect:(NSRect)dirtyRect
 {
+  if (self.allowsVibrancy) {
+    [super drawRect:dirtyRect];
+    return;
+  }
+  
 	NSRect rc = [self bounds];
 	NSPoint pt;
 	

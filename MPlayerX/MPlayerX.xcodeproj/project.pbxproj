@@ -715,8 +715,6 @@
 				86CA9E9D110094FE00A3CDBC /* OsdText.m */,
 				861EE1E911662BF600D16C87 /* PlayerWindow.h */,
 				861EE1EA11662BF600D16C87 /* PlayerWindow.m */,
-				861EE37B116718AF00D16C87 /* TitleView.h */,
-				861EE37C116718AF00D16C87 /* TitleView.m */,
 				869A335F13D6EBFA0014B201 /* MPXWindowButton.h */,
 				869A336013D6EBFA0014B201 /* MPXWindowButton.m */,
 			);
@@ -1108,6 +1106,8 @@
 		86F4DAD810BC3272007AE56A /* ControlUI */ = {
 			isa = PBXGroup;
 			children = (
+				861EE37B116718AF00D16C87 /* TitleView.h */,
+				861EE37C116718AF00D16C87 /* TitleView.m */,
 				86F4DAD910BC329F007AE56A /* ControlUIView.h */,
 				86F4DADA10BC329F007AE56A /* ControlUIView.m */,
 				86D10C1110F4A29A000B573F /* ResizeIndicator.h */,
