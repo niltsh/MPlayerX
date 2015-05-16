@@ -27,12 +27,14 @@
 
 -(void) sendEvent:(NSEvent*)theEvent
 {
-	// If event tap is not installed, handle events that reach the app instead	
+#if 0
+	// If event tap is not installed, handle events that reach the app instead
 	if((![SPMediaKeyTap usesGlobalMediaKeyTap]) && 
 	   [theEvent type] == NSSystemDefined && 
 	   [theEvent subtype] == SPSystemDefinedEventMediaKeys) {
 		[(id)[self delegate] mediaKeyTap:nil receivedMediaKeyEvent:theEvent];
 	}
+#endif
 	[super sendEvent:theEvent];
 }
 

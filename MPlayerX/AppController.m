@@ -25,7 +25,7 @@
 #import "OpenURLController.h"
 #import "LocalizedStrings.h"
 #import "RootLayerView.h"
-#import "SPMediaKeyTap.h"
+//#import "SPMediaKeyTap.h"
 #import "AODetector.h"
 #import "def.h"
 
@@ -76,7 +76,8 @@ static BOOL init_ed = NO;
 					   [NSNumber numberWithBool:NO], kUDKeyLogMode,
 					   kMPXSnapshotSaveDefaultPath, kUDKeySnapshotSavePath,
 					   @"NO", @"AppleMomentumScrollSupported",
-					   [SPMediaKeyTap defaultMediaKeyUserBundleIdentifiers], kMediaKeyUsingBundleIdentifiersDefaultsKey,
+//             [SPMediaKeyTap defaultMediaKeyUserBundleIdentifiers],
+//                     kMediaKeyUsingBundleIdentifiersDefaultsKey,
 					   [NSNumber numberWithBool:YES], kUDKeyEnableMediaKeyTap,
 					   [NSNumber numberWithBool:NO], kUDKeyDisableLastStopBookmark,
                        [NSNumber numberWithInt:kMPSnapshotFormatPNG], kUDKeySnapshotFormat,
@@ -418,6 +419,7 @@ static BOOL init_ed = NO;
 //////////////////////////////////////Media Key Delegate//////////////////////////////////////
 -(void) mediaKeyTap:(SPMediaKeyTap*)keyTap receivedMediaKeyEvent:(NSEvent*)event
 {
+#if 0
 	NSAssert([event type] == NSSystemDefined && [event subtype] == SPSystemDefinedEventMediaKeys, @"Unexpected NSEvent in mediaKeyTap:receivedMediaKeyEvent:");
 	// here be dragons...
 	int keyCode = (([event data1] & 0xFFFF0000) >> 16);
@@ -450,6 +452,7 @@ static BOOL init_ed = NO;
 				break;
 		}
 	}
+#endif
 }
 /////////////////////////////////////Application Delegate//////////////////////////////////////
 -(BOOL) application:(NSApplication *)theApplication openFile:(NSString *)filename
@@ -491,9 +494,11 @@ static BOOL init_ed = NO;
 
 -(NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender
 {
+#if 0
 	if (keyTap) {
 		[keyTap stopWatchingMediaKeys];
 	}
+#endif
 	
 	[playerController stop];
 	
@@ -512,6 +517,7 @@ static BOOL init_ed = NO;
 
 -(void) applicationDidFinishLaunching:(NSNotification *)notification
 {
+#if 0
 	if ([ud boolForKey:kUDKeyEnableMediaKeyTap]) {
 		keyTap = [[SPMediaKeyTap alloc] initWithDelegate:self];
 		if ([SPMediaKeyTap usesGlobalMediaKeyTap]) {
@@ -520,6 +526,7 @@ static BOOL init_ed = NO;
 			MPLog(@"MediaKey monitoring Disabled.");
 		}
 	}
+#endif
 	
 	// 开始监听AudioDevice
 	// 如果是双击文件打开程序的话，application:(NSApplication *)theApplication openFile:(NSString *)filename 会在 这个method之前被调用

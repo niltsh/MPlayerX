@@ -23,9 +23,9 @@
 #define kYTDLInfoTypeURL    (1)
 #define kYTDLInfoTypeTitle  (2)
 
-NSString * const kYTDLInfoContentKey;
-NSString * const kYTDLInfoTypeKey;
-NSString * const kYTDLInfoIsErrorKey;
+extern NSString * const kYTDLInfoContentKey;
+extern NSString * const kYTDLInfoTypeKey;
+extern NSString * const kYTDLInfoIsErrorKey;
 
 @protocol YTDLDelegate
 @required

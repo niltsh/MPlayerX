@@ -723,6 +723,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 
 #pragma mark multitouch
 
+#if 0
 inline static NSPoint centerOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *p3)
 {
     NSPoint ret;
@@ -730,6 +731,7 @@ inline static NSPoint centerOf(const NSPoint *p1, const NSPoint *p2, const NSPoi
     ret.y = (p1->y + p2->y + p3->y) / 3;
     return ret;
 }
+#endif
 
 inline static float distanceOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *p3)
 {
@@ -800,9 +802,8 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 				threeFingersPinchDistance = distanceOf(&p1, &p2, &p3);
 				MPLog(@"Init 3f Dist:%f", threeFingersPinchDistance);
 			}
-
+#if 0
             // if (!hasSwipeEvent) {
-            if (0) {
                 // if ((MPXGetSysVersion >= kMPXSysVersionLion) && [NSEvent isSwipeTrackingFromScrollEventsEnabled]) {
                 //　如果是SL系统，会调用swipeWithEvent函数，不需要调用这里
                 // 如果没有用到trackingFromScrollEvents，那么也会产生swipeWithEvent函数，不需要调用这里
@@ -816,7 +817,7 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
                         MPLog(@"Init 3F Center: x:%f y:%f", threeFingersSwipeCord.x, threeFingersSwipeCord.y);
                     }
                 // }
-            }
+#endif
 			break;
 		case 4:
 			threeFingersTap = kThreeFingersTapInit;
@@ -872,7 +873,7 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
     //     threeFingersSwipe = kThreeFingersSwipeInit;
     // }
 	// if (threeFingersSwipe == kThreeFingersSwipeReady) {
-    if (0) {
+#if 0
 		if ([touch count] == 3) {
 			if (!touchAr) {
 				touchAr = [touch allObjects];
@@ -907,7 +908,7 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
                                                             modifierFlags:NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask]];
 			}
 		}
-	}
+#endif
 
 	if (fourFingersPinch == kFourFingersPinchReady) {
 		

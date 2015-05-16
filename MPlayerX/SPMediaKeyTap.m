@@ -1,4 +1,5 @@
 // Copyright (c) 2010 Spotify AB
+#if 0
 #import "SPMediaKeyTap.h"
 #import "NSObject+SPInvocationGrabbing.h" // https://gist.github.com/511181, in submodule
 
@@ -338,3 +339,4 @@ static pascal OSStatus appTerminated (EventHandlerCallRef nextHandler, EventRef 
 }
 
 @end
+#endif

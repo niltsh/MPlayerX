@@ -104,8 +104,6 @@
 		863B5A8210F2175C001111F6 /* exitfullscreen.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 863B5A7C10F2175C001111F6 /* exitfullscreen.pdf */; };
 		863B5A8310F2175C001111F6 /* fillscreen_lr.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 863B5A7D10F2175C001111F6 /* fillscreen_lr.pdf */; };
 		863B5A8410F2175C001111F6 /* fillscreen_ub.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 863B5A7E10F2175C001111F6 /* fillscreen_ub.pdf */; };
-		863C0FE013801A9A00B5C906 /* SPMediaKeyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 863C0FDF13801A9A00B5C906 /* SPMediaKeyTap.m */; };
-		863C0FE313801AAF00B5C906 /* NSObject+SPInvocationGrabbing.m in Sources */ = {isa = PBXBuildFile; fileRef = 863C0FE213801AAF00B5C906 /* NSObject+SPInvocationGrabbing.m */; };
 		863C0FED138020A700B5C906 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 863C0FEC138020A700B5C906 /* Carbon.framework */; };
 		863D0A9712CDE85900170081 /* close-active.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 863D0A8B12CDE85900170081 /* close-active.tiff */; };
 		863D0A9812CDE85900170081 /* close-inactive-disabled.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 863D0A8C12CDE85900170081 /* close-inactive-disabled.tiff */; };
@@ -144,7 +142,7 @@
 		8670CC2A1418E3F0009EDB63 /* minimize-inactive-disabled-graphite-lion.png in Resources */ = {isa = PBXBuildFile; fileRef = 8670CC291418E3F0009EDB63 /* minimize-inactive-disabled-graphite-lion.png */; };
 		8671FAF51120456B00F7E5E5 /* doc_sub.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8671FAF41120456B00F7E5E5 /* doc_sub.icns */; };
 		8674A56512CF294F009A2D05 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 8674A56412CF294F009A2D05 /* Credits.rtf */; };
-		867596C415CE5D1300033ED0 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 867596C315CE5D1300033ED0 /* Sparkle.framework */; };
+		867596C415CE5D1300033ED0 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 867596C315CE5D1300033ED0 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		867596C515CE5D4000033ED0 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 867596C315CE5D1300033ED0 /* Sparkle.framework */; };
 		867596C715CE5F1D00033ED0 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 867596C615CE5F1D00033ED0 /* dsa_pub.pem */; };
 		867B51F915E116A900DA7E92 /* ScriptCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = 867B51F815E116A900DA7E92 /* ScriptCommands.m */; };
@@ -157,8 +155,6 @@
 		868CB5CB1358710200EDC86F /* BGTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 868CB5C51358710200EDC86F /* BGTheme.m */; };
 		868CB5CC1358710200EDC86F /* BGThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 868CB5C71358710200EDC86F /* BGThemeManager.m */; };
 		869A336113D6EBFA0014B201 /* MPXWindowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 869A336013D6EBFA0014B201 /* MPXWindowButton.m */; };
-		86A34A0910F60F7E00AECBB2 /* UniversalDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A34A0810F60F7E00AECBB2 /* UniversalDetector.framework */; };
-		86A34A2510F60FA000AECBB2 /* UniversalDetector.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 86A34A0810F60F7E00AECBB2 /* UniversalDetector.framework */; };
 		86A5E40C10C7D24D00D061C7 /* wqy-microhei.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 86A5E40B10C7D24D00D061C7 /* wqy-microhei.ttc */; };
 		86B99D0210C9418600AB28FB /* OpenURLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B99D0110C9418600AB28FB /* OpenURLController.m */; };
 		86B9E23712D1B0910094B55E /* Inspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86B9E23612D1B0910094B55E /* Inspector.xib */; };
@@ -256,6 +252,10 @@
 		86FB6FC51131B42D005E95B5 /* KeyCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 86FB6FC41131B42D005E95B5 /* KeyCode.m */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		C02764091B0791150017C0D6 /* UniversalDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C02764081B0791150017C0D6 /* UniversalDetector.framework */; };
+		C027640C1B0799720017C0D6 /* SPMediaKeyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = C027640B1B0799720017C0D6 /* SPMediaKeyTap.m */; };
+		C02764101B0799B50017C0D6 /* NSObject+SPInvocationGrabbing.m in Sources */ = {isa = PBXBuildFile; fileRef = C027640F1B0799B50017C0D6 /* NSObject+SPInvocationGrabbing.m */; };
+		C02764121B079EA20017C0D6 /* UniversalDetector.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = C02764111B079EA20017C0D6 /* UniversalDetector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -294,7 +294,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				867596C415CE5D1300033ED0 /* Sparkle.framework in Copy Frameworks */,
-				86A34A2510F60FA000AECBB2 /* UniversalDetector.framework in Copy Frameworks */,
+				C02764121B079EA20017C0D6 /* UniversalDetector.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,10 +392,6 @@
 		863B5A7C10F2175C001111F6 /* exitfullscreen.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = exitfullscreen.pdf; sourceTree = "<group>"; };
 		863B5A7D10F2175C001111F6 /* fillscreen_lr.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = fillscreen_lr.pdf; sourceTree = "<group>"; };
 		863B5A7E10F2175C001111F6 /* fillscreen_ub.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = fillscreen_ub.pdf; sourceTree = "<group>"; };
-		863C0FDE13801A9A00B5C906 /* SPMediaKeyTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMediaKeyTap.h; sourceTree = "<group>"; };
-		863C0FDF13801A9A00B5C906 /* SPMediaKeyTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMediaKeyTap.m; sourceTree = "<group>"; };
-		863C0FE113801AAF00B5C906 /* NSObject+SPInvocationGrabbing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SPInvocationGrabbing.h"; sourceTree = "<group>"; };
-		863C0FE213801AAF00B5C906 /* NSObject+SPInvocationGrabbing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SPInvocationGrabbing.m"; sourceTree = "<group>"; };
 		863C0FEC138020A700B5C906 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		863CD3B412D9A98800C8E321 /* updateInfoPlist.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = updateInfoPlist.rb; sourceTree = "<group>"; };
 		863CD3B512D9A98800C8E321 /* version.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = version.sh; sourceTree = "<group>"; };
@@ -588,6 +584,12 @@
 		86FB6F7F1131A4BF005E95B5 /* coredef_private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = coredef_private.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		86FB6FC41131B42D005E95B5 /* KeyCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KeyCode.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8D1107320486CEB800E47090 /* MPlayerX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MPlayerX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C02764081B0791150017C0D6 /* UniversalDetector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniversalDetector.framework; path = ../UniversalDetector/Build/Release/UniversalDetector.framework; sourceTree = "<group>"; };
+		C027640A1B0799720017C0D6 /* SPMediaKeyTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMediaKeyTap.h; sourceTree = "<group>"; };
+		C027640B1B0799720017C0D6 /* SPMediaKeyTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMediaKeyTap.m; sourceTree = "<group>"; };
+		C027640E1B0799B50017C0D6 /* NSObject+SPInvocationGrabbing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SPInvocationGrabbing.h"; sourceTree = "<group>"; };
+		C027640F1B0799B50017C0D6 /* NSObject+SPInvocationGrabbing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SPInvocationGrabbing.m"; sourceTree = "<group>"; };
+		C02764111B079EA20017C0D6 /* UniversalDetector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniversalDetector.framework; path = ../UniversalDetector/Build/Release/UniversalDetector.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -602,8 +604,8 @@
 				8608653910BA56A700459392 /* OpenGL.framework in Frameworks */,
 				8608654010BA56C100459392 /* QuartzCore.framework in Frameworks */,
 				8609C28110C6944A00B102CE /* IOKit.framework in Frameworks */,
-				86A34A0910F60F7E00AECBB2 /* UniversalDetector.framework in Frameworks */,
 				8658451B1346D8E300570BA6 /* ApplicationServices.framework in Frameworks */,
+				C02764091B0791150017C0D6 /* UniversalDetector.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,6 +616,7 @@
 			isa = PBXGroup;
 			children = (
 				86450B871108840700E79645 /* LocalizedStrings.h */,
+				C027640D1B0799810017C0D6 /* SPMediaKeyTap */,
 				86C7D8FB1501B5D600EB7C65 /* others */,
 				86B99CFE10C93E4D00AB28FB /* Controllers */,
 				86F4DAD810BC3272007AE56A /* ControlUI */,
@@ -622,7 +625,6 @@
 				8609C25010C6938800B102CE /* shortcut */,
 				866CD1C811DF490300032F96 /* UI components */,
 				868CB5B41358707B00EDC86F /* BGHUDAppKit */,
-				863C0FCC1380155900B5C906 /* SPMediaKeyTap */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -664,14 +666,17 @@
 		29B97314FDCFA39411CA2CEA /* MplayerX */ = {
 			isa = PBXGroup;
 			children = (
+				C02764111B079EA20017C0D6 /* UniversalDetector.framework */,
 				863CD3B312D9A96200C8E321 /* VersionRelated */,
 				080E96DDFE201D6D7F000001 /* Source */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
+			indentWidth = 2;
 			name = MplayerX;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
@@ -692,6 +697,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C02764081B0791150017C0D6 /* UniversalDetector.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -865,17 +871,6 @@
 				863D0A9612CDE85900170081 /* zoom-rollover.tiff */,
 			);
 			name = "Snow Leopard";
-			sourceTree = "<group>";
-		};
-		863C0FCC1380155900B5C906 /* SPMediaKeyTap */ = {
-			isa = PBXGroup;
-			children = (
-				863C0FE113801AAF00B5C906 /* NSObject+SPInvocationGrabbing.h */,
-				863C0FE213801AAF00B5C906 /* NSObject+SPInvocationGrabbing.m */,
-				863C0FDE13801A9A00B5C906 /* SPMediaKeyTap.h */,
-				863C0FDF13801A9A00B5C906 /* SPMediaKeyTap.m */,
-			);
-			name = SPMediaKeyTap;
 			sourceTree = "<group>";
 		};
 		863CD3B312D9A96200C8E321 /* VersionRelated */ = {
@@ -1121,6 +1116,17 @@
 			name = ControlUI;
 			sourceTree = "<group>";
 		};
+		C027640D1B0799810017C0D6 /* SPMediaKeyTap */ = {
+			isa = PBXGroup;
+			children = (
+				C027640E1B0799B50017C0D6 /* NSObject+SPInvocationGrabbing.h */,
+				C027640F1B0799B50017C0D6 /* NSObject+SPInvocationGrabbing.m */,
+				C027640A1B0799720017C0D6 /* SPMediaKeyTap.h */,
+				C027640B1B0799720017C0D6 /* SPMediaKeyTap.m */,
+			);
+			name = SPMediaKeyTap;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1154,7 +1160,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = MPlayerX;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MPlayerX" */;
@@ -1423,6 +1429,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				C027640C1B0799720017C0D6 /* SPMediaKeyTap.m in Sources */,
 				86CAF23D10BA44DD00848B8E /* LogAnalyzeOperation.m in Sources */,
 				86CAF23E10BA44DD00848B8E /* LogAnalyzer.m in Sources */,
 				86CAF24110BA44EA00848B8E /* MovieInfo.m in Sources */,
@@ -1467,10 +1474,9 @@
 				868CB5CB1358710200EDC86F /* BGTheme.m in Sources */,
 				868CB5CC1358710200EDC86F /* BGThemeManager.m in Sources */,
 				8605F0D6137E67FE00317941 /* MPApplication.m in Sources */,
-				863C0FE013801A9A00B5C906 /* SPMediaKeyTap.m in Sources */,
-				863C0FE313801AAF00B5C906 /* NSObject+SPInvocationGrabbing.m in Sources */,
 				863702E4138EA4AB00FD13BE /* AODetector.m in Sources */,
 				86EA467B13BF23E300B1F588 /* ChapterItem.m in Sources */,
+				C02764101B0799B50017C0D6 /* NSObject+SPInvocationGrabbing.m in Sources */,
 				869A336113D6EBFA0014B201 /* MPXWindowButton.m in Sources */,
 				86E6F06014F7C3F500CA1546 /* HIDRemote.m in Sources */,
 				86C7D8FE1501B63800EB7C65 /* YTDL.m in Sources */,
@@ -1578,8 +1584,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1608,12 +1617,14 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "Developer ID Application: Zongyao Qu";
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../UniversalDetector/Build/Products/Release\"",
+					"\"$(SRCROOT)/../UniversalDetector/Build/Release\"",
 					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Versions/A/Frameworks\"",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					/Users/xiehuc/PROJECT/MPlayerX/UniversalDetector/Build/Release,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MPlayerX_Prefix.pch;
@@ -1658,8 +1669,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1688,12 +1702,14 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Zongyao Qu";
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../UniversalDetector/Build/Products/Release\"",
+					"\"$(SRCROOT)/../UniversalDetector/Build/Release\"",
 					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Versions/A/Frameworks\"",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					/Users/xiehuc/PROJECT/MPlayerX/UniversalDetector/Build/Release,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MPlayerX_Prefix.pch;
@@ -1710,12 +1726,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../UniversalDetector/Build/Products/Release\"",
+					"\"$(SRCROOT)/../UniversalDetector/Build/Release\"",
 					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Versions/A/Frameworks\"",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					/Users/xiehuc/PROJECT/MPlayerX/UniversalDetector/Build/Release,
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1736,8 +1754,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
