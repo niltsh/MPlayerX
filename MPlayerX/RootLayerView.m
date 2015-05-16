@@ -455,9 +455,9 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 				CGSize sz = dispLayer.bounds.size;
 				
 				if (ShiftKeyPressed) {
-					if (fabsf(delta.x) > fabsf(8 * delta.y)) {
+					if (fabs(delta.x) > fabs(8 * delta.y)) {
 						delta.y = 0;
-					} else if (fabsf(8 * delta.x) < fabsf(delta.y)) {
+					} else if (fabs(8 * delta.x) < fabs(delta.y)) {
 						delta.x = 0;
 					} else {
 						// if use shift to drag the area, only X or only Y are accepted
@@ -972,10 +972,10 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 {
 	CGSize ratio = [dispLayer scaleRatio];
 	
-	if (fabsf(rt.width) > kScaleFrameRatioStepMax) {
+	if (fabs(rt.width) > kScaleFrameRatioStepMax) {
 		rt.width = (rt.width > 0)?(kScaleFrameRatioStepMax) : (-kScaleFrameRatioStepMax);
 	}
-	if (fabsf(rt.height) > kScaleFrameRatioStepMax) {
+	if (fabs(rt.height) > kScaleFrameRatioStepMax) {
 		rt.height = (rt.height > 0)?(kScaleFrameRatioStepMax) : (-kScaleFrameRatioStepMax);
 	}
 
