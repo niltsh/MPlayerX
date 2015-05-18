@@ -243,12 +243,9 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	// 自动尺寸适应
 	[root setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
 
-	// 图标设定
-	logo = [NSImage imageNamed:@"logo"];
-	[root setContentsGravity:kCAGravityCenter];
-	[root setContents:logo];
+	// 边框圆角设置
   [root setCornerRadius:5.0];
-  root.shouldRasterize=true;
+  [root setMasksToBounds:YES];
 	
 	// 默认添加dispLayer
 	[root insertSublayer:dispLayer atIndex:0];
@@ -1260,16 +1257,16 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 {
 	BOOL oldWay = NO;
 	
-	if (fullScreenStatus == kFullScreenStatusNone) {
-		// 非全屏状态的话，就根据现在的状况来判断
-        // 10.9系统支持了多屏幕的全屏，
-        // 所以现在的判断逻辑是，只有在用户选择的旧方式 或者 系统为10.6以下 或者 系统为10.9以下并且有多个屏幕
-        SInt32 sysVer = MPXGetSysVersion();
-
-		oldWay = shouldUseOldFullScreenMethod();
-        MPLog(@"enter fullscreen sysVer:0x%X, old:%d", sysVer, oldWay);
-	} else {
-		// 现在是全屏状态，要推出全屏
+  if (fullScreenStatus == kFullScreenStatusNone) {
+    // 非全屏状态的话，就根据现在的状况来判断
+    // 10.9系统支持了多屏幕的全屏，
+    // 所以现在的判断逻辑是，只有在用户选择的旧方式 或者 系统为10.6以下 或者 系统为10.9以下并且有多个屏幕
+    SInt32 sysVer = MPXGetSysVersion();
+    
+    oldWay = shouldUseOldFullScreenMethod();
+    MPLog(@"enter fullscreen sysVer:0x%X, old:%d", sysVer, oldWay);
+  } else {
+    // 现在是全屏状态，要推出全屏
 		// 因此要和进入全屏时的状态保持一致
 		oldWay = (fullScreenStatus == kFullScreenStatusOld);
 	}
@@ -1418,10 +1415,17 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 			fullScreenStatus = kFullScreenStatusNone;
 			return NO;
 		}
-	} else {
-		// Lion并且只有一个屏幕的时候
+    
+	
+  
+  } else { //NEW WAY
+		
+    
+    
+    // Lion并且只有一个屏幕的时候
 		if ([self isInFullScreenMode]) {
 			// 退出全屏
+      [[self layer] setCornerRadius:5.0];
 			if (shouldResize) {
 				shouldResize = NO;
 				// 得到目标frame
@@ -1443,6 +1447,7 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 		} else if (displaying) {
 			// 进入全屏
 			// 强制Lock Aspect Ratio
+      [[self layer] setCornerRadius:0];
 			[self setLockAspectRatio:YES];
 			
 			shouldResize = YES;

@@ -38,8 +38,11 @@ NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 							styleMask:NSBorderlessWindowMask
 							  backing:bufferingType
 								defer:flag];
-	if (self) {
-	}
+  if (self) {
+    [self setOpaque:NO];
+    [self setBackgroundColor:[NSColor clearColor]];
+    [self setStyleMask:NSBorderlessWindowMask];
+  }
 	return self;
 }
 
@@ -55,7 +58,6 @@ NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 	}
 
 	[self setContentMinSize:NSMakeSize(480, 360)];
-	
 	NSRect scrnRC = [[self screen] visibleFrame];
 	NSRect winRC  = [self frame];
 	scrnRC.origin.x += (scrnRC.size.width - winRC.size.width) / 2;
