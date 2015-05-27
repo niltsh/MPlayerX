@@ -4,6 +4,3 @@
 [submodule "UniversalDetector"]
 	path = UniversalDetector
 	url = git@github.com:niltsh/UniversalDetector.git
-[submodule "localization"]
-	path = localization
-	url = git@github.com:niltsh/MPlayerX-Localization.git
