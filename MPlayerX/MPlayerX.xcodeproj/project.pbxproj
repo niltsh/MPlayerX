@@ -651,6 +651,34 @@
 		C035E05D1B163C7E00E41F60 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Equalizer.strings; sourceTree = "<group>"; };
 		C035E05E1B163C7F00E41F60 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Inspector.strings; sourceTree = "<group>"; };
 		C035E05F1B163C7F00E41F60 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C035E0601B163CE100E41F60 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		C035E0611B163CE100E41F60 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Pref.strings; sourceTree = "<group>"; };
+		C035E0621B163CE100E41F60 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/VideoTuner.strings; sourceTree = "<group>"; };
+		C035E0631B163CE100E41F60 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/SubEncoding.strings; sourceTree = "<group>"; };
+		C035E0641B163CE100E41F60 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Equalizer.strings; sourceTree = "<group>"; };
+		C035E0651B163CE100E41F60 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Inspector.strings; sourceTree = "<group>"; };
+		C035E0661B163CE100E41F60 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C035E0671B163D2200E41F60 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		C035E0681B163D2200E41F60 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Pref.strings; sourceTree = "<group>"; };
+		C035E0691B163D2200E41F60 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/VideoTuner.strings; sourceTree = "<group>"; };
+		C035E06A1B163D2200E41F60 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/SubEncoding.strings; sourceTree = "<group>"; };
+		C035E06B1B163D2200E41F60 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Equalizer.strings; sourceTree = "<group>"; };
+		C035E06C1B163D2200E41F60 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Inspector.strings; sourceTree = "<group>"; };
+		C035E06D1B163D2200E41F60 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C035E06E1B163D9000E41F60 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		C035E06F1B163D9000E41F60 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Pref.strings; sourceTree = "<group>"; };
+		C035E0701B163D9000E41F60 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/VideoTuner.strings; sourceTree = "<group>"; };
+		C035E0711B163D9000E41F60 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/SubEncoding.strings; sourceTree = "<group>"; };
+		C035E0721B163D9100E41F60 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Equalizer.strings; sourceTree = "<group>"; };
+		C035E0731B163D9100E41F60 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Inspector.strings; sourceTree = "<group>"; };
+		C035E0741B163D9100E41F60 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C035E0751B163DD200E41F60 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		C035E0761B163DD200E41F60 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Pref.strings; sourceTree = "<group>"; };
+		C035E0771B163DD200E41F60 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/VideoTuner.strings; sourceTree = "<group>"; };
+		C035E0781B163DD200E41F60 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/SubEncoding.strings; sourceTree = "<group>"; };
+		C035E0791B163DD200E41F60 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Equalizer.strings; sourceTree = "<group>"; };
+		C035E07A1B163DD200E41F60 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Inspector.strings; sourceTree = "<group>"; };
+		C035E07B1B163DD300E41F60 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1240,6 +1268,10 @@
 				ko,
 				ja,
 				it,
+				hu,
+				el,
+				fr,
+				es,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* MplayerX */;
 			projectDirPath = "";
@@ -1567,6 +1599,10 @@
 				C035E0511B163BE900E41F60 /* ko */,
 				C035E0581B163C3300E41F60 /* ja */,
 				C035E05F1B163C7F00E41F60 /* it */,
+				C035E0661B163CE100E41F60 /* hu */,
+				C035E06D1B163D2200E41F60 /* el */,
+				C035E0741B163D9100E41F60 /* fr */,
+				C035E07B1B163DD300E41F60 /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1584,6 +1620,10 @@
 				C035E04B1B163BE800E41F60 /* ko */,
 				C035E0521B163C3300E41F60 /* ja */,
 				C035E0591B163C7E00E41F60 /* it */,
+				C035E0601B163CE100E41F60 /* hu */,
+				C035E0671B163D2200E41F60 /* el */,
+				C035E06E1B163D9000E41F60 /* fr */,
+				C035E0751B163DD200E41F60 /* es */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -1601,6 +1641,10 @@
 				C035E04C1B163BE800E41F60 /* ko */,
 				C035E0531B163C3300E41F60 /* ja */,
 				C035E05A1B163C7E00E41F60 /* it */,
+				C035E0611B163CE100E41F60 /* hu */,
+				C035E0681B163D2200E41F60 /* el */,
+				C035E06F1B163D9000E41F60 /* fr */,
+				C035E0761B163DD200E41F60 /* es */,
 			);
 			name = Pref.xib;
 			sourceTree = "<group>";
@@ -1618,6 +1662,10 @@
 				C035E04D1B163BE900E41F60 /* ko */,
 				C035E0541B163C3300E41F60 /* ja */,
 				C035E05B1B163C7E00E41F60 /* it */,
+				C035E0621B163CE100E41F60 /* hu */,
+				C035E0691B163D2200E41F60 /* el */,
+				C035E0701B163D9000E41F60 /* fr */,
+				C035E0771B163DD200E41F60 /* es */,
 			);
 			name = VideoTuner.xib;
 			sourceTree = "<group>";
@@ -1635,6 +1683,10 @@
 				C035E04F1B163BE900E41F60 /* ko */,
 				C035E0561B163C3300E41F60 /* ja */,
 				C035E05D1B163C7E00E41F60 /* it */,
+				C035E0641B163CE100E41F60 /* hu */,
+				C035E06B1B163D2200E41F60 /* el */,
+				C035E0721B163D9100E41F60 /* fr */,
+				C035E0791B163DD200E41F60 /* es */,
 			);
 			name = Equalizer.xib;
 			sourceTree = "<group>";
@@ -1660,6 +1712,10 @@
 				C035E0501B163BE900E41F60 /* ko */,
 				C035E0571B163C3300E41F60 /* ja */,
 				C035E05E1B163C7F00E41F60 /* it */,
+				C035E0651B163CE100E41F60 /* hu */,
+				C035E06C1B163D2200E41F60 /* el */,
+				C035E0731B163D9100E41F60 /* fr */,
+				C035E07A1B163DD200E41F60 /* es */,
 			);
 			name = Inspector.xib;
 			sourceTree = "<group>";
@@ -1677,6 +1733,10 @@
 				C035E04E1B163BE900E41F60 /* ko */,
 				C035E0551B163C3300E41F60 /* ja */,
 				C035E05C1B163C7E00E41F60 /* it */,
+				C035E0631B163CE100E41F60 /* hu */,
+				C035E06A1B163D2200E41F60 /* el */,
+				C035E0711B163D9000E41F60 /* fr */,
+				C035E0781B163DD200E41F60 /* es */,
 			);
 			name = SubEncoding.xib;
 			sourceTree = "<group>";
