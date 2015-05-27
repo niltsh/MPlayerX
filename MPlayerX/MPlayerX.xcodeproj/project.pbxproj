@@ -1248,7 +1248,6 @@
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				86086A7410BAD11C00459392 /* Copy Binaries */,
 				86CAF21E10BA438D00848B8E /* Copy Frameworks */,
-				86FD7D9811CE4961001726FD /* Localizations */,
 			);
 			buildRules = (
 			);
@@ -1515,20 +1514,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/sh\n\nMPXVER=$(ruby getAppVersion.rb ${TARGET_BUILD_DIR}/MPlayerX.app)\n\necho ${MPXVER}\n\ncd ../localization/${MPXVER}/English.lproj\n\nmkdir -p stringsFiles\n\nibtool --generate-strings-file stringsFiles/MainMenu.strings MainMenu.xib\nibtool --generate-strings-file stringsFiles/Pref.strings Pref.xib\nibtool --generate-strings-file stringsFiles/VideoTuner.strings VideoTuner.xib\nibtool --generate-strings-file stringsFiles/SubEncoding.strings SubEncoding.xib\nibtool --generate-strings-file stringsFiles/Equalizer.strings Equalizer.xib\nibtool --generate-strings-file stringsFiles/Inspector.strings Inspector.xib\n\ncp Localizable.strings stringsFiles/\n";
-		};
-		86FD7D9811CE4961001726FD /* Localizations */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Localizations;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nexport MPXVER=$(ruby getAppVersion.rb ${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME})\n\nMPXVER=1.0.23\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\necho \"in Release\"\ncd ../localization/${MPXVER}\nmake clean\nmake\ncp -R ./results/* ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n\nelif [ \"${CONFIGURATION}\" = \"Deploy\" ]; then\n  echo \"in Deploy\"\n  cd ../localization/${MPXVER}\n  make clean\n  make\n  cp -R ./results/* ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\n\nelse\n  echo \"in Debug\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
