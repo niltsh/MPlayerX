@@ -20,8 +20,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-#define kMPXSysVersionLion			(0x1070)
-#define kMPXSysVersionMavericks     (0x1090)
+#define kMPXSysVersionLion			(7)
+#define kMPXSysVersionMavericks     (9)
 
 extern NSString * const kMPCStringMPlayerX;
 
@@ -30,7 +30,7 @@ extern NSString * const kMPCStringMPlayerX;
 void MPLog(NSString *format, ...);
 void MPSetLogEnable(BOOL en);
 
-SInt32 MPXGetSysVersion();
+NSOperatingSystemVersion MPXGetSysVersion();
 
 BOOL shouldUseOldFullScreenMethod();
 

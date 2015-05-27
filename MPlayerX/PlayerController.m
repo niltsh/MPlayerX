@@ -341,7 +341,7 @@ BOOL shouldFixMjpegPngCodec(NSString *ext)
             IOReturn err;
             IOPMAssertionID userAct = kIOPMNullAssertionID;
 
-            if (MPXGetSysVersion() >= kMPXSysVersionLion) {
+            if (MPXGetSysVersion().minorVersion >= kMPXSysVersionLion) {
                 // this is a 10.7 or above API
                 err = IOPMAssertionDeclareUserActivity((CFStringRef)kMPXUserActivityDeclare, kIOPMUserActiveLocal, &userAct);
                 if (err != kIOReturnSuccess) {
@@ -364,7 +364,7 @@ BOOL shouldFixMjpegPngCodec(NSString *ext)
             IOPMAssertionID userAct = kIOPMNullAssertionID;
             CFStringRef assertionType;
 
-            if (MPXGetSysVersion() < kMPXSysVersionLion) {
+            if (MPXGetSysVersion().minorVersion < kMPXSysVersionLion) {
                 assertionType = kIOPMAssertionTypeNoDisplaySleep;
             } else {
                 if (mplayer.movieInfo.videoInfo.count == 0) {

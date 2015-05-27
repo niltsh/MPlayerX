@@ -565,7 +565,10 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 	// 这段代码是不能重进的，否则会不停的hidecursor
 	if ([self alphaValue] > (CONTROLALPHA-0.05)) {
 		// 得到鼠标在这个window的坐标
-		NSPoint pos = [[self window] convertScreenToBase:[NSEvent mouseLocation]];
+    NSRect r;
+    r.origin = [NSEvent mouseLocation];
+    NSPoint pos = [[self window] convertRectFromScreen:r].origin;
+		// NSPoint pos = [[self window] convertScreenToBase:[NSEvent mouseLocation]];
 		
 		// 如果不在这个View的话，那么就隐藏自己
 		// if HideTitlebar is ON or in fullscreen, ignore the titlebar area when hiding the cursor
@@ -1899,7 +1902,9 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 
 -(void) calculateHintTime
 {
-	NSPoint pt = [self convertPoint:[[self window] convertScreenToBase:[NSEvent mouseLocation]] fromView:nil];
+  NSRect r;
+  r.origin = [NSEvent mouseLocation];
+	NSPoint pt = [self convertPoint:[[self window] convertRectFromScreen:r].origin fromView:nil];
 	NSRect frm = [[timeSlider cell] effectiveRect];
 	
 	float timeDisp = ((pt.x-frm.origin.x) * [timeSlider maxValue])/ (frm.size.width);
@@ -1915,8 +1920,10 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 
 -(void) updateHintTime
 {
+  NSRect r;
+  r.origin = [NSEvent mouseLocation];
 	// 得到鼠标在CotrolUI中的位置
-	NSPoint pt = [self convertPoint:[[self window] convertScreenToBase:[NSEvent mouseLocation]] fromView:nil];
+	NSPoint pt = [self convertPoint:[[self window] convertRectFromScreen:r].origin fromView:nil];
 	NSRect frm = [[timeSlider cell] effectiveRect];
 
 	// if the media is not seekable, timeSlider is disabled

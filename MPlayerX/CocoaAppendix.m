@@ -23,12 +23,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UserDefaults.h"
 
-#define kMPXSysVersionInvalid		(INT32_MIN)
-
 NSString * const kMPCStringMPlayerX						= @"MPlayerX";
 
 static BOOL logEnable = NO;
-static SInt32 ver = kMPXSysVersionInvalid;
 
 void MPLog(NSString *format, ...)
 {
@@ -47,19 +44,20 @@ void MPSetLogEnable(BOOL en)
 	logEnable = en;
 }
 
-SInt32 MPXGetSysVersion()
+NSOperatingSystemVersion MPXGetSysVersion()
 {
-	if (ver == kMPXSysVersionInvalid) {
-		Gestalt(gestaltSystemVersion, &ver);
+  static NSOperatingSystemVersion ver = {0,0,0};
+	if (ver.majorVersion == 0) {
+    ver = [[NSProcessInfo processInfo] operatingSystemVersion];
 	}
 	return ver;
 }
 
 BOOL shouldUseOldFullScreenMethod()
 {
-    SInt32 sysVer = MPXGetSysVersion();
-    return ((sysVer < kMPXSysVersionLion) ||
-            (([[NSScreen screens] count] > 1) && (sysVer < kMPXSysVersionMavericks))||
+    NSOperatingSystemVersion sysVer = MPXGetSysVersion();
+    return ((sysVer.minorVersion < kMPXSysVersionLion) ||
+            (([[NSScreen screens] count] > 1) && (sysVer.minorVersion < kMPXSysVersionMavericks))||
             ([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyOldFullScreenMethod]));;
 }
 
@@ -710,7 +708,8 @@ NSImage* MPCreateNSImageFromCIImage(CIImage *ciImage)
         CIContext *ciContext = [CIContext contextWithCGContext:contextRef
                                                        options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES]
                                                                                            forKey:kCIContextUseSoftwareRenderer]];
-        [ciContext drawImage:ciImage atPoint:CGPointMake(0, 0) fromRect:[ciImage extent]];
+        [ciContext drawImage:ciImage inRect:[ciImage extent] fromRect:[ciImage extent]];
+        //[ciContext drawImage:ciImage atPoint:CGPointMake(0, 0) fromRect:[ciImage extent]];
         /*Does not leak when using the software renderer!*/
         [ret unlockFocus];
     }

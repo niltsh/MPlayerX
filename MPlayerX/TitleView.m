@@ -74,7 +74,7 @@ static NSRect trackRect;
 		tbCornerRight	= [[NSImage imageNamed:@"titlebar-corner-right"] retain];
 		tbMiddle		= [[NSImage imageNamed:@"titlebar-middle"] retain];
 
-		if (MPXGetSysVersion() < kMPXSysVersionLion) {
+		if (MPXGetSysVersion().minorVersion < kMPXSysVersionLion) {
 			// in snow leopard
 			if ([[NSUserDefaults standardUserDefaults] integerForKey:@"AppleAquaColorVariant"] == 6) {
 				imgCloseActive	 = [[NSImage imageNamed:@"close-active-graphite.tiff"] retain];

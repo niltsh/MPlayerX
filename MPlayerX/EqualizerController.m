@@ -95,7 +95,9 @@
 		NSArray *settings = [ud arrayForKey:kUDKeyEQSettings];
 		
 		nibLoaded = YES;
-		[NSBundle loadNibNamed:@"Equalizer" owner:self];
+    NSArray* topLevel;
+    [[NSBundle bundleForClass:[self class]] loadNibNamed:@"Equalizer" owner:self topLevelObjects:&topLevel];
+    [topLevel retain];
 		
 		/** \warning Outlet的min和max的设定在XIB文件里面 */
 		bars = [[NSArray alloc] initWithObjects:sli30,sli60,sli125,sli250,sli500,sli1k,sli2k,sli4k,sli8k,sli16k,nil];

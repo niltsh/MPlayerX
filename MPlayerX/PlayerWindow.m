@@ -49,7 +49,7 @@ NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 -(void) awakeFromNib
 {
 	[self setHasShadow:YES];
-	if (MPXGetSysVersion() < kMPXSysVersionLion) {
+	if (MPXGetSysVersion().minorVersion < kMPXSysVersionLion) {
 		// 如果不是Lion
 		[self setCollectionBehavior:NSWindowCollectionBehaviorManaged];
 	} else {

@@ -68,7 +68,9 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 -(IBAction) showUI:(id)sender
 {
 	if (!nibLoaded) {
-		[NSBundle loadNibNamed:@"Pref" owner:self];
+    NSArray* topLevel;
+    [[NSBundle bundleForClass:[self class]] loadNibNamed:@"Pref" owner:self topLevelObjects:&topLevel];
+    [topLevel retain];
 		
 		[[charsetListPopup menu] removeAllItems];
 		
@@ -208,7 +210,7 @@ NSString * const PrefToolbarItemIdAdvanced	= @"TBIAdvanced";
 
 -(BOOL) oldFullScreenMethod
 {
-    return (MPXGetSysVersion() < kMPXSysVersionMavericks);
+    return (MPXGetSysVersion().minorVersion < kMPXSysVersionMavericks);
 }
 
 - (IBAction)multiThreadChanged:(id)sender

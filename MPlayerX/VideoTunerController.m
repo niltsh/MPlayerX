@@ -238,9 +238,10 @@ NSString * const kCILayerHueAngleEnabledKeyPath		= @"filters.hueFilter.enabled";
 {
 	if (!nibLoaded) {
 		nibLoaded = YES;
-		
+    NSArray* topLevel;
 		///////////////////////////// 加载bundle /////////////////////////////
-		[NSBundle loadNibNamed:@"VideoTuner" owner:self];
+    [[NSBundle bundleForClass:[self class]] loadNibNamed:@"VideoTuner" owner:self topLevelObjects:&topLevel];
+    [topLevel retain];
 		
 		[brInc setBordered:NO];
 		[brDec setBordered:NO];

@@ -48,7 +48,9 @@
 -(CFStringEncoding) askForSubEncodingForFile:(NSString*)path charsetName:(NSString*)charsetName confidence:(float)conf
 {
 	if (!nibLoaded) {
-		[NSBundle loadNibNamed:@"SubEncoding" owner:self];
+    NSArray* topLevel;
+    [[NSBundle bundleForClass:[self class]] loadNibNamed:@"SubEncoding" owner:self topLevelObjects:&topLevel];
+    [topLevel retain];
 		
 		[[charsetListPopup menu] removeAllItems];
 		[[charsetListPopup menu] appendCharsetList];

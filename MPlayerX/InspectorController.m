@@ -103,8 +103,10 @@ static BOOL init_ed = NO;
 {
 	if (!nibLoaded) {
 		nibLoaded = YES;
-		[NSBundle loadNibNamed:@"Inspector" owner:self];
-		
+    NSArray* topLevel;
+    [[NSBundle mainBundle] loadNibNamed:@"Inspector" owner:self topLevelObjects:&topLevel];
+		//[NSBundle loadNibNamed:@"Inspector" owner:self];
+    [topLevel retain];
 		[inspectorWin setLevel:NSMainMenuWindowLevel];
 		
 		[self loadMediaInfo:kLoadMIMaskAll];
