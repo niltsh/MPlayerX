@@ -137,7 +137,6 @@
 		867FDF351169FD2E000C71A6 /* HueSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 867FDF341169FD2E000C71A6 /* HueSliderCell.m */; };
 		868B9BD2131283FF001901F9 /* next-episode.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 868B9BD0131283FF001901F9 /* next-episode.pdf */; };
 		868B9BD3131283FF001901F9 /* prev-episode.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 868B9BD1131283FF001901F9 /* prev-episode.pdf */; };
-		869A336113D6EBFA0014B201 /* MPXWindowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 869A336013D6EBFA0014B201 /* MPXWindowButton.m */; };
 		86A5E40C10C7D24D00D061C7 /* wqy-microhei.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 86A5E40B10C7D24D00D061C7 /* wqy-microhei.ttc */; };
 		86B99D0210C9418600AB28FB /* OpenURLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B99D0110C9418600AB28FB /* OpenURLController.m */; };
 		86B9E23712D1B0910094B55E /* Inspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86B9E23612D1B0910094B55E /* Inspector.xib */; };
@@ -424,8 +423,6 @@
 		867FDF341169FD2E000C71A6 /* HueSliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HueSliderCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		868B9BD0131283FF001901F9 /* next-episode.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "next-episode.pdf"; sourceTree = "<group>"; };
 		868B9BD1131283FF001901F9 /* prev-episode.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "prev-episode.pdf"; sourceTree = "<group>"; };
-		869A335F13D6EBFA0014B201 /* MPXWindowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MPXWindowButton.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		869A336013D6EBFA0014B201 /* MPXWindowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MPXWindowButton.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		86A5E40B10C7D24D00D061C7 /* wqy-microhei.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "wqy-microhei.ttc"; sourceTree = "<group>"; };
 		86B99D0010C9418600AB28FB /* OpenURLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = OpenURLController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		86B99D0110C9418600AB28FB /* OpenURLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OpenURLController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -804,8 +801,6 @@
 				86CA9E9D110094FE00A3CDBC /* OsdText.m */,
 				861EE1E911662BF600D16C87 /* PlayerWindow.h */,
 				861EE1EA11662BF600D16C87 /* PlayerWindow.m */,
-				869A335F13D6EBFA0014B201 /* MPXWindowButton.h */,
-				869A336013D6EBFA0014B201 /* MPXWindowButton.m */,
 			);
 			name = Display;
 			sourceTree = "<group>";
@@ -1538,7 +1533,6 @@
 				86EA467B13BF23E300B1F588 /* ChapterItem.m in Sources */,
 				C02764101B0799B50017C0D6 /* NSObject+SPInvocationGrabbing.m in Sources */,
 				C0181DBE1B1A10160000CB8F /* BGHUDButtonCell.m in Sources */,
-				869A336113D6EBFA0014B201 /* MPXWindowButton.m in Sources */,
 				86E6F06014F7C3F500CA1546 /* HIDRemote.m in Sources */,
 				86C7D8FE1501B63800EB7C65 /* YTDL.m in Sources */,
 				867B51F915E116A900DA7E92 /* ScriptCommands.m in Sources */,

@@ -20,15 +20,9 @@
 
 #import "TitleView.h"
 #import "CocoaAppendix.h"
-#import "MPXWindowButton.h"
+#import <QuartzCore/CIFilter.h>
 
 static NSString * const kStringDots = @"...";
-static NSRect trackRect;
-
-@interface TitleView (TitleViewInternal)
--(void) windowDidBecomKey:(NSNotification*) notif;
--(void) windowDidResignKey:(NSNotification*) notif;
-@end
 
 @implementation TitleView
 
@@ -36,11 +30,6 @@ static NSRect trackRect;
 @synthesize closeButton;
 @synthesize miniButton;
 @synthesize zoomButton;
-
-+(void) initialize
-{
-  trackRect = NSMakeRect(0, 0, 70, 23);
-}
 
 -(BOOL) allowsVibrancy
 {
@@ -74,33 +63,25 @@ static NSRect trackRect;
     tbCornerRight	= [[NSImage imageNamed:@"titlebar-corner-right"] retain];
     tbMiddle		= [[NSImage imageNamed:@"titlebar-middle"] retain];
     
-    if (MPXGetSysVersion().minorVersion < kMPXSysVersionLion) {
-      fsButton = nil;
-      imgFSActive = nil;
-      imgFSRollver = nil;
-    } else {
-      // read the image
-      imgFSActive = [[NSImage imageNamed:@"fullscreen-active-lion"] retain];
-      imgFSRollver = [[NSImage imageNamed:@"fullscreen-rollover-lion"] retain];
-      //
-      fsButton = [[MPXWindowButton alloc] initWithFrame:NSMakeRect(4, 0, 22, 22) type:kMPXWindowFullscreenButtonType];
-      [fsButton setImage:imgFSActive];
+    fsButton = nil;
+    if (MPXGetSysVersion().minorVersion >= kMPXSysVersionLion && MPXGetSysVersion().minorVersion < kMPXSysVersionYosemite) {
+      fsButton = [NSWindow standardWindowButton:NSWindowFullScreenButton
+                                   forStyleMask:NSBorderlessWindowMask];
       [fsButton setAutoresizingMask:NSViewMinXMargin|NSViewMaxYMargin];
     }
     
     closeButton = [NSWindow standardWindowButton: NSWindowCloseButton
                                     forStyleMask:NSBorderlessWindowMask];
-    
     [closeButton setFrameOrigin:NSMakePoint(8, 4)];
-    miniButton = [NSWindow standardWindowButton:NSWindowMiniaturizeButton forStyleMask:NSBorderlessWindowMask];
+    miniButton = [NSWindow standardWindowButton:NSWindowMiniaturizeButton
+                                   forStyleMask:NSBorderlessWindowMask];
     [miniButton setFrameOrigin:NSMakePoint(29, 4)];
-    zoomButton = [NSWindow standardWindowButton:NSWindowZoomButton forStyleMask:NSBorderlessWindowMask ];
+    zoomButton = [NSWindow standardWindowButton:NSWindowZoomButton
+                                   forStyleMask:NSBorderlessWindowMask];
     [zoomButton setFrameOrigin:NSMakePoint(50, 4)];
     
     NSTrackingArea *const trackingArea = [[NSTrackingArea alloc] initWithRect:NSMakeRect(8, 4, 42+zoomButton.frame.size.width, zoomButton.frame.size.height) options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways) owner:self userInfo:nil];
     [self addTrackingArea:trackingArea];
-    
-    fsBtnEntered = NO;
   }
   return self;
 }
@@ -119,8 +100,6 @@ static NSRect trackRect;
   [tbMiddle release];
   
   [fsButton release];
-  [imgFSActive release];
-  [imgFSRollver release];
   
   [super dealloc];
 }
@@ -131,26 +110,13 @@ static NSRect trackRect;
   [self addSubview:miniButton];
   [self addSubview:zoomButton];
   
-  [closeButton setTarget:[self window]];
-  [miniButton setTarget:[self window]];
-  [zoomButton setTarget:[self window]];
-  
-  [closeButton setAction:@selector(performClose:)];
-  [miniButton setAction:@selector(performMiniaturize:)];
-  [zoomButton setAction:@selector(performZoom:)];
-  
   if (fsButton) {
     [self addSubview:fsButton];
-    [fsButton setTarget:[self window]];
-    [fsButton setAction:@selector(toggleFullScreen:)];
-    
-    NSRect rc = [fsButton bounds];
-    rc.origin.x = [self bounds].size.width - 22;
-    [fsButton setFrame:rc];
+    [fsButton setFrameOrigin:NSMakePoint([self bounds].size.width - 22,0)];
   }
 }
 
--(BOOL) acceptsFirstMouse:(NSEvent *)event { return YES; }
+//-(BOOL) acceptsFirstMouse:(NSEvent *)event { return YES; }
 -(BOOL) acceptsFirstResponder { return YES; }
 
 
@@ -165,6 +131,7 @@ static NSRect trackRect;
 
 - (void)mouseEntered:(NSEvent *)event
 {
+  [[self window] makeFirstResponder:self];
   [super mouseEntered:event];
   mouseInside = YES;
   [self setNeedsDisplayForStandardWindowButtons];
@@ -182,62 +149,20 @@ static NSRect trackRect;
   return mouseInside;
 }
 
+- (void) flagsChanged:(NSEvent *)event
+{
+  [self setNeedsDisplayForStandardWindowButtons];
+}
+
 - (void)setNeedsDisplayForStandardWindowButtons
 {
   [closeButton setNeedsDisplay];
   [miniButton setNeedsDisplay];
   [zoomButton setNeedsDisplay];
-}
-#if 0
--(void) mouseMoved:(NSEvent *)theEvent
-{
-
-  NSPoint pt = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-  
-  BOOL mouseIn = NSPointInRect(pt, trackRect);
-  
-  if (mouseIn != mouseEntered) {
-    // 状态发生变化
-    mouseEntered = mouseIn;
-    
-    if (mouseEntered) {
-      // entered
-      [closeButton setNeedsDisplay:YES];
-      [miniButton setNeedsDisplay:YES];
-      [zoomButton setNeedsDisplay:YES];
-    } else {
-      [closeButton setNeedsDisplay:NO];
-      [miniButton setNeedsDisplay:NO];
-      [zoomButton setNeedsDisplay:NO];
-#if 0
-      // exited
-      if ([[self window] isKeyWindow]) {
-        [closeButton setImage:imgCloseActive];
-        [miniButton setImage:imgMiniActive];
-        [zoomButton setImage:imgZoomActive];
-      } else {
-        [closeButton setImage:imgCloseInactive];
-        [miniButton setImage:imgMiniInactive];
-        [zoomButton setImage:imgZoomInactive];
-      }
-#endif
-    }
-  }
-  
   if (fsButton) {
-    mouseIn = NSPointInRect(pt, fsButton.frame);
-    if (mouseIn != fsBtnEntered) {
-      fsBtnEntered = mouseIn;
-      if (fsBtnEntered) {
-        [fsButton setImage:imgFSRollver];
-      } else {
-        [fsButton setImage:imgFSActive];
-      }
-    }
+    [fsButton setNeedsDisplay];
   }
-
 }
-#endif
 
 -(void) resetPosition
 {

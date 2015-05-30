@@ -31,15 +31,11 @@
 	NSImage *tbCornerLeft;
 	NSImage *tbCornerRight;
 	NSImage *tbMiddle;
-	
-	NSImage *imgFSActive;
-	NSImage *imgFSRollver;
 
 	NSString *title;
 	NSDictionary *titleAttr;
 	
 	BOOL mouseInside;
-	BOOL fsBtnEntered;
 }
 
 @property(retain, readwrite) NSString *title;

@@ -20,8 +20,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-#define kMPXSysVersionLion			(7)
-#define kMPXSysVersionMavericks     (9)
+#define kMPXSysVersionLion			 (7)
+#define kMPXSysVersionMavericks  (9)
+#define kMPXSysVersionYosemite    (10)
 
 extern NSString * const kMPCStringMPlayerX;
 
