@@ -416,7 +416,6 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 		[controlUI showUp];
 		[controlUI updateHintTime];
 	}
-	[titlebar mouseMoved:theEvent];
 }
 
 -(void)mouseDown:(NSEvent *)theEvent
@@ -425,8 +424,6 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	NSRect winRC = [playerWindow frame];
 	
 	dragShouldResize = ((NSMaxX(winRC) - dragMousePos.x < 16) && (dragMousePos.y - NSMinY(winRC) < 16))?YES:NO;
-	
-	// MPLog(@"mouseDown");
 }
 
 - (void)mouseDragged:(NSEvent *)event

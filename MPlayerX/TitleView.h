@@ -26,31 +26,19 @@
 	NSButton *closeButton;
 	NSButton *miniButton;
 	NSButton *zoomButton;
+	NSButton *fsButton;
 	
 	NSImage *tbCornerLeft;
 	NSImage *tbCornerRight;
 	NSImage *tbMiddle;
 	
-	NSImage *imgCloseActive;
-	NSImage *imgCloseInactive;
-	NSImage *imgCloseRollover;
-	
-	NSImage *imgMiniActive;
-	NSImage *imgMiniInactive;
-	NSImage *imgMiniRollover;
-	
-	NSImage *imgZoomActive;
-	NSImage *imgZoomInactive;
-	NSImage *imgZoomRollover;
-	
-	NSButton *fsButton;
 	NSImage *imgFSActive;
 	NSImage *imgFSRollver;
 
 	NSString *title;
 	NSDictionary *titleAttr;
 	
-	BOOL mouseEntered;
+	BOOL mouseInside;
 	BOOL fsBtnEntered;
 }
 
