@@ -19,7 +19,7 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import <BGHUDSliderCell.h>
+#import "BGHUDSliderCell.h"
 
 typedef enum
 {

@@ -18,18 +18,6 @@
 			name = "Update Versoin in info.plist";
 			productName = "Update Versoin in info.plist";
 		};
-		86E1D04514FBA91000432C93 /* Generate strings file */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 86E1D04914FBA91000432C93 /* Build configuration list for PBXAggregateTarget "Generate strings file" */;
-			buildPhases = (
-				86E1D04B14FBA92400432C93 /* ShellScript */,
-			);
-			dependencies = (
-				86E1D04F14FBAC4100432C93 /* PBXTargetDependency */,
-			);
-			name = "Generate strings file";
-			productName = "Generate strings file";
-		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -149,11 +137,6 @@
 		867FDF351169FD2E000C71A6 /* HueSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 867FDF341169FD2E000C71A6 /* HueSliderCell.m */; };
 		868B9BD2131283FF001901F9 /* next-episode.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 868B9BD0131283FF001901F9 /* next-episode.pdf */; };
 		868B9BD3131283FF001901F9 /* prev-episode.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 868B9BD1131283FF001901F9 /* prev-episode.pdf */; };
-		868CB5C81358710200EDC86F /* BGGradientTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 868CB5BE1358710200EDC86F /* BGGradientTheme.m */; };
-		868CB5C91358710200EDC86F /* BGHUDButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 868CB5C11358710200EDC86F /* BGHUDButtonCell.m */; };
-		868CB5CA1358710200EDC86F /* BGHUDSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 868CB5C31358710200EDC86F /* BGHUDSliderCell.m */; };
-		868CB5CB1358710200EDC86F /* BGTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 868CB5C51358710200EDC86F /* BGTheme.m */; };
-		868CB5CC1358710200EDC86F /* BGThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 868CB5C71358710200EDC86F /* BGThemeManager.m */; };
 		869A336113D6EBFA0014B201 /* MPXWindowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 869A336013D6EBFA0014B201 /* MPXWindowButton.m */; };
 		86A5E40C10C7D24D00D061C7 /* wqy-microhei.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 86A5E40B10C7D24D00D061C7 /* wqy-microhei.ttc */; };
 		86B99D0210C9418600AB28FB /* OpenURLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B99D0110C9418600AB28FB /* OpenURLController.m */; };
@@ -252,6 +235,11 @@
 		86FB6FC51131B42D005E95B5 /* KeyCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 86FB6FC41131B42D005E95B5 /* KeyCode.m */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		C0181DBD1B1A10160000CB8F /* BGGradientTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C0181DB31B1A10150000CB8F /* BGGradientTheme.m */; };
+		C0181DBE1B1A10160000CB8F /* BGHUDButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0181DB51B1A10150000CB8F /* BGHUDButtonCell.m */; };
+		C0181DBF1B1A10160000CB8F /* BGHUDSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0181DB81B1A10150000CB8F /* BGHUDSliderCell.m */; };
+		C0181DC01B1A10160000CB8F /* BGTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C0181DBA1B1A10160000CB8F /* BGTheme.m */; };
+		C0181DC11B1A10160000CB8F /* BGThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C0181DBC1B1A10160000CB8F /* BGThemeManager.m */; };
 		C027640C1B0799720017C0D6 /* SPMediaKeyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = C027640B1B0799720017C0D6 /* SPMediaKeyTap.m */; };
 		C02764101B0799B50017C0D6 /* NSObject+SPInvocationGrabbing.m in Sources */ = {isa = PBXBuildFile; fileRef = C027640F1B0799B50017C0D6 /* NSObject+SPInvocationGrabbing.m */; };
 		C02764121B079EA20017C0D6 /* UniversalDetector.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = C02764111B079EA20017C0D6 /* UniversalDetector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -265,13 +253,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 863CD3D312D9B98B00C8E321;
 			remoteInfo = "Update Versoin in info.plist";
-		};
-		86E1D04E14FBAC4100432C93 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = MPlayerX;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -443,17 +424,6 @@
 		867FDF341169FD2E000C71A6 /* HueSliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HueSliderCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		868B9BD0131283FF001901F9 /* next-episode.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "next-episode.pdf"; sourceTree = "<group>"; };
 		868B9BD1131283FF001901F9 /* prev-episode.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "prev-episode.pdf"; sourceTree = "<group>"; };
-		868CB5BD1358710200EDC86F /* BGGradientTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BGGradientTheme.h; path = ../BGHUDAppKit/Framework/BGGradientTheme.h; sourceTree = SOURCE_ROOT; };
-		868CB5BE1358710200EDC86F /* BGGradientTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BGGradientTheme.m; path = ../BGHUDAppKit/Framework/BGGradientTheme.m; sourceTree = SOURCE_ROOT; };
-		868CB5C01358710200EDC86F /* BGHUDButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BGHUDButtonCell.h; path = ../BGHUDAppKit/Framework/BGHUDButtonCell.h; sourceTree = SOURCE_ROOT; };
-		868CB5C11358710200EDC86F /* BGHUDButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BGHUDButtonCell.m; path = ../BGHUDAppKit/Framework/BGHUDButtonCell.m; sourceTree = SOURCE_ROOT; };
-		868CB5C21358710200EDC86F /* BGHUDSliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BGHUDSliderCell.h; path = ../BGHUDAppKit/Framework/BGHUDSliderCell.h; sourceTree = SOURCE_ROOT; };
-		868CB5C31358710200EDC86F /* BGHUDSliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BGHUDSliderCell.m; path = ../BGHUDAppKit/Framework/BGHUDSliderCell.m; sourceTree = SOURCE_ROOT; };
-		868CB5C41358710200EDC86F /* BGTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BGTheme.h; path = ../BGHUDAppKit/Framework/BGTheme.h; sourceTree = SOURCE_ROOT; };
-		868CB5C51358710200EDC86F /* BGTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BGTheme.m; path = ../BGHUDAppKit/Framework/BGTheme.m; sourceTree = SOURCE_ROOT; };
-		868CB5C61358710200EDC86F /* BGThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BGThemeManager.h; path = ../BGHUDAppKit/Framework/BGThemeManager.h; sourceTree = SOURCE_ROOT; };
-		868CB5C71358710200EDC86F /* BGThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BGThemeManager.m; path = ../BGHUDAppKit/Framework/BGThemeManager.m; sourceTree = SOURCE_ROOT; };
-		868CB5CD1358718500EDC86F /* BGHUDGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BGHUDGeometry.h; path = ../BGHUDAppKit/Framework/BGHUDGeometry.h; sourceTree = SOURCE_ROOT; };
 		869A335F13D6EBFA0014B201 /* MPXWindowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MPXWindowButton.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		869A336013D6EBFA0014B201 /* MPXWindowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MPXWindowButton.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		86A5E40B10C7D24D00D061C7 /* wqy-microhei.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "wqy-microhei.ttc"; sourceTree = "<group>"; };
@@ -577,6 +547,17 @@
 		86FB6F7F1131A4BF005E95B5 /* coredef_private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = coredef_private.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		86FB6FC41131B42D005E95B5 /* KeyCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KeyCode.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8D1107320486CEB800E47090 /* MPlayerX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MPlayerX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0181DB21B1A10150000CB8F /* BGGradientTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGGradientTheme.h; sourceTree = "<group>"; };
+		C0181DB31B1A10150000CB8F /* BGGradientTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGGradientTheme.m; sourceTree = "<group>"; };
+		C0181DB41B1A10150000CB8F /* BGHUDButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGHUDButtonCell.h; sourceTree = "<group>"; };
+		C0181DB51B1A10150000CB8F /* BGHUDButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGHUDButtonCell.m; sourceTree = "<group>"; };
+		C0181DB61B1A10150000CB8F /* BGHUDGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGHUDGeometry.h; sourceTree = "<group>"; };
+		C0181DB71B1A10150000CB8F /* BGHUDSliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGHUDSliderCell.h; sourceTree = "<group>"; };
+		C0181DB81B1A10150000CB8F /* BGHUDSliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGHUDSliderCell.m; sourceTree = "<group>"; };
+		C0181DB91B1A10160000CB8F /* BGTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGTheme.h; sourceTree = "<group>"; };
+		C0181DBA1B1A10160000CB8F /* BGTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGTheme.m; sourceTree = "<group>"; };
+		C0181DBB1B1A10160000CB8F /* BGThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGThemeManager.h; sourceTree = "<group>"; };
+		C0181DBC1B1A10160000CB8F /* BGThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGThemeManager.m; sourceTree = "<group>"; };
 		C027640A1B0799720017C0D6 /* SPMediaKeyTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMediaKeyTap.h; sourceTree = "<group>"; };
 		C027640B1B0799720017C0D6 /* SPMediaKeyTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMediaKeyTap.m; sourceTree = "<group>"; };
 		C027640E1B0799B50017C0D6 /* NSObject+SPInvocationGrabbing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SPInvocationGrabbing.h"; sourceTree = "<group>"; };
@@ -1055,17 +1036,17 @@
 		868CB5B41358707B00EDC86F /* BGHUDAppKit */ = {
 			isa = PBXGroup;
 			children = (
-				868CB5CD1358718500EDC86F /* BGHUDGeometry.h */,
-				868CB5BD1358710200EDC86F /* BGGradientTheme.h */,
-				868CB5BE1358710200EDC86F /* BGGradientTheme.m */,
-				868CB5C01358710200EDC86F /* BGHUDButtonCell.h */,
-				868CB5C11358710200EDC86F /* BGHUDButtonCell.m */,
-				868CB5C21358710200EDC86F /* BGHUDSliderCell.h */,
-				868CB5C31358710200EDC86F /* BGHUDSliderCell.m */,
-				868CB5C41358710200EDC86F /* BGTheme.h */,
-				868CB5C51358710200EDC86F /* BGTheme.m */,
-				868CB5C61358710200EDC86F /* BGThemeManager.h */,
-				868CB5C71358710200EDC86F /* BGThemeManager.m */,
+				C0181DB21B1A10150000CB8F /* BGGradientTheme.h */,
+				C0181DB31B1A10150000CB8F /* BGGradientTheme.m */,
+				C0181DB41B1A10150000CB8F /* BGHUDButtonCell.h */,
+				C0181DB51B1A10150000CB8F /* BGHUDButtonCell.m */,
+				C0181DB61B1A10150000CB8F /* BGHUDGeometry.h */,
+				C0181DB71B1A10150000CB8F /* BGHUDSliderCell.h */,
+				C0181DB81B1A10150000CB8F /* BGHUDSliderCell.m */,
+				C0181DB91B1A10160000CB8F /* BGTheme.h */,
+				C0181DBA1B1A10160000CB8F /* BGTheme.m */,
+				C0181DBB1B1A10160000CB8F /* BGThemeManager.h */,
+				C0181DBC1B1A10160000CB8F /* BGThemeManager.m */,
 			);
 			name = BGHUDAppKit;
 			sourceTree = "<group>";
@@ -1302,7 +1283,6 @@
 			targets = (
 				863CD3D312D9B98B00C8E321 /* Update Versoin in info.plist */,
 				8D1107260486CEB800E47090 /* MPlayerX */,
-				86E1D04514FBA91000432C93 /* Generate strings file */,
 			);
 		};
 /* End PBXProject section */
@@ -1502,19 +1482,6 @@
 			shellPath = /bin/sh;
 			shellScript = "# shell script goes here\n\nexport PATH=${PATH}:/usr/local/bin:/usr/local/git/bin:/sw/bin\n\nruby updateInfoPlist.rb MPlayerX-Info.plist\ntouch -amfc MPlayerX-Info.plist\n\nexit 0";
 		};
-		86E1D04B14FBA92400432C93 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nMPXVER=$(ruby getAppVersion.rb ${TARGET_BUILD_DIR}/MPlayerX.app)\n\necho ${MPXVER}\n\ncd ../localization/${MPXVER}/English.lproj\n\nmkdir -p stringsFiles\n\nibtool --generate-strings-file stringsFiles/MainMenu.strings MainMenu.xib\nibtool --generate-strings-file stringsFiles/Pref.strings Pref.xib\nibtool --generate-strings-file stringsFiles/VideoTuner.strings VideoTuner.xib\nibtool --generate-strings-file stringsFiles/SubEncoding.strings SubEncoding.xib\nibtool --generate-strings-file stringsFiles/Equalizer.strings Equalizer.xib\nibtool --generate-strings-file stringsFiles/Inspector.strings Inspector.xib\n\ncp Localizable.strings stringsFiles/\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1524,12 +1491,14 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				C027640C1B0799720017C0D6 /* SPMediaKeyTap.m in Sources */,
+				C0181DC11B1A10160000CB8F /* BGThemeManager.m in Sources */,
 				86CAF23D10BA44DD00848B8E /* LogAnalyzeOperation.m in Sources */,
 				86CAF23E10BA44DD00848B8E /* LogAnalyzer.m in Sources */,
 				86CAF24110BA44EA00848B8E /* MovieInfo.m in Sources */,
 				86CAF24710BA44F700848B8E /* ParameterManager.m in Sources */,
 				86CAF24A10BA450300848B8E /* PlayerCore.m in Sources */,
 				86CAF25110BA451100848B8E /* PlayingInfo.m in Sources */,
+				C0181DBD1B1A10160000CB8F /* BGGradientTheme.m in Sources */,
 				8608652E10BA55CE00459392 /* DisplayLayer.m in Sources */,
 				8608652F10BA55CE00459392 /* RootLayerView.m in Sources */,
 				86F4DADB10BC329F007AE56A /* ControlUIView.m in Sources */,
@@ -1542,6 +1511,7 @@
 				8617287D10CFAB32003A0CE2 /* ArrowTextField.m in Sources */,
 				865AB3FD10EC82A300065E2F /* PrefController.m in Sources */,
 				86D10C1310F4A29A000B573F /* ResizeIndicator.m in Sources */,
+				C0181DC01B1A10160000CB8F /* BGTheme.m in Sources */,
 				8661414210FA2B7E007F36DA /* SubConverter.m in Sources */,
 				86E34BBF10FF42A40004C4E7 /* CoreController.m in Sources */,
 				86E34BC210FF42B10004C4E7 /* PlayerController.m in Sources */,
@@ -1558,19 +1528,16 @@
 				861EE37D116718AF00D16C87 /* TitleView.m in Sources */,
 				867FDF351169FD2E000C71A6 /* HueSliderCell.m in Sources */,
 				866CCF5511DE378300032F96 /* EqualizerController.m in Sources */,
+				C0181DBF1B1A10160000CB8F /* BGHUDSliderCell.m in Sources */,
 				86C02AEF12309BCF004E8181 /* UserDefaults.m in Sources */,
 				865A5D2A12CA0E100021CF8E /* AppController.m in Sources */,
 				8612503F12D1C2290085DFF0 /* InspectorController.m in Sources */,
 				865845171346D7E900570BA6 /* def.m in Sources */,
-				868CB5C81358710200EDC86F /* BGGradientTheme.m in Sources */,
-				868CB5C91358710200EDC86F /* BGHUDButtonCell.m in Sources */,
-				868CB5CA1358710200EDC86F /* BGHUDSliderCell.m in Sources */,
-				868CB5CB1358710200EDC86F /* BGTheme.m in Sources */,
-				868CB5CC1358710200EDC86F /* BGThemeManager.m in Sources */,
 				8605F0D6137E67FE00317941 /* MPApplication.m in Sources */,
 				863702E4138EA4AB00FD13BE /* AODetector.m in Sources */,
 				86EA467B13BF23E300B1F588 /* ChapterItem.m in Sources */,
 				C02764101B0799B50017C0D6 /* NSObject+SPInvocationGrabbing.m in Sources */,
+				C0181DBE1B1A10160000CB8F /* BGHUDButtonCell.m in Sources */,
 				869A336113D6EBFA0014B201 /* MPXWindowButton.m in Sources */,
 				86E6F06014F7C3F500CA1546 /* HIDRemote.m in Sources */,
 				86C7D8FE1501B63800EB7C65 /* YTDL.m in Sources */,
@@ -1586,11 +1553,6 @@
 			isa = PBXTargetDependency;
 			target = 863CD3D312D9B98B00C8E321 /* Update Versoin in info.plist */;
 			targetProxy = 863CD3D612D9B9A000C8E321 /* PBXContainerItemProxy */;
-		};
-		86E1D04F14FBAC4100432C93 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* MPlayerX */;
-			targetProxy = 86E1D04E14FBAC4100432C93 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1845,30 +1807,6 @@
 			};
 			name = Release;
 		};
-		86E1D04614FBA91000432C93 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		86E1D04714FBA91000432C93 /* Deploy */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Deploy;
-		};
-		86E1D04814FBA91000432C93 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		86FDD36D1314E4A400A79853 /* Deploy */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1995,16 +1933,6 @@
 				863CD3D412D9B98B00C8E321 /* Debug */,
 				86FDD36E1314E4A400A79853 /* Deploy */,
 				869B71D013A0E3FA00B9BA76 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		86E1D04914FBA91000432C93 /* Build configuration list for PBXAggregateTarget "Generate strings file" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				86E1D04614FBA91000432C93 /* Debug */,
-				86E1D04714FBA91000432C93 /* Deploy */,
-				86E1D04814FBA91000432C93 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
