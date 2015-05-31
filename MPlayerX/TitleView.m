@@ -154,6 +154,12 @@ static NSString * const kStringDots = @"...";
   [self setNeedsDisplayForStandardWindowButtons];
 }
 
+- (void) resetButtons
+{
+  mouseInside = NO;
+  [self setNeedsDisplayForStandardWindowButtons];
+}
+
 - (void)setNeedsDisplayForStandardWindowButtons
 {
   [closeButton setNeedsDisplay];

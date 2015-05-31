@@ -46,4 +46,5 @@
 
 -(void) resetPosition;
 -(BOOL) allowsVibrancy;
+-(void) resetButtons;
 @end
