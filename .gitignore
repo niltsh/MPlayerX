@@ -8,3 +8,4 @@
 /MPlayerX/MPlayerX.xcodeproj/project.xcworkspace/xcshareddata/
 /MPlayerX/MPlayerX.xcodeproj/xcuserdata/NILTSH.xcuserdatad/xcdebugger/
 /releases-binaries/
+*.xcbkptlist
