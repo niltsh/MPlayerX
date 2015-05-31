@@ -24,26 +24,26 @@
 
 @interface PrefController : NSObject <NSOpenSavePanelDelegate>
 {
-	NSUserDefaults *ud;
-
-	BOOL nibLoaded;
-	NSArray *prefViews;
-	
-	IBOutlet NSWindow *prefWin;
-	IBOutlet NSToolbar *prefToolbar;
-	
-	IBOutlet NSView *viewGeneral;
-	IBOutlet NSView *viewVideo;
-	IBOutlet NSView *viewAudio;
-	IBOutlet NSView *viewSub;
-	IBOutlet NSView *viewNetwork;
-	IBOutlet NSView *viewAdvanced;
-	
-    IBOutlet PlayerController *playerController;
-    IBOutlet RootLayerView *dispView;
-	IBOutlet ControlUIView *controlUI;
-	IBOutlet NSPopUpButton *charsetListPopup;
-	IBOutlet NSPopUpButton *fontListPopup;
+  NSUserDefaults *ud;
+  
+  BOOL nibLoaded;
+  NSArray *prefViews;
+  
+  IBOutlet NSWindow *prefWin;
+  IBOutlet NSToolbar *prefToolbar;
+  
+  IBOutlet NSView *viewGeneral;
+  IBOutlet NSView *viewVideo;
+  IBOutlet NSView *viewAudio;
+  IBOutlet NSView *viewSub;
+  IBOutlet NSView *viewNetwork;
+  IBOutlet NSView *viewAdvanced;
+  
+  IBOutlet PlayerController *playerController;
+  IBOutlet RootLayerView *dispView;
+  IBOutlet ControlUIView *controlUI;
+  IBOutlet NSPopUpButton *charsetListPopup;
+  IBOutlet NSPopUpButton *fontListPopup;
 }
 @property (readonly) BOOL oldFullScreenMethod;
 

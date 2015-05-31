@@ -50,17 +50,17 @@
 	BOOL playbackFinalized;
 	
 	BOOL canMoveAcrossMenuBar;
-	
-	NSInteger threeFingersTap;
-	NSInteger threeFingersPinch;
-	float threeFingersPinchDistance;
-	NSInteger fourFingersPinch;
-	float fourFingersPinchDistance;
-    NSInteger threeFingersSwipe;
-    NSPoint threeFingersSwipeCord;
-    // BOOL hasSwipeEvent;
-    
-    NSTimeInterval lastScrollLR;
+  
+  NSInteger threeFingersTap;
+  NSInteger threeFingersPinch;
+  float threeFingersPinchDistance;
+  NSInteger fourFingersPinch;
+  float fourFingersPinchDistance;
+  NSInteger threeFingersSwipe;
+  NSPoint threeFingersSwipeCord;
+  // BOOL hasSwipeEvent;
+  
+  NSTimeInterval lastScrollLR;
 	
 	// 在切换全屏的时候，view的window会发生变化，因此这里用一个成员变量锁定window
 	IBOutlet PlayerWindow *playerWindow;
@@ -69,7 +69,7 @@
 	IBOutlet ShortCutManager *shortCutManager;
 	IBOutlet VideoTunerController *VTController;
 	IBOutlet TitleView *titlebar;
-    IBOutlet OsdText *osd;
+  IBOutlet OsdText *osd;
 }
 
 @property (assign, readwrite, nonatomic) BOOL lockAspectRatio;

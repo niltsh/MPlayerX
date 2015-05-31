@@ -27,12 +27,12 @@
 
 +(void) initialize
 {
-	[[NSUserDefaults standardUserDefaults] registerDefaults:
-	 [NSDictionary dictionaryWithObjectsAndKeys:
-	  [NSNumber numberWithFloat:0.8], kUDKeyTextSubtitleCharsetConfidenceThresh,
-	  [NSNumber numberWithBool:YES], kUDKeyTextSubtitleCharsetManual,
-	  [NSNumber numberWithInteger:kCFStringEncodingInvalidId], kUDKeyTextSubtitleCharsetFallback,
-	  nil]];
+  [[NSUserDefaults standardUserDefaults] registerDefaults:
+   [NSDictionary dictionaryWithObjectsAndKeys:
+    [NSNumber numberWithFloat:0.8], kUDKeyTextSubtitleCharsetConfidenceThresh,
+    [NSNumber numberWithBool:YES], kUDKeyTextSubtitleCharsetManual,
+    [NSNumber numberWithInteger:kCFStringEncodingInvalidId], kUDKeyTextSubtitleCharsetFallback,
+    nil]];
 }
 
 -(id) init

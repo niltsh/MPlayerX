@@ -125,31 +125,31 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 #pragma mark Init/Dealloc
 +(void) initialize
 {
-	NSNumber *boolYes = [NSNumber numberWithBool:YES];
-	NSNumber *boolNo  = [NSNumber numberWithBool:NO];
-	
-	[[NSUserDefaults standardUserDefaults] 
-	 registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-					   [NSNumber numberWithInt:kOnTopModePlaying], kUDKeyOnTopMode,
-					   boolNo, kUDKeyStartByFullScreen,
-					   boolYes, kUDKeyFullScreenKeepOther,
-					   boolNo, kUDKeyQuitOnClose,
-					   boolNo, kUDKeyPinPMode,
-					   boolNo, kUDKeyAlwaysHideDockInFullScrn,
-					   boolYes, kUDKeyDisableHScrollSeek,
-					   boolNo, kUDKeyDisableVScrollVol,
-					   [NSNumber numberWithFloat:1.5], kUDKeyThreeFingersPinchThreshRatio,
-					   [NSNumber numberWithFloat:1.8], kUDKeyFourFingersPinchThreshRatio,
-					   boolNo, kUDKeyCloseWndOnEsc,
-					   boolYes, kUDKeyDontResizeWhenContinuousPlay,
-					   [NSNumber numberWithFloat:1.0], kUDKeyInitialFrameSizeRatio,
-					   boolNo, kUDKeyOldFullScreenMethod,
-					   boolNo, kUDKeyAlwaysUseSecondaryScreen,
-                       boolNo, kUDKeyClickTogPlayPause,
-                       boolNo, kUDKeyAnimateFullScreen,
-                       boolYes, kUDKeyControlUIDetectMouseExit,
-                       [NSNumber numberWithFloat:0.15], kUDKeyThreeFingersSwipeThreshRatio,
-					   nil]];
+  NSNumber *boolYes = [NSNumber numberWithBool:YES];
+  NSNumber *boolNo  = [NSNumber numberWithBool:NO];
+  
+  [[NSUserDefaults standardUserDefaults]
+   registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+                     [NSNumber numberWithInt:kOnTopModePlaying], kUDKeyOnTopMode,
+                     boolNo, kUDKeyStartByFullScreen,
+                     boolYes, kUDKeyFullScreenKeepOther,
+                     boolNo, kUDKeyQuitOnClose,
+                     boolNo, kUDKeyPinPMode,
+                     boolNo, kUDKeyAlwaysHideDockInFullScrn,
+                     boolYes, kUDKeyDisableHScrollSeek,
+                     boolNo, kUDKeyDisableVScrollVol,
+                     [NSNumber numberWithFloat:1.5], kUDKeyThreeFingersPinchThreshRatio,
+                     [NSNumber numberWithFloat:1.8], kUDKeyFourFingersPinchThreshRatio,
+                     boolNo, kUDKeyCloseWndOnEsc,
+                     boolYes, kUDKeyDontResizeWhenContinuousPlay,
+                     [NSNumber numberWithFloat:1.0], kUDKeyInitialFrameSizeRatio,
+                     boolNo, kUDKeyOldFullScreenMethod,
+                     boolNo, kUDKeyAlwaysUseSecondaryScreen,
+                     boolNo, kUDKeyClickTogPlayPause,
+                     boolYes, kUDKeyAnimateFullScreen,
+                     boolYes, kUDKeyControlUIDetectMouseExit,
+                     [NSNumber numberWithFloat:0.15], kUDKeyThreeFingersSwipeThreshRatio,
+                     nil]];
 }
 
 -(id) initWithCoder:(NSCoder *)aDecoder
@@ -1252,8 +1252,8 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 
 -(BOOL) toggleFullScreen
 {
-	BOOL oldWay = NO;
-	
+  BOOL oldWay = NO;
+  
   if (fullScreenStatus == kFullScreenStatusNone) {
     // 非全屏状态的话，就根据现在的状况来判断
     // 10.9系统支持了多屏幕的全屏，
@@ -1261,203 +1261,192 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
     oldWay = shouldUseOldFullScreenMethod();
   } else {
     // 现在是全屏状态，要推出全屏
-		// 因此要和进入全屏时的状态保持一致
-		oldWay = (fullScreenStatus == kFullScreenStatusOld);
-	}
-	
-	if (oldWay) {
-		// ！注意：这里的显示状态和mplayer的播放状态时不一样的，比如，mplayer在MP3的时候，播放状态为YES，显示状态为NO
-		if ([self isInFullScreenMode]) {
-			// 无论否在显示都可以退出全屏
-			
-			// 必须砸退出全屏的时候再设定
-			// 在退出全屏之前，这个view并不属于window，设定contentsize不起作用
-			if (shouldResize) {
-				shouldResize = NO;
-				// 得到目标frame
-                
-                MPLog(@"rcBefore:%@", NSStringFromRect(rcBeforeFullScrn));
-                // 这里的再次计算是必要的，当在全屏时由多个屏幕变为一个屏幕时，会退出全屏
-                // 这个时候 rcBeforeFullScrn 可能会在主屏幕外面
-				rcBeforeFullScrn = [self calculateFrameFrom:rcBeforeFullScrn
-													  toFit:[dispLayer aspectRatio]
-													   mode:kCalFrameSizeDiag | kCalFrameFixPosCenter];
-                MPLog(@"rcAfter: %@", NSStringFromRect(rcBeforeFullScrn));
-				[dispLayer forceAdjustToFitBounds:YES];
-				if (displaying) {
-					// 先将playerWindow放到全屏窗口的背后
-					[playerWindow orderWindow:NSWindowBelow relativeTo:[[self window] windowNumber]];
-					// 退出全屏
-					[self exitFullScreenModeWithOptions:fullScreenOptions];
-					// 取消全屏时的各种设置
-					[dispLayer enablePositionOffset:NO];
-					[dispLayer enableScale:NO];
-					// 如果选定了CloseWindowWhenStopped的话
-					// 播放完毕退出全屏会在这里显示窗口，然后退出到ControlUIView里面在关闭窗口
-					// 出现窗口闪动，因此只有当在diplaying的时候才主动显示窗口
-					[playerWindow makeKeyAndOrderFront:self];
-				} else {
-					// 如果不是displaying，那么根本不会显示window
-					// 退出全屏
-					[self exitFullScreenModeWithOptions:fullScreenOptions];
-					[dispLayer enablePositionOffset:NO];
-					[dispLayer enableScale:NO];
-				}
-				
-				// 如果没有displaying，那么就不需要动画了
-				[playerWindow setFrame:rcBeforeFullScrn display:YES animate:[ud boolForKey:kUDKeyAnimateFullScreen]?displaying:NO];
-				[dispLayer display];
-				[dispLayer forceAdjustToFitBounds:NO];
-				
-				// 当进入全屏的时候，回强制锁定ar
-				// 当出了全屏，更新了window的size之后，在这里需要再一次设定window的ar
-				[playerWindow setContentAspectRatio:[playerWindow contentRectForFrameRect:rcBeforeFullScrn].size];
-			} else {
-				[self exitFullScreenModeWithOptions:fullScreenOptions];
-				
-				// 推出全屏，重新根据现在的尺寸比例渲染图像
-				[dispLayer enablePositionOffset:NO];
-				[dispLayer enableScale:NO];
-				[dispLayer display];
-				
-				if (displaying) {
-					// 如果选定了CloseWindowWhenStopped的话
-					// 播放完毕退出全屏会在这里显示窗口，然后退出到ControlUIView里面在关闭窗口
-					// 出现窗口闪动，因此只有当在diplaying的时候才主动显示窗口
-					[playerWindow makeKeyAndOrderFront:self];
-				}
-			}
-			[playerWindow makeFirstResponder:self];
-			
-			// 必须要在退出全屏之后才能设定window level
-			[self setPlayerWindowLevel];
-			
-			fullScreenStatus = kFullScreenStatusNone;
-			
-		} else if (displaying) {
-			// 应该进入全屏
-			// 只有在显示图像的时候才能进入全屏
-			
-			// 强制Lock Aspect Ratio
-			[self setLockAspectRatio:YES];
-			
-			BOOL keepOtherSrn = [ud boolForKey:kUDKeyFullScreenKeepOther];
-			
-			NSScreen *chosenScreen;
-			NSArray *scrnList = [NSScreen screens];
-			if (([scrnList count] > 1) && [ud boolForKey:kUDKeyAlwaysUseSecondaryScreen]) {
-				// 如果有多个screen，并且选中了始终使用secondary screen
-				chosenScreen = [scrnList objectAtIndex:1];
-			} else {
-				// 得到window目前所在的screen
-				chosenScreen = [playerWindow screen];
-			}
-			
-			// Presentation Options
-			NSApplicationPresentationOptions opts;
-			
-			if (chosenScreen == [scrnList objectAtIndex:0] || (!keepOtherSrn)) {
-				// if the main screen
-				// there is no reason to always hide Dock, when MPX displayed in the secondary screen
-				// so only do it in main screen
-				if ([ud boolForKey:kUDKeyAlwaysHideDockInFullScrn]) {
-					opts = NSApplicationPresentationHideDock | NSApplicationPresentationAutoHideMenuBar;
-				} else {
-					opts = NSApplicationPresentationAutoHideDock | NSApplicationPresentationAutoHideMenuBar;
-				}
-			} else {
-				// in secondary screens
-				opts = [NSApp presentationOptions];
-			}
-			
-			[fullScreenOptions setObject:[NSNumber numberWithUnsignedLong:opts] forKey:NSFullScreenModeApplicationPresentationOptions];
-			// whether grab all the screens
-			[fullScreenOptions setObject:[NSNumber numberWithBool:!keepOtherSrn] forKey:NSFullScreenModeAllScreens];
-			
-			shouldResize = YES;
-			// 先记下全屏前窗口的方位
-			rcBeforeFullScrn = [playerWindow frame];
-			// 动画进入全屏
-			
-			[dispLayer forceAdjustToFitBounds:YES];
-			[playerWindow setFrame:[chosenScreen frame] display:YES animate:[ud boolForKey:kUDKeyAnimateFullScreen]];
-			[dispLayer display];
-			
-			// 进入全屏
-			[self enterFullScreenMode:chosenScreen withOptions:fullScreenOptions];
-			// 推出全屏，重新根据现在的尺寸比例渲染图像
-			[dispLayer enablePositionOffset:YES];
-			[dispLayer enableScale:YES];
-			// 暂停的时候能够正确显示
-			[dispLayer display];
-			[dispLayer forceAdjustToFitBounds:NO];
-			
-			[playerWindow orderOut:self];
-			
-			[[self window] setCollectionBehavior:NSWindowCollectionBehaviorManaged];
-			
-			// 得到screen的分辨率，并和播放中的图像进行比较
-			// 知道是横图还是竖图
-			NSSize sz = [self bounds].size;
-			
-			[controlUI setFillScreenMode:(((sz.height * [dispLayer aspectRatio]) >= sz.width)?kFillScreenButtonImageUBKey:kFillScreenButtonImageLRKey)
-								   state:([dispLayer fillScreen])?NSOnState:NSOffState];
-			fullScreenStatus = kFullScreenStatusOld;
-		} else {
-			// 强制渲染一次
-			[dispLayer display];
-			fullScreenStatus = kFullScreenStatusNone;
-			return NO;
-		}
-    
-	
+    // 因此要和进入全屏时的状态保持一致
+    oldWay = (fullScreenStatus == kFullScreenStatusOld);
+  }
   
+  if (oldWay) {
+    // ！注意：这里的显示状态和mplayer的播放状态时不一样的，比如，mplayer在MP3的时候，播放状态为YES，显示状态为NO
+    if ([self isInFullScreenMode]) {
+      // 无论否在显示都可以退出全屏
+      
+      // 必须砸退出全屏的时候再设定
+      // 在退出全屏之前，这个view并不属于window，设定contentsize不起作用
+      if (shouldResize) {
+        shouldResize = NO;
+        // 得到目标frame
+        
+        MPLog(@"rcBefore:%@", NSStringFromRect(rcBeforeFullScrn));
+        // 这里的再次计算是必要的，当在全屏时由多个屏幕变为一个屏幕时，会退出全屏
+        // 这个时候 rcBeforeFullScrn 可能会在主屏幕外面
+        rcBeforeFullScrn = [self calculateFrameFrom:rcBeforeFullScrn
+                                              toFit:[dispLayer aspectRatio]
+                                               mode:kCalFrameSizeDiag | kCalFrameFixPosCenter];
+        MPLog(@"rcAfter: %@", NSStringFromRect(rcBeforeFullScrn));
+        [dispLayer forceAdjustToFitBounds:YES];
+        if (displaying) {
+          // 先将playerWindow放到全屏窗口的背后
+          [playerWindow orderWindow:NSWindowBelow relativeTo:[[self window] windowNumber]];
+          // 退出全屏
+          [self exitFullScreenModeWithOptions:fullScreenOptions];
+          // 取消全屏时的各种设置
+          [dispLayer enablePositionOffset:NO];
+          [dispLayer enableScale:NO];
+          // 如果选定了CloseWindowWhenStopped的话
+          // 播放完毕退出全屏会在这里显示窗口，然后退出到ControlUIView里面在关闭窗口
+          // 出现窗口闪动，因此只有当在diplaying的时候才主动显示窗口
+          [playerWindow makeKeyAndOrderFront:self];
+        } else {
+          // 如果不是displaying，那么根本不会显示window
+          // 退出全屏
+          [self exitFullScreenModeWithOptions:fullScreenOptions];
+          [dispLayer enablePositionOffset:NO];
+          [dispLayer enableScale:NO];
+        }
+        
+        // 如果没有displaying，那么就不需要动画了
+        [playerWindow setFrame:rcBeforeFullScrn display:YES animate:[ud boolForKey:kUDKeyAnimateFullScreen]?displaying:NO];
+        [dispLayer display];
+        [dispLayer forceAdjustToFitBounds:NO];
+        
+        // 当进入全屏的时候，回强制锁定ar
+        // 当出了全屏，更新了window的size之后，在这里需要再一次设定window的ar
+        [playerWindow setContentAspectRatio:[playerWindow contentRectForFrameRect:rcBeforeFullScrn].size];
+      } else {
+        [self exitFullScreenModeWithOptions:fullScreenOptions];
+        
+        // 推出全屏，重新根据现在的尺寸比例渲染图像
+        [dispLayer enablePositionOffset:NO];
+        [dispLayer enableScale:NO];
+        [dispLayer display];
+        
+        if (displaying) {
+          // 如果选定了CloseWindowWhenStopped的话
+          // 播放完毕退出全屏会在这里显示窗口，然后退出到ControlUIView里面在关闭窗口
+          // 出现窗口闪动，因此只有当在diplaying的时候才主动显示窗口
+          [playerWindow makeKeyAndOrderFront:self];
+        }
+      }
+      [playerWindow makeFirstResponder:self];
+      
+      // 必须要在退出全屏之后才能设定window level
+      [self setPlayerWindowLevel];
+      
+      fullScreenStatus = kFullScreenStatusNone;
+      
+    } else if (displaying) {
+      // 应该进入全屏
+      // 只有在显示图像的时候才能进入全屏
+      
+      // 强制Lock Aspect Ratio
+      [self setLockAspectRatio:YES];
+      
+      BOOL keepOtherSrn = [ud boolForKey:kUDKeyFullScreenKeepOther];
+      
+      NSScreen *chosenScreen;
+      NSArray *scrnList = [NSScreen screens];
+      if (([scrnList count] > 1) && [ud boolForKey:kUDKeyAlwaysUseSecondaryScreen]) {
+        // 如果有多个screen，并且选中了始终使用secondary screen
+        chosenScreen = [scrnList objectAtIndex:1];
+      } else {
+        // 得到window目前所在的screen
+        chosenScreen = [playerWindow screen];
+      }
+      
+      // Presentation Options
+      NSApplicationPresentationOptions opts;
+      
+      if (chosenScreen == [scrnList objectAtIndex:0] || (!keepOtherSrn)) {
+        // if the main screen
+        // there is no reason to always hide Dock, when MPX displayed in the secondary screen
+        // so only do it in main screen
+        if ([ud boolForKey:kUDKeyAlwaysHideDockInFullScrn]) {
+          opts = NSApplicationPresentationHideDock | NSApplicationPresentationAutoHideMenuBar;
+        } else {
+          opts = NSApplicationPresentationAutoHideDock | NSApplicationPresentationAutoHideMenuBar;
+        }
+      } else {
+        // in secondary screens
+        opts = [NSApp presentationOptions];
+      }
+      
+      [fullScreenOptions setObject:[NSNumber numberWithUnsignedLong:opts] forKey:NSFullScreenModeApplicationPresentationOptions];
+      // whether grab all the screens
+      [fullScreenOptions setObject:[NSNumber numberWithBool:!keepOtherSrn] forKey:NSFullScreenModeAllScreens];
+      
+      shouldResize = YES;
+      // 先记下全屏前窗口的方位
+      rcBeforeFullScrn = [playerWindow frame];
+      // 动画进入全屏
+      
+      [dispLayer forceAdjustToFitBounds:YES];
+      [playerWindow setFrame:[chosenScreen frame] display:YES animate:[ud boolForKey:kUDKeyAnimateFullScreen]];
+      [dispLayer display];
+      
+      // 进入全屏
+      [self enterFullScreenMode:chosenScreen withOptions:fullScreenOptions];
+      // 推出全屏，重新根据现在的尺寸比例渲染图像
+      [dispLayer enablePositionOffset:YES];
+      [dispLayer enableScale:YES];
+      // 暂停的时候能够正确显示
+      [dispLayer display];
+      [dispLayer forceAdjustToFitBounds:NO];
+      
+      [playerWindow orderOut:self];
+      
+      [[self window] setCollectionBehavior:NSWindowCollectionBehaviorManaged];
+      
+      // 得到screen的分辨率，并和播放中的图像进行比较
+      // 知道是横图还是竖图
+      NSSize sz = [self bounds].size;
+      
+      [controlUI setFillScreenMode:(((sz.height * [dispLayer aspectRatio]) >= sz.width)?kFillScreenButtonImageUBKey:kFillScreenButtonImageLRKey)
+                             state:([dispLayer fillScreen])?NSOnState:NSOffState];
+      fullScreenStatus = kFullScreenStatusOld;
+    } else {
+      // 强制渲染一次
+      [dispLayer display];
+      fullScreenStatus = kFullScreenStatusNone;
+      return NO;
+    }
+    
+    
+    
   } else { //NEW WAY
-		
+    
     
     
     // Lion并且只有一个屏幕的时候
-		if ([self isInFullScreenMode]) {
-			// 退出全屏
-      [[self layer] setCornerRadius:5.0];
-			if (shouldResize) {
-				shouldResize = NO;
-				// 得到目标frame
-				// 多个屏幕的时候会强制使用旧方式全屏，因此 新方式的推出全屏只会出现在一个屏幕的时候
-                // rcBeforeFullScrn不会改变，因此不需要重新计算
-                /*
-				rcBeforeFullScrn = [self calculateFrameFrom:rcBeforeFullScrn
-													  toFit:[dispLayer aspectRatio]
-													   mode:kCalFrameSizeDiag | kCalFrameFixPosCenter];
-				*/
-				// Lion风格的全屏不会隐藏playerWindow
-				// 需要在delegate函数里面隐藏或者显示窗口
-				[playerWindow toggleFullScreenReal:self];
-			} else {
-				[playerWindow toggleFullScreenReal:self];
-			}
+    if ([self isInFullScreenMode]) {
+      // 退出全屏
+      [playerWindow toggleFullScreenReal:self];
+      fullScreenStatus = kFullScreenStatusNone;
+    } else if (displaying) {
+      // 进入全屏
+      // 强制Lock Aspect Ratio
+      [self setLockAspectRatio:YES];
+      
+      shouldResize = YES;
+      // 先记下全屏前窗口的方位
+      rcBeforeFullScrn = [playerWindow frame];
+      
+      [playerWindow toggleFullScreenReal:self];
+      fullScreenStatus = kFullScreenStatusLion;
+    } else {
+      [dispLayer display];
+      fullScreenStatus = kFullScreenStatusNone;
+      return NO;
+    }
+  }
+  return YES;
+}
 
-			fullScreenStatus = kFullScreenStatusNone;
-		} else if (displaying) {
-			// 进入全屏
-			// 强制Lock Aspect Ratio
-      [[self layer] setCornerRadius:0];
-			[self setLockAspectRatio:YES];
-			
-			shouldResize = YES;
-			// 先记下全屏前窗口的方位
-			rcBeforeFullScrn = [playerWindow frame];
-			
-			[playerWindow toggleFullScreenReal:self];
-			
-			fullScreenStatus = kFullScreenStatusLion;
-		} else {
-			[dispLayer display];
-			fullScreenStatus = kFullScreenStatusNone;
-			return NO;
-		}
-	}
-	return YES;
+-(void) windowWillEnterFullScreen:(NSNotification*) notification
+{
+  [dispLayer forceAdjustToFitBounds:YES];
+  [dispLayer enablePositionOffset:YES];
+  [dispLayer enableScale:YES];
+  [titlebar setAlphaValue:0];
 }
 
 -(void) windowDidEnterFullScreen:(NSNotification *)notification

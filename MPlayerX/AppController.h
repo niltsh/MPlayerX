@@ -24,23 +24,23 @@
 
 @interface AppController : NSObject <NSApplicationDelegate>
 {
-	NSUserDefaults *ud;
-	NSNotificationCenter *notifCenter;
-
-	NSMutableDictionary *bookmarks;
-	
-	SPMediaKeyTap *keyTap;
-
-    NSSound *trashSound;
-    
-    NSSet *subExts;
-    NSSet *playableExts;
-    
-	IBOutlet PlayerController *playerController;
-	IBOutlet OpenURLController *openUrlController;
-	IBOutlet RootLayerView *dispView;
-	IBOutlet NSView *openPanelAccView;
-	IBOutlet NSTextField *externalAudioFilePath;
+  NSUserDefaults *ud;
+  NSNotificationCenter *notifCenter;
+  
+  NSMutableDictionary *bookmarks;
+  
+  SPMediaKeyTap *keyTap;
+  
+  NSSound *trashSound;
+  
+  NSSet *subExts;
+  NSSet *playableExts;
+  
+  IBOutlet PlayerController *playerController;
+  IBOutlet OpenURLController *openUrlController;
+  IBOutlet RootLayerView *dispView;
+  IBOutlet NSView *openPanelAccView;
+  IBOutlet NSTextField *externalAudioFilePath;
 }
 
 @property (readonly) NSMutableDictionary *bookmarks;

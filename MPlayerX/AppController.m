@@ -71,20 +71,20 @@ static BOOL init_ed = NO;
 
 +(void) initialize
 {
-	[[NSUserDefaults standardUserDefaults] 
-	 registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-					   [NSNumber numberWithBool:NO], kUDKeyLogMode,
-					   kMPXSnapshotSaveDefaultPath, kUDKeySnapshotSavePath,
-					   @"NO", @"AppleMomentumScrollSupported",
-//             [SPMediaKeyTap defaultMediaKeyUserBundleIdentifiers],
-//                     kMediaKeyUsingBundleIdentifiersDefaultsKey,
-					   [NSNumber numberWithBool:YES], kUDKeyEnableMediaKeyTap,
-					   [NSNumber numberWithBool:NO], kUDKeyDisableLastStopBookmark,
-                       [NSNumber numberWithInt:kMPSnapshotFormatPNG], kUDKeySnapshotFormat,
-                       @"https://raw.github.com/niltsh/MPlayerX-Deploy/master/appcast.xml", @"SUFeedURL",
-					   nil]];
-
-	MPSetLogEnable([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyLogMode]);
+  [[NSUserDefaults standardUserDefaults]
+   registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+                     [NSNumber numberWithBool:NO], kUDKeyLogMode,
+                     kMPXSnapshotSaveDefaultPath, kUDKeySnapshotSavePath,
+                     @"NO", @"AppleMomentumScrollSupported",
+                     //             [SPMediaKeyTap defaultMediaKeyUserBundleIdentifiers],
+                     //                     kMediaKeyUsingBundleIdentifiersDefaultsKey,
+                     [NSNumber numberWithBool:YES], kUDKeyEnableMediaKeyTap,
+                     [NSNumber numberWithBool:NO], kUDKeyDisableLastStopBookmark,
+                     [NSNumber numberWithInt:kMPSnapshotFormatPNG], kUDKeySnapshotFormat,
+                     @"https://raw.github.com/niltsh/MPlayerX-Deploy/master/appcast.xml", @"SUFeedURL",
+                     nil]];
+  
+  MPSetLogEnable([[NSUserDefaults standardUserDefaults] boolForKey:kUDKeyLogMode]);
 }
 					   
 +(AppController*) sharedAppController
