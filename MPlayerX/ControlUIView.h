@@ -168,6 +168,10 @@ extern NSString * const kFillScreenButtonImageUBKey;
 -(IBAction) toggleFullScreen:(id)sender;
 -(IBAction) toggleFillScreen:(id)sender;
 
+-(void) windowDidEnterFullScreen;
+-(void) windowDidExitFullScreen;
+-(void) windowDidFailToEnterFullScreen;
+
 -(IBAction) toggleAccessaryControls:(id)sender;
 -(IBAction) changeSpeed:(id) sender;
 -(IBAction) changeAudioDelay:(id) sender;

@@ -734,43 +734,35 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
     [self updateOSDTime:delta];
 }
 
--(IBAction) toggleFullScreen:(id)sender
+-(void) windowDidEnterFullScreen
 {
-	if ([dispView toggleFullScreen]) {
-		// 成功
-		if ([dispView isInFullScreenMode]) {
-			// 进入全屏
-			
-			[fullScreenButton setState: NSOnState];
-			[menuToggleFullScreen setTitle:kMPXStringMenuExitFullscrn];
-
-			// fillScreenButton的Image设定之类的，
-			// 在RootLayerView里面实现，因为设定这个需要比较多的参数
-			// 会让接口变的很难看
-			[fillScreenButton setHidden: NO];
-			[menuToggleFillScreen setEnabled:YES];
-			
-			// 如果自己已经被hide了，那么就把鼠标也hide
-			if ([self alphaValue] < (CONTROLALPHA-0.05)) {
+  [fullScreenButton setState: NSOnState];
+  [menuToggleFullScreen setTitle:kMPXStringMenuExitFullscrn];
+  
+  // fillScreenButton的Image设定之类的，
+  // 在RootLayerView里面实现，因为设定这个需要比较多的参数
+  // 会让接口变的很难看
+  [fillScreenButton setHidden: NO];
+  [menuToggleFillScreen setEnabled:YES];
+  
+  // 如果自己已经被hide了，那么就把鼠标也hide
+  if ([self alphaValue] < (CONTROLALPHA-0.05)) {
 				[NSCursor hide];
-			}
-			
-			// 进入全屏，强制隐藏resizeindicator
-			[rzIndicator setAlphaValue:0];
-			// 这里应该判断kUDKeyHideTitlebar的，但是由于这里是要隐藏title
-			// 因此多次将AlphaValue设置为0也不会有坏影响
-			[title setAlphaValue:0];
-			
-			[menuToggleLockAspectRatio setTitle:([dispView lockAspectRatio])?(kMPXStringMenuUnlockAspectRatio):(kMPXStringMenuLockAspectRatio)];
-			[menuToggleLockAspectRatio setEnabled:NO];
-			
-			[menuEnlargeFrame setEnabled:YES];
-			[menuShrinkFrame setEnabled:YES];
-			[menuEnlargeFrame2 setEnabled:YES];
-			[menuShrinkFrame2 setEnabled:YES];
-			[menuWndFitToScrn setEnabled:NO];
-			
-			if ([ud boolForKey:kUDKeyLBAutoHeightInFullScrn]) {
+  }
+  
+  // 进入全屏，强制隐藏resizeindicator
+  [rzIndicator setAlphaValue:0];
+  
+  [menuToggleLockAspectRatio setTitle:([dispView lockAspectRatio])?(kMPXStringMenuUnlockAspectRatio):(kMPXStringMenuLockAspectRatio)];
+  [menuToggleLockAspectRatio setEnabled:NO];
+  
+  [menuEnlargeFrame setEnabled:YES];
+  [menuShrinkFrame setEnabled:YES];
+  [menuEnlargeFrame2 setEnabled:YES];
+  [menuShrinkFrame2 setEnabled:YES];
+  [menuWndFitToScrn setEnabled:NO];
+  
+  if ([ud boolForKey:kUDKeyLBAutoHeightInFullScrn]) {
 				NSInteger lb = [ud integerForKey:kUDKeyLetterBoxMode];
 				float height = [ud floatForKey:kUDKeyLetterBoxHeight];
 				
@@ -778,112 +770,108 @@ NSString * const kStringFMTTimeAppendTotal	= @" / %@";
 				float margin;
 				
 				switch (lb) {
-					case kPMLetterBoxModeBoth:
-						margin = ((scrnSize.height * (1 + height * 2) * [dispView aspectRatio] / scrnSize.width) - 1) / 2;
-						// MPLog(@"SRN:%f,%f, AR:%f, MH:%f, MRG:%f", scrnSize.width, scrnSize.height, [dispView aspectRatio], [dispView displaySize].height, margin);
-						MPLog(@"AutoLBH, AR:%f, margin:%f", [dispView aspectRatio], margin);
-						if (margin > 0) {
-							[playerController setLetterBox:YES top:margin bottom:margin];
-							// [playerController changeTimeBy:0.01f];
-						}
-						break;
-					case kPMLetterBoxModeBottomOnly:
-						margin = ((scrnSize.height * (1 + height) * [dispView aspectRatio] / scrnSize.width) - 1);
-						// NSLog(@"SRN:%f,%f, AR:%f, MH:%f, MRG:%f", scrnSize.width, scrnSize.height, [dispView aspectRatio], [dispView displaySize].height, margin);
-						MPLog(@"AutoLBH, AR:%f, margin:%f", [dispView aspectRatio], margin);
-						if (margin > 0) {
-							[playerController setLetterBox:YES top:-1.0f bottom:margin];
-							// [playerController changeTimeBy:0.01f];
-						}
-						break;
-					case kPMLetterBoxModeTopOnly:
-						margin = ((scrnSize.height * (1 + height) * [dispView aspectRatio] / scrnSize.width) - 1);
-						// NSLog(@"SRN:%f,%f, AR:%f, MH:%f, MRG:%f", scrnSize.width, scrnSize.height, [dispView aspectRatio], [dispView displaySize].height, margin);
-						MPLog(@"AutoLBH, AR:%f, margin:%f", [dispView aspectRatio], margin);
-						if (margin > 0) {
-							[playerController setLetterBox:YES top:margin bottom:-1.0f];
-							// [playerController changeTimeBy:0.01f];
-						}
-						break;
-					default:		
-						margin = ((scrnSize.height * [dispView aspectRatio] / scrnSize.width) - 1);
-						// NSLog(@"SRN:%f,%f, AR:%f, MH:%f, MRG:%f", scrnSize.width, scrnSize.height, [dispView aspectRatio], [dispView displaySize].height, margin);
-						MPLog(@"AutoLBH, AR:%f, margin:%f", [dispView aspectRatio], margin);
-						if (margin > 0) {
-							NSInteger lbAlt = [ud integerForKey:kUDKeyLetterBoxModeAlt];
-							
-							switch (lbAlt) {
-								case kPMLetterBoxModeBoth:
-									margin /= 2;
-									[playerController setLetterBox:YES top:margin bottom:margin];
-									// [playerController changeTimeBy:0.01f];
-									break;
-								case kPMLetterBoxModeBottomOnly:
-									[playerController setLetterBox:YES top:-1.0f bottom:margin];
-									// [playerController changeTimeBy:0.01f];
-									break;
-								case kPMLetterBoxModeTopOnly:
-									[playerController setLetterBox:YES top:margin bottom:-1.0f];
-									// [playerController changeTimeBy:0.01f];
-									break;
-								default:
-									break;
-							}
-						}
-						break;						
-				}
-			}
-			
-			if ([ud boolForKey:kUDKeyPlayWhenEnterFullScrn] && ([playerController playerState] == kMPCPausedState)) {
+          case kPMLetterBoxModeBoth:
+            margin = ((scrnSize.height * (1 + height * 2) * [dispView aspectRatio] / scrnSize.width) - 1) / 2;
+            MPLog(@"AutoLBH, AR:%f, margin:%f", [dispView aspectRatio], margin);
+            if (margin > 0)
+              [playerController setLetterBox:YES top:margin bottom:margin];
+            break;
+          case kPMLetterBoxModeBottomOnly:
+            margin = ((scrnSize.height * (1 + height) * [dispView aspectRatio] / scrnSize.width) - 1);
+            MPLog(@"AutoLBH, AR:%f, margin:%f", [dispView aspectRatio], margin);
+            if (margin > 0)
+              [playerController setLetterBox:YES top:-1.0f bottom:margin];
+            break;
+          case kPMLetterBoxModeTopOnly:
+            margin = ((scrnSize.height * (1 + height) * [dispView aspectRatio] / scrnSize.width) - 1);
+            MPLog(@"AutoLBH, AR:%f, margin:%f", [dispView aspectRatio], margin);
+            if (margin > 0)
+              [playerController setLetterBox:YES top:margin bottom:-1.0f];
+            break;
+          default:
+            margin = ((scrnSize.height * [dispView aspectRatio] / scrnSize.width) - 1);
+            MPLog(@"AutoLBH, AR:%f, margin:%f", [dispView aspectRatio], margin);
+            if (margin > 0) {
+              NSInteger lbAlt = [ud integerForKey:kUDKeyLetterBoxModeAlt];
+              
+              switch (lbAlt) {
+                case kPMLetterBoxModeBoth:
+                  margin /= 2;
+                  [playerController setLetterBox:YES top:margin bottom:margin];
+                  break;
+                case kPMLetterBoxModeBottomOnly:
+                  [playerController setLetterBox:YES top:-1.0f bottom:margin];
+                  break;
+                case kPMLetterBoxModeTopOnly:
+                  [playerController setLetterBox:YES top:margin bottom:-1.0f];
+                  break;
+                default:
+                  break;
+              }
+            }
+            break;						
+        }
+  }
+  
+  if ([ud boolForKey:kUDKeyPlayWhenEnterFullScrn] && ([playerController playerState] == kMPCPausedState)) {
 				[self togglePlayPause:nil];
-			}
-		} else {
-			// 退出全屏
-			[NSCursor unhide];
+  }
 
-			[fullScreenButton setState:NSOffState];
-			[menuToggleFullScreen setTitle:kMPXStringMenuEnterFullscrn];
+}
 
-			[fillScreenButton setHidden: YES];
-			[menuToggleFillScreen setEnabled:NO];
-			
-			if ([self alphaValue] > (CONTROLALPHA-0.05)) {
+-(void) windowDidExitFullScreen
+{
+  [NSCursor unhide];
+  
+  [fullScreenButton setState:NSOffState];
+  [menuToggleFullScreen setTitle:kMPXStringMenuEnterFullscrn];
+  
+  [fillScreenButton setHidden: YES];
+  [menuToggleFillScreen setEnabled:NO];
+  
+  if ([self alphaValue] > (CONTROLALPHA-0.05)) {
 				// 如果controlUI没有隐藏，那么显示resizeindiccator
 				[rzIndicator.animator setAlphaValue:CONTROLALPHA];
-
+    
 				if (![ud boolForKey:kUDKeyHideTitlebar]) {
-					// if kUDKeyHideTitlebar is OFF, go to display the titlebar
-					[title.animator setAlphaValue:CONTROLALPHA];
-				}
-			}
-			[menuToggleLockAspectRatio setEnabled:YES];
-			
-			[menuEnlargeFrame setEnabled:NO];
-			[menuShrinkFrame setEnabled:NO];
-			[menuEnlargeFrame2 setEnabled:NO];
-			[menuShrinkFrame2 setEnabled:NO];
-			[menuWndFitToScrn setEnabled:YES];
-			
-			if ([ud boolForKey:kUDKeyLBAutoHeightInFullScrn]) {
+          // if kUDKeyHideTitlebar is OFF, go to display the titlebar
+          [title.animator setAlphaValue:CONTROLALPHA];
+        }
+  }
+  [menuToggleLockAspectRatio setEnabled:YES];
+  
+  [menuEnlargeFrame setEnabled:NO];
+  [menuShrinkFrame setEnabled:NO];
+  [menuEnlargeFrame2 setEnabled:NO];
+  [menuShrinkFrame2 setEnabled:NO];
+  [menuWndFitToScrn setEnabled:YES];
+  
+  if ([ud boolForKey:kUDKeyLBAutoHeightInFullScrn]) {
 				[self toggleLetterBox:nil];
-			}
-		}
-	} else {
-		// 失败
-		[fullScreenButton setState: NSOffState];
-		[menuToggleFullScreen setTitle:kMPXStringMenuEnterFullscrn];
+  }
+}
+
+-(void) windowDidFailToEnterFullScreen
+{
+  [fullScreenButton setState: NSOffState];
+	[menuToggleFullScreen setTitle:kMPXStringMenuEnterFullscrn];
 		
-		[fillScreenButton setHidden: YES];
-		[menuToggleFillScreen setEnabled:NO];
-		
-		[menuToggleLockAspectRatio setEnabled:NO];
-		
-		[menuEnlargeFrame setEnabled:NO];
-		[menuShrinkFrame setEnabled:NO];
-		[menuEnlargeFrame2 setEnabled:NO];
-		[menuShrinkFrame2 setEnabled:NO];
-		[menuWndFitToScrn setEnabled:NO];
-	}
+	[fillScreenButton setHidden: YES];
+	[menuToggleFillScreen setEnabled:NO];
+	
+	[menuToggleLockAspectRatio setEnabled:NO];
+	
+	[menuEnlargeFrame setEnabled:NO];
+	[menuShrinkFrame setEnabled:NO];
+	[menuEnlargeFrame2 setEnabled:NO];
+	[menuShrinkFrame2 setEnabled:NO];
+	[menuWndFitToScrn setEnabled:NO];
+}
+
+-(IBAction) toggleFullScreen:(id)sender
+{
+  [dispView toggleFullScreen];
+  [title resetButtons];
 	[self windowHasResized:nil];
 }
 

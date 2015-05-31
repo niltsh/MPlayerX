@@ -1451,15 +1451,29 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 
 -(void) windowDidEnterFullScreen:(NSNotification *)notification
 {
-    // It seems the fullscreen window is another window, so I have to set accept mouseMovedEvents
-    // otherwise, View could not receive the events
-    [[self window] setAcceptsMouseMovedEvents:YES];
-	[[self window] makeFirstResponder:self];
+  // It seems the fullscreen window is another window, so I have to set accept mouseMovedEvents
+  // otherwise, View could not receive the events
+  [[self window] setAcceptsMouseMovedEvents:YES];
+  [[self window] makeFirstResponder:self];
+  [[self layer] setCornerRadius:0];
+  [dispLayer forceAdjustToFitBounds:NO];
+  [dispLayer display];
+  [titlebar resetPosition];
+  [osd resetPosition];
+  [controlUI resetPosition];
+  
+  NSSize sz = [self bounds].size;
+  [controlUI setFillScreenMode:(((sz.height * [dispLayer aspectRatio]) >= sz.width)?kFillScreenButtonImageUBKey:kFillScreenButtonImageLRKey)
+                         state:([dispLayer fillScreen])?NSOnState:NSOffState];
+  [controlUI windowDidEnterFullScreen];
+}
 
-	NSSize sz = [self bounds].size;
-	
-	[controlUI setFillScreenMode:(((sz.height * [dispLayer aspectRatio]) >= sz.width)?kFillScreenButtonImageUBKey:kFillScreenButtonImageLRKey)
-						   state:([dispLayer fillScreen])?NSOnState:NSOffState];
+-(void) windowWillExitFullScreen:(NSNotification*) notification
+{
+  [dispLayer forceAdjustToFitBounds:YES];
+  [dispLayer enablePositionOffset:NO];
+  [dispLayer enableScale:NO];
+  [[self layer] setCornerRadius:5.0];
 }
 
 -(void) windowDidExitFullScreen:(NSNotification *)notification
@@ -1470,17 +1484,26 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 	// 当进入全屏的时候，回强制锁定ar
 	// 当出了全屏，更新了window的size之后，在这里需要再一次设定window的ar
 	[[self window] setContentAspectRatio:[[self window] contentRectForFrameRect:rcBeforeFullScrn].size];
-
 	[[self window] makeFirstResponder:self];
+  
+  // 暂停的时候能够正确显示
+  [dispLayer display];
+  [dispLayer forceAdjustToFitBounds:NO];
+  
+  // workaround for unknown bug in 10.8
+  // 当动画退出全屏的是偶，titlebar的方位大小会发生奇怪的变化
+  [titlebar resetPosition];
+  [osd resetPosition];
+  [controlUI resetPosition];
+  [controlUI windowDidExitFullScreen];
 	
 	// 必须要在退出全屏之后才能设定window level
 	[self setPlayerWindowLevel];
 }
 
--(NSSize) window:(NSWindow*)window willUseFullScreenContentSize:(NSSize)proposedSize
+-(void) windowDidFailToEnterFullScreen:(NSWindow*) window
 {
-	MPLog(@"Prop Size:%f, %f", proposedSize.width, proposedSize.height);
-	return proposedSize;
+  [controlUI windowDidFailToEnterFullScreen];
 }
 
 -(NSApplicationPresentationOptions) window:(NSWindow*)window willUseFullScreenPresentationOptions:(NSApplicationPresentationOptions)proposedOptions
@@ -1496,10 +1519,12 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 	}
 }
 
+
 -(NSArray*) customWindowsToEnterFullScreenForWindow:(NSWindow *)window onScreen:(NSScreen*)scrn
 {
     return [self customWindowsToEnterFullScreenForWindow:window];
 }
+
 
 -(NSArray*) customWindowsToEnterFullScreenForWindow:(NSWindow *)window
 {
@@ -1517,90 +1542,67 @@ static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPo
 	return nil;	
 }
 
--(void) window:(NSWindow*)window startCustomAnimationToEnterFullScreenOnScreen:(NSScreen*)screen withDuration:(NSTimeInterval)duration
+-(NSSize) window:(NSWindow*)window willUseFullScreenContentSize:(NSSize)proposedSize
 {
-	[self invalidateRestorableState];
-
-	[window setStyleMask:([window styleMask] | NSFullScreenWindowMask)];
-
-    // NSScreen *screen = [window screen];
-    NSRect screenFrame = [screen frame];
-    NSRect proposedFrame = screenFrame;
-
-    proposedFrame.size = [self window:window willUseFullScreenContentSize:proposedFrame.size];
-
-    proposedFrame.origin.x += floor(0.5 * (NSWidth(screenFrame) - NSWidth(proposedFrame)));
-    proposedFrame.origin.y += floor(0.5 * (NSHeight(screenFrame) - NSHeight(proposedFrame)));
-
-	[dispLayer forceAdjustToFitBounds:YES];
-	[dispLayer enablePositionOffset:YES];
-	[dispLayer enableScale:YES];
-
-	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-        if ([ud boolForKey:kUDKeyAnimateFullScreen]) {
-            [context setDuration:duration * 0.5];
-            [[window animator] setFrame:proposedFrame display:YES];
-        } else {
-            [context setDuration:0];
-            [window setFrame:proposedFrame display:YES animate:NO];
-        }
-	} completionHandler:^(void) {
-		[dispLayer display];
-		[dispLayer forceAdjustToFitBounds:NO];
-
-        // workaround for unknown bug in 10.8
-        // 当动画退出全屏的是偶，titlebar的方位大小会发生奇怪的变化
-        [titlebar resetPosition];
-        [osd resetPosition];
-        [controlUI resetPosition];
-	}];
+  return proposedSize;
 }
 
--(void) window:(NSWindow*)window startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration
+
+-(void) window:(NSWindow*)window startCustomAnimationToEnterFullScreenOnScreen:(NSScreen*)screen withDuration:(NSTimeInterval)duration
 {
-    [self window:window startCustomAnimationToEnterFullScreenOnScreen:[window screen] withDuration:duration];
+  [self invalidateRestorableState];
+  
+  [window setStyleMask:([window styleMask] | NSFullScreenWindowMask)];
+  
+  // NSScreen *screen = [window screen];
+  NSRect screenFrame = [screen frame];
+  NSRect proposedFrame = screenFrame;
+  
+  proposedFrame.size = [self window:window willUseFullScreenContentSize:proposedFrame.size];
+  
+  proposedFrame.origin.x += floor(0.5 * (NSWidth(screenFrame) - NSWidth(proposedFrame)));
+  proposedFrame.origin.y += floor(0.5 * (NSHeight(screenFrame) - NSHeight(proposedFrame)));
+
+  [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+    if ([ud boolForKey:kUDKeyAnimateFullScreen]) {
+      [context setDuration:duration*0.5];
+      [context setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+      [[window animator] setFrame:proposedFrame display:YES animate:displaying];
+    } else {
+      [context setDuration:0];
+      [window setFrame:proposedFrame display:YES animate:NO];
+    }
+  } completionHandler:nil];
 }
 
 -(void) window:(NSWindow*)window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration
 {
-    NSRect scrnRC = window.screen.visibleFrame;
+  NSRect scrnRC = window.screen.visibleFrame;
+  
+  [window setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
+  
+  if (!NSIntersectsRect(scrnRC, rcBeforeFullScrn)) {
+    MPLog(@"exit fullscreen: recalculate window frame");
+    MPLog(@"rcbefore %@", NSStringFromRect(rcBeforeFullScrn));
+    MPLog(@"screen %@", NSStringFromRect(scrnRC));
     
-	[window setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
-
-	[dispLayer forceAdjustToFitBounds:YES];
-	[dispLayer enablePositionOffset:NO];
-	[dispLayer enableScale:NO];
-
-    if (!NSIntersectsRect(scrnRC, rcBeforeFullScrn)) {
-        MPLog(@"exit fullscreen: recalculate window frame");
-        MPLog(@"rcbefore %@", NSStringFromRect(rcBeforeFullScrn));
-        MPLog(@"screen %@", NSStringFromRect(scrnRC));
-
-        rcBeforeFullScrn.origin.x = (scrnRC.size.width - rcBeforeFullScrn.size.width) / 2 + scrnRC.origin.x;
-        rcBeforeFullScrn.origin.y = (scrnRC.size.height - rcBeforeFullScrn.size.height) / 2 + scrnRC.origin.y;
-        MPLog(@"recalculate %@", NSStringFromRect(rcBeforeFullScrn));
+    rcBeforeFullScrn.origin.x = (scrnRC.size.width - rcBeforeFullScrn.size.width) / 2 + scrnRC.origin.x;
+    rcBeforeFullScrn.origin.y = (scrnRC.size.height - rcBeforeFullScrn.size.height) / 2 + scrnRC.origin.y;
+    MPLog(@"recalculate %@", NSStringFromRect(rcBeforeFullScrn));
+  }
+  
+  [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+    if ([ud boolForKey:kUDKeyAnimateFullScreen]) {
+      [context setDuration:duration * 0.5];
+      [context setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+      [[window animator] setFrame:rcBeforeFullScrn display:YES animate:displaying];
+    } else {
+      [context setDuration:0];
+      [window setFrame:rcBeforeFullScrn display:YES animate:NO];
     }
-    
-	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-        if ([ud boolForKey:kUDKeyAnimateFullScreen]) {
-            [context setDuration:duration * 0.5];
-            [[window animator] setFrame:rcBeforeFullScrn display:YES animate:displaying];
-        } else {
-            [context setDuration:0];
-            [window setFrame:rcBeforeFullScrn display:YES animate:NO];
-        }
-	} completionHandler:^(void) {
-		// 暂停的时候能够正确显示
-		[dispLayer display];
-		[dispLayer forceAdjustToFitBounds:NO];
-
-        // workaround for unknown bug in 10.8
-        // 当动画退出全屏的是偶，titlebar的方位大小会发生奇怪的变化
-        [titlebar resetPosition];
-        [osd resetPosition];
-        [controlUI resetPosition];
-	}];
+  } completionHandler:nil];
 }
+
 
 -(BOOL) toggleFillScreen
 {
