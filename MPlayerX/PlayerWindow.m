@@ -56,7 +56,7 @@ NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 		// 如果是Lion以上
 		[self setCollectionBehavior:NSWindowCollectionBehaviorManaged | NSWindowCollectionBehaviorFullScreenPrimary];
 	}
-
+  self.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantDark];
 	[self setContentMinSize:NSMakeSize(480, 360)];
 	NSRect scrnRC = [[self screen] visibleFrame];
 	NSRect winRC  = [self frame];
