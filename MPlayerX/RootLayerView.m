@@ -192,9 +192,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 		threeFingersSwipeCord = NSMakePoint(0, 0);
         // hasSwipeEvent = NO;
         
-        lastScrollLR = 0;
-        logo = nil;
-
+    lastScrollLR = 0;
 		[self setAcceptsTouchEvents:YES];
 		[self setWantsRestingTouches:NO];
 	}
@@ -209,7 +207,6 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	[trackingArea release];
 	[fullScreenOptions release];
 	[dispLayer release];
-	[logo release];
 
 	[super dealloc];
 }
@@ -364,7 +361,6 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	playbackFinalized = NO;
 	[self setPlayerWindowLevel];
 	[playerWindow setTitle:kMPCStringMPlayerX];
-	[[self layer] setContents:logo];
 }
 
 -(void) playBackStarted:(NSNotification*)notif
@@ -377,7 +373,6 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 		if (![NSApp isHidden]) {
 			[playerWindow makeKeyAndOrderFront:nil];
 		}
-		[[self layer] setContents:logo];
 	} else {
 		// if has video
 		[[self layer] setContents:nil];

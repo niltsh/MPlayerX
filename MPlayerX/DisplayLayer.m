@@ -59,9 +59,6 @@
 		
 		[self setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
 		[self setAsynchronous:NO];
-		// The layer could not be Opaque, since it wil cover
-		// the root layer for logo display
-		// [self setOpaque:YES];
 		
 		[CATransaction commit];
 
