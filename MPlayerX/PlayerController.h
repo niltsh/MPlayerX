@@ -1,7 +1,7 @@
 /*
  * MPlayerX - PlayerController.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -56,7 +56,6 @@ extern NSString * const kMPCPlayInfoUpdatedChangeDictKey;
 	IOPMAssertionID nonSleepHandler;
 
 	IBOutlet ControlUIView *controlUI;
-	IBOutlet OpenURLController *openUrlController;
 	IBOutlet CharsetQueryController *charsetController;
 }
 
@@ -70,7 +69,7 @@ extern NSString * const kMPCPlayInfoUpdatedChangeDictKey;
 -(void) setPlayDisk:(NSInteger)pd;
 
 -(MovieInfo*) mediaInfo;
--(void) setMultiThreadMode:(BOOL) mt;
+-(void) setMultiThreadMode;
 
 -(void) loadFiles:(NSArray*)files fromLocal:(BOOL)local;
 -(void) stop;
@@ -110,5 +109,10 @@ extern NSString * const kMPCPlayInfoUpdatedChangeDictKey;
 
 -(void) mapAudioChannelsTo:(NSInteger)mode;
 -(void) setExternalAudioFilePath:(NSString*)path;
+
+-(void) mergeSubtitleToCurrentSub:(NSString*)path;
+
+-(void) startABLoopFrom:(float)start to:(float)stop;
+-(void) stopABLoop;
 
 @end

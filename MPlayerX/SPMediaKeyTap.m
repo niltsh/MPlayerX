@@ -1,4 +1,5 @@
 // Copyright (c) 2010 Spotify AB
+#if 0
 #import "SPMediaKeyTap.h"
 #import "NSObject+SPInvocationGrabbing.h" // https://gist.github.com/511181, in submodule
 
@@ -28,6 +29,9 @@ static CGEventRef tapEventCallback(CGEventTapProxy proxy, CGEventType type, CGEv
 	[self startWatchingAppSwitching];
 	singleton = self;
 	_mediaKeyAppList = [NSMutableArray new];
+    _tapThreadRL=nil;
+    _eventPort=nil;
+    _eventPortSource=nil;
 	return self;
 }
 
@@ -51,6 +55,7 @@ static CGEventRef tapEventCallback(CGEventTapProxy proxy, CGEventType type, CGEv
     err = InstallApplicationEventHandler(NewEventHandlerUPP(appTerminated), 1, &eventType, self, &_app_terminating_ref);
 	assert(err == noErr);
 }
+
 -(void)stopWatchingAppSwitching
 {
 	if(!_app_switching_ref) return;
@@ -60,6 +65,9 @@ static CGEventRef tapEventCallback(CGEventTapProxy proxy, CGEventType type, CGEv
 
 -(void)startWatchingMediaKeys
 {
+    // Prevent having multiple mediaKeys threads
+    [self stopWatchingMediaKeys];
+    
 	[self setShouldInterceptMediaKeyEvents:YES];
 	
 	// Add an event tap to intercept the system defined media key events
@@ -81,6 +89,22 @@ static CGEventRef tapEventCallback(CGEventTapProxy proxy, CGEventType type, CGEv
 -(void)stopWatchingMediaKeys
 {
 	// TODO<nevyn>: Shut down thread, remove event tap port and source
+    
+    if(_tapThreadRL){
+        CFRunLoopStop(_tapThreadRL);
+        _tapThreadRL=nil;
+    }
+    
+    if(_eventPort){
+        CFMachPortInvalidate(_eventPort);
+        CFRelease(_eventPort);
+        _eventPort=nil;
+    }
+    
+    if(_eventPortSource){
+        CFRelease(_eventPortSource);
+        _eventPortSource=nil;
+    }
 }
 
 #pragma mark -
@@ -93,11 +117,13 @@ static CGEventRef tapEventCallback(CGEventTapProxy proxy, CGEventType type, CGEv
 	return NO;
 #else
 	// XXX(nevyn): MediaKey event tap doesn't work on 10.4, feel free to figure out why if you have the energy.
-	return floor(NSAppKitVersionNumber) >= 949/*NSAppKitVersionNumber10_5*/;
+	return 
+		![[NSUserDefaults standardUserDefaults] boolForKey:kIgnoreMediaKeysDefaultsKey]
+		&& floor(NSAppKitVersionNumber) >= 949/*NSAppKitVersionNumber10_5*/;
 #endif
 }
 
-+ (NSArray*)defaultMediaKeyUserBundleIdentifiers;
++ (NSArray*)defaultMediaKeyUserBundleIdentifiers
 {
 	return [NSArray arrayWithObjects:
 		[[NSBundle mainBundle] bundleIdentifier], // your app
@@ -111,10 +137,17 @@ static CGEventRef tapEventCallback(CGEventTapProxy proxy, CGEventType type, CGEv
 		@"com.apple.Aperture",
 		@"com.plexsquared.Plex",
 		@"com.soundcloud.desktop",
+		@"org.niltsh.MPlayerX",
+		@"com.ilabs.PandorasHelper",
+		@"com.mahasoftware.pandabar",
+		@"com.bitcartel.pandorajam",
+		@"org.clementine-player.clementine",
+		@"fm.last.Last.fm",
 		@"com.macromedia.fireworks", // the tap messes up their mouse input
 		nil
 	];
 }
+
 
 -(BOOL)shouldInterceptMediaKeyEvents
 {
@@ -217,6 +250,8 @@ static CGEventRef tapEventCallback(CGEventTapProxy proxy, CGEventType type, CGEv
 #pragma mark Task switching callbacks
 
 NSString *kMediaKeyUsingBundleIdentifiersDefaultsKey = @"SPApplicationsNeedingMediaKeys";
+NSString *kIgnoreMediaKeysDefaultsKey = @"SPIgnoreMediaKeys";
+
 
 
 -(void)mediaKeyAppListChanged
@@ -304,3 +339,4 @@ static pascal OSStatus appTerminated (EventHandlerCallRef nextHandler, EventRef 
 }
 
 @end
+#endif

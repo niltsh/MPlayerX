@@ -1,7 +1,7 @@
 /*
  * MPlayerX - PlayerWindow.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -38,24 +38,26 @@ NSString * const kMPXAccessibilityWindowFrameAttribute	= @"AXMPXWindowFrame";
 							styleMask:NSBorderlessWindowMask
 							  backing:bufferingType
 								defer:flag];
-	if (self) {
-	}
+  if (self) {
+    [self setOpaque:NO];
+    [self setBackgroundColor:[NSColor clearColor]];
+    [self setStyleMask:NSBorderlessWindowMask];
+  }
 	return self;
 }
 
 -(void) awakeFromNib
 {
 	[self setHasShadow:YES];
-	if (MPXGetSysVersion() < kMPXSysVersionLion) {
+	if (MPXGetSysVersion().minorVersion < kMPXSysVersionLion) {
 		// 如果不是Lion
 		[self setCollectionBehavior:NSWindowCollectionBehaviorManaged];
 	} else {
 		// 如果是Lion以上
 		[self setCollectionBehavior:NSWindowCollectionBehaviorManaged | NSWindowCollectionBehaviorFullScreenPrimary];
 	}
-
+  self.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantDark];
 	[self setContentMinSize:NSMakeSize(480, 360)];
-	
 	NSRect scrnRC = [[self screen] visibleFrame];
 	NSRect winRC  = [self frame];
 	scrnRC.origin.x += (scrnRC.size.width - winRC.size.width) / 2;

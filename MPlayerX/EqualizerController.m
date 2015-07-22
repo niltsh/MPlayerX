@@ -1,7 +1,7 @@
 /*
  * MPlayerX - EqualizerController.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -95,7 +95,9 @@
 		NSArray *settings = [ud arrayForKey:kUDKeyEQSettings];
 		
 		nibLoaded = YES;
-		[NSBundle loadNibNamed:@"Equalizer" owner:self];
+    NSArray* topLevel;
+    [[NSBundle bundleForClass:[self class]] loadNibNamed:@"Equalizer" owner:self topLevelObjects:&topLevel];
+    [topLevel retain];
 		
 		/** \warning Outlet的min和max的设定在XIB文件里面 */
 		bars = [[NSArray alloc] initWithObjects:sli30,sli60,sli125,sli250,sli500,sli1k,sli2k,sli4k,sli8k,sli16k,nil];

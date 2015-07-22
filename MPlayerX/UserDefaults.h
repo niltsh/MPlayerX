@@ -1,7 +1,7 @@
 /*
  * MPlayerX - UserDefaults.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -29,12 +29,12 @@ extern NSString * const kUDKeySeekStepB;
 extern NSString * const kUDKeyVolumeStep;
 extern NSString * const kUDKeyAutoPlayNext;
 extern NSString * const kUDKeySubFontPath;
+extern NSString * const kUDKeySnapshotFormat;
 extern NSString * const kUDKeySnapshotSavePath;
 extern NSString * const kUDKeyStartByFullScreen;
 extern NSString * const kUDKeySubDelayStepTime;
 extern NSString * const kUDKeyAudioDelayStepTime;
 extern NSString * const kUDKeyPrefer64bitMPlayer;
-extern NSString * const kUDKeyEnableMultiThread;
 extern NSString * const kUDKeySubScale;
 extern NSString * const kUDKeySubScaleStepValue;
 extern NSString * const kUDKeySwitchTimeHintPressOnAbusolute;
@@ -103,6 +103,17 @@ extern NSString * const kUDKeyDisableLastStopBookmark;
 extern NSString * const kUDKeyEnableOpenRecentMenu;
 extern NSString * const kUDKeyOldFullScreenMethod;
 extern NSString * const kUDKeyAlwaysUseSecondaryScreen;
+extern NSString * const kUDKeyClickTogPlayPause;
+extern NSString * const kUDKeyARUseSysVol;
+extern NSString * const kUDKeyARMenuKeyTogTimeDisp;
+extern NSString * const kUDKeyAnimateFullScreen;
+extern NSString * const kUDKeyPauseShowTime;
+extern NSString * const kUDKeyControlUIDetectMouseExit;
+extern NSString * const kUDKeyResumedShowTime;
+extern NSString * const kUDKeyEnableHWAccel;
+extern NSString * const kUDKeyControlUICenterYRatio;
+extern NSString * const kUDKeyShowRealRemainingTime;
+extern NSString * const kUDKeyFFmpegRealCodecThreadFix;
 
 // internal use
 extern NSString * const kUDKeySelectedPrefView;
@@ -111,6 +122,9 @@ extern NSString * const kUDKeyResizeStep;
 extern NSString * const kUDKeyFrameScaleStep;
 extern NSString * const kUDKeyThreeFingersPinchThreshRatio;
 extern NSString * const kUDKeyFourFingersPinchThreshRatio;
+extern NSString * const kUDKeyFontFallbackList;
+extern NSString * const kUDKeyKBSeekStepPeriod;
+extern NSString * const kUDKeyThreeFingersSwipeThreshRatio;
 
 // still not implemented
 extern NSString * const kUDKeyPinPMode;						// TODO

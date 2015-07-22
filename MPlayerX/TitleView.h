@@ -1,7 +1,7 @@
 /*
  * MPlayerX - TitleView.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,37 +21,21 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface TitleView : NSView
+@interface TitleView : NSVisualEffectView
 {
 	NSButton *closeButton;
 	NSButton *miniButton;
 	NSButton *zoomButton;
+	NSButton *fsButton;
 	
 	NSImage *tbCornerLeft;
 	NSImage *tbCornerRight;
 	NSImage *tbMiddle;
-	
-	NSImage *imgCloseActive;
-	NSImage *imgCloseInactive;
-	NSImage *imgCloseRollover;
-	
-	NSImage *imgMiniActive;
-	NSImage *imgMiniInactive;
-	NSImage *imgMiniRollover;
-	
-	NSImage *imgZoomActive;
-	NSImage *imgZoomInactive;
-	NSImage *imgZoomRollover;
-	
-	NSButton *fsButton;
-	NSImage *imgFSActive;
-	NSImage *imgFSRollver;
 
 	NSString *title;
 	NSDictionary *titleAttr;
 	
-	BOOL mouseEntered;
-	BOOL fsBtnEntered;
+	BOOL mouseInside;
 }
 
 @property(retain, readwrite) NSString *title;
@@ -60,4 +44,7 @@
 @property(readonly) NSButton *miniButton;
 @property(readonly) NSButton *zoomButton;
 
+-(void) resetPosition;
+-(BOOL) allowsVibrancy;
+-(void) resetButtons;
 @end

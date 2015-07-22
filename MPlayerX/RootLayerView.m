@@ -1,7 +1,7 @@
 /*
  * MPlayerX - RootLayerView.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -31,6 +31,9 @@
 #import "TitleView.h"
 #import "CocoaAppendix.h"
 #import "PlayerWindow.h"
+#import "LocalizedStrings.h"
+#import "def.h"
+#import "AppController.h"
 
 #define kOnTopModeNormal		(0)
 #define kOnTopModeAlways		(1)
@@ -50,6 +53,10 @@
 #define kFourFingersPinchInit		(0)
 #define kFourFingersPinchInvalid	(-1)
 #define kFourFingersPinchReady		(1)
+
+#define kThreeFingersSwipeInit		(0)
+#define kThreeFingersSwipeInvalid	(-1)
+#define kThreeFingersSwipeReady		(1)
 
 // calculateFrameFrom:(NSRect)orgFrame toFit:(CGFloat)ar mode:(NSUInteger)modeMask;
 #define kCalFrameSizeDiag			(1)
@@ -81,6 +88,7 @@
 -(void) applicationDidResignActive:(NSNotification*)notif;
 
 -(void) screenConfigurationChanged:(NSNotification*)notif;
+-(void) gotRemoteMediaInfo:(NSNotification*)notif;
 @end
 
 @interface RootLayerView (CoreDisplayDelegate)
@@ -117,27 +125,31 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 #pragma mark Init/Dealloc
 +(void) initialize
 {
-	NSNumber *boolYes = [NSNumber numberWithBool:YES];
-	NSNumber *boolNo  = [NSNumber numberWithBool:NO];
-	
-	[[NSUserDefaults standardUserDefaults] 
-	 registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-					   [NSNumber numberWithInt:kOnTopModePlaying], kUDKeyOnTopMode,
-					   boolNo, kUDKeyStartByFullScreen,
-					   boolYes, kUDKeyFullScreenKeepOther,
-					   boolNo, kUDKeyQuitOnClose,
-					   boolNo, kUDKeyPinPMode,
-					   boolNo, kUDKeyAlwaysHideDockInFullScrn,
-					   boolYes, kUDKeyDisableHScrollSeek,
-					   boolNo, kUDKeyDisableVScrollVol,
-					   [NSNumber numberWithFloat:1.5], kUDKeyThreeFingersPinchThreshRatio,
-					   [NSNumber numberWithFloat:1.8], kUDKeyFourFingersPinchThreshRatio,
-					   boolNo, kUDKeyCloseWndOnEsc,
-					   boolYes, kUDKeyDontResizeWhenContinuousPlay,
-					   [NSNumber numberWithFloat:1.0], kUDKeyInitialFrameSizeRatio,
-					   boolNo, kUDKeyOldFullScreenMethod,
-					   boolNo, kUDKeyAlwaysUseSecondaryScreen,
-					   nil]];
+  NSNumber *boolYes = [NSNumber numberWithBool:YES];
+  NSNumber *boolNo  = [NSNumber numberWithBool:NO];
+  
+  [[NSUserDefaults standardUserDefaults]
+   registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+                     [NSNumber numberWithInt:kOnTopModePlaying], kUDKeyOnTopMode,
+                     boolNo, kUDKeyStartByFullScreen,
+                     boolYes, kUDKeyFullScreenKeepOther,
+                     boolNo, kUDKeyQuitOnClose,
+                     boolNo, kUDKeyPinPMode,
+                     boolNo, kUDKeyAlwaysHideDockInFullScrn,
+                     boolYes, kUDKeyDisableHScrollSeek,
+                     boolNo, kUDKeyDisableVScrollVol,
+                     [NSNumber numberWithFloat:1.5], kUDKeyThreeFingersPinchThreshRatio,
+                     [NSNumber numberWithFloat:1.8], kUDKeyFourFingersPinchThreshRatio,
+                     boolNo, kUDKeyCloseWndOnEsc,
+                     boolYes, kUDKeyDontResizeWhenContinuousPlay,
+                     [NSNumber numberWithFloat:1.0], kUDKeyInitialFrameSizeRatio,
+                     boolNo, kUDKeyOldFullScreenMethod,
+                     boolNo, kUDKeyAlwaysUseSecondaryScreen,
+                     boolNo, kUDKeyClickTogPlayPause,
+                     boolYes, kUDKeyAnimateFullScreen,
+                     boolYes, kUDKeyControlUIDetectMouseExit,
+                     [NSNumber numberWithFloat:0.15], kUDKeyThreeFingersSwipeThreshRatio,
+                     nil]];
 }
 
 -(id) initWithCoder:(NSCoder *)aDecoder
@@ -176,7 +188,11 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 		threeFingersPinchDistance = 1;
 		fourFingersPinch = kFourFingersPinchInit;
 		fourFingersPinchDistance = 1;
-
+		threeFingersSwipe = kThreeFingersSwipeInit;
+		threeFingersSwipeCord = NSMakePoint(0, 0);
+        // hasSwipeEvent = NO;
+        
+    lastScrollLR = 0;
 		[self setAcceptsTouchEvents:YES];
 		[self setWantsRestingTouches:NO];
 	}
@@ -191,8 +207,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	[trackingArea release];
 	[fullScreenOptions release];
 	[dispLayer release];
-	[logo release];
-	
+
 	[super dealloc];
 }
 
@@ -225,12 +240,9 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	// 自动尺寸适应
 	[root setAutoresizingMask:kCALayerWidthSizable|kCALayerHeightSizable];
 
-	// 图标设定
-	logo = [[NSBitmapImageRep alloc] initWithCIImage:
-			[CIImage imageWithContentsOfURL:
-			 [[[NSBundle mainBundle] resourceURL] URLByAppendingPathComponent:@"logo.png"]]];
-	[root setContentsGravity:kCAGravityCenter];
-	[root setContents:(id)[logo CGImage]];
+	// 边框圆角设置
+  [root setCornerRadius:5.0];
+  [root setMasksToBounds:YES];
 	
 	// 默认添加dispLayer
 	[root insertSublayer:dispLayer atIndex:0];
@@ -287,6 +299,9 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	
 	[notifCenter addObserver:self selector:@selector(screenConfigurationChanged:)
 						name:NSApplicationDidChangeScreenParametersNotification object:NSApp];
+    
+    [notifCenter addObserver:self selector:@selector(gotRemoteMediaInfo:)
+                        name:kMPCRemoteMediaInfoNotification object:nil];
 }
 
 -(void) screenConfigurationChanged:(NSNotification *)notif
@@ -294,7 +309,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	canMoveAcrossMenuBar = doesPrimaryScreenHasScreenAbove();
 	MPLog(@"canMoveAcrossMenuBar:%d", canMoveAcrossMenuBar);
 	
-	if ((MPXGetSysVersion() >= kMPXSysVersionLion) &&
+	if ((MPXGetSysVersion().minorVersion >= kMPXSysVersionLion) &&
 		(fullScreenStatus == kFullScreenStatusOld) &&
 		([[NSScreen screens] count] == 1)) {
 		// 如果是Lion系统，却用了旧的方式全屏，说明当时有多个屏幕
@@ -346,7 +361,6 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	playbackFinalized = NO;
 	[self setPlayerWindowLevel];
 	[playerWindow setTitle:kMPCStringMPlayerX];
-	[[self layer] setContents:(id)[logo CGImage]];
 }
 
 -(void) playBackStarted:(NSNotification*)notif
@@ -355,7 +369,6 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 
 	if ([[[notif userInfo] objectForKey:kMPCPlayStartedAudioOnlyKey] boolValue]) {
 		// if audio only
-		[[self layer] setContents:(id)[logo CGImage]];
 		[playerWindow setContentSize:[playerWindow contentMinSize]];
 		if (![NSApp isHidden]) {
 			[playerWindow makeKeyAndOrderFront:nil];
@@ -380,8 +393,16 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	}
 }
 
+-(void) gotRemoteMediaInfo:(NSNotification*)notif
+{
+    [playerWindow setTitle:[[notif userInfo] objectForKey:kMPCRemoteMediaInfoTitleKey]];
+}
+
 #pragma mark keyboard/mouse
--(BOOL) acceptsFirstMouse:(NSEvent *)event { return YES; }
+-(BOOL) acceptsFirstMouse:(NSEvent *)event {
+    return (![ud boolForKey:kUDKeyClickTogPlayPause]);
+}
+
 -(BOOL) acceptsFirstResponder { return YES; }
 
 -(void) mouseMoved:(NSEvent *)theEvent
@@ -390,7 +411,6 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 		[controlUI showUp];
 		[controlUI updateHintTime];
 	}
-	[titlebar mouseMoved:theEvent];
 }
 
 -(void)mouseDown:(NSEvent *)theEvent
@@ -399,8 +419,6 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	NSRect winRC = [playerWindow frame];
 	
 	dragShouldResize = ((NSMaxX(winRC) - dragMousePos.x < 16) && (dragMousePos.y - NSMinY(winRC) < 16))?YES:NO;
-	
-	// MPLog(@"mouseDown");
 }
 
 - (void)mouseDragged:(NSEvent *)event
@@ -428,9 +446,9 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 				CGSize sz = dispLayer.bounds.size;
 				
 				if (ShiftKeyPressed) {
-					if (fabsf(delta.x) > fabsf(8 * delta.y)) {
+					if (fabs(delta.x) > fabs(8 * delta.y)) {
 						delta.y = 0;
-					} else if (fabsf(8 * delta.x) < fabsf(delta.y)) {
+					} else if (fabs(8 * delta.x) < fabs(delta.y)) {
 						delta.x = 0;
 					} else {
 						// if use shift to drag the area, only X or only Y are accepted
@@ -504,12 +522,23 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	if ([theEvent clickCount] == 2) {
 		switch ([theEvent modifierFlags] & (NSShiftKeyMask| NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask)) {
 			case 0:
+                if ([ud boolForKey:kUDKeyClickTogPlayPause] && displaying) {
+                    // if the Click to Play/Pause is enabled, here means it has toggled once
+                    // since Mac treat the first click of double-click exactly the same as a single-click
+                    // so I have to toggle once again
+                    [controlUI togglePlayPause:self];
+                }
 				[controlUI toggleFullScreen:nil];
 				break;
 			default:
 				break;
 		}
-	}
+	} else if ([theEvent clickCount] == 1) {
+        if ([ud boolForKey:kUDKeyClickTogPlayPause] && displaying) {
+            // if enable it and is displaying
+            [controlUI togglePlayPause:self];
+        }
+    }
 	// do not use the playerWindow, since when fullscreen the window holds self is not playerWindow
 	// 当鼠标抬起的时候，自动将FR放到rootLayerView上，这样可以让接受键盘鼠标事件
 	[[self window] makeFirstResponder:self];
@@ -523,7 +552,7 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 
 -(void) mouseExited:(NSEvent *)theEvent
 {
-	if (![self isInFullScreenMode]) {
+	if ((![self isInFullScreenMode]) && [ud boolForKey:kUDKeyControlUIDetectMouseExit]) {
 		// 全屏模式下，不那么积极的
 		[controlUI doHide];
 	}
@@ -535,6 +564,13 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 		// 如果shortcut manager不处理这个evetn的话，那么就按照默认的流程
 		[super keyDown:theEvent];
 	}
+}
+
+-(void) keyUp:(NSEvent *)theEvent
+{
+    if (![shortCutManager processKeyUp:theEvent]) {
+        [super keyUp:theEvent];
+    }
 }
 
 -(void) cancelOperation:(id)sender
@@ -549,6 +585,18 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	}
 }
 
+/*
+ * 有关scrollWheel, swipeWithEvent, touch...Event
+ * 
+ * OFF      双指      三指      双指或三指       用户设定
+ *  NO      YES       NO            YES       [NSEvent isSwipeTrackingScrollEnabled]
+ *  NO       NO      YES            YES       三指滚动是否会发生swipeWithEvent
+ * YES      YES       NO             NO       三指滚动是否会发生scrollWheel
+ * YES      YES      YES            YES       双指滚动是否会发生scrollWheel
+ *
+ * 问题在于在发生scrollWheel的时候，无法知道是 三指引发的 还是 双指引发的，这样三指就会发生冲突。
+ * 目前没有办法解决。
+ */
 -(void)scrollWheel:(NSEvent *)theEvent
 {
 	float x, y;
@@ -556,7 +604,6 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	y = [theEvent deltaY];
     
     if ([theEvent respondsToSelector:@selector(isDirectionInvertedFromDevice)]) {
-        MPLog(@"scrolling in Lion");
 		if ([theEvent isDirectionInvertedFromDevice]) {
 			x = -x;
 			y = -y;
@@ -577,18 +624,24 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 		case 0:
 			if ((fabsf(x) > fabsf(y*8)) && (![ud boolForKey:kUDKeyDisableHScrollSeek])) {
 				// MPLog(@"%f", x);
-				switch ([playerController playerState]) {
-					case kMPCPausedState:
-						if (x < 0) {
-							[playerController frameStep];
-						}
-						break;
-					case kMPCPlayingState:
-						[controlUI changeTimeBy:-x];
-						break;
-					default:
-						break;
-				}
+                NSTimeInterval evtTime = [theEvent timestamp];
+                // MPLog(@"%f", (float)evtTime);
+                
+                if ((evtTime - lastScrollLR) > [ud floatForKey:kUDKeyKBSeekStepPeriod]) {
+                    switch ([playerController playerState]) {
+                        case kMPCPausedState:
+                            if (x < 0) {
+                                [playerController frameStep];
+                            }
+                            break;
+                        case kMPCPlayingState:
+                            [controlUI changeTimeBy:-x];
+                            break;
+                        default:
+                            break;
+                    }
+                    lastScrollLR = evtTime;
+                }
 			} else if ((fabsf(x*8) < fabsf(y)) && (![ud boolForKey:kUDKeyDisableVScrollVol])) {
 				[controlUI changeVolumeBy:[NSNumber numberWithFloat:y*0.2]];
 			}
@@ -616,22 +669,31 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 	CGFloat x = [event deltaX];
 	CGFloat y = [event deltaY];
 	unichar key;
-	
+	NSString *str = nil;
+
 	if (x < 0) {
 		key = NSRightArrowFunctionKey;
+        str = @"Right";
 	} else if (x > 0) {
 		key = NSLeftArrowFunctionKey;
+        str = @"Left";
 	} else if (y > 0) {
 		key = NSUpArrowFunctionKey;
+        str = @"Up";
 	} else if (y < 0) {
 		key = NSDownArrowFunctionKey;
+        str = @"Down";
 	} else {
 		key = 0;
 	}
 	
 	if (key) {
-		[shortCutManager processKeyDown:[NSEvent makeKeyDownEvent:[NSString stringWithCharacters:&key length:1] modifierFlags:0]];
+        MPLog(@"swipeWithEvent: %@", str);
+		[shortCutManager processKeyDown:[NSEvent makeKeyDownEvent:[NSString stringWithCharacters:&key length:1]
+                                                    modifierFlags:NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask]];
 	}
+
+    // hasSwipeEvent = YES;
 }
 
 -(void) rotateWithEvent:(NSEvent*)event
@@ -652,43 +714,70 @@ BOOL doesPrimaryScreenHasScreenAbove( void )
 
 #pragma mark multitouch
 
-
-float DistanceOf(NSPoint p1, NSPoint p2, NSPoint p3)
+#if 0
+inline static NSPoint centerOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *p3)
 {
-	return fabs(p1.x - p2.x) + fabs(p1.y - p2.y) +
-	fabs(p1.x - p3.x) + fabs(p1.y - p3.y) +
-	fabs(p2.x - p3.x) + fabs(p2.y - p3.y);
+    NSPoint ret;
+    ret.x = (p1->x + p2->x + p3->x) / 3;
+    ret.y = (p1->y + p2->y + p3->y) / 3;
+    return ret;
+}
+#endif
+
+inline static float distanceOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *p3)
+{
+	return fabs(p1->x - p2->x) + fabs(p1->y - p2->y) +
+	fabs(p1->x - p3->x) + fabs(p1->y - p3->y) +
+	fabs(p2->x - p3->x) + fabs(p2->y - p3->y);
 }
 
-float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
+inline static float areaOf(const NSPoint *p1, const NSPoint *p2, const NSPoint *p3, const NSPoint *p4)
 {
 	CGFloat top, bottom, left, right;
-	top = p1.y;
-	bottom = p1.y;
-	left = p1.x;
-	right = p1.x;
+	top = p1->y;
+	bottom = p1->y;
+	left = p1->x;
+	right = p1->x;
 	
-	if (left   > p2.x) { left   = p2.x; }
-	if (right  < p2.x) { right  = p2.x; }
-	if (top    < p2.y) { top    = p2.y; }
-	if (bottom > p2.y) { bottom = p2.y; }
-	if (left   > p3.x) { left   = p3.x; }
-	if (right  < p3.x) { right  = p3.x; }
-	if (top    < p3.y) { top    = p3.y; }
-	if (bottom > p3.y) { bottom = p3.y; }
-	if (left   > p4.x) { left   = p4.x; }
-	if (right  < p4.x) { right  = p4.x; }
-	if (top    < p4.y) { top    = p4.y; }
-	if (bottom > p4.y) { bottom = p4.y; }
+	if (left   > p2->x) { left   = p2->x; }
+	if (right  < p2->x) { right  = p2->x; }
+	if (top    < p2->y) { top    = p2->y; }
+	if (bottom > p2->y) { bottom = p2->y; }
+	if (left   > p3->x) { left   = p3->x; }
+	if (right  < p3->x) { right  = p3->x; }
+	if (top    < p3->y) { top    = p3->y; }
+	if (bottom > p3->y) { bottom = p3->y; }
+	if (left   > p4->x) { left   = p4->x; }
+	if (right  < p4->x) { right  = p4->x; }
+	if (top    < p4->y) { top    = p4->y; }
+	if (bottom > p4->y) { bottom = p4->y; }
 	
 	return fabs(top - bottom) * fabs(right - left);
+}
+
+static void getPointsFromArray3(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPoint *p3)
+{
+    *p1 = [[touchAr objectAtIndex:0] normalizedPosition];
+    *p2 = [[touchAr objectAtIndex:1] normalizedPosition];
+    *p3 = [[touchAr objectAtIndex:2] normalizedPosition];
+}
+
+static void getPointsFromArray4(NSArray *touchAr, NSPoint *p1, NSPoint *p2, NSPoint *p3, NSPoint *p4)
+{
+    *p1 = [[touchAr objectAtIndex:0] normalizedPosition];
+    *p2 = [[touchAr objectAtIndex:1] normalizedPosition];
+    *p3 = [[touchAr objectAtIndex:2] normalizedPosition];
+    *p4 = [[touchAr objectAtIndex:3] normalizedPosition];
 }
 
 -(void) touchesBeganWithEvent:(NSEvent*)event
 {
 	// MPLog(@"BEGAN");
 	NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseTouching inView:self];
-	
+
+    NSArray *touchAr = nil;
+    NSPoint p1, p2, p3, p4;
+    
 	switch ([touch count]) {
 		case 3:
 			if (threeFingersTap == kThreeFingersTapInit) {
@@ -699,24 +788,38 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			
 			if (threeFingersPinch == kThreeFingersPinchInit) {
 				threeFingersPinch = kThreeFingersPinchReady;
-				NSArray *touchAr = [touch allObjects];
-				threeFingersPinchDistance = DistanceOf([[touchAr objectAtIndex:0] normalizedPosition],
-													   [[touchAr objectAtIndex:1] normalizedPosition], 
-													   [[touchAr objectAtIndex:2] normalizedPosition]);
+				touchAr = [touch allObjects];
+                getPointsFromArray3(touchAr, &p1, &p2, &p3);
+				threeFingersPinchDistance = distanceOf(&p1, &p2, &p3);
 				MPLog(@"Init 3f Dist:%f", threeFingersPinchDistance);
 			}
+#if 0
+            // if (!hasSwipeEvent) {
+                // if ((MPXGetSysVersion >= kMPXSysVersionLion) && [NSEvent isSwipeTrackingFromScrollEventsEnabled]) {
+                //　如果是SL系统，会调用swipeWithEvent函数，不需要调用这里
+                // 如果没有用到trackingFromScrollEvents，那么也会产生swipeWithEvent函数，不需要调用这里
+                    if (threeFingersSwipe == kThreeFingersSwipeInit) {
+                        if (!touchAr) {
+                            touchAr = [touch allObjects];
+                            getPointsFromArray3(touchAr, &p1, &p2, &p3);
+                        }
+                        threeFingersSwipe = kThreeFingersSwipeReady;
+                        threeFingersSwipeCord = centerOf(&p1, &p2, &p3);
+                        MPLog(@"Init 3F Center: x:%f y:%f", threeFingersSwipeCord.x, threeFingersSwipeCord.y);
+                    }
+                // }
+#endif
 			break;
 		case 4:
 			threeFingersTap = kThreeFingersTapInit;
 			threeFingersPinch = kThreeFingersPinchInit;
+            threeFingersSwipe = kThreeFingersSwipeInit;
 			
 			if (fourFingersPinch == kFourFingersPinchInit) {
 				fourFingersPinch = kFourFingersPinchReady;
-				NSArray *touchAr = [touch allObjects];
-				fourFingersPinchDistance = AreaOf([[touchAr objectAtIndex:0] normalizedPosition],
-												  [[touchAr objectAtIndex:1] normalizedPosition],
-												  [[touchAr objectAtIndex:2] normalizedPosition],
-												  [[touchAr objectAtIndex:3] normalizedPosition]);
+				touchAr = [touch allObjects];
+                getPointsFromArray4(touchAr, &p1, &p2, &p3, &p4);
+				fourFingersPinchDistance = areaOf(&p1, &p2, &p3, &p4);
 				MPLog(@"Init 4f Dist:%f", fourFingersPinchDistance);
 			}
 			break;
@@ -729,42 +832,85 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 
 -(void) touchesMovedWithEvent:(NSEvent*)event
 {
+    NSPoint p1, p2, p3, p4;
+    NSArray *touchAr = nil;
+
+    NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseMoved|NSTouchPhaseStationary inView:self];
 	// MPLog(@"MOVED");
 	// 任何时候当move的时候，就不ready了
 	threeFingersTap = kThreeFingersTapInvalid;
 	
 	if (threeFingersPinch == kThreeFingersPinchReady) {
-		NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseMoved|NSTouchPhaseStationary inView:self];
-		
 		if ([touch count] == 3) {
-			NSArray *touchAr = [touch allObjects];
-			float dist = DistanceOf([[touchAr objectAtIndex:0] normalizedPosition],
-									[[touchAr objectAtIndex:1] normalizedPosition], 
-									[[touchAr objectAtIndex:2] normalizedPosition]);
+			touchAr = [touch allObjects];
+			getPointsFromArray3(touchAr, &p1, &p2, &p3);
+
+			float dist = distanceOf(&p1, &p2, &p3);
 			float thresh = [ud floatForKey:kUDKeyThreeFingersPinchThreshRatio];
-			
-			MPLog(@"Curr 3f Dist:%f", dist/threeFingersPinchDistance);
+
 			if (((![self isInFullScreenMode]) && (dist > threeFingersPinchDistance * thresh)) ||
-				(( [self isInFullScreenMode]) && (dist * thresh < threeFingersPinchDistance))){
+				(( [self isInFullScreenMode]) && (dist * thresh < threeFingersPinchDistance))) {
 				// toggle fullscreen
+				MPLog(@"Curr 3f Dist:%f", dist/threeFingersPinchDistance);
+
 				threeFingersPinch = kThreeFingersPinchInit;
+				threeFingersSwipe = kThreeFingersSwipeInit;
 				[controlUI toggleFullScreen:nil];
 			}
 		}
 	}
 	
+    // if (hasSwipeEvent) {
+    //     threeFingersSwipe = kThreeFingersSwipeInit;
+    // }
+	// if (threeFingersSwipe == kThreeFingersSwipeReady) {
+#if 0
+		if ([touch count] == 3) {
+			if (!touchAr) {
+				touchAr = [touch allObjects];
+				getPointsFromArray3(touchAr, &p1, &p2, &p3);
+			}
+			NSPoint cordNow, cordAbs;
+			cordNow = centerOf(&p1, &p2, &p3);
+			
+			cordNow.x -= threeFingersSwipeCord.x;
+			cordNow.y -= threeFingersSwipeCord.y;
+
+			cordAbs.x = fabs(cordNow.x);
+			cordAbs.y = fabs(cordNow.y);
+			
+			float thresh = [ud floatForKey:kUDKeyThreeFingersSwipeThreshRatio];
+			unichar key = 0;
+
+            MPLog(@"Curr 3F Center: x:%f y:%f", cordNow.x, cordNow.y);
+			
+            if ((cordAbs.x >= cordAbs.y) && (cordAbs.x >= thresh)) {
+				key = (cordNow.x > 0)?(NSRightArrowFunctionKey):(NSLeftArrowFunctionKey);
+				MPLog(@"Swipe Touch %@", (cordNow.x > 0)?(@"Right"):(@"Left"));
+			} else if ((cordAbs.y >= cordAbs.x) && (cordAbs.y >= thresh)) {
+				key = (cordNow.y > 0)?(NSUpArrowFunctionKey):(NSDownArrowFunctionKey);
+				MPLog(@"Swipe Touch %@", (cordNow.y > 0)?(@"Up"):(@"Down"));
+			}
+
+			if (key) {
+				threeFingersSwipe = kThreeFingersSwipeInit;
+				threeFingersPinch = kThreeFingersPinchInit;
+				[shortCutManager processKeyDown:[NSEvent makeKeyDownEvent:[NSString stringWithCharacters:&key length:1]
+                                                            modifierFlags:NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask]];
+			}
+		}
+#endif
+
 	if (fourFingersPinch == kFourFingersPinchReady) {
-		NSSet *touch = [event touchesMatchingPhase:NSTouchPhaseMoved|NSTouchPhaseStationary inView:self];
 		
 		if ([touch count] == 4) {
-			NSArray *touchAr = [touch allObjects];
-			float dist = AreaOf([[touchAr objectAtIndex:0] normalizedPosition],
-								[[touchAr objectAtIndex:1] normalizedPosition],
-								[[touchAr objectAtIndex:2] normalizedPosition],
-								[[touchAr objectAtIndex:3] normalizedPosition]);
-			MPLog(@"Curr 4f Dist:%f", dist / fourFingersPinchDistance);
+			touchAr = [touch allObjects];
+            getPointsFromArray4(touchAr, &p1, &p2, &p3, &p4);
+
+			float dist = areaOf(&p1, &p2, &p3, &p4);
 			
 			if (dist * [ud floatForKey:kUDKeyFourFingersPinchThreshRatio] < fourFingersPinchDistance) {
+				MPLog(@"Curr 4f Dist:%f", dist / fourFingersPinchDistance);
 				fourFingersPinch = kFourFingersPinchInit;
 				[[self window] performClose:self];
 			}
@@ -790,6 +936,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 		
 		threeFingersPinch = kThreeFingersPinchInit;
 		fourFingersPinch = kFourFingersPinchInit;
+        threeFingersSwipe = kThreeFingersSwipeInit;
 	}
 	
 	[super touchesEndedWithEvent:event];
@@ -801,6 +948,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	threeFingersTap = kThreeFingersTapInit;
 	threeFingersPinch = kThreeFingersPinchInit;
 	fourFingersPinch = kFourFingersPinchInit;
+    threeFingersSwipe = kThreeFingersSwipeInit;
 	
 	[super touchesCancelledWithEvent:event];
 }
@@ -816,10 +964,10 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 {
 	CGSize ratio = [dispLayer scaleRatio];
 	
-	if (fabsf(rt.width) > kScaleFrameRatioStepMax) {
+	if (fabs(rt.width) > kScaleFrameRatioStepMax) {
 		rt.width = (rt.width > 0)?(kScaleFrameRatioStepMax) : (-kScaleFrameRatioStepMax);
 	}
-	if (fabsf(rt.height) > kScaleFrameRatioStepMax) {
+	if (fabs(rt.height) > kScaleFrameRatioStepMax) {
 		rt.height = (rt.height > 0)?(kScaleFrameRatioStepMax) : (-kScaleFrameRatioStepMax);
 	}
 
@@ -1099,230 +1247,258 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 
 -(BOOL) toggleFullScreen
 {
-	BOOL oldWay = NO;
-	
-	if (fullScreenStatus == kFullScreenStatusNone) {
-		// 非全屏状态的话，就根据现在的状况来判断
-		oldWay = ((MPXGetSysVersion() < kMPXSysVersionLion) ||
-				  ([[NSScreen screens] count] > 1) ||
-				  ([ud boolForKey:kUDKeyOldFullScreenMethod]));
-	} else {
-		// 现在是全屏状态，要推出全屏
-		// 因此要和进入全屏时的状态保持一致
-		oldWay = (fullScreenStatus == kFullScreenStatusOld);
-	}
-	
-	if (oldWay) {
-		// ！注意：这里的显示状态和mplayer的播放状态时不一样的，比如，mplayer在MP3的时候，播放状态为YES，显示状态为NO
-		if ([self isInFullScreenMode]) {
-			// 无论否在显示都可以退出全屏
-			
-			// 必须砸退出全屏的时候再设定
-			// 在退出全屏之前，这个view并不属于window，设定contentsize不起作用
-			if (shouldResize) {
-				shouldResize = NO;
-				// 得到目标frame
-				/*
-				rcBeforeFullScrn = [self calculateFrameFrom:rcBeforeFullScrn
-													  toFit:[dispLayer aspectRatio]
-													   mode:kCalFrameSizeDiag | kCalFrameFixPosCenter];
-				*/
-				[dispLayer forceAdjustToFitBounds:YES];
-				if (displaying) {
-					// 先将playerWindow放到全屏窗口的背后
-					[playerWindow orderWindow:NSWindowBelow relativeTo:[[self window] windowNumber]];
-					// 退出全屏
-					[self exitFullScreenModeWithOptions:fullScreenOptions];
-					// 取消全屏时的各种设置
-					[dispLayer enablePositionOffset:NO];
-					[dispLayer enableScale:NO];
-					// 如果选定了CloseWindowWhenStopped的话
-					// 播放完毕退出全屏会在这里显示窗口，然后退出到ControlUIView里面在关闭窗口
-					// 出现窗口闪动，因此只有当在diplaying的时候才主动显示窗口
-					[playerWindow makeKeyAndOrderFront:self];
-				} else {
-					// 如果不是displaying，那么根本不会显示window
-					// 退出全屏
-					[self exitFullScreenModeWithOptions:fullScreenOptions];
-					[dispLayer enablePositionOffset:NO];
-					[dispLayer enableScale:NO];
-				}
-				
-				// 如果没有displaying，那么就不需要动画了
-				[playerWindow setFrame:rcBeforeFullScrn display:YES animate:displaying];
-				[dispLayer display];
-				[dispLayer forceAdjustToFitBounds:NO];
-				
-				// 当进入全屏的时候，回强制锁定ar
-				// 当出了全屏，更新了window的size之后，在这里需要再一次设定window的ar
-				[playerWindow setContentAspectRatio:[playerWindow contentRectForFrameRect:rcBeforeFullScrn].size];
-			} else {
-				[self exitFullScreenModeWithOptions:fullScreenOptions];
-				
-				// 推出全屏，重新根据现在的尺寸比例渲染图像
-				[dispLayer enablePositionOffset:NO];
-				[dispLayer enableScale:NO];
-				[dispLayer display];
-				
-				if (displaying) {
-					// 如果选定了CloseWindowWhenStopped的话
-					// 播放完毕退出全屏会在这里显示窗口，然后退出到ControlUIView里面在关闭窗口
-					// 出现窗口闪动，因此只有当在diplaying的时候才主动显示窗口
-					[playerWindow makeKeyAndOrderFront:self];
-				}
-			}
-			[playerWindow makeFirstResponder:self];
-			
-			// 必须要在退出全屏之后才能设定window level
-			[self setPlayerWindowLevel];
-			
-			fullScreenStatus = kFullScreenStatusNone;
-			
-		} else if (displaying) {
-			// 应该进入全屏
-			// 只有在显示图像的时候才能进入全屏
-			
-			// 强制Lock Aspect Ratio
-			[self setLockAspectRatio:YES];
-			
-			BOOL keepOtherSrn = [ud boolForKey:kUDKeyFullScreenKeepOther];
-			
-			NSScreen *chosenScreen;
-			NSArray *scrnList = [NSScreen screens];
-			if (([scrnList count] > 1) && [ud boolForKey:kUDKeyAlwaysUseSecondaryScreen]) {
-				// 如果有多个screen，并且选中了始终使用secondary screen
-				chosenScreen = [scrnList objectAtIndex:1];
-			} else {
-				// 得到window目前所在的screen
-				chosenScreen = [playerWindow screen];
-			}
-			
-			// Presentation Options
-			NSApplicationPresentationOptions opts;
-			
-			if (chosenScreen == [scrnList objectAtIndex:0] || (!keepOtherSrn)) {
-				// if the main screen
-				// there is no reason to always hide Dock, when MPX displayed in the secondary screen
-				// so only do it in main screen
-				if ([ud boolForKey:kUDKeyAlwaysHideDockInFullScrn]) {
-					opts = NSApplicationPresentationHideDock | NSApplicationPresentationAutoHideMenuBar;
-				} else {
-					opts = NSApplicationPresentationAutoHideDock | NSApplicationPresentationAutoHideMenuBar;
-				}
-			} else {
-				// in secondary screens
-				opts = [NSApp presentationOptions];
-			}
-			
-			[fullScreenOptions setObject:[NSNumber numberWithInt:opts] forKey:NSFullScreenModeApplicationPresentationOptions];
-			// whether grab all the screens
-			[fullScreenOptions setObject:[NSNumber numberWithBool:!keepOtherSrn] forKey:NSFullScreenModeAllScreens];
-			
-			shouldResize = YES;
-			// 先记下全屏前窗口的方位
-			rcBeforeFullScrn = [playerWindow frame];
-			// 动画进入全屏
-			
-			[dispLayer forceAdjustToFitBounds:YES];
-			[playerWindow setFrame:[chosenScreen frame] display:YES animate:YES];
-			[dispLayer display];
-			
-			// 进入全屏
-			[self enterFullScreenMode:chosenScreen withOptions:fullScreenOptions];
-			// 推出全屏，重新根据现在的尺寸比例渲染图像
-			[dispLayer enablePositionOffset:YES];
-			[dispLayer enableScale:YES];
-			// 暂停的时候能够正确显示
-			[dispLayer display];
-			[dispLayer forceAdjustToFitBounds:NO];
-			
-			[playerWindow orderOut:self];
-			
-			[[self window] setCollectionBehavior:NSWindowCollectionBehaviorManaged];
-			
-			// 得到screen的分辨率，并和播放中的图像进行比较
-			// 知道是横图还是竖图
-			NSSize sz = [self bounds].size;
-			
-			[controlUI setFillScreenMode:(((sz.height * [dispLayer aspectRatio]) >= sz.width)?kFillScreenButtonImageUBKey:kFillScreenButtonImageLRKey)
-								   state:([dispLayer fillScreen])?NSOnState:NSOffState];
-			fullScreenStatus = kFullScreenStatusOld;
-		} else {
-			// 强制渲染一次
-			[dispLayer display];
-			fullScreenStatus = kFullScreenStatusNone;
-			return NO;
-		}
-	} else {
-		// Lion并且只有一个屏幕的时候
-		if ([self isInFullScreenMode]) {
-			// 退出全屏
-			if (shouldResize) {
-				shouldResize = NO;
-				// 得到目标frame
-				/*
-				rcBeforeFullScrn = [self calculateFrameFrom:rcBeforeFullScrn
-													  toFit:[dispLayer aspectRatio]
-													   mode:kCalFrameSizeDiag | kCalFrameFixPosCenter];
-				*/
-				// Lion风格的全屏不会隐藏playerWindow
-				// 需要在delegate函数里面隐藏或者显示窗口
-				[playerWindow toggleFullScreenReal:self];
-			} else {
-				[playerWindow toggleFullScreenReal:self];
-			}
+  BOOL oldWay = NO;
+  
+  if (fullScreenStatus == kFullScreenStatusNone) {
+    // 非全屏状态的话，就根据现在的状况来判断
+    // 10.9系统支持了多屏幕的全屏，
+    // 所以现在的判断逻辑是，只有在用户选择的旧方式 或者 系统为10.6以下 或者 系统为10.9以下并且有多个屏幕
+    oldWay = shouldUseOldFullScreenMethod();
+  } else {
+    // 现在是全屏状态，要推出全屏
+    // 因此要和进入全屏时的状态保持一致
+    oldWay = (fullScreenStatus == kFullScreenStatusOld);
+  }
+  
+  if (oldWay) {
+    // ！注意：这里的显示状态和mplayer的播放状态时不一样的，比如，mplayer在MP3的时候，播放状态为YES，显示状态为NO
+    if ([self isInFullScreenMode]) {
+      // 无论否在显示都可以退出全屏
+      
+      // 必须砸退出全屏的时候再设定
+      // 在退出全屏之前，这个view并不属于window，设定contentsize不起作用
+      if (shouldResize) {
+        shouldResize = NO;
+        // 得到目标frame
+        
+        MPLog(@"rcBefore:%@", NSStringFromRect(rcBeforeFullScrn));
+        // 这里的再次计算是必要的，当在全屏时由多个屏幕变为一个屏幕时，会退出全屏
+        // 这个时候 rcBeforeFullScrn 可能会在主屏幕外面
+        rcBeforeFullScrn = [self calculateFrameFrom:rcBeforeFullScrn
+                                              toFit:[dispLayer aspectRatio]
+                                               mode:kCalFrameSizeDiag | kCalFrameFixPosCenter];
+        MPLog(@"rcAfter: %@", NSStringFromRect(rcBeforeFullScrn));
+        [dispLayer forceAdjustToFitBounds:YES];
+        if (displaying) {
+          // 先将playerWindow放到全屏窗口的背后
+          [playerWindow orderWindow:NSWindowBelow relativeTo:[[self window] windowNumber]];
+          // 退出全屏
+          [self exitFullScreenModeWithOptions:fullScreenOptions];
+          // 取消全屏时的各种设置
+          [dispLayer enablePositionOffset:NO];
+          [dispLayer enableScale:NO];
+          // 如果选定了CloseWindowWhenStopped的话
+          // 播放完毕退出全屏会在这里显示窗口，然后退出到ControlUIView里面在关闭窗口
+          // 出现窗口闪动，因此只有当在diplaying的时候才主动显示窗口
+          [playerWindow makeKeyAndOrderFront:self];
+        } else {
+          // 如果不是displaying，那么根本不会显示window
+          // 退出全屏
+          [self exitFullScreenModeWithOptions:fullScreenOptions];
+          [dispLayer enablePositionOffset:NO];
+          [dispLayer enableScale:NO];
+        }
+        
+        // 如果没有displaying，那么就不需要动画了
+        [playerWindow setFrame:rcBeforeFullScrn display:YES animate:[ud boolForKey:kUDKeyAnimateFullScreen]?displaying:NO];
+        [dispLayer display];
+        [dispLayer forceAdjustToFitBounds:NO];
+        
+        // 当进入全屏的时候，回强制锁定ar
+        // 当出了全屏，更新了window的size之后，在这里需要再一次设定window的ar
+        [playerWindow setContentAspectRatio:[playerWindow contentRectForFrameRect:rcBeforeFullScrn].size];
+      } else {
+        [self exitFullScreenModeWithOptions:fullScreenOptions];
+        
+        // 推出全屏，重新根据现在的尺寸比例渲染图像
+        [dispLayer enablePositionOffset:NO];
+        [dispLayer enableScale:NO];
+        [dispLayer display];
+        
+        if (displaying) {
+          // 如果选定了CloseWindowWhenStopped的话
+          // 播放完毕退出全屏会在这里显示窗口，然后退出到ControlUIView里面在关闭窗口
+          // 出现窗口闪动，因此只有当在diplaying的时候才主动显示窗口
+          [playerWindow makeKeyAndOrderFront:self];
+        }
+      }
+      [playerWindow makeFirstResponder:self];
+      
+      // 必须要在退出全屏之后才能设定window level
+      [self setPlayerWindowLevel];
+      
+      fullScreenStatus = kFullScreenStatusNone;
+      
+    } else if (displaying) {
+      // 应该进入全屏
+      // 只有在显示图像的时候才能进入全屏
+      
+      // 强制Lock Aspect Ratio
+      [self setLockAspectRatio:YES];
+      
+      BOOL keepOtherSrn = [ud boolForKey:kUDKeyFullScreenKeepOther];
+      
+      NSScreen *chosenScreen;
+      NSArray *scrnList = [NSScreen screens];
+      if (([scrnList count] > 1) && [ud boolForKey:kUDKeyAlwaysUseSecondaryScreen]) {
+        // 如果有多个screen，并且选中了始终使用secondary screen
+        chosenScreen = [scrnList objectAtIndex:1];
+      } else {
+        // 得到window目前所在的screen
+        chosenScreen = [playerWindow screen];
+      }
+      
+      // Presentation Options
+      NSApplicationPresentationOptions opts;
+      
+      if (chosenScreen == [scrnList objectAtIndex:0] || (!keepOtherSrn)) {
+        // if the main screen
+        // there is no reason to always hide Dock, when MPX displayed in the secondary screen
+        // so only do it in main screen
+        if ([ud boolForKey:kUDKeyAlwaysHideDockInFullScrn]) {
+          opts = NSApplicationPresentationHideDock | NSApplicationPresentationAutoHideMenuBar;
+        } else {
+          opts = NSApplicationPresentationAutoHideDock | NSApplicationPresentationAutoHideMenuBar;
+        }
+      } else {
+        // in secondary screens
+        opts = [NSApp presentationOptions];
+      }
+      
+      [fullScreenOptions setObject:[NSNumber numberWithUnsignedLong:opts] forKey:NSFullScreenModeApplicationPresentationOptions];
+      // whether grab all the screens
+      [fullScreenOptions setObject:[NSNumber numberWithBool:!keepOtherSrn] forKey:NSFullScreenModeAllScreens];
+      
+      shouldResize = YES;
+      // 先记下全屏前窗口的方位
+      rcBeforeFullScrn = [playerWindow frame];
+      // 动画进入全屏
+      
+      [dispLayer forceAdjustToFitBounds:YES];
+      [playerWindow setFrame:[chosenScreen frame] display:YES animate:[ud boolForKey:kUDKeyAnimateFullScreen]];
+      [dispLayer display];
+      
+      // 进入全屏
+      [self enterFullScreenMode:chosenScreen withOptions:fullScreenOptions];
+      // 推出全屏，重新根据现在的尺寸比例渲染图像
+      [dispLayer enablePositionOffset:YES];
+      [dispLayer enableScale:YES];
+      // 暂停的时候能够正确显示
+      [dispLayer display];
+      [dispLayer forceAdjustToFitBounds:NO];
+      
+      [playerWindow orderOut:self];
+      
+      [[self window] setCollectionBehavior:NSWindowCollectionBehaviorManaged];
+      
+      // 得到screen的分辨率，并和播放中的图像进行比较
+      // 知道是横图还是竖图
+      NSSize sz = [self bounds].size;
+      
+      [controlUI setFillScreenMode:(((sz.height * [dispLayer aspectRatio]) >= sz.width)?kFillScreenButtonImageUBKey:kFillScreenButtonImageLRKey)
+                             state:([dispLayer fillScreen])?NSOnState:NSOffState];
+      fullScreenStatus = kFullScreenStatusOld;
+    } else {
+      // 强制渲染一次
+      [dispLayer display];
+      fullScreenStatus = kFullScreenStatusNone;
+      return NO;
+    }
+    
+    
+    
+  } else { //NEW WAY
+    
+    
+    
+    // Lion并且只有一个屏幕的时候
+    if ([self isInFullScreenMode]) {
+      // 退出全屏
+      [playerWindow toggleFullScreenReal:self];
+      fullScreenStatus = kFullScreenStatusNone;
+    } else if (displaying) {
+      // 进入全屏
+      // 强制Lock Aspect Ratio
+      [self setLockAspectRatio:YES];
+      
+      shouldResize = YES;
+      // 先记下全屏前窗口的方位
+      rcBeforeFullScrn = [playerWindow frame];
+      
+      [playerWindow toggleFullScreenReal:self];
+      fullScreenStatus = kFullScreenStatusLion;
+    } else {
+      [dispLayer display];
+      fullScreenStatus = kFullScreenStatusNone;
+      return NO;
+    }
+  }
+  return YES;
+}
 
-			fullScreenStatus = kFullScreenStatusNone;
-		} else if (displaying) {
-			// 进入全屏
-			// 强制Lock Aspect Ratio
-			[self setLockAspectRatio:YES];
-			
-			shouldResize = YES;
-			// 先记下全屏前窗口的方位
-			rcBeforeFullScrn = [playerWindow frame];
-			
-			[playerWindow toggleFullScreenReal:self];
-			
-			fullScreenStatus = kFullScreenStatusLion;
-		} else {
-			[dispLayer display];
-			fullScreenStatus = kFullScreenStatusNone;
-			return NO;
-		}
-	}
-	return YES;
+-(void) windowWillEnterFullScreen:(NSNotification*) notification
+{
+  [dispLayer forceAdjustToFitBounds:YES];
+  [dispLayer enablePositionOffset:YES];
+  [dispLayer enableScale:YES];
+  [titlebar setAlphaValue:0];
 }
 
 -(void) windowDidEnterFullScreen:(NSNotification *)notification
-{	
-	[[self window] makeFirstResponder:self];
+{
+  // It seems the fullscreen window is another window, so I have to set accept mouseMovedEvents
+  // otherwise, View could not receive the events
+  [[self window] setAcceptsMouseMovedEvents:YES];
+  [[self window] makeFirstResponder:self];
+  [[self layer] setCornerRadius:0];
+  [dispLayer forceAdjustToFitBounds:NO];
+  [dispLayer display];
+  [titlebar resetPosition];
+  [osd resetPosition];
+  [controlUI resetPosition];
+  
+  NSSize sz = [self bounds].size;
+  [controlUI setFillScreenMode:(((sz.height * [dispLayer aspectRatio]) >= sz.width)?kFillScreenButtonImageUBKey:kFillScreenButtonImageLRKey)
+                         state:([dispLayer fillScreen])?NSOnState:NSOffState];
+  [controlUI windowDidEnterFullScreen];
+}
 
-	NSSize sz = [self bounds].size;
-	
-	[controlUI setFillScreenMode:(((sz.height * [dispLayer aspectRatio]) >= sz.width)?kFillScreenButtonImageUBKey:kFillScreenButtonImageLRKey)
-						   state:([dispLayer fillScreen])?NSOnState:NSOffState];
+-(void) windowWillExitFullScreen:(NSNotification*) notification
+{
+  [dispLayer forceAdjustToFitBounds:YES];
+  [dispLayer enablePositionOffset:NO];
+  [dispLayer enableScale:NO];
+  [[self layer] setCornerRadius:5.0];
 }
 
 -(void) windowDidExitFullScreen:(NSNotification *)notification
 {
-	if (!displaying && [ud boolForKey:kUDKeyCloseWindowWhenStopped]) {
+	if ((!displaying) && [ud boolForKey:kUDKeyCloseWindowWhenStopped] && (playerController.playerState == kMPCStoppedState)) {
 		[[self window] orderOut:self];
 	}
 	// 当进入全屏的时候，回强制锁定ar
 	// 当出了全屏，更新了window的size之后，在这里需要再一次设定window的ar
 	[[self window] setContentAspectRatio:[[self window] contentRectForFrameRect:rcBeforeFullScrn].size];
-
 	[[self window] makeFirstResponder:self];
+  
+  // 暂停的时候能够正确显示
+  [dispLayer display];
+  [dispLayer forceAdjustToFitBounds:NO];
+  
+  // workaround for unknown bug in 10.8
+  // 当动画退出全屏的是偶，titlebar的方位大小会发生奇怪的变化
+  [titlebar resetPosition];
+  [osd resetPosition];
+  [controlUI resetPosition];
+  [controlUI windowDidExitFullScreen];
 	
 	// 必须要在退出全屏之后才能设定window level
 	[self setPlayerWindowLevel];
 }
 
--(NSSize) window:(NSWindow*)window willUseFullScreenContentSize:(NSSize)proposedSize
+-(void) windowDidFailToEnterFullScreen:(NSWindow*) window
 {
-	MPLog(@"Prop Size:%f, %f", proposedSize.width, proposedSize.height);
-	return proposedSize;
+  [controlUI windowDidFailToEnterFullScreen];
 }
 
 -(NSApplicationPresentationOptions) window:(NSWindow*)window willUseFullScreenPresentationOptions:(NSApplicationPresentationOptions)proposedOptions
@@ -1337,6 +1513,13 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 			   NSApplicationPresentationAutoHideMenuBar;
 	}
 }
+
+
+-(NSArray*) customWindowsToEnterFullScreenForWindow:(NSWindow *)window onScreen:(NSScreen*)scrn
+{
+    return [self customWindowsToEnterFullScreenForWindow:window];
+}
+
 
 -(NSArray*) customWindowsToEnterFullScreenForWindow:(NSWindow *)window
 {
@@ -1354,51 +1537,67 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 	return nil;	
 }
 
--(void) window:(NSWindow*)window startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration
+-(NSSize) window:(NSWindow*)window willUseFullScreenContentSize:(NSSize)proposedSize
 {
-	[self invalidateRestorableState];
-    
-	[window setStyleMask:([window styleMask] | NSFullScreenWindowMask)];
+  return proposedSize;
+}
 
-    NSScreen *screen = [window screen];
-    NSRect screenFrame = [screen frame];    
-    NSRect proposedFrame = screenFrame;
-	
-    proposedFrame.size = [self window:window willUseFullScreenContentSize:proposedFrame.size];
-    
-    proposedFrame.origin.x += floor(0.5 * (NSWidth(screenFrame) - NSWidth(proposedFrame)));
-    proposedFrame.origin.y += floor(0.5 * (NSHeight(screenFrame) - NSHeight(proposedFrame)));
-    
-	[dispLayer forceAdjustToFitBounds:YES];
-	[dispLayer enablePositionOffset:YES];
-	[dispLayer enableScale:YES];
 
-	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-		[context setDuration:0.5 * duration];
-		[[window animator] setFrame:proposedFrame display:YES];		
-	} completionHandler:^(void) {
-		[dispLayer display];
-		[dispLayer forceAdjustToFitBounds:NO];
-	}];
+-(void) window:(NSWindow*)window startCustomAnimationToEnterFullScreenOnScreen:(NSScreen*)screen withDuration:(NSTimeInterval)duration
+{
+  [self invalidateRestorableState];
+  
+  [window setStyleMask:([window styleMask] | NSFullScreenWindowMask)];
+  
+  // NSScreen *screen = [window screen];
+  NSRect screenFrame = [screen frame];
+  NSRect proposedFrame = screenFrame;
+  
+  proposedFrame.size = [self window:window willUseFullScreenContentSize:proposedFrame.size];
+  
+  proposedFrame.origin.x += floor(0.5 * (NSWidth(screenFrame) - NSWidth(proposedFrame)));
+  proposedFrame.origin.y += floor(0.5 * (NSHeight(screenFrame) - NSHeight(proposedFrame)));
+
+  [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+    if ([ud boolForKey:kUDKeyAnimateFullScreen]) {
+      [context setDuration:duration*0.5];
+      [context setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+      [[window animator] setFrame:proposedFrame display:YES animate:displaying];
+    } else {
+      [context setDuration:0];
+      [window setFrame:proposedFrame display:YES animate:NO];
+    }
+  } completionHandler:nil];
 }
 
 -(void) window:(NSWindow*)window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration
 {
-	[window setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
-
-	[dispLayer forceAdjustToFitBounds:YES];
-	[dispLayer enablePositionOffset:NO];
-	[dispLayer enableScale:NO];
-
-	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-		[context setDuration:0.5 * duration];
-		[[window animator] setFrame:rcBeforeFullScrn display:YES animate:displaying];
-	} completionHandler:^(void) {
-		// 暂停的时候能够正确显示
-		[dispLayer display];
-		[dispLayer forceAdjustToFitBounds:NO];
-	}];
+  NSRect scrnRC = window.screen.visibleFrame;
+  
+  [window setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
+  
+  if (!NSIntersectsRect(scrnRC, rcBeforeFullScrn)) {
+    MPLog(@"exit fullscreen: recalculate window frame");
+    MPLog(@"rcbefore %@", NSStringFromRect(rcBeforeFullScrn));
+    MPLog(@"screen %@", NSStringFromRect(scrnRC));
+    
+    rcBeforeFullScrn.origin.x = (scrnRC.size.width - rcBeforeFullScrn.size.width) / 2 + scrnRC.origin.x;
+    rcBeforeFullScrn.origin.y = (scrnRC.size.height - rcBeforeFullScrn.size.height) / 2 + scrnRC.origin.y;
+    MPLog(@"recalculate %@", NSStringFromRect(rcBeforeFullScrn));
+  }
+  
+  [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+    if ([ud boolForKey:kUDKeyAnimateFullScreen]) {
+      [context setDuration:duration * 0.5];
+      [context setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+      [[window animator] setFrame:rcBeforeFullScrn display:YES animate:displaying];
+    } else {
+      [context setDuration:0];
+      [window setFrame:rcBeforeFullScrn display:YES animate:NO];
+    }
+  } completionHandler:nil];
 }
+
 
 -(BOOL) toggleFillScreen
 {
@@ -1411,7 +1610,7 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 -(void) setPlayerWindowLevel
 {
 	// in window mode
-	int onTopMode = [ud integerForKey:kUDKeyOnTopMode];
+	NSInteger onTopMode = [ud integerForKey:kUDKeyOnTopMode];
 	BOOL fullscr = [self isInFullScreenMode];
 	
 	if ((((onTopMode == kOnTopModeAlways)||((onTopMode == kOnTopModePlaying) && (playerController.playerState == kMPCPlayingState)))&&(!fullscr)) ||
@@ -1597,13 +1796,41 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 - (NSDragOperation) draggingEntered:(id <NSDraggingInfo>)sender
 {
 	NSPasteboard *pboard = [sender draggingPasteboard];
-    NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
 	
-    if ( [[pboard types] containsObject:NSFilenamesPboardType] && (sourceDragMask & NSDragOperationCopy)) {
+    if ( [[pboard types] containsObject:NSFilenamesPboardType]) {
 		[[self layer] setBorderWidth:6.0];
-		return NSDragOperationCopy;
+        
+        if (([NSEvent modifierFlags] & NSCommandKeyMask) == NSCommandKeyMask) {
+            return NSDragOperationCopy;
+        } else {
+            
+            NSArray *names = [pboard propertyListForType:NSFilenamesPboardType];
+            if (names && [names count]) {
+                if ([[AppController sharedAppController] isFileSubtitle:[names objectAtIndex:0]]) {
+                    BOOL actOld = [osd isActive];
+                    [osd setActive:YES];
+                    [osd setStringValue:kMPXStringDragSubOSDHint owner:kOSDOwnerOther updateTimer:YES];
+                    [osd setActive:actOld];
+                }
+            }
+            return NSDragOperationMove;
+        }
     }
     return NSDragOperationNone;
+}
+
+-(NSDragOperation) draggingUpdated:(id<NSDraggingInfo>)sender
+{
+	NSPasteboard *pboard = [sender draggingPasteboard];
+	
+    if ( [[pboard types] containsObject:NSFilenamesPboardType]) {
+        if (([NSEvent modifierFlags] & NSCommandKeyMask) == NSCommandKeyMask) {
+            return NSDragOperationCopy;
+        } else {
+            return NSDragOperationMove;
+        }
+    }
+    return  NSDragOperationNone;
 }
 
 - (void)draggingExited:(id < NSDraggingInfo >)sender
@@ -1614,13 +1841,10 @@ float AreaOf(NSPoint p1, NSPoint p2, NSPoint p3, NSPoint p4)
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
 {
 	NSPasteboard *pboard = [sender draggingPasteboard];
-    NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
 	
 	if ( [[pboard types] containsObject:NSFilenamesPboardType] ) {
-		if (sourceDragMask & NSDragOperationCopy) {
-			[[self layer] setBorderWidth:0.0];
-			[playerController loadFiles:[pboard propertyListForType:NSFilenamesPboardType] fromLocal:YES];
-		}
+        [[self layer] setBorderWidth:0.0];
+        [playerController loadFiles:[pboard propertyListForType:NSFilenamesPboardType] fromLocal:YES];
 	}
 	return YES;
 }

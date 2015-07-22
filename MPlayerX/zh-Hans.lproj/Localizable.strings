@@ -1,0 +1,390 @@
+/* OSD hint */
+" " = " ";
+
+/* Inspector Info */
+" tracks" = " tracks";
+
+/* OSD hint media info */
+"%@, %.1fkbps, %.1fkHz %dbit, %d channels" = "%1$@, %2$.1fkbps, %3$.1fkHz %4$dbit, %5$d channels";
+
+/* OSD hint media info */
+"%@, %.1fkbps, %d×%d, %.1ffps\n" = "%1$@, %2$.1fkbps, %3$d×%4$d, %5$.1ffps\n";
+
+/* OSD hint media info */
+"%@, %.1fkHz %dbit, %d channels" = "%1$@, %2$.1fkHz %3$dbit, %4$d channels";
+
+/* OSD hint media info */
+"%@, %d×%d, %.1ffps\n" = "%1$@, %2$d×%3$d, %4$.1ffps\n";
+
+/* abloop */
+"A-B Loop" = "A-B Loop";
+
+/* PrefToolBarLabel */
+"Advanced" = "Advanced";
+
+/* Text Enc */
+"Arabic (ISO 8859-6)" = "Arabic (ISO 8859-6)";
+
+/* Text Enc */
+"Arabic (Mac)" = "Arabic (Mac)";
+
+/* Text Enc */
+"Arabic (Windows-1256)" = "Arabic (Windows-1256)";
+
+/* preference */
+"Ask me" = "Ask me";
+
+/* OSD hint */
+"Aspect Ratio: Locked" = "Aspect Ratio: Locked";
+
+/* OSD hint */
+"Aspect Ratio: Restored" = "Aspect Ratio: Restored";
+
+/* OSD hint */
+"Aspect Ratio: Unlocked" = "Aspect Ratio: Unlocked";
+
+/* PrefToolBarLabel */
+"Audio" = "Audio";
+
+/* OSD hint */
+"Audio %@" = "Audio %@";
+
+/* OSD hint */
+"Audio Delay: %.1f s" = "Audio Delay: %.1f s";
+
+/* Inspector Info */
+"Audio:%d" = "Audio:%d";
+
+/* Text Enc */
+"Baltic (ISO 8859-13)" = "Baltic (ISO 8859-13)";
+
+/* Text Enc */
+"Baltic (ISO 8859-4)" = "Baltic (ISO 8859-4)";
+
+/* Text Enc */
+"Baltic (Windows-1257)" = "Baltic (Windows-1257)";
+
+/* OSD hint */
+"Caching: %4.2f%%" = "Caching: %4.2f%%";
+
+/* No comment provided by engineer. */
+"Can't find a proper file to play" = "Can't find a proper file to play";
+
+/* Playlist warning */
+"Can't find next episode.\nPerhaps this is already the last episode." = "Can't find next episode.\nPerhaps this is already the last episode.";
+
+/* Playlist warning */
+"Can't find previous episode.\nPerhaps this is already the first episode." = "Can't find previous episode.\nPerhaps this is already the first episode.";
+
+/* No comment provided by engineer. */
+"Can't parse the URL: %@" = "Can't parse the URL: %@";
+
+/* abloop */
+"Cancelled" = "Cancelled";
+
+/* Text Enc */
+"Celtic (ISO 8859-14)" = "Celtic (ISO 8859-14)";
+
+/* Text Enc */
+"Celtic (Mac)" = "Celtic (Mac)";
+
+/* Text Enc */
+"Central Europe (ISO 8859-16)" = "Central Europe (ISO 8859-16)";
+
+/* Text Enc */
+"Central Europe (ISO 8859-2)" = "Central Europe (ISO 8859-2)";
+
+/* Text Enc */
+"Central Europe (Mac)" = "Central Europe (Mac)";
+
+/* Text Enc */
+"Central Europe (Windows-1250)" = "Central Europe (Windows-1250)";
+
+/* OSD hint */
+"Chapter: %@" = "Chapter: %@";
+
+/* Text Enc */
+"Chinese Simplified (EUC)" = "Chinese Simplified (EUC)";
+
+/* Text Enc */
+"Chinese Simplified (GB18030)" = "Chinese Simplified (GB18030)";
+
+/* Text Enc */
+"Chinese Simplified (ISO 2022)" = "Chinese Simplified (ISO 2022)";
+
+/* Text Enc */
+"Chinese Simplified (Mac)" = "Chinese Simplified (Mac)";
+
+/* Text Enc */
+"Chinese Simplified (Windows-936)" = "Chinese Simplified (Windows-936)";
+
+/* Text Enc */
+"Chinese Traditional (Big5 HKSCS)" = "Chinese Traditional (Big5 HKSCS)";
+
+/* Text Enc */
+"Chinese Traditional (Big5)" = "Chinese Traditional (Big5)";
+
+/* Text Enc */
+"Chinese Traditional (EUC)" = "Chinese Traditional (EUC)";
+
+/* Text Enc */
+"Chinese Traditional (Mac)" = "Chinese Traditional (Mac)";
+
+/* Text Enc */
+"Chinese Traditional (Windows-950)" = "Chinese Traditional (Windows-950)";
+
+/* open url panel */
+"Clear Menu..." = "Clear Menu...";
+
+/* merge subtitle warning */
+"Could not merge (%@) to the current subtitle.\r\nPlease merge to an EXTERNAL text subtitle with the SAME format." = "Could not merge (%@) to the current subtitle.\r\nPlease merge to an EXTERNAL text subtitle with the SAME format.";
+
+/* Text Enc */
+"Cyrillic (ISO 8859-5)" = "Cyrillic (ISO 8859-5)";
+
+/* Text Enc */
+"Cyrillic (KOI8-R)" = "Cyrillic (KOI8-R)";
+
+/* Text Enc */
+"Cyrillic (KOI8-U)" = "Cyrillic (KOI8-U)";
+
+/* Text Enc */
+"Cyrillic (Mac)" = "Cyrillic (Mac)";
+
+/* Text Enc */
+"Cyrillic (Windows-1251)" = "Cyrillic (Windows-1251)";
+
+/* SubEncoding */
+"Detected file:\t%@\nEncoding:\t\t%@\nconfidence:\t%2.1f%%" = "Detected file:\t%1$@\nEncoding:\t\t%2$@\nconfidence:\t%3$.1f%%";
+
+/* No comment provided by engineer. */
+"Disable" = "Disable";
+
+/* menu */
+"Enter Fullscreen" = "进入全屏";
+
+/* No comment provided by engineer. */
+"Error" = "Error";
+
+/* menu */
+"Exit Fullscreen" = "退出全屏";
+
+/* PrefToolBarLabel */
+"General" = "General";
+
+/* Open URL Panel */
+"Got the media URL, start to play..." = "Got the media URL, start to play...";
+
+/* Text Enc */
+"Greek (ISO 8859-7)" = "Greek (ISO 8859-7)";
+
+/* Text Enc */
+"Greek (Mac)" = "Greek (Mac)";
+
+/* Text Enc */
+"Greek (Windows-1253)" = "Greek (Windows-1253)";
+
+/* Text Enc */
+"Hebrew (ISO 8859-8)" = "Hebrew (ISO 8859-8)";
+
+/* Text Enc */
+"Hebrew (Mac)" = "Hebrew (Mac)";
+
+/* Text Enc */
+"Hebrew (Windows-1255)" = "Hebrew (Windows-1255)";
+
+/* menu */
+"Hide Auxiliary Controls" = "隐藏辅助控制";
+
+/* menu */
+"Hide Letterbox" = "隐藏字幕区";
+
+/* Text Enc */
+"Japanese (EUC)" = "Japanese (EUC)";
+
+/* Text Enc */
+"Japanese (ISO 2022)" = "Japanese (ISO 2022)";
+
+/* Text Enc */
+"Japanese (Mac)" = "Japanese (Mac)";
+
+/* Text Enc */
+"Japanese (Shift-JIS)" = "Japanese (Shift-JIS)";
+
+/* Text Enc */
+"Japanese (Windows-932)" = "Japanese (Windows-932)";
+
+/* Text Enc */
+"Korean (EUC)" = "Korean (EUC)";
+
+/* Text Enc */
+"Korean (ISO 2022)" = "Korean (ISO 2022)";
+
+/* Text Enc */
+"Korean (Mac)" = "Korean (Mac)";
+
+/* Text Enc */
+"Korean (Windows-949)" = "Korean (Windows-949)";
+
+/* menu */
+"Lock Aspect Ratio" = "Lock Aspect Ratio";
+
+/* OSD hint */
+"Mute OFF" = "Mute OFF";
+
+/* OSD hint */
+"Mute ON" = "Mute ON";
+
+/* PrefToolBarLabel */
+"Network" = "Network";
+
+/* Playlist warning */
+"Next/Previous is only supported on local media" = "Next/Previous is only supported on local media";
+
+/* Inspector Info */
+"No Info" = "No Info";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* warning message */
+"Oops, it seems that mplayer has quit without playing the media." = "Oops, it seems that mplayer has quit without playing the media.";
+
+/* No comment provided by engineer. */
+"Open Media Files" = "Open Media Files";
+
+/* No comment provided by engineer. */
+"Open VIDEO_TS" = "Open VIDEO_TS";
+
+/* OSD hint */
+"OSD settings changed" = "OSD settings changed";
+
+/* OSD hint */
+"Paused" = "Paused";
+
+/* abloop */
+"Set Return Point" = "Set Return Point";
+
+/* abloop */
+"Set Start Point" = "Set Start Point";
+
+/* menu */
+"Show Auxiliary Controls" = "显示辅助控制";
+
+/* menu */
+"Show Letterbox" = "显示字幕区";
+
+/* Text Enc */
+"South Europe (ISO 8859-3)" = "South Europe (ISO 8859-3)";
+
+/* OSD hint */
+"Speed: %.1fX" = "Speed: %.1fX";
+
+/* Open URL Panel */
+"Start parsing the URL..." = "Start parsing the URL...";
+
+/* OSD hint */
+"Stopped" = "Stopped";
+
+/* OSD hint */
+"Sub Delay: %.1f s" = "Sub Delay: %.1f s";
+
+/* OSD hint */
+"Sub: %@" = "Sub: %@";
+
+/* PrefToolBarLabel */
+"Subtitle" = "Subtitle";
+
+/* Inspector Info */
+"Subtitle:%d" = "Subtitle:%d";
+
+/* Text Enc */
+"Thai (ISO 8859-11)" = "Thai (ISO 8859-11)";
+
+/* Text Enc */
+"Thai (Mac)" = "Thai (Mac)";
+
+/* Text Enc */
+"Thai (Windows-874/TIS-620)" = "Thai (Windows-874/TIS-620)";
+
+/* No comment provided by engineer. */
+"The file does not exist" = "The file does not exist";
+
+/* No comment provided by engineer. */
+"The file is not supported by MPlayerX." = "The file is not supported by MPlayerX.";
+
+/* No comment provided by engineer. */
+"The URL is not supported by MPlayerX." = "The URL is not supported by MPlayerX.";
+
+/* Text Enc */
+"Turkish (ISO 8859-9)" = "Turkish (ISO 8859-9)";
+
+/* Text Enc */
+"Turkish (Mac)" = "Turkish (Mac)";
+
+/* Text Enc */
+"Turkish (Windows-1254)" = "Turkish (Windows-1254)";
+
+/* Text Enc */
+"Unicode (UTF-16BE)" = "Unicode (UTF-16BE)";
+
+/* Text Enc */
+"Unicode (UTF-16LE)" = "Unicode (UTF-16LE)";
+
+/* Text Enc */
+"Unicode (UTF-32BE)" = "Unicode (UTF-32BE)";
+
+/* Text Enc */
+"Unicode (UTF-32LE)" = "Unicode (UTF-32LE)";
+
+/* Text Enc */
+"Unicode (UTF-8)" = "Unicode (UTF-8)";
+
+/* menu */
+"Unlock Aspect Ratio" = "Unlock Aspect Ratio";
+
+/* abloop */
+"Update Return Point (%@)" = "Update Return Point (%@)";
+
+/* abloop */
+"Update Start Point (%@)" = "Update Start Point (%@)";
+
+/* PrefToolBarLabel */
+"Video" = "Video";
+
+/* OSD hint */
+"Video %@" = "Video %@";
+
+/* Inspector Info */
+"Video:%d" = "Video:%d";
+
+/* Text Enc */
+"Vietnamese (Mac)" = "Vietnamese (Mac)";
+
+/* Text Enc */
+"Vietnamese (Windows-1258)" = "Vietnamese (Windows-1258)";
+
+/* OSD hint */
+"Volume: %.1f" = "Volume: %.1f";
+
+/* Text Enc */
+"Western Europe (ISO 8859-1)" = "Western Europe (ISO 8859-1)";
+
+/* Text Enc */
+"Western Europe (ISO 8859-15)" = "Western Europe (ISO 8859-15)";
+
+/* Text Enc */
+"Western Europe (Mac)" = "Western Europe (Mac)";
+
+/* Text Enc */
+"Western Europe (Windows-1252)" = "Western Europe (Windows-1252)";
+
+/* drag subtitle osd hint */
+"⌘ + Drag to merge the subtitle to the current one." = "⌘ + Drag to merge the subtitle to the current one.";
+
+/* OpenURL Panel */
+"⌘-OK: Use FFMpeg to handle the stream" = "⌘-OK: Use FFMpeg to handle the stream";
+
+/* OpenURL Panel */
+"⌘-OK: Use MPlayer to handle the stream" = "⌘-OK: Use MPlayer to handle the stream";
+

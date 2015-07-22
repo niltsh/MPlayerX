@@ -1,7 +1,7 @@
 /*
  * MPlayerX - AODetector.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -43,7 +43,7 @@ static void print_format(const char* str, const AudioStreamBasicDescription *f)
 			(flags&kAudioFormatFlagIsNonInterleaved) ? " ni" : "");
 }
 
-static OSStatus GetAudioProperty(AudioObjectID id, AudioObjectPropertySelector selector, UInt32 outSize, void *outData)
+static OSStatus GetAudioProperty(AudioObjectID aid, AudioObjectPropertySelector selector, UInt32 outSize, void *outData)
 {
     AudioObjectPropertyAddress property_address;
 	
@@ -51,10 +51,10 @@ static OSStatus GetAudioProperty(AudioObjectID id, AudioObjectPropertySelector s
     property_address.mScope    = kAudioObjectPropertyScopeGlobal;
     property_address.mElement  = kAudioObjectPropertyElementMaster;
 	
-    return AudioObjectGetPropertyData(id, &property_address, 0, NULL, &outSize, outData);
+    return AudioObjectGetPropertyData(aid, &property_address, 0, NULL, &outSize, outData);
 }
 
-static UInt32 GetAudioPropertyArray(AudioObjectID id, AudioObjectPropertySelector selector, AudioObjectPropertyScope scope, void **outData)
+static UInt32 GetAudioPropertyArray(AudioObjectID aid, AudioObjectPropertySelector selector, AudioObjectPropertyScope scope, void **outData)
 {
     OSStatus err;
     AudioObjectPropertyAddress property_address;
@@ -64,7 +64,7 @@ static UInt32 GetAudioPropertyArray(AudioObjectID id, AudioObjectPropertySelecto
     property_address.mScope    = scope;
     property_address.mElement  = kAudioObjectPropertyElementMaster;
 	
-    err = AudioObjectGetPropertyDataSize(id, &property_address, 0, NULL, &i_param_size);
+    err = AudioObjectGetPropertyDataSize(aid, &property_address, 0, NULL, &i_param_size);
 	
     if (err != noErr) {
         return 0;
@@ -72,7 +72,7 @@ static UInt32 GetAudioPropertyArray(AudioObjectID id, AudioObjectPropertySelecto
 	
     *outData = malloc(i_param_size);
 	
-    err = AudioObjectGetPropertyData(id, &property_address, 0, NULL, &i_param_size, *outData);
+    err = AudioObjectGetPropertyData(aid, &property_address, 0, NULL, &i_param_size, *outData);
 	
     if (err != noErr) {
         free(*outData);
@@ -82,7 +82,7 @@ static UInt32 GetAudioPropertyArray(AudioObjectID id, AudioObjectPropertySelecto
     return i_param_size;
 }
 
-static OSStatus GetAudioPropertyString(AudioObjectID id, AudioObjectPropertySelector selector, char **outData)
+static OSStatus GetAudioPropertyString(AudioObjectID aid, AudioObjectPropertySelector selector, char **outData)
 {
     OSStatus err;
     AudioObjectPropertyAddress property_address;
@@ -95,7 +95,7 @@ static OSStatus GetAudioPropertyString(AudioObjectID id, AudioObjectPropertySele
     property_address.mElement  = kAudioObjectPropertyElementMaster;
 	
     i_param_size = sizeof(CFStringRef);
-    err = AudioObjectGetPropertyData(id, &property_address, 0, NULL, &i_param_size, &string);
+    err = AudioObjectGetPropertyData(aid, &property_address, 0, NULL, &i_param_size, &string);
     if (err != noErr) {
         return err;
 	}
@@ -176,14 +176,19 @@ static OSStatus DeviceListener( AudioObjectID inObjectID, UInt32 inNumberAddress
 			MPLog(@"Device Changed.\n");
 
 			AODetector *d = (AODetector*)inClientData;
-			char *name;
+			char *name = NULL;
 			
 			[d setDigital: AudioDeviceSupportsDigital([d defaultDevID])];
 			
 			GetAudioPropertyString([d defaultDevID], kAudioObjectPropertyName, &name);
-            [d setDeviceName:[NSString stringWithCString:name encoding:NSUTF8StringEncoding]];
-			free(name);
-			
+
+            if (name) {
+                [d setDeviceName:[NSString stringWithCString:name encoding:NSUTF8StringEncoding]];
+                free(name);
+            } else {
+                [d setDeviceName:@"Unknown"];
+            }
+
 			[[NSNotificationCenter defaultCenter] postNotificationName:kMPXDefaultAudioDeviceChanged object:d];
 			break;
         }
@@ -224,18 +229,16 @@ static BOOL init_ed = NO;
 		char *name;
 		err = GetAudioProperty(kAudioObjectSystemObject, kAudioHardwarePropertyDefaultOutputDevice, sizeof(UInt32), &defaultDevID);
 		if (err == noErr) {
-			
 			err = GetAudioPropertyString(defaultDevID, kAudioObjectPropertyName, &name);
+            
 			if (err == noErr) {
-				
 				[self setDeviceName:[NSString stringWithCString:name encoding:NSUTF8StringEncoding]];
 				free(name);
 				
 				digital = AudioDeviceSupportsDigital(defaultDevID);
-				
 			} else {
-				defaultDevID = kAudioDeviceUnknown;
-					MPLog(@"DevName Error: [%4.4s]\n", (char *)&err);
+                defaultDevID = kAudioDeviceUnknown;
+                MPLog(@"DevName Error: [%4.4s]\n", (char *)&err);
 			}
 		} else {
 			MPLog(@"Default Audio Device Error: [%4.4s]\n", (char *)&err);

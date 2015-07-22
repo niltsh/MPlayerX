@@ -1,7 +1,7 @@
 /*
  * MPlayerX - KeyCode.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -69,6 +69,7 @@ NSString * const kSCMScaleFrameSmaller2KeyEquivalent	= @"-";
 NSString * const kSCMMirrorKeyEquivalent				= @"m";
 NSString * const kSCMFlipKeyEquivalent					= @"f";
 
+NSString * const kSCMWindowZoomHalfSizeKeyEquivalent    = @"`";
 NSString * const kSCMWindowZoomToOrgSizeKeyEquivalent	= @"1";
 NSString * const kSCMWindowZoomDblSizeKeyEquivalent		= @"2";
 NSString * const kSCMWindowFitToScreenKeyEquivalent		= @"3";
@@ -85,3 +86,8 @@ NSString * const kSCMSubDelayPlusKeyEquivalent			= @"]";
 NSString * const kSCMSubDelayMinusKeyEquivalent			= @"[";
 NSString * const kSCMSubDelayResetKeyEquivalent			= @"\\";
 
+NSString * const kSCMABLoopSetStartKeyEquivalent        = @"b";
+NSString * const kSCMABLoopSetReturnKeyEquivalent       = @"n";
+NSString * const kSCMABLoopSetCancelKeyEquivalent       = @"h";
+
+NSString * const kSCMGotoSnapshotFolderKeyEquivalent    = @"g";

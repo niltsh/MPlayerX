@@ -1,7 +1,7 @@
 /*
  * MPlayerX - ShortCutManager.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,7 +24,6 @@
 #import "PlayerController.h"
 #import "ControlUIView.h"
 #import "RootLayerView.h"
-#import "AppleRemote.h"
 #import "CocoaAppendix.h"
 
 #define kSCMRepeatCounterThreshold	(6)
@@ -50,7 +49,10 @@
 					   [NSNumber numberWithFloat:0.3], kUDKeyARKeyRepeatTimeInterval,
 					   [NSNumber numberWithFloat:1.0], kUDKeyARKeyRepeatTimeIntervalLong,
 					   [NSNumber numberWithBool:YES], kUDKeySupportAppleRemote,
-					   nil]];
+                       [NSNumber numberWithBool:NO], kUDKeyARUseSysVol,
+                       [NSNumber numberWithBool:NO], kUDKeyARMenuKeyTogTimeDisp,
+					   [NSNumber numberWithFloat:0.5], kUDKeyKBSeekStepPeriod,
+                       nil]];
 }
 
 -(id) init
@@ -64,6 +66,13 @@
 		seekStepTimeR = [ud floatForKey:kUDKeySeekStepR];
 		seekStepTimeU = [ud floatForKey:kUDKeySeekStepU];
 		seekStepTimeB = [ud floatForKey:kUDKeySeekStepB];
+        
+        seekStepPeriod = [ud floatForKey:kUDKeyKBSeekStepPeriod];
+        
+        lastSeekL = 0;
+        lastSeekR = 0;
+        lastSeekU = 0;
+        lastSeekB = 0;
 
 		arKeyRepTime = [ud floatForKey:kUDKeyARKeyRepeatTimeInterval];
 
@@ -72,7 +81,9 @@
 		repeatCounter = 0;
 		
 		if ([ud boolForKey:kUDKeySupportAppleRemote]) {
-			appleRemoteControl = [[AppleRemote alloc] initWithDelegate:self];			
+			if ((appleRemoteControl = [[HIDRemote alloc] init]) != nil) {
+                [appleRemoteControl setDelegate:self];
+            }
 		} else {
 			appleRemoteControl = nil;
 		}
@@ -104,7 +115,13 @@
 -(void) dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[appleRemoteControl release];
+    if (appleRemoteControl) {
+        if ([appleRemoteControl isStarted]) {
+            [appleRemoteControl stopRemoteControl];
+        }
+        [appleRemoteControl setDelegate:nil];
+        [appleRemoteControl release];
+    }
 
 	[super dealloc];
 }
@@ -194,30 +211,80 @@
 						break;
 				}
 				break;
+            case NSCommandKeyMask | NSControlKeyMask:
+                switch (key)
+                {
+                    case 'f':
+                        [mainMenu performKeyEquivalent:[NSEvent makeKeyDownEvent:kSCMFullScrnKeyEquivalent modifierFlags:0]];
+                        break;
+                    default:
+                        ret = NO;
+                        break;
+                }
+                break;
+            case NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask:
+            	switch (key) {
+            		case NSRightArrowFunctionKey:
+            		    if ([playerController playerState] == kMPCPausedState) {
+                            [playerController frameStep];
+                        } else {
+                            [controlUI changeTimeBy:seekStepTimeR];
+                        }
+            			break;
+            		case NSLeftArrowFunctionKey:
+            			[controlUI changeTimeBy:seekStepTimeL];
+            			break;
+            		case NSUpArrowFunctionKey:
+            			[controlUI changeTimeBy:seekStepTimeU];
+            			break;
+            		case NSDownArrowFunctionKey:
+            			[controlUI changeTimeBy:seekStepTimeB];
+            			break;
+            		default:
+            			ret = NO;
+            			break;
+            	}
+            	break;
 			case 0:				// 什么功能键也没有按
-				switch (key)
-				{
+            {
+                NSTimeInterval evtTime = [event timestamp];
+                //MPLog(@"%f", (float)evtTime);
+				switch (key) {                        
 					case NSRightArrowFunctionKey:
-						if ([playerController playerState] == kMPCPausedState) {
-							[playerController frameStep];
-						} else {
-							[controlUI changeTimeBy:seekStepTimeR];
-						}
+                        if ((evtTime - lastSeekR) > seekStepPeriod) {
+                            if ([playerController playerState] == kMPCPausedState) {
+                                [playerController frameStep];
+                            } else {
+                                [controlUI changeTimeBy:seekStepTimeR];
+                            }
+                            lastSeekR = evtTime;
+                            //MPLog(@"R proc");
+                        }
 						break;
 					case NSLeftArrowFunctionKey:
-						[controlUI changeTimeBy:seekStepTimeL];
+                        if ((evtTime - lastSeekL) > seekStepPeriod) {
+                            [controlUI changeTimeBy:seekStepTimeL];
+                            lastSeekL = evtTime;
+                        }
 						break;
 					case NSUpArrowFunctionKey:
-						[controlUI changeTimeBy:seekStepTimeU];
+                        if ((evtTime - lastSeekU) > seekStepPeriod) {
+                            [controlUI changeTimeBy:seekStepTimeU];
+                            lastSeekU = evtTime;
+                        }
 						break;
 					case NSDownArrowFunctionKey:
-						[controlUI changeTimeBy:seekStepTimeB];
+                        if ((evtTime - lastSeekB) > seekStepPeriod) {
+                            [controlUI changeTimeBy:seekStepTimeB];
+                            lastSeekB = evtTime;
+                        }
 						break;
 					default:
 						ret = NO;
 						break;
 				}
-				break;
+            }
+                break;
 			default:
 				ret = NO;
 				break;
@@ -226,7 +293,47 @@
 	return ret;
 }
 
--(void) sendRemoteButtonEvent:(RemoteControlEventIdentifier)event pressedDown:(BOOL)pressedDown remoteControl:(RemoteControl*)remoteControl
+-(BOOL) processKeyUp:(NSEvent*) event
+{
+    unichar key;
+    BOOL ret = NO;
+    // 这里处理的是没有keyequivalent的快捷键
+	if ([[event charactersIgnoringModifiers] length] == 0) {
+		ret = NO;
+	} else {
+		key = [[event charactersIgnoringModifiers] characterAtIndex:0];
+        
+		switch ([event modifierFlags] & (NSShiftKeyMask| NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask)) {
+            case 0:				// 什么功能键也没有按
+            {
+				switch (key) {                        
+					case NSRightArrowFunctionKey:
+                        lastSeekR = 0;
+						break;
+					case NSLeftArrowFunctionKey:
+                        lastSeekL = 0;
+						break;
+					case NSUpArrowFunctionKey:
+                        lastSeekU = 0;
+						break;
+					case NSDownArrowFunctionKey:
+                        lastSeekB = 0;
+                        break;
+					default:
+						break;
+				}
+            }
+            default:
+                break;
+        }
+    }
+    return ret;
+}
+
+- (void)hidRemote:(HIDRemote *)theHidRemote
+  eventWithButton:(HIDRemoteButtonCode)buttonCode
+        isPressed:(BOOL)isPressed
+fromHardwareWithAttributes:(NSMutableDictionary *)attributes
 {
 	unichar key = 0;
 	NSString *keyEqTemp = nil;
@@ -234,43 +341,87 @@
 	SEL action = NULL;
 	NSUInteger modifierFlagMask = 0;
 	
-	if (pressedDown) {
+	if (isPressed) {
 		repeatCanceled = NO;
 		// 如果是按下键
-		switch(event) {
-			case kRemoteButtonPlus_Hold:
-			case kRemoteButtonPlus:
-				keyEqTemp = kSCMVolumeUpKeyEquivalent;
-				target = mainMenu;
-				action = @selector(performKeyEquivalent:);
+		switch(buttonCode) {
+			case kHIDRemoteButtonCodeUpHold:
+			case kHIDRemoteButtonCodeUp:
+            {
+                if ([ud boolForKey:kUDKeyARUseSysVol]) {
+                    NSDictionary *err;
+                    NSAppleScript *volUpScpt = [[NSAppleScript alloc] initWithSource:@"set curVolSet to get volume settings \r\n \
+                                                                                       set curVol to output volume of curVolSet \r\n \
+                                                                                       set curVol to curVol + 5 \r\n \
+                                                                                       if curVol > 100 then set curVol to 100 \r\n \
+                                                                                       set volume output volume curVol"];
+                    [volUpScpt executeAndReturnError:&err];
+                    [volUpScpt release];
+                } else {
+                    keyEqTemp = kSCMVolumeUpKeyEquivalent;
+                    target = mainMenu;
+                    action = @selector(performKeyEquivalent:);
+                }
+            }
 				break;
-				
-			case kRemoteButtonMinus_Hold:
-			case kRemoteButtonMinus:
-				keyEqTemp = kSCMVolumeDownKeyEquivalent;
-				target = mainMenu;
-				action = @selector(performKeyEquivalent:);
+                
+			case kHIDRemoteButtonCodeDownHold:
+			case kHIDRemoteButtonCodeDown:
+            {
+                if ([ud boolForKey:kUDKeyARUseSysVol]) {
+                    NSDictionary *err;
+                    NSAppleScript *volDownScpt = [[NSAppleScript alloc] initWithSource:@"set curVolSet to get volume settings \r\n \
+                                                                                         set curVol to output volume of curVolSet \r\n \
+                                                                                         set curVol to curVol - 5 \r\n \
+                                                                                         if curVol < 0 then set curVol to 0 \r\n \
+                                                                                         set volume output volume curVol"];
+                    [volDownScpt executeAndReturnError:&err];
+                    [volDownScpt release];
+                } else {
+                    keyEqTemp = kSCMVolumeDownKeyEquivalent;
+                    target = mainMenu;
+                    action = @selector(performKeyEquivalent:);
+                }
+            }
 				break;			
 						
-			case kRemoteButtonMenu:
-				keyEqTemp = kSCMFullScrnKeyEquivalent;
-				target = mainMenu;
-				action = @selector(performKeyEquivalent:);
+			case kHIDRemoteButtonCodeMenu:
+            {
+                if ([ud boolForKey:kUDKeyARMenuKeyTogTimeDisp]) {
+                    [ud setBool:![ud boolForKey:kUDKeyTimeTextAltTotal] forKey:kUDKeyTimeTextAltTotal];
+                    [controlUI showUp];
+                } else {
+                    keyEqTemp = kSCMFullScrnKeyEquivalent;
+                    target = mainMenu;
+                    action = @selector(performKeyEquivalent:);
+                }
+            }
 				break;			
 			
-			case kRemoteButtonMenu_Hold:
+			case kHIDRemoteButtonCodeMenuHold:
 				keyEqTemp = kSCMFillScrnKeyEquivalent;
 				target = mainMenu;
 				action = @selector(performKeyEquivalent:);
 				break;
 			
-			case kRemoteButtonPlay:
+			case kHIDRemoteButtonCodePlay:
+                // this is only for aluminium
 				keyEqTemp = kSCMPlayPauseKeyEquivalent;
 				target = controlUI;
 				action = @selector(performKeyEquivalent:);
 				break;			
-			case kRemoteButtonPlay_Hold:
-				{
+            case kHIDRemoteButtonCodeCenter:
+                // center key is play/pause for plastic
+                // but for aluminium, it is other key
+                if ([theHidRemote lastSeenModel] != kHIDRemoteModelAluminum) {
+                    keyEqTemp = kSCMPlayPauseKeyEquivalent;
+                    target = controlUI;
+                    action = @selector(performKeyEquivalent:);
+                }
+				break;			
+			// case kHIDRemoteButtonCodePlayHold:
+            case kHIDRemoteButtonCodeCenterHold:
+            {
 				NSAppleScript *sleepScript = [[NSAppleScript alloc] initWithSource:@"do shell script \"pmset sleepnow\""];
 				NSDictionary *err;
 				
@@ -280,25 +431,27 @@
 				}
 				[sleepScript executeAndReturnError:&err];
 				[sleepScript release];
-				}
+            }
 				break;
-			case kRemoteButtonRight_Hold:
+			case kHIDRemoteButtonCodeRightHold:
 				repeatEntered = YES;
 				repeatCounter = 0;
 				arKeyRepTime = [ud floatForKey:kUDKeyARKeyRepeatTimeInterval];
-			case kRemoteButtonRight:
+			case kHIDRemoteButtonCodeRight:
 				key = NSRightArrowFunctionKey;
 				target = self;
 				action = @selector(processKeyDown:);
+				modifierFlagMask = NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask;
 				break;
-			case kRemoteButtonLeft_Hold:
+			case kHIDRemoteButtonCodeLeftHold:
 				repeatEntered = YES;
 				repeatCounter = 0;
 				arKeyRepTime = [ud floatForKey:kUDKeyARKeyRepeatTimeInterval];
-			case kRemoteButtonLeft:
+			case kHIDRemoteButtonCodeLeft:
 				key = NSLeftArrowFunctionKey;
 				target = self;
 				action = @selector(processKeyDown:);
+				modifierFlagMask = NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask;
 				break;			
 			
 			default:
@@ -311,7 +464,7 @@
 			} else {
 				event = [NSEvent makeKeyDownEvent:[NSString stringWithCharacters:&key length:1] modifierFlags:modifierFlagMask];
 			}
-			[self simulateEvent:[NSArray arrayWithObjects:target, [NSNumber numberWithInteger:((NSInteger)action)], event, nil]];
+			[self simulateEvent:[NSArray arrayWithObjects:target, NSStringFromSelector(action), event, nil]];
 		}		
 	} else {
 		// 如果是放开键
@@ -323,7 +476,7 @@
 -(void) simulateEvent:(NSArray *)arg
 {
 	id tgt = [arg objectAtIndex:0];
-	SEL sel = (SEL)[[arg objectAtIndex:1] integerValue];
+	SEL sel = NSSelectorFromString([arg objectAtIndex:1]);
 	NSEvent *evt = [arg objectAtIndex:2];
 	
 	if (!repeatCanceled) {
@@ -347,14 +500,14 @@
 				} else {
 					key = NSDownArrowFunctionKey;
 				}
-				newEv = [NSEvent makeKeyDownEvent:[NSString stringWithCharacters:&key length:1] modifierFlags:0];
+				newEv = [NSEvent makeKeyDownEvent:[NSString stringWithCharacters:&key length:1] modifierFlags:NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask];
 				timeLong = [ud floatForKey:kUDKeyARKeyRepeatTimeIntervalLong];
 			} else {
 				newEv = evt;
 			}
 			
 			[self performSelector:@selector(simulateEvent:)
-					   withObject:[NSArray arrayWithObjects:tgt, [NSNumber numberWithInteger:((NSInteger)sel)], newEv, nil]
+					   withObject:[NSArray arrayWithObjects:tgt, NSStringFromSelector(sel), newEv, nil]
 					   afterDelay:arKeyRepTime];
 			arKeyRepTime = timeLong;
 		}
@@ -363,15 +516,15 @@
 
 -(void) applicationWillBecomeActive:(NSNotification*) notif
 {
-	if (appleRemoteControl) {
-		[appleRemoteControl startListening:self];
+	if (appleRemoteControl && (![appleRemoteControl isStarted])) {
+		[appleRemoteControl startRemoteControl:kHIDRemoteModeExclusiveAuto];
 	}
 }
 
 -(void) applicationWillResignActive:(NSNotification*) notif
 {
-	if (appleRemoteControl) {
-		[appleRemoteControl stopListening:self];
+	if (appleRemoteControl && [appleRemoteControl isStarted]) {
+		[appleRemoteControl stopRemoteControl];
 	}
 }
 

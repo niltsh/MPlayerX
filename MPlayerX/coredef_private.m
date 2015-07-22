@@ -1,7 +1,7 @@
 /*
  * MPlayerX - coredef_private.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -31,6 +31,7 @@ NSString * const kMPCSeekCmd			= @"seek";
 NSString * const kMPCAssMargin			= @"ass_margin";
 NSString * const kMPCAfAddCmd			= @"af_add";
 NSString * const kMPCAfDelCmd			= @"af_del";
+NSString * const kMPCABLoopCmd          = @"abloop";
 
 NSString * const kMPCGetPropertyPreFix	= @"get_property";
 NSString * const kMPCSetPropertyPreFix	= @"set_property";

@@ -1,7 +1,7 @@
 /*
  * MPlayerX - MPApplication.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,9 +19,16 @@
  */
 #import <Foundation/Foundation.h>
 
+@class PlayerController, ControlUIView;
 
-@interface MPApplication : NSApplication {
-    
+@interface MPApplication : NSApplication
+{
+    IBOutlet PlayerController *playerController;
+    IBOutlet ControlUIView *controlUI;
 }
+@end
 
+
+@interface MPApplication (Scripting)
+-(id) processScriptCommand:(NSScriptCommand*)command;
 @end

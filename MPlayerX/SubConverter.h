@@ -1,7 +1,7 @@
 /*
  * MPlayerX - SubConverter.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -45,4 +45,5 @@
 
 -(NSString*) getCPOfTextSubtitle:(NSString*)path;
 
+-(NSString*) mergeSubtitle:(NSString*)fullPath to:(NSString*)subName;
 @end

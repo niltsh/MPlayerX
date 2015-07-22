@@ -1,7 +1,7 @@
 /*
  * MPlayerX - TimeSliderCell.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -128,9 +128,9 @@
 				frame.origin.y = frame.origin.y + (((frame.origin.y + frame.size.height) /2) - 2.5f);
 			}
 			
-			frame.origin.x += 0.5f;
+			frame.origin.x += 6.0f;
 			frame.origin.y -= 2.0f;
-			frame.size.width -= 1.0f;
+			frame.size.width -= 12.0f;
 			frame.size.height = 8.0f;
 			break;
 		default:
@@ -156,48 +156,71 @@
 	[path release];
 }
 
+#define TIMESLIDER_EFFECTIVE_X_OFFSET       (7.0f)
+#define TIMESLIDER_EFFECTIVE_WIDTH_OFFSET   (14.0f)
+
 - (void)drawHorizontalKnobInFrame:(NSRect)frame {
 	
 	NSRect rcBounds = [[self controlView] bounds];
-	NSBezierPath *path, *dot;
+	NSBezierPath *path = nil, *dot = nil;
+    NSRect dotRc;
 	
 	switch ([self controlSize]) {
 			
 		case NSSmallControlSize:
+            // 这里为什么要将画界面的区域缩小，
+            // 如果不缩小的话，通过slider得到的floatValue和实际绘画的区域对不上
+            // 也就是说，实际上floatValue的取值是考虑了一定的margin得到的值
+            // 绘画的时候要考虑到这部分margin进行绘画
 			rcBounds.origin.y = rcBounds.origin.y + (((rcBounds.origin.y + rcBounds.size.height) /2) - 2.5f);
-			rcBounds.origin.x += 0.5f;
+			rcBounds.origin.x += TIMESLIDER_EFFECTIVE_X_OFFSET;
 			rcBounds.origin.y -= 2.0f;
-			rcBounds.size.width -= 0.5f;
+			rcBounds.size.width -= TIMESLIDER_EFFECTIVE_WIDTH_OFFSET;
 			rcBounds.size.height = 8.0f;
-			
-			rcBounds.size.width *= ([self floatValue]/[self maxValue]);
-			
+
+            if ([self maxValue]) {
+                rcBounds.size.width *= ([self floatValue]/[self maxValue]);
+                rcBounds.size.width = MAX(rcBounds.size.width, 1);
+            } else {
+                rcBounds.size.width = 1.0;
+            }
+
 			path = [[NSBezierPath alloc] init];
 			[path appendBezierPathWithRoundedRect:rcBounds xRadius:4 yRadius:4];
 
-			dot  = [[NSBezierPath alloc] init];
-			[dot appendBezierPathWithOvalInRect:NSMakeRect(rcBounds.size.width - 6, rcBounds.origin.y + 2.0, 4, 4)];
-			
 			if([self isEnabled]) {
 				[[NSColor colorWithDeviceWhite:0.96 alpha:1.0] set];
-				[path fill];
 			} else {
 				[[NSColor colorWithDeviceWhite:0.3 alpha:1.0] set];
-				[path fill];
 			}
-				
+            [path fill];
+
 			[[NSColor colorWithDeviceWhite:0.0 alpha:0.3] set];
 			[path stroke];
-			
-			[[NSColor blackColor] set];
-			[dot fill];
-			
 			[path release];
-			[dot release];
+
+            dotRc = NSMakeRect(rcBounds.size.width - 0.5, rcBounds.origin.y + 2.0, 4, 4);
+
+            if (dotRc.origin.x >= 5.5f) {
+                dot  = [[NSBezierPath alloc] init];
+                [dot appendBezierPathWithOvalInRect:dotRc];
+                [[NSColor blackColor] set];
+                [dot fill];
+                [dot release];
+            }
+            
 			break;
 		default:
 			[super drawHorizontalKnobInFrame:frame];
 			break;
 	}
+}
+
+-(NSRect) effectiveRect
+{
+    NSRect ret = [[self controlView] frame];
+    ret.origin.x += TIMESLIDER_EFFECTIVE_X_OFFSET;
+    ret.size.width -= TIMESLIDER_EFFECTIVE_WIDTH_OFFSET;
+    return ret;
 }
 @end

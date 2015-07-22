@@ -1,7 +1,7 @@
 /*
  * MPlayerX - ControlUIView.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,7 +22,7 @@
 
 @class RootLayerView, PlayerController, FloatWrapFormatter, ArrowTextField, ResizeIndicator, OsdText, TitleView, TimeFormatter;
 
-@interface ControlUIView : NSView
+@interface ControlUIView : NSVisualEffectView
 {
 	NSUserDefaults *ud;
 	NSNotificationCenter *notifCenter;
@@ -120,12 +120,23 @@
 	IBOutlet NSMenuItem *menuSubDelayDec;
 	IBOutlet NSMenuItem *menuSubDelayReset;
 	
+  IBOutlet NSMenuItem *menuZoomToHalfSize;
 	IBOutlet NSMenuItem *menuZoomToOriginSize;
 	IBOutlet NSMenuItem *menuZoomToDoubleSize;
 	IBOutlet NSMenuItem *menuWndFitToScrn;
 	IBOutlet NSMenuItem *menuAudioChannels;
 	IBOutlet NSMenuItem *menuChapterList;
+
+  IBOutlet NSMenuItem *menuABLPSetStart;
+  IBOutlet NSMenuItem *menuABLPSetReturn;
+  IBOutlet NSMenuItem *menuABLPCancel;
+    
+  IBOutlet NSMenu *deintMenu;
+    
+  IBOutlet NSMenuItem *menuGotoSnapshotFolder;
 }
+
+- (BOOL) allowsVibrancy;
 
 ////////////////////////////////显示相关////////////////////////////////
 extern NSString * const kFillScreenButtonImageLRKey;
@@ -143,6 +154,7 @@ extern NSString * const kFillScreenButtonImageUBKey;
 -(void) refreshAutoHideTimer;
 -(void) refreshOSDSetting;
 
+-(void)resetPosition;
 //////////////////////////////其他控件相关/////////////////////////////
 -(IBAction) togglePlayPause:(id)sender;
 -(IBAction) toggleMute:(id)sender;
@@ -155,6 +167,10 @@ extern NSString * const kFillScreenButtonImageUBKey;
 
 -(IBAction) toggleFullScreen:(id)sender;
 -(IBAction) toggleFillScreen:(id)sender;
+
+-(void) windowDidEnterFullScreen;
+-(void) windowDidExitFullScreen;
+-(void) windowDidFailToEnterFullScreen;
 
 -(IBAction) toggleAccessaryControls:(id)sender;
 -(IBAction) changeSpeed:(id) sender;
@@ -198,4 +214,11 @@ extern NSString * const kFillScreenButtonImageUBKey;
 -(IBAction) toggleTimeAltDisplayMode:(id)sender;
 
 -(IBAction) mapAudioChannelsTo:(id)sender;
+
+-(IBAction) setABLoopStart:(id)sender;
+-(IBAction) setABLoopReturn:(id)sender;
+-(IBAction) stopABLoop:(id)sender;
+
+-(IBAction) choseDeinterlaceMethod:(id)sender;
+
 @end

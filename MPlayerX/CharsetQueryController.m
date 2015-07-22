@@ -1,7 +1,7 @@
 /*
  * MPlayerX - CharsetQueryController.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -27,12 +27,12 @@
 
 +(void) initialize
 {
-	[[NSUserDefaults standardUserDefaults] registerDefaults:
-	 [NSDictionary dictionaryWithObjectsAndKeys:
-	  [NSNumber numberWithFloat:0.8], kUDKeyTextSubtitleCharsetConfidenceThresh,
-	  [NSNumber numberWithBool:YES], kUDKeyTextSubtitleCharsetManual,
-	  [NSNumber numberWithInteger:kCFStringEncodingInvalidId], kUDKeyTextSubtitleCharsetFallback,
-	  nil]];
+  [[NSUserDefaults standardUserDefaults] registerDefaults:
+   [NSDictionary dictionaryWithObjectsAndKeys:
+    [NSNumber numberWithFloat:0.8], kUDKeyTextSubtitleCharsetConfidenceThresh,
+    [NSNumber numberWithBool:YES], kUDKeyTextSubtitleCharsetManual,
+    [NSNumber numberWithInteger:kCFStringEncodingInvalidId], kUDKeyTextSubtitleCharsetFallback,
+    nil]];
 }
 
 -(id) init
@@ -48,7 +48,9 @@
 -(CFStringEncoding) askForSubEncodingForFile:(NSString*)path charsetName:(NSString*)charsetName confidence:(float)conf
 {
 	if (!nibLoaded) {
-		[NSBundle loadNibNamed:@"SubEncoding" owner:self];
+    NSArray* topLevel;
+    [[NSBundle bundleForClass:[self class]] loadNibNamed:@"SubEncoding" owner:self topLevelObjects:&topLevel];
+    [topLevel retain];
 		
 		[[charsetListPopup menu] removeAllItems];
 		[[charsetListPopup menu] appendCharsetList];
@@ -70,7 +72,7 @@
 			[charsetListPopup selectItem:item];
 		}
 	}
-	return [NSApp runModalForWindow:encodingWindow];
+	return (CFStringEncoding)[NSApp runModalForWindow:encodingWindow];
 }
 
 -(IBAction) confirmed:(id)sender

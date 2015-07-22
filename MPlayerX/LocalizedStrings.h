@@ -1,7 +1,7 @@
 /*
  * MPlayerX - LocalizedStrings.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -26,6 +26,7 @@
 #define kMPXStringFileNotExist			(NSLocalizedString(@"The file does not exist", nil))
 #define kMPXStringURLNotSupported		(NSLocalizedString(@"The URL is not supported by MPlayerX.", nil))
 #define kMPXStringCantFindMediaFile		(NSLocalizedString(@"Can't find a proper file to play", nil))
+#define kMPXStringQuitAbnormally        (NSLocalizedString(@"Oops, it seems that mplayer has quit without playing the media.", @"warning message"))
 #define kMPXStringTBILabelGeneral		(NSLocalizedString(@"General", @"PrefToolBarLabel"))
 #define kMPXStringTBILabelVideo			(NSLocalizedString(@"Video", @"PrefToolBarLabel"))
 #define kMPXStringTBILabelAudio			(NSLocalizedString(@"Audio", @"PrefToolBarLabel"))
@@ -81,6 +82,20 @@
 #define kMPXStringCantFindNextEpisode			(NSLocalizedString(@"Can't find next episode.\nPerhaps this is already the last episode.", @"Playlist warning"))
 #define kMPXStringCantFindPrevEpisode			(NSLocalizedString(@"Can't find previous episode.\nPerhaps this is already the first episode.", @"Playlist warning"))
 #define kMPXStringNextPrevOnlySupportLocalMedia	(NSLocalizedString(@"Next/Previous is only supported on local media", @"Playlist warning"))
+
+#define kMPXStringMergeSubtitleFailed           (NSLocalizedString(@"Could not merge (%@) to the current subtitle.\r\nPlease merge to an EXTERNAL text subtitle with the SAME format.", @"merge subtitle warning"))
+#define kMPXStringDragSubOSDHint                (NSLocalizedString(@"⌘ + Drag to merge the subtitle to the current one.", @"drag subtitle osd hint"))
+
+#define kMPXStringABLPSetStart                  (NSLocalizedString(@"Set Start Point", @"abloop"))
+#define kMPXStringABLPUpdateStart               (NSLocalizedString(@"Update Start Point (%@)", @"abloop"))
+#define kMPXStringABLPSetReturn                 (NSLocalizedString(@"Set Return Point", @"abloop"))
+#define kMPXStringABLPUpdateReturn              (NSLocalizedString(@"Update Return Point (%@)", @"abloop"))
+#define kMPXStringABLPPrefix                    (NSLocalizedString(@"A-B Loop", @"abloop"))
+#define kMPXStringABLPCancelled                 (NSLocalizedString(@"Cancelled", @"abloop"))
+
+#define kMPXStringStartToParseURL               (NSLocalizedString(@"Start parsing the URL...", @"Open URL Panel"))
+#define kMPXStringGotURL                        (NSLocalizedString(@"Got the media URL, start to play...", @"Open URL Panel"))
+#define kMPXStringParseURLErrorFmt              (NSLocalizedString(@"Can't parse the URL: %@", @""))
 
 #define kMPXStringTextSubEncAskMe	(NSLocalizedString(@"Ask me", @"preference"))
 

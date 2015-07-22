@@ -1,7 +1,7 @@
 /*
  * MPlayerX - VideoTunerController.m
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -238,9 +238,10 @@ NSString * const kCILayerHueAngleEnabledKeyPath		= @"filters.hueFilter.enabled";
 {
 	if (!nibLoaded) {
 		nibLoaded = YES;
-		
+    NSArray* topLevel;
 		///////////////////////////// 加载bundle /////////////////////////////
-		[NSBundle loadNibNamed:@"VideoTuner" owner:self];
+    [[NSBundle bundleForClass:[self class]] loadNibNamed:@"VideoTuner" owner:self topLevelObjects:&topLevel];
+    [topLevel retain];
 		
 		[brInc setBordered:NO];
 		[brDec setBordered:NO];

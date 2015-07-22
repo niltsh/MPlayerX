@@ -1,0 +1,1228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7702" systemVersion="14D131" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <development version="5100" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7702"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
+            <connections>
+                <outlet property="delegate" destination="961" id="964"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="MPApplication">
+            <connections>
+                <outlet property="controlUI" destination="540" id="1215"/>
+                <outlet property="playerController" destination="494" id="1214"/>
+            </connections>
+        </customObject>
+        <menu title="AMainMenu" systemMenu="main" showsStateColumn="NO" id="29">
+            <items>
+                <menuItem title="MPlayerX" id="56">
+                    <menu key="submenu" title="MPlayerX" systemMenu="apple" id="57">
+                        <items>
+                            <menuItem title="About MPlayerX" id="58">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="orderFrontStandardAboutPanel:" target="-1" id="974"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Check For Updates..." id="1212">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="checkForUpdate:" target="961" id="1213"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Donate..." id="1009">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="donate:" target="961" id="1010"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="236">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Preferences…" keyEquivalent="," id="129">
+                                <connections>
+                                    <action selector="showUI:" target="820" id="852"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="143">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Services" id="131">
+                                <menu key="submenu" title="Services" systemMenu="services" id="130"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="144">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Hide MPlayerX" keyEquivalent="h" id="134">
+                                <connections>
+                                    <action selector="hide:" target="-1" id="367"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Hide Others" keyEquivalent="h" id="145">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="hideOtherApplications:" target="-1" id="368"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Show All" id="150">
+                                <connections>
+                                    <action selector="unhideAllApplications:" target="-1" id="370"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="149">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Quit MPlayerX" keyEquivalent="q" id="136">
+                                <connections>
+                                    <action selector="terminate:" target="-3" id="449"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="File" id="83">
+                    <menu key="submenu" title="File" id="81">
+                        <items>
+                            <menuItem title="Open…" keyEquivalent="o" id="72">
+                                <connections>
+                                    <action selector="openFile:" target="-1" id="968"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Open VIDEO_TS..." keyEquivalent="d" id="1088">
+                                <connections>
+                                    <action selector="openVIDEOTS:" target="-1" id="1089"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Open URL..." keyEquivalent="u" id="644">
+                                <connections>
+                                    <action selector="openURL:" target="645" id="650"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Open Recent" id="124">
+                                <menu key="submenu" title="Open Recent" systemMenu="recentDocuments" id="125">
+                                    <items>
+                                        <menuItem title="Clear Menu" id="126">
+                                            <connections>
+                                                <action selector="clearRecentDocuments:" target="-1" id="127"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="79">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Close" keyEquivalent="w" id="73">
+                                <connections>
+                                    <action selector="performClose:" target="-1" id="193"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="997"/>
+                            <menuItem title="Move To Trash" id="996">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="moveToTrash:" target="-1" id="999"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Edit" id="659">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Edit" id="660">
+                        <items>
+                            <menuItem title="Cut" keyEquivalent="x" id="664">
+                                <connections>
+                                    <action selector="cut:" target="-1" id="707"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Copy" keyEquivalent="c" id="665">
+                                <connections>
+                                    <action selector="copy:" target="-1" id="706"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Paste" keyEquivalent="v" id="666">
+                                <connections>
+                                    <action selector="paste:" target="-1" id="712"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Delete" id="668">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="delete:" target="-1" id="722"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Select All" keyEquivalent="a" id="669">
+                                <connections>
+                                    <action selector="selectAll:" target="-1" id="725"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="787"/>
+                            <menuItem title="Snapshot" enabled="NO" id="786">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="writeSnapshotToFile:" target="961" id="972"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Goto Snapshot Folder..." id="1206">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="revealSnapshotPath:" target="820" id="1210"/>
+                                    <binding destination="1207" name="enabled" keyPath="values.SnapshotFormat" id="1209"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="View" id="975">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="View" autoenablesItems="NO" id="976">
+                        <items>
+                            <menuItem title="Half Size" tag="2" enabled="NO" id="1166">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="zoomToSize:" target="540" id="1168"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Original Size" tag="4" enabled="NO" id="1084">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="zoomToSize:" target="540" id="1095"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Double Size" tag="8" enabled="NO" id="1093">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="zoomToSize:" target="540" id="1096"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Fit To Screen" enabled="NO" id="1098">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="performZoom:" target="371" id="1101"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="1085"/>
+                            <menuItem title="Enter Fullscreen" enabled="NO" id="982">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleFullScreen:" target="540" id="984"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Toggle Fillscreen" id="989">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleFillScreen:" target="540" id="991"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="985"/>
+                            <menuItem title="Aspect Ratio" id="1102">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Aspect Ratio" autoenablesItems="NO" id="1103">
+                                    <items>
+                                        <menuItem title="Unlock Aspect Ratio" enabled="NO" id="903">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="toggleLockAspectRatio:" target="540" id="908"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="1105"/>
+                                        <menuItem title="1:1" tag="900" id="1106">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setAspectRatio:" target="540" id="1115"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="5:4" tag="1125" id="1113">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setAspectRatio:" target="540" id="1116"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="4:3" tag="1200" keyEquivalent="4" id="1107">
+                                            <connections>
+                                                <action selector="setAspectRatio:" target="540" id="1117"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="16:10" tag="1440" id="1109">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setAspectRatio:" target="540" id="1118"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="16:9" tag="1600" keyEquivalent="5" id="1108">
+                                            <connections>
+                                                <action selector="setAspectRatio:" target="540" id="1119"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="2.21:1" tag="1989" id="1110">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setAspectRatio:" target="540" id="1120"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="2.35:1" tag="2115" keyEquivalent="6" id="1111">
+                                            <connections>
+                                                <action selector="setAspectRatio:" target="540" id="1121"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="2.39:1" tag="2151" id="1112">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setAspectRatio:" target="540" id="1122"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="1114"/>
+                                        <menuItem title="Restore Aspect Ratio" id="904">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="resetAspectRatio:" target="540" id="909"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="980"/>
+                            <menuItem title="Show Letterbox" id="916">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleLetterBox:" target="540" id="918"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="1049"/>
+                            <menuItem title="Mirror" id="1050">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleMirror:" target="540" id="1052"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Flip" id="1051">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleFlip:" target="540" id="1054"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="981"/>
+                            <menuItem title="Increase Window Size" id="942">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="stepWindowSize:" target="540" id="948"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Decrease Window Size" id="943">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="stepWindowSize:" target="540" id="949"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="1002"/>
+                            <menuItem title="Increase Frame Size" tag="50" enabled="NO" id="1036">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="stepFrameScale:" target="540" id="1045"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Increase Frame Size (minor)" tag="10" enabled="NO" alternate="YES" id="1037">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="stepFrameScale:" target="540" id="1046"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Decrease Frame Size" tag="-50" enabled="NO" id="1038">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="stepFrameScale:" target="540" id="1047"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Decrease Frame Size (minor)" tag="-10" enabled="NO" alternate="YES" id="1039">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="stepFrameScale:" target="540" id="1048"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Reset Frame Size" toolTip="In fullscreen mode, you could also enlarge/shrink frame by alt + scroll or magnify on touchpad" id="1033">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="resetFrameScaleRatio:" target="540" id="1035"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="1040"/>
+                            <menuItem title="Move Frame To Center" toolTip="In fullscreen mode, you could move the frame by alt + dragging, or alt + shift +dragging" id="1001">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="moveFrameToCenter:" target="540" id="1004"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="AVS" id="1143">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="AVS" autoenablesItems="NO" id="1144">
+                        <items>
+                            <menuItem title="Switch Video" enabled="NO" id="935">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="stepVideos:" target="540" id="938"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Increase Speed" tag="1" enabled="NO" id="1057">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="changeSpeed:" target="540" id="1061"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Decrease Speed" tag="-1" enabled="NO" id="1058">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="changeSpeed:" target="540" id="1063"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Reset To Normal Speed" id="1059">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="changeSpeed:" target="540" id="1065"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Deinterlace Method" id="1196">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Deinterlace Method" autoenablesItems="NO" id="1197">
+                                    <items>
+                                        <menuItem title="None" id="1198">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="choseDeinterlaceMethod:" target="540" id="1203"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="FFMpeg" tag="65" id="1200">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="choseDeinterlaceMethod:" target="540" id="1204"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="LPF5" tag="66" id="1201">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="choseDeinterlaceMethod:" target="540" id="1205"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="907"/>
+                            <menuItem title="Switch Audio" enabled="NO" id="853">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="stepAudios:" target="540" id="855"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Channels" enabled="NO" id="1124">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Channels" autoenablesItems="NO" id="1125">
+                                    <items>
+                                        <menuItem title="Restore" enabled="NO" id="1126">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="mapAudioChannelsTo:" target="540" id="1133"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="1139"/>
+                                        <menuItem title="Stereo" tag="1" enabled="NO" id="1128">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="mapAudioChannelsTo:" target="540" id="1134"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Left only" tag="2" enabled="NO" id="1129">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="mapAudioChannelsTo:" target="540" id="1135"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Right only" tag="3" enabled="NO" id="1130">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="mapAudioChannelsTo:" target="540" id="1136"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Left expanded" tag="4" enabled="NO" id="1131">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="mapAudioChannelsTo:" target="540" id="1137"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Right expanded" tag="5" enabled="NO" id="1132">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="mapAudioChannelsTo:" target="540" id="1138"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Increase Volume" enabled="NO" id="857">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="changeVolumeBy:" target="540" id="861"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Decrease Volume" enabled="NO" id="858">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="changeVolumeBy:" target="540" id="862"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Increase Audio Delay" tag="1" enabled="NO" id="1066">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="changeAudioDelay:" target="540" id="1070"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Decrease Audio Delay" tag="-1" enabled="NO" id="1067">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="changeAudioDelay:" target="540" id="1072"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Reset Audio Delay" id="1068">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="changeAudioDelay:" target="540" id="1074"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="837"/>
+                            <menuItem title="Switch Subtitle" enabled="NO" id="784">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="stepSubtitles:" target="540" id="794"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Increase Subtitle Size" enabled="NO" id="829">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="changeSubScale:" target="540" id="833"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Decrease Subtitle Size" enabled="NO" id="830">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="changeSubScale:" target="540" id="834"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Increase Subtitle Delay" tag="1" enabled="NO" id="1075">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="changeSubDelay:" target="540" id="1079"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Decrease Subtitle Delay" tag="-1" enabled="NO" id="1076">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="changeSubDelay:" target="540" id="1081"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Reset Subtitle Delay" id="1077">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="changeSubDelay:" target="540" id="1083"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="1027"/>
+                            <menuItem title="Show Auxiliary Controls" id="992">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleAccessaryControls:" target="540" id="994"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Playback" id="782">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Playback" autoenablesItems="NO" id="783">
+                        <items>
+                            <menuItem title="Play from last stopped place" enabled="NO" id="836">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="seekTo:" target="540" id="919"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="1173"/>
+                            <menuItem title="A-B Loop" id="1170">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="A-B Loop" autoenablesItems="NO" id="1171">
+                                    <items>
+                                        <menuItem title="Set Start Point" id="1174">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setABLoopStart:" target="540" id="1181"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Set Return Point" id="1175">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="setABLoopReturn:" target="540" id="1182"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="1176"/>
+                                        <menuItem title="Cancel" id="1177">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="stopABLoop:" target="540" id="1183"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="854"/>
+                            <menuItem title="Chapters" enabled="NO" id="1140">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="1141"/>
+                            <menuItem title="Play Next Episode" id="1025">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="playNext:" target="1022" id="1030"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Play Previous Episode" id="1026">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="playPrevious:" target="1022" id="1031"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Window" id="19">
+                    <menu key="submenu" title="Window" systemMenu="window" id="24">
+                        <items>
+                            <menuItem title="Minimize" keyEquivalent="m" id="23">
+                                <connections>
+                                    <action selector="performMiniaturize:" target="-1" id="37"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Zoom" id="239">
+                                <connections>
+                                    <action selector="performZoom:" target="-1" id="240"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="911"/>
+                            <menuItem title="Media Info" id="953">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleUI:" target="1005" id="1006"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Video Tuner" id="912">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showUI:" target="910" id="913"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Equalizer" id="956">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showUI:" target="957" id="958"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="92">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Bring All to Front" id="5">
+                                <connections>
+                                    <action selector="arrangeInFront:" target="-1" id="39"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Help" id="490">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Help" systemMenu="help" id="491">
+                        <items>
+                            <menuItem title="MPlayerX Wiki Page" keyEquivalent="?" id="492">
+                                <connections>
+                                    <action selector="gotoWikiPage:" target="-1" id="1000"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="1011"/>
+                            <menuItem title="Report bugs / Feedback..." id="1012">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="gotoFeedbackPage:" target="961" id="1013"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+            </items>
+        </menu>
+        <window title="MPlayerX" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="MPXPlayerWindow" animationBehavior="default" id="371" customClass="PlayerWindow">
+            <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
+            <rect key="contentRect" x="358" y="526" width="480" height="360"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1366" height="745"/>
+            <value key="minSize" type="size" width="480" height="360"/>
+            <view key="contentView" wantsLayer="YES" id="372" userLabel="DispView" customClass="RootLayerView">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <customView alphaValue="0.25323943661971821" id="540" userLabel="ControlUIView" customClass="ControlUIView">
+                        <rect key="frame" x="24" y="13" width="432" height="60"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button toolTip="Enter/Exit Fullscreen" id="549">
+                                <rect key="frame" x="370" y="31" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="bevel" title="toggleFullScreen" bezelStyle="regularSquare" image="enterfullscreen" imagePosition="only" alignment="left" alternateImage="exitfullscreen" imageScaling="axesIndependently" inset="2" id="550">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="toggleFullScreen:" target="540" id="617"/>
+                                </connections>
+                            </button>
+                            <button toolTip="Toggle Fillscreen" id="558">
+                                <rect key="frame" x="334" y="30" width="24" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="bevel" title="toggleFillScreen" bezelStyle="regularSquare" image="fillscreen_ub" imagePosition="only" alignment="center" alternateImage="exitfillscreen_ub" state="on" imageScaling="axesIndependently" inset="2" id="559">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="toggleFillScreen:" target="540" id="616"/>
+                                </connections>
+                            </button>
+                            <slider toolTip="Volume" verticalHuggingPriority="750" id="569" userLabel="Horizontal Slider (VolumeSlider)">
+                                <rect key="frame" x="38" y="36" width="53" height="12"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="100" tickMarkPosition="above" sliderType="linear" id="570" customClass="BGHUDSliderCell"/>
+                                <connections>
+                                    <action selector="setVolume:" target="540" id="615"/>
+                                </connections>
+                            </slider>
+                            <button toolTip="toggle Mute" id="571">
+                                <rect key="frame" x="14" y="33" width="18" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="bevel" title="VolumeButton" bezelStyle="regularSquare" image="vol_mid" imagePosition="only" alignment="left" alternateImage="mute" imageScaling="axesIndependently" inset="2" id="572">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="toggleMute:" target="540" id="618"/>
+                                </connections>
+                            </button>
+                            <textField verticalHuggingPriority="750" id="577" userLabel="timeText">
+                                <rect key="frame" x="3" y="8" width="58" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="right" id="578">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" id="950" userLabel="timeTextAlt">
+                                <rect key="frame" x="369" y="8" width="58" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" placeholderString="unknown" id="951">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <slider verticalHuggingPriority="750" id="579" userLabel="Time Slider">
+                                <rect key="frame" x="57" y="7" width="316" height="15"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" doubleValue="62.371134020618555" tickMarkPosition="above" sliderType="linear" id="580" customClass="TimeSliderCell"/>
+                                <connections>
+                                    <action selector="seekTo:" target="540" id="614"/>
+                                </connections>
+                            </slider>
+                            <customView hidden="YES" id="741" userLabel="Accessary Control">
+                                <rect key="frame" x="56" y="0.0" width="320" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField verticalHuggingPriority="750" id="735">
+                                        <rect key="frame" x="17" y="7" width="34" height="11"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                        <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" title="Speed:" usesSingleLineMode="YES" id="736">
+                                            <font key="font" metaFont="miniSystem"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField toolTip="Set play speed" verticalHuggingPriority="750" id="737" userLabel="speed (1.0)" customClass="ArrowTextField">
+                                        <rect key="frame" x="51" y="4" width="32" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                        <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" selectable="YES" editable="YES" continuous="YES" allowsUndo="NO" state="on" borderStyle="border" alignment="right" title="1.0" usesSingleLineMode="YES" bezelStyle="round" id="738">
+                                            <font key="font" metaFont="miniSystem"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <action selector="changeSpeed:" target="540" id="767"/>
+                                            <outlet property="nextKeyView" destination="744" id="779"/>
+                                        </connections>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" id="742">
+                                        <rect key="frame" x="111" y="7" width="60" height="11"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                        <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" title="Audio Delay:" usesSingleLineMode="YES" id="743">
+                                            <font key="font" metaFont="miniSystem"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField toolTip="Set audio delay" verticalHuggingPriority="750" id="744" userLabel="audioDelay (0.0)" customClass="ArrowTextField">
+                                        <rect key="frame" x="171" y="4" width="32" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                        <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" selectable="YES" editable="YES" continuous="YES" allowsUndo="NO" state="on" borderStyle="border" alignment="right" title="0.0" drawsBackground="YES" usesSingleLineMode="YES" id="745">
+                                            <font key="font" metaFont="miniSystem"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <action selector="changeAudioDelay:" target="540" id="768"/>
+                                            <outlet property="nextKeyView" destination="747" id="780"/>
+                                        </connections>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" id="746">
+                                        <rect key="frame" x="227" y="7" width="50" height="11"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                        <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" title="Sub Delay:" usesSingleLineMode="YES" id="749">
+                                            <font key="font" metaFont="miniSystem"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField toolTip="Set subtitle delay" verticalHuggingPriority="750" id="747" userLabel="subDelay (0.0)" customClass="ArrowTextField">
+                                        <rect key="frame" x="277" y="4" width="32" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                                        <textFieldCell key="cell" controlSize="mini" lineBreakMode="truncatingTail" selectable="YES" editable="YES" continuous="YES" allowsUndo="NO" state="on" borderStyle="border" alignment="right" title="0.0" drawsBackground="YES" usesSingleLineMode="YES" id="748">
+                                            <font key="font" metaFont="miniSystem"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <action selector="changeSubDelay:" target="540" id="769"/>
+                                            <outlet property="nextKeyView" destination="372" id="901"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                            </customView>
+                            <button toolTip="Show/Hide Playing Controls" id="754" userLabel="showHide accessary Control">
+                                <rect key="frame" x="402" y="31" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="fold" imagePosition="only" alignment="center" alternateImage="unfold" controlSize="mini" imageScaling="axesIndependently" inset="2" id="755">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="miniSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="toggleAccessaryControls:" target="540" id="756"/>
+                                </connections>
+                            </button>
+                            <textField verticalHuggingPriority="750" id="849" userLabel="hintTime">
+                                <rect key="frame" x="104" y="32" width="75" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" id="850">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <customView id="1019" userLabel="controls1">
+                                <rect key="frame" x="148" y="28" width="136" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <button toolTip="Play/Pause" id="553">
+                                        <rect key="frame" x="56" y="2" width="24" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="bevel" title="togglePlayPause" bezelStyle="regularSquare" image="play" imagePosition="only" alignment="center" alternateImage="pause" imageScaling="axesIndependently" inset="2" id="554">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="togglePlayPause:" target="540" id="619"/>
+                                        </connections>
+                                    </button>
+                                    <button id="1014">
+                                        <rect key="frame" x="110" y="2" width="24" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="bevel" title="next-episode" bezelStyle="regularSquare" image="next-episode" imagePosition="only" alignment="center" imageScaling="axesIndependently" inset="2" id="1015">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="playNext:" target="1022" id="1024"/>
+                                        </connections>
+                                    </button>
+                                    <button id="1017">
+                                        <rect key="frame" x="2" y="2" width="24" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="bevel" title="prev-episode" bezelStyle="regularSquare" image="prev-episode" imagePosition="only" alignment="center" imageScaling="axesIndependently" inset="2" id="1018">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="playPrevious:" target="1022" id="1023"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </customView>
+                            <button id="1090">
+                                <rect key="frame" x="369" y="8" width="58" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="right" controlSize="small" inset="2" id="1091">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="toggleTimeAltDisplayMode:" target="540" id="1092"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <connections>
+                            <outlet property="accessaryContainer" destination="741" id="753"/>
+                            <outlet property="audioDelayText" destination="744" id="776"/>
+                            <outlet property="deintMenu" destination="1197" id="1202"/>
+                            <outlet property="dispView" destination="372" id="898"/>
+                            <outlet property="fillScreenButton" destination="558" id="562"/>
+                            <outlet property="fullScreenButton" destination="549" id="566"/>
+                            <outlet property="hintTime" destination="849" id="851"/>
+                            <outlet property="menuABLPCancel" destination="1177" id="1180"/>
+                            <outlet property="menuABLPSetReturn" destination="1175" id="1179"/>
+                            <outlet property="menuABLPSetStart" destination="1174" id="1178"/>
+                            <outlet property="menuAudioChannels" destination="1124" id="1127"/>
+                            <outlet property="menuAudioDelayDec" destination="1067" id="1071"/>
+                            <outlet property="menuAudioDelayInc" destination="1066" id="1069"/>
+                            <outlet property="menuAudioDelayReset" destination="1068" id="1073"/>
+                            <outlet property="menuChapterList" destination="1140" id="1142"/>
+                            <outlet property="menuEnlargeFrame" destination="1036" id="1041"/>
+                            <outlet property="menuEnlargeFrame2" destination="1037" id="1042"/>
+                            <outlet property="menuFlip" destination="1051" id="1055"/>
+                            <outlet property="menuGotoSnapshotFolder" destination="1206" id="1211"/>
+                            <outlet property="menuMirror" destination="1050" id="1053"/>
+                            <outlet property="menuMoveFrameToCenter" destination="1001" id="1003"/>
+                            <outlet property="menuMoveToTrash" destination="996" id="998"/>
+                            <outlet property="menuNextEpisode" destination="1025" id="1028"/>
+                            <outlet property="menuPlayFromLastStoppedPlace" destination="836" id="841"/>
+                            <outlet property="menuPrevEpisode" destination="1026" id="1029"/>
+                            <outlet property="menuResetFrameScaleRatio" destination="1033" id="1034"/>
+                            <outlet property="menuResetLockAspectRatio" destination="904" id="905"/>
+                            <outlet property="menuShowMediaInfo" destination="953" id="955"/>
+                            <outlet property="menuShrinkFrame" destination="1038" id="1043"/>
+                            <outlet property="menuShrinkFrame2" destination="1039" id="1044"/>
+                            <outlet property="menuSizeDec" destination="943" id="945"/>
+                            <outlet property="menuSizeInc" destination="942" id="944"/>
+                            <outlet property="menuSnapshot" destination="786" id="792"/>
+                            <outlet property="menuSpeedDown" destination="1058" id="1062"/>
+                            <outlet property="menuSpeedReset" destination="1059" id="1064"/>
+                            <outlet property="menuSpeedUp" destination="1057" id="1060"/>
+                            <outlet property="menuSubDelayDec" destination="1076" id="1080"/>
+                            <outlet property="menuSubDelayInc" destination="1075" id="1078"/>
+                            <outlet property="menuSubDelayReset" destination="1077" id="1082"/>
+                            <outlet property="menuSubScaleDec" destination="830" id="831"/>
+                            <outlet property="menuSubScaleInc" destination="829" id="832"/>
+                            <outlet property="menuSwitchAudio" destination="853" id="856"/>
+                            <outlet property="menuSwitchSub" destination="784" id="793"/>
+                            <outlet property="menuSwitchVideo" destination="935" id="936"/>
+                            <outlet property="menuToggleAuxiliaryCtrls" destination="992" id="995"/>
+                            <outlet property="menuToggleFillScreen" destination="989" id="990"/>
+                            <outlet property="menuToggleFullScreen" destination="982" id="983"/>
+                            <outlet property="menuToggleLetterBox" destination="916" id="917"/>
+                            <outlet property="menuToggleLockAspectRatio" destination="903" id="906"/>
+                            <outlet property="menuVolDec" destination="858" id="859"/>
+                            <outlet property="menuVolInc" destination="857" id="860"/>
+                            <outlet property="menuWndFitToScrn" destination="1098" id="1100"/>
+                            <outlet property="menuZoomToDoubleSize" destination="1093" id="1097"/>
+                            <outlet property="menuZoomToHalfSize" destination="1166" id="1167"/>
+                            <outlet property="menuZoomToOriginSize" destination="1084" id="1087"/>
+                            <outlet property="nextEPButton" destination="1014" id="1147"/>
+                            <outlet property="osd" destination="881" id="883"/>
+                            <outlet property="playPauseButton" destination="553" id="567"/>
+                            <outlet property="playerController" destination="494" id="880"/>
+                            <outlet property="prevEPButton" destination="1017" id="1146"/>
+                            <outlet property="rzIndicator" destination="843" id="846"/>
+                            <outlet property="speedText" destination="737" id="777"/>
+                            <outlet property="subDelayText" destination="747" id="778"/>
+                            <outlet property="timeDispSwitch" destination="1090" id="1148"/>
+                            <outlet property="timeSlider" destination="579" id="890"/>
+                            <outlet property="timeText" destination="577" id="588"/>
+                            <outlet property="timeTextAlt" destination="950" id="952"/>
+                            <outlet property="title" destination="925" id="929"/>
+                            <outlet property="toggleAcceButton" destination="754" id="757"/>
+                            <outlet property="volumeButton" destination="571" id="574"/>
+                            <outlet property="volumeSlider" destination="569" id="575"/>
+                        </connections>
+                    </customView>
+                    <customView wantsLayer="YES" id="843" userLabel="Resize Indicator" customClass="ResizeIndicator">
+                        <rect key="frame" x="466" y="2" width="12" height="12"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    </customView>
+                    <textField focusRingType="none" verticalHuggingPriority="750" id="881" customClass="OsdText">
+                        <rect key="frame" x="17" y="231" width="446" height="104"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" refusesFirstResponder="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" focusRingType="none" title="Label" allowsEditingTextAttributes="YES" id="882">
+                            <font key="font" size="13" name="Helvetica"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <customView wantsLayer="YES" id="925" customClass="TitleView">
+                        <rect key="frame" x="0.0" y="337" width="480" height="23"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    </customView>
+                </subviews>
+                <connections>
+                    <outlet property="VTController" destination="910" id="914"/>
+                    <outlet property="controlUI" destination="540" id="891"/>
+                    <outlet property="nextKeyView" destination="540" id="895"/>
+                    <outlet property="osd" destination="881" id="1169"/>
+                    <outlet property="playerController" destination="494" id="892"/>
+                    <outlet property="playerWindow" destination="371" id="894"/>
+                    <outlet property="shortCutManager" destination="603" id="893"/>
+                    <outlet property="titlebar" destination="925" id="926"/>
+                </connections>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="372" id="927"/>
+                <outlet property="initialFirstResponder" destination="372" id="897"/>
+                <outlet property="titlebar" destination="925" id="928"/>
+            </connections>
+        </window>
+        <window title="Open URL" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="627" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="500" height="94"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1366" height="745"/>
+            <value key="minSize" type="size" width="500" height="94"/>
+            <value key="maxSize" type="size" width="500" height="94"/>
+            <view key="contentView" id="628">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="94"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField verticalHuggingPriority="750" id="629">
+                        <rect key="frame" x="17" y="54" width="71" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" refusesFirstResponder="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="right" title="Media URL" id="630">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" id="633">
+                        <rect key="frame" x="294" y="14" width="96" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="634">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="canceled:" target="645" id="648"/>
+                            <outlet property="nextKeyView" destination="651" id="835"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="635">
+                        <rect key="frame" x="390" y="14" width="96" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="636">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="confirmed:" target="645" id="649"/>
+                            <outlet property="nextKeyView" destination="633" id="642"/>
+                        </connections>
+                    </button>
+                    <comboBox verticalHuggingPriority="750" id="651">
+                        <rect key="frame" x="95" y="50" width="388" height="26"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" numberOfVisibleItems="7" id="652">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </comboBoxCell>
+                        <connections>
+                            <action selector="urlSelected:" target="645" id="921"/>
+                        </connections>
+                    </comboBox>
+                    <textField verticalHuggingPriority="750" id="939">
+                        <rect key="frame" x="17" y="23" width="254" height="14"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" controlSize="small" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" title="⌘-OK: Use ffmpeg to handle the stream" id="940">
+                            <font key="font" metaFont="smallSystem"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+            </view>
+        </window>
+        <customView id="1149" userLabel="OpenPanelAcce">
+            <rect key="frame" x="0.0" y="0.0" width="541" height="62"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" id="1157">
+                    <rect key="frame" x="17" y="25" width="123" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="External audio file:" id="1158">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="1159">
+                    <rect key="frame" x="145" y="20" width="335" height="22"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1160">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" id="1161">
+                    <rect key="frame" x="482" y="14" width="45" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1162">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="openExternalAudioFile:" target="961" id="1165"/>
+                    </connections>
+                </button>
+            </subviews>
+        </customView>
+        <window title="ParseURL" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="1184">
+            <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="112"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1366" height="745"/>
+            <view key="contentView" id="1185">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="112"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="1186">
+                        <rect key="frame" x="57" y="52" width="406" height="40"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Multiline Label" id="1187">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="1188">
+                        <rect key="frame" x="36" y="76" width="16" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                    </progressIndicator>
+                    <button verticalHuggingPriority="750" id="1192">
+                        <rect key="frame" x="384" y="12" width="82" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1193">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="cancelParsing:" target="645" id="1194"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+        </window>
+        <customObject id="961" userLabel="AppController" customClass="AppController">
+            <connections>
+                <outlet property="dispView" destination="372" id="973"/>
+                <outlet property="externalAudioFilePath" destination="1159" id="1164"/>
+                <outlet property="openPanelAccView" destination="1149" id="1163"/>
+                <outlet property="openUrlController" destination="645" id="965"/>
+                <outlet property="playerController" destination="494" id="963"/>
+            </connections>
+        </customObject>
+        <customObject id="494" userLabel="PlayerController" customClass="PlayerController">
+            <connections>
+                <outlet property="charsetController" destination="922" id="924"/>
+                <outlet property="controlUI" destination="540" id="870"/>
+            </connections>
+        </customObject>
+        <customObject id="645" userLabel="OpenUrlController" customClass="OpenURLController">
+            <connections>
+                <outlet property="cancelParseButton" destination="1192" id="1195"/>
+                <outlet property="cmdOptionalText" destination="939" id="941"/>
+                <outlet property="openURLPanel" destination="627" id="646"/>
+                <outlet property="playerController" destination="494" id="878"/>
+                <outlet property="progIndicator" destination="1188" id="1190"/>
+                <outlet property="urlBox" destination="651" id="653"/>
+                <outlet property="urlParseMessage" destination="1186" id="1191"/>
+                <outlet property="urlParsingSheet" destination="1184" id="1189"/>
+            </connections>
+        </customObject>
+        <customObject id="603" customClass="ShortCutManager">
+            <connections>
+                <outlet property="controlUI" destination="540" id="621"/>
+                <outlet property="dispView" destination="372" id="899"/>
+                <outlet property="mainMenu" destination="29" id="863"/>
+                <outlet property="playerController" destination="494" id="877"/>
+            </connections>
+        </customObject>
+        <customObject id="820" customClass="PrefController">
+            <connections>
+                <outlet property="controlUI" destination="540" id="864"/>
+                <outlet property="dispView" destination="372" id="900"/>
+                <outlet property="playerController" destination="494" id="876"/>
+            </connections>
+        </customObject>
+        <customObject id="910" customClass="VideoTunerController">
+            <connections>
+                <outlet property="menuVTPanel" destination="912" id="915"/>
+                <outlet property="playerController" destination="494" id="1008"/>
+            </connections>
+        </customObject>
+        <customObject id="922" customClass="CharsetQueryController"/>
+        <customObject id="957" customClass="EqualizerController">
+            <connections>
+                <outlet property="menuEQPanel" destination="956" id="959"/>
+                <outlet property="playerController" destination="494" id="960"/>
+            </connections>
+        </customObject>
+        <customObject id="1005" customClass="InspectorController">
+            <connections>
+                <outlet property="playerController" destination="494" id="1007"/>
+            </connections>
+        </customObject>
+        <customObject id="1022" customClass="PlayListController">
+            <connections>
+                <outlet property="playerController" destination="494" id="1032"/>
+            </connections>
+        </customObject>
+        <userDefaultsController representsSharedInstance="YES" id="1207"/>
+    </objects>
+    <resources>
+        <image name="enterfullscreen" width="48" height="48"/>
+        <image name="exitfillscreen_ub" width="48" height="48"/>
+        <image name="exitfullscreen" width="48" height="48"/>
+        <image name="fillscreen_ub" width="48" height="48"/>
+        <image name="fold" width="48" height="48"/>
+        <image name="mute" width="48" height="48"/>
+        <image name="next-episode" width="48" height="48"/>
+        <image name="pause" width="48" height="48"/>
+        <image name="play" width="48" height="48"/>
+        <image name="prev-episode" width="48" height="48"/>
+        <image name="unfold" width="48" height="48"/>
+        <image name="vol_mid" width="48" height="48"/>
+    </resources>
+</document>

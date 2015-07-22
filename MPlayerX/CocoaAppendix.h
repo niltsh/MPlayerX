@@ -1,7 +1,7 @@
 /*
  * MPlayerX - CocoaAppendix.h
  *
- * Copyright (C) 2009 - 2011, Zongyao QU
+ * Copyright (C) 2009 - 2012, Zongyao QU
  * 
  * MPlayerX is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,8 +20,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-#define kMPXSysVersionLion			(0x1070)
-
+#define kMPXSysVersionLion			 (7)
+#define kMPXSysVersionMavericks  (9)
+#define kMPXSysVersionYosemite    (10)
 
 extern NSString * const kMPCStringMPlayerX;
 
@@ -30,7 +31,9 @@ extern NSString * const kMPCStringMPlayerX;
 void MPLog(NSString *format, ...);
 void MPSetLogEnable(BOOL en);
 
-SInt32 MPXGetSysVersion();
+NSOperatingSystemVersion MPXGetSysVersion();
+
+BOOL shouldUseOldFullScreenMethod();
 
 @interface NSMenu (CharsetListAppend)
 -(void) appendCharsetList;
@@ -60,3 +63,5 @@ SInt32 MPXGetSysVersion();
 @interface NSObject (MPXAdditional)
 -(void) showAlertPanelModal:(NSString*) str;
 @end
+
+NSImage* MPCreateNSImageFromCIImage(CIImage *ciImage);
