@@ -95,7 +95,7 @@
 
         <div class="large-6 columns">
           <p class="feature-desc-main-text-small">Requirement: 64-bit Intel CPU, Mac OS X 10.7 or later.</p>
-          <a href="https://downloads.sourceforge.net/project/mplayerx-osx/MPlayerX-1.1.0.dmg">
+          <a href="https://downloads.sourceforge.net/project/mplayerx-osx/MPlayerX-1.1.1.dmg">
             <div class="button radius">Download Installer</div>
           </a>
 
@@ -113,12 +113,12 @@
 
           <h5 class="feature-desc-main-text-small">Latest version: 
             <strong>
-              1.1.0
+              1.1.1
             </strong>
           </h5>
           <h5 class="feature-desc-main-text-small">MD5SUM:
             <strong>
-              cdc9d4c76ba4b1c57b934cc4b1376833
+              7bcab0ebe4db2eb22a76eab57cc86039
             </strong>
           </h5>
         </div>
@@ -209,10 +209,29 @@
     <div class="panel">
     <h4>Changelog</h4>
     <dl class="accordion" data-accordion>
+
+<!-- RELEASE NOTE START -->
+      <dd class="accordion-navigation">
+        <a href="#p1110">1.1.1 - 2015/10/29</a>
+        <div id="p1110" class="content active">
+          <ul>
+            <li>Fix the album art in audio file.</li>
+            <li>Fix display issues when changing window size.</li>
+            <li>Fix window does not disappear when finishing the playback in EI Capitan.</li>
+            <li>Fix pixelation in EI Capitan.</li>
+            <li>Add hidden setting: AsyncMode.</li>
+            <li>Change the app icon.</li>
+            <li>several trivial issues in EI Capitan.</li>
+            <li>KNOWN ISSUE: MPlayerX now does NOT work well when enter/exit Fullscreen in EI Capitan by dragging the window in Mission Control. It is because that the Fullscreen behavior changed so much from 10.6 and 10.11. Now I am trying to figure out a way to fix it without breaking the backward-compatbility, but at worst, it could be possbile that MPX will drop 10.7 and 10.8 support from next release.</li>
+          </ul>
+        </div>
+      </dd>
+<!-- RELEASE NOTE END -->
+
 <!-- RELEASE NOTE START -->
       <dd class="accordion-navigation">
         <a href="#p1100">1.1.0 - 2015/6/13</a>
-        <div id="p1100" class="content active">
+        <div id="p1100" class="content">
           <ul>
             <li>Adopted 10.10 UI.</li>
             <li>Support HTTPS streaming.</li>
@@ -222,59 +241,6 @@
             <li>Add some hidden settings, please check <a href="http://blog.mplayerx.org/blog/2013/02/01/hidden-settings/">HERE</a> for details.</li>
             <li>Stability improvement.</li>
           </ul>
-<!-- MAIN-BRAND ADS2 START -->
-  <div class="row">
-    <div class="large-12 columns hide-for-small hide-for-medium">
-      <div style="width:728px;margin:0 auto;">
-
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- download-page-large -->
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:728px;height:90px"
-             data-ad-client="ca-pub-4557726861276515"
-             data-ad-slot="3507998575"></ins>
-        <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-
-      </div>
-    </div>
-
-    <div class="medium-12 columns show-for-medium">
-      <div style="width:468px;margin:0 auto;">
-
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- download-page-medium -->
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:468px;height:60px"
-             data-ad-client="ca-pub-4557726861276515"
-             data-ad-slot="5428901300"></ins>
-        <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-
-      </div>
-    </div>
-
-    <div class="small-12 columns show-for-small">
-      <div style="width:320px;margin:0 auto;">
-
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- download-page-small -->
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:320px;height:50px"
-             data-ad-client="ca-pub-4557726861276515"
-             data-ad-slot="6905634503"></ins>
-        <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-
-      </div>
-    </div>
-
-  </div><br>
-<!-- MAIN-BRAND ADS2 END -->
-
         </div>
       </dd>
 <!-- RELEASE NOTE END -->
