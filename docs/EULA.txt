@@ -1,0 +1,28 @@
+End User Licensing Agreement (EULA) of MPlayerX
+
+1. GRANT OF LICENSE.
+   This EULA grants you the following rights: Installation and Use. You may install and use an unlimited number of copies of the MPlayerX.
+
+2. DESCRIPTION OF OTHER RIGHTS AND LIMITATIONS.
+   Limitations on Reverse Engineering, Decompilation, Disassembly and change (add,delete or modify) the resources in the compiled the assembly. You may not reverse engineer, decompile, or disassemble MPlayerX, except and only to the extent that such activity is expressly permitted by applicable law notwithstanding this limitation.
+
+Update and Maintenance
+   MPlayerX upgrades are free of charge.
+
+Separation of Components.
+   MPlayerX is licensed as a single product. Its component parts may not be separated for use on more than one computer.
+
+Software Transfer.
+   You may permanently transfer all of your rights under this EULA, provided the recipient agrees to the terms of this EULA.
+
+Termination.
+   Without prejudice to any other rights, the Author of MPlayerX may terminate this EULA if you fail to comply with the terms and conditions of this EULA. In such event, you must destroy all copies of MPlayerX and all of its component parts.
+
+LIMITED WARRANTY
+NO WARRANTIES.
+   The Author of MPlayerX expressly disclaims any warranty for MPlayerX. MPlayerX and any related documentation is provided "as is" without warranty of any kind, either express or implied, including, without limitation, the implied warranties or merchantability, fitness for a particular purpose, or noninfringement. The entire risk arising out of use or performance of the MPlayerX remains with you.
+
+NO LIABILITY FOR DAMAGES.
+   In no event shall the author of MPlayerX be liable for any special, consequential, incidental or indirect damages whatsoever (including, without limitation, damages for loss of business profits, business interruption, loss of business information, or any other pecuniary loss) arising out of the use of or inability to use this product, even if the Author of MPlayerX is aware of the possibility of such damages and known defects.
+
+MPlayerX, developed by Zongyao Qu in Japan

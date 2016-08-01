@@ -1,0 +1,19 @@
+MPlayerX Privacy
+
+MPlayerX Privacy - The Quick Summary:
+   The MPlayerX does not store, collect, or share any personally identifiable information.
+
+MPlayerX Does Not Know Who You Are
+
+   MPlayerX is a media player which could play various formats of media files in your Mac. Although it has the functionality to access the internet, this only happens by users acknowledgement and intention, and it is only used for audio/video streaming.
+
+Data MPlayerX might Collect
+
+   The data MPlayerX might collect is a limited amount of non-personal information, such as system profile, statistics, this happens when MPlayerX crashes and the data which could be collected is defined by Apples framework, for example, Crash Report, etc.
+
+About mplayerx.org
+   http://mplayerx.org is the offcial website for MPlayerX, and it is designed and maintained by the same team who developed MPlayerX.
+   In mplayerx.org, it utilized Google Adwords for advertisement and Google Analytics for website analysis, such functionality compliances with Googles privacy policy.
+   The donation mechanism utilizes Paypal and mplayerx.org does not collect any information within this mechanism.
+
+MPlayerX, developed by Zongyao Qu in Japan
