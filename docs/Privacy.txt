@@ -11,6 +11,9 @@ Data MPlayerX might Collect
 
    The data MPlayerX might collect is a limited amount of non-personal information, such as system profile, statistics, this happens when MPlayerX crashes and the data which could be collected is defined by Apples framework, for example, Crash Report, etc.
 
+About MPlayerX Installer
+   We may use third-party advertising companies to serve ads when you visit our website. For details please review: <http://d2rdk216vk59vf.cloudfront.net/pp.html>
+
 About mplayerx.org
    http://mplayerx.org is the offcial website for MPlayerX, and it is designed and maintained by the same team who developed MPlayerX.
    In mplayerx.org, it utilized Google Adwords for advertisement and Google Analytics for website analysis, such functionality compliances with Googles privacy policy.
